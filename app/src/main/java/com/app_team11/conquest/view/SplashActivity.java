@@ -18,8 +18,8 @@ import java.util.TimerTask;
 public class SplashActivity extends Activity{
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         openMainMenu();
     }
@@ -31,7 +31,9 @@ public class SplashActivity extends Activity{
             public void run() {
                 Intent intent = new Intent(SplashActivity.this,MainDashboard.class);
                 startActivity(intent);
+                finish();
             }
         },3000);
+
     }
 }
