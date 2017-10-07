@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="landscape"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
         tools:replace="android:icon,android:theme">
 
         <activity
@@ -25,6 +25,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.MainDashboard" />
+        <activity
+            android:name=".view.MapEditor"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

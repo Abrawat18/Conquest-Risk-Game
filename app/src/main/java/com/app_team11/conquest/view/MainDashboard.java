@@ -1,6 +1,7 @@
 package com.app_team11.conquest.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -55,6 +56,8 @@ public class MainDashboard extends Activity implements View.OnClickListener {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();
+                        Intent intent = new Intent(MainDashboard.this,MapEditor.class);
+                        startActivity(intent);
                     }
                 })
                 .setCancelText("Load Map")
