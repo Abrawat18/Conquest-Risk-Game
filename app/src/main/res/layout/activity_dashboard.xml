@@ -1,21 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <Button
-        android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:orientation="vertical">
+
+
+    <ImageButton
+        android:id="@+id/btn_play_game"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="102dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.11"
+        android:background="@color/colorPrimary"
+        android:backgroundTint="@color/float_transparent"
+        android:scaleType="fitXY"
+        android:src="@mipmap/play_game"
         android:text="Play Game"
-        android:id="@+id/btn_play_game"/>
-    <Button
-        android:layout_width="wrap_content"
+        android:visibility="visible" />
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Play game"
+    android:fontFamily="serif"
+    android:textSize="30dp"
+android:textAlignment="center"
+    android:textStyle="bold"/>
+
+    <ImageButton
+        android:id="@+id/btn_map_editor"
+        android:layout_width="102dp"
         android:layout_height="wrap_content"
-        android:text="Map Editor"
-        android:id="@+id/btn_map_editor"/>
-    <Button
-        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.11"
+        android:background="@color/float_transparent"
+        android:scaleType="fitXY"
+        android:src="@mipmap/map_editor"
+        android:text="Map Editor" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit Map"
+        android:fontFamily="serif"
+        android:textSize="30dp"
+        android:textAlignment="center"
+        android:textStyle="bold"/>
+
+    <ImageButton
+        android:id="@+id/btn_settings"
+        android:layout_width="102dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.11"
+        android:background="@color/float_transparent"
+        android:foregroundGravity="center"
+        android:scaleType="fitXY"
+        android:src="@mipmap/settings"
+        android:text="Settings"
+        />
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Settings"
-        android:id="@+id/btn_settings"/>
+        android:fontFamily="serif"
+        android:textSize="30dp"
+        android:textAlignment="center"
+        android:textStyle="bold"/>
 
 </LinearLayout>
