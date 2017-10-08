@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
-    android:orientation="vertical">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:weightSum="1">
 
 
     <ImageButton
@@ -20,14 +21,15 @@
         android:src="@mipmap/play_game"
         android:text="Play Game"
         android:visibility="visible" />
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Play game"
-    android:fontFamily="serif"
-    android:textSize="30dp"
-android:textAlignment="center"
-    android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="Play game"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:textStyle="bold" />
 
     <ImageButton
         android:id="@+id/btn_map_editor"
@@ -39,14 +41,15 @@ android:textAlignment="center"
         android:scaleType="fitXY"
         android:src="@mipmap/map_editor"
         android:text="Map Editor" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Edit Map"
         android:fontFamily="serif"
-        android:textSize="30dp"
+        android:text="Edit Map"
         android:textAlignment="center"
-        android:textStyle="bold"/>
+        android:textSize="30dp"
+        android:textStyle="bold" />
 
     <ImageButton
         android:id="@+id/btn_settings"
@@ -58,15 +61,15 @@ android:textAlignment="center"
         android:foregroundGravity="center"
         android:scaleType="fitXY"
         android:src="@mipmap/settings"
-        android:text="Settings"
-        />
+        android:text="Settings" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Settings"
         android:fontFamily="serif"
-        android:textSize="30dp"
+        android:text="Settings"
         android:textAlignment="center"
-        android:textStyle="bold"/>
+        android:textSize="30dp"
+        android:textStyle="bold" />
 
 </LinearLayout>
