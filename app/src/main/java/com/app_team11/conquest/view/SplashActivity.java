@@ -3,7 +3,6 @@ package com.app_team11.conquest.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 
 import com.app_team11.conquest.R;
@@ -29,7 +28,7 @@ public class SplashActivity extends Activity{
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this,MainDashboard.class);
+                Intent intent = new Intent(SplashActivity.this,MainDashboardActivity.class);
                 startActivity(intent);
                 finish();
             }

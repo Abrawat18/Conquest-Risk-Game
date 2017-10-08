@@ -22,7 +22,7 @@ import com.app_team11.conquest.model.GameMap;
 //Todo : editor menu : 1. add contenent 2. add teritory 3. on terirtory  selection : show contenent or select contenet , neighbour
 
 
-public class MapEditor extends Activity implements View.OnTouchListener {
+public class MapEditorActivity extends Activity implements View.OnTouchListener {
 
     private GameMap map;
     @Override

@@ -24,9 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.MainDashboard" />
+        <activity android:name=".view.MainDashboardActivity" />
         <activity
-            android:name=".view.MapEditor"
+            android:name=".view.MapEditorActivity"
             android:screenOrientation="landscape" />
     </application>
 

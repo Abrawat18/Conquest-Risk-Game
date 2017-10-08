@@ -1,4 +1,4 @@
-package com.app_team11.conquest.Utilities;
+package com.app_team11.conquest.utility;
 
 import java.io.*;
 

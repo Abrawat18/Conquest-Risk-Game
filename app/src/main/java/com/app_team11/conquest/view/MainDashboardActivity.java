@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Switch;
 
 import com.app_team11.conquest.R;
 
@@ -16,7 +14,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * Created by Jaydeep9101 on 06-Oct-17.
  */
 
-public class MainDashboard extends Activity implements View.OnClickListener {
+public class MainDashboardActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +54,7 @@ public class MainDashboard extends Activity implements View.OnClickListener {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();
-                        Intent intent = new Intent(MainDashboard.this,MapEditor.class);
+                        Intent intent = new Intent(MainDashboardActivity.this,MapEditorActivity.class);
                         startActivity(intent);
                     }
                 })
