@@ -114,7 +114,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     }
 
     private void initialization() throws JSONException {
-        setMap(new GameMap("","",""));
+        setMap(new GameMap("","","","",""));
         getDefaultContinent();
         getDefaultTerritory();
     }
@@ -173,10 +173,8 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         float x = event.getX();
         float y = event.getY();
         if (isWaitingForUserTouchOnAddTerritory && newTerritory == null) {
-            newTerritory = new Territory();
-            newTerritory.setCenterPoint(new Point((int) x, (int) y));
             if (!editCustomTerritory.getText().toString().equals("")) {
-                newTerritory.setTerritoryName(editCustomTerritory.getText().toString());
+                newTerritory = new Territory(editCustomTerritory.getText().toString(),(int) x, (int) y,null);
             }
             map.addRemoveTerritoryFromMap(newTerritory, 'A');
             newTerritory = null;
