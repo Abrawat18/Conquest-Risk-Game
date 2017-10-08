@@ -1,4 +1,7 @@
 package com.app_team11.conquest.global;
+/**
+ * Created by Vasu on 06-10-2017.
+ */
 public class Constants {
 
     public static String NEIGHBOURSIZEVALFAIL = "Maximum and Minimum number of neighbours allowed is 10 and 1 respectively";

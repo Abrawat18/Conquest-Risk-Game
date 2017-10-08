@@ -1,14 +1,19 @@
 package com.app_team11.conquest.model;
 
 
-import com.app_team11.conquest.global.ConfigurableMessage;
+import android.util.Log;
+
+import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.global.Constants;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Created by Vasu on 06-10-2017.
+ */
 public class GameMap {
+    private static final String TAG = GameMap.class.getSimpleName();
     private String imageName;
     private String wrapFlag;
     private String authorName;
@@ -40,7 +45,7 @@ public class GameMap {
             writer.newLine();
             writer.write("[Continents]");
             writer.newLine();
-
+            Log.e(TAG,"CHECKING..!!");
             for(Continent contObj: mapObj.getContinentList())
             {
                 writer.write(contObj.getContName().toString()+" "+Integer.toString(contObj.getScore()));

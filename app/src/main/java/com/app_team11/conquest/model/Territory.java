@@ -3,19 +3,24 @@ package com.app_team11.conquest.model;
 
 import android.graphics.Point;
 
-import com.app_team11.conquest.global.ConfigurableMessage;
+import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.global.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Created by Vasu on 06-10-2017.
+ */
 public class Territory {
 
     private String territoryName;
     private Point centerPoint;
     private Continent continent;
     private List<Territory> neighbourList;
+
+    public Territory() {
+    }
 
     public Territory(String territoryName, int centerX, int centerY, Continent continent) {
         this.territoryName = territoryName;

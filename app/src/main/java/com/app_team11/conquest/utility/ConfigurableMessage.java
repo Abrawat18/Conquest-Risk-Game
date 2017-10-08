@@ -1,5 +1,8 @@
-package com.app_team11.conquest.global;
+package com.app_team11.conquest.utility;
 
+/**
+ * Created by Vasu on 06-10-2017.
+ */
 public class ConfigurableMessage {
 
     private int msgCode;

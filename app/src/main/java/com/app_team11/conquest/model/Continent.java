@@ -1,5 +1,7 @@
 package com.app_team11.conquest.model;
-
+/**
+ * Created by Vasu on 06-10-2017.
+ */
 public class Continent {
 
     private String contName;
