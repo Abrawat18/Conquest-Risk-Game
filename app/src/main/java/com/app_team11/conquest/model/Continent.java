@@ -6,6 +6,7 @@ public class Continent {
 
     private String contName;
     private int score;
+    private Player contOwner;
 
     public String getContName() {
         return contName;
@@ -21,6 +22,14 @@ public class Continent {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public Player getContOwner() {
+        return contOwner;
+    }
+
+    public void setContOwner(Player contOwner) {
+        this.contOwner = contOwner;
     }
 
     public Continent(String contName, int score) {

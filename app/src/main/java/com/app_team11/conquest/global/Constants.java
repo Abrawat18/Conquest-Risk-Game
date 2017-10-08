@@ -12,6 +12,9 @@ public class Constants {
     public static String INCORRECTFLAG = "Flag is incorrect";
     public static int MSGFAILCODE=0;
     public static int MSGSUCCCODE=1;
+    public static String ARMY_INFANTRY = "infantry";
+    public static String ARMY_CAVALRY = "cavalry";
+    public static String ARMY_ARTILLERY = "artillery";
 
 
 }

@@ -19,6 +19,44 @@ public class GameMap {
     private String authorName;
     private List<Continent> continentList;
     private List<Territory> territoryList;
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public List<Continent> getContinentList() {
+        return continentList;
+    }
+
+    public void setContinentList(List<Continent> continentList) {
+        this.continentList = continentList;
+    }
+
+    public List<Territory> getTerritoryList() {
+        return territoryList;
+    }
+
+    public void setTerritoryList(List<Territory> territoryList) {
+        this.territoryList = territoryList;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+    public String getWrapFlag() {
+        return wrapFlag;
+    }
+
+    public void setWrapFlag(String wrapFlag) {
+        this.wrapFlag = wrapFlag;
+    }
 
     public GameMap(String imageName, String wrapFlag, String authorName) {
         this.imageName = imageName;
@@ -133,43 +171,6 @@ public class GameMap {
 
     }
 
-    public String getAuthorName() {
-        return authorName;
-    }
 
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
-    }
-
-    public List<Continent> getContinentList() {
-        return continentList;
-    }
-
-    public void setContinentList(List<Continent> continentList) {
-        this.continentList = continentList;
-    }
-
-    public List<Territory> getTerritoryList() {
-        return territoryList;
-    }
-
-    public void setTerritoryList(List<Territory> territoryList) {
-        this.territoryList = territoryList;
-    }
-
-    public String getImageName() {
-        return imageName;
-    }
-
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
-    }
-    public String getWrapFlag() {
-        return wrapFlag;
-    }
-
-    public void setWrapFlag(String wrapFlag) {
-        this.wrapFlag = wrapFlag;
-    }
 }
 
