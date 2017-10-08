@@ -64,4 +64,14 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener 
         Toast.makeText(this,"X:"+event.getX()+" Y:"+event.getY(),Toast.LENGTH_SHORT).show();
         return false;
     }
+    public void createNewMap(){
+
+    }
+
+    public void loadMap(){
+
+    }
+    public void addTerritory(){
+
+    }
 }
