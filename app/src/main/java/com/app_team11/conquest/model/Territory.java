@@ -18,9 +18,8 @@ public class Territory {
     private Point centerPoint;
     private Continent continent;
     private List<Territory> neighbourList;
-
-    public Territory() {
-    }
+    private Player territoryOwner;
+    private  int armyCount;
 
     public Territory(String territoryName, int centerX, int centerY, Continent continent) {
         this.territoryName = territoryName;
@@ -104,4 +103,20 @@ public class Territory {
     public void setNeighbourList(List<Territory> neighbourList) {
         this.neighbourList = neighbourList;
     }
+    public Player getTerritoryOwner() {
+        return territoryOwner;
+    }
+
+    public void setTerritoryOwner(Player territoryOwner) {
+        this.territoryOwner = territoryOwner;
+    }
+
+    public int getArmyCount() {
+        return armyCount;
+    }
+
+    public void setArmyCount(int armyCount) {
+        this.armyCount = armyCount;
+    }
+
 }
