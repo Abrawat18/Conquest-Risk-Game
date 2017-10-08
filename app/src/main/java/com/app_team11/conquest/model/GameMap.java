@@ -9,6 +9,8 @@ import com.app_team11.conquest.global.Constants;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
+
 /**
  * Created by Vasu on 06-10-2017.
  */
@@ -17,13 +19,17 @@ public class GameMap {
     private String imageName;
     private String wrapFlag;
     private String authorName;
+    private String scrollLine;
+    private String warnFlag;
     private List<Continent> continentList;
     private List<Territory> territoryList;
 
-    public GameMap(String imageName, String wrapFlag, String authorName) {
+    public GameMap(String imageName, String wrapFlag, String authorName, String scrollLine, String warnFlag) {
         this.imageName = imageName;
         this.wrapFlag = wrapFlag;
         this.authorName = authorName;
+        this.scrollLine = scrollLine;
+        this.warnFlag = warnFlag;
         this.continentList = new ArrayList<Continent>();
         this.territoryList = new ArrayList<Territory>();
     }
@@ -41,7 +47,11 @@ public class GameMap {
             writer.newLine();
             writer.write("wrap="+mapObj.wrapFlag);
             writer.newLine();
-            writer.write("author"+mapObj.authorName);
+            writer.write("author="+mapObj.authorName);
+            writer.newLine();
+            writer.write("scroll="+mapObj.scrollLine);
+            writer.newLine();
+            writer.write("warn="+mapObj.warnFlag);
             writer.newLine();
             writer.write("[Continents]");
             writer.newLine();
@@ -133,43 +143,65 @@ public class GameMap {
 
     }
 
-    public String getAuthorName() {
+    public String getAuthorName()
+    {
         return authorName;
     }
 
-    public void setAuthorName(String authorName) {
+    public void setAuthorName(String authorName)
+    {
         this.authorName = authorName;
     }
 
-    public List<Continent> getContinentList() {
+    public List<Continent> getContinentList()
+    {
         return continentList;
     }
 
-    public void setContinentList(List<Continent> continentList) {
+    public void setContinentList(List<Continent> continentList)
+    {
         this.continentList = continentList;
     }
 
-    public List<Territory> getTerritoryList() {
+    public List<Territory> getTerritoryList()
+    {
         return territoryList;
     }
 
-    public void setTerritoryList(List<Territory> territoryList) {
+    public void setTerritoryList(List<Territory> territoryList)
+    {
         this.territoryList = territoryList;
     }
 
-    public String getImageName() {
+    public String getImageName()
+    {
         return imageName;
     }
 
-    public void setImageName(String imageName) {
+    public void setImageName(String imageName)
+    {
         this.imageName = imageName;
     }
-    public String getWrapFlag() {
+
+    public String getWrapFlag()
+    {
         return wrapFlag;
     }
 
-    public void setWrapFlag(String wrapFlag) {
+    public void setWrapFlag(String wrapFlag)
+    {
         this.wrapFlag = wrapFlag;
     }
+
+    public void setScrollLine(String scrollLine)
+    {
+        this.scrollLine = scrollLine;
+    }
+
+    public void setWarnFlag(String warnFlag)
+    {
+        this.warnFlag = warnFlag;
+    }
+
 }
 
