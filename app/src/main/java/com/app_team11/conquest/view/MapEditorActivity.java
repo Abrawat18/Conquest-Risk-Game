@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -21,14 +19,11 @@ import android.widget.Toast;
 import com.app_team11.conquest.R;
 import com.app_team11.conquest.adapter.ContinentAdapter;
 import com.app_team11.conquest.adapter.TerritoryAdapter;
-import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.model.Continent;
 import com.app_team11.conquest.model.GameMap;
 import com.app_team11.conquest.model.Territory;
-import com.app_team11.conquest.utility.JsonLoader;
 import com.app_team11.conquest.utility.MapManager;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.List;
@@ -93,6 +88,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         surface = (SurfaceView) findViewById(R.id.surface);
         surface.setOnTouchListener(this);
         surface.getHolder().addCallback(surfaceCallback);
+
         btnAddContenent = (Button) findViewById(R.id.btn_add_continent);
         btnAddCustomContinent = (Button) findViewById(R.id.btn_add_custom_continent);
         btnAddTerritory = (Button) findViewById(R.id.btn_add_territory);
@@ -114,12 +110,12 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     }
 
     private void initialization() throws JSONException {
-        setMap(new GameMap("","","","",""));
-        getDefaultContinent();
-        getDefaultTerritory();
+        setMap(new GameMap());
+        getSuggestedContinentList();
+        getSuggestedTerritoryList();
     }
 
-    private void getDefaultTerritory() throws JSONException {
+    private void getSuggestedTerritoryList() throws JSONException {
         territorySuggestList = MapManager.getInstance().getTerritoryListFromFile(this);
         territorySuggestAdapter = new TerritoryAdapter(this, territorySuggestList);
         listSuggestTerritory.setAdapter(territorySuggestAdapter);
@@ -129,7 +125,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     }
 
-    private void getDefaultContinent() throws JSONException {
+    private void getSuggestedContinentList() throws JSONException {
         continentSuggestList = MapManager.getInstance().getContinentListFromFile(this);
         continentSuggestAdapter = new ContinentAdapter(this, continentSuggestList);
         listSuggestContinent.setAdapter(continentSuggestAdapter);
@@ -153,6 +149,8 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {
+
+           holder.removeCallback(surfaceCallback);
         }
 
         @Override
@@ -164,8 +162,8 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
      * OnTouch motion event Listener
      *
      * @param v     : view
-     * @param event
-     * @return
+     * @param event : MotionEvent
+     * @return      : Boolean
      */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -216,7 +214,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     private void addCustomTerritory() {
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
-        sweetAlertDialog.setTitleText("Enter Territory Name")
+        sweetAlertDialog.setTitleText("Please Enter Territory Name")
                 .setConfirmText("Ok")
                 .setCustomView(editCustomTerritory)
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -237,7 +235,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     private void addCustomContinent() {
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
-        sweetAlertDialog.setTitleText("Enter Territory Name")
+        sweetAlertDialog.setTitleText(" Please Enter Continent Name")
                 .setConfirmText("Ok")
                 .setCustomView(editCustomContinent)
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
