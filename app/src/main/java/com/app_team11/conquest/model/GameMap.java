@@ -24,6 +24,9 @@ public class GameMap {
     private List<Continent> continentList;
     private List<Territory> territoryList;
 
+    public GameMap() {
+    }
+
     public GameMap(String imageName, String wrapFlag, String authorName, String scrollLine, String warnFlag) {
         this.imageName = imageName;
         this.wrapFlag = wrapFlag;

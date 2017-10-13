@@ -6,10 +6,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -107,6 +109,45 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         btnAddCustomContinent.setOnClickListener(this);
         btnAddTerritory.setOnClickListener(this);
         btnAddCustomTerritory.setOnClickListener(this);
+
+        listSuggestContinent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MapEditorActivity.this, SweetAlertDialog.NORMAL_TYPE);
+                sweetAlertDialog.setTitleText("Are you sure you want to add " + continentSuggestList.get(position).getContName() + "?")
+                        .setConfirmText("Ok")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismiss();
+                                continentList.add(continentSuggestList.get(position));
+
+                            }
+                        })
+                        .show();
+
+            }
+        });
+
+        listSuggestTerritory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MapEditorActivity.this, SweetAlertDialog.NORMAL_TYPE);
+                sweetAlertDialog.setTitleText("Are you sure you want to add " + territorySuggestList.get(position).getTerritoryName() + "?")
+                        .setConfirmText("Ok")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismiss();
+                                newTerritory = territorySuggestList.get(position);
+                                Toast.makeText(MapEditorActivity.this, "Touch on Map to add territory", Toast.LENGTH_SHORT).show();
+                                isWaitingForUserTouchOnAddTerritory = true;
+                            }
+                        })
+                        .show();
+
+            }
+        });
     }
 
     private void initialization() throws JSONException {
@@ -120,7 +161,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         territorySuggestAdapter = new TerritoryAdapter(this, territorySuggestList);
         listSuggestTerritory.setAdapter(territorySuggestAdapter);
 
-        territoryAdapterr  = new TerritoryAdapter(this,map.getTerritoryList());
+        territoryAdapterr = new TerritoryAdapter(this, map.getTerritoryList());
         listTerritory.setAdapter(territoryAdapterr);
 
     }
@@ -130,7 +171,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         continentSuggestAdapter = new ContinentAdapter(this, continentSuggestList);
         listSuggestContinent.setAdapter(continentSuggestAdapter);
 
-        continentAdapterr  = new ContinentAdapter(this,map.getContinentList());
+        continentAdapterr = new ContinentAdapter(this, map.getContinentList());
         listContinent.setAdapter(continentAdapterr);
 
     }
@@ -150,7 +191,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {
 
-           holder.removeCallback(surfaceCallback);
+            holder.removeCallback(surfaceCallback);
         }
 
         @Override
@@ -163,28 +204,20 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
      *
      * @param v     : view
      * @param event : MotionEvent
-     * @return      : Boolean
+     * @return : Boolean
      */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
         float x = event.getX();
         float y = event.getY();
-        if (isWaitingForUserTouchOnAddTerritory && newTerritory == null) {
-            if (!editCustomTerritory.getText().toString().equals("")) {
-                newTerritory = new Territory(editCustomTerritory.getText().toString(),(int) x, (int) y,null);
+        if (isWaitingForUserTouchOnAddTerritory && newTerritory != null) {
+            if (!TextUtils.isEmpty(editCustomTerritory.getText())) {
+                newTerritory.setCenterPoint( (int) x, (int) y);
             }
             map.addRemoveTerritoryFromMap(newTerritory, 'A');
             newTerritory = null;
             isWaitingForUserTouchOnAddTerritory = false;
-        } else if (isWaitingForUserTouchOnAddContinent && newContinent == null) {
-
-            if (!editCustomContinent.getText().toString().equals("")) {
-                newContinent = new Continent(editCustomContinent.getText().toString(),1);
-            }
-            map.addRemoveContinentFromMap(newContinent, 'A');
-            newContinent = null;
-            isWaitingForUserTouchOnAddContinent = false;
         }
         hideAllLinearLayouts();
         linearContinent.setVisibility(View.VISIBLE);
@@ -221,8 +254,11 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         sweetAlertDialog.dismiss();
-                        Toast.makeText(MapEditorActivity.this, "Touch on Map to add territory", Toast.LENGTH_SHORT).show();
-                        isWaitingForUserTouchOnAddTerritory = true;
+                        if (!TextUtils.isEmpty(editCustomTerritory.getText().toString())) {
+                            newTerritory = new Territory(editCustomTerritory.getText().toString());
+                            Toast.makeText(MapEditorActivity.this, "Touch on Map to add territory", Toast.LENGTH_SHORT).show();
+                            isWaitingForUserTouchOnAddTerritory = true;
+                        }
                     }
                 })
                 .show();
@@ -242,8 +278,10 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         sweetAlertDialog.dismiss();
-                        Toast.makeText(MapEditorActivity.this, "Touch on Map to add continent", Toast.LENGTH_SHORT).show();
-                        isWaitingForUserTouchOnAddContinent = true;
+                        if (!TextUtils.isEmpty(editCustomContinent.getText().toString())) {
+                            newContinent = new Continent(editCustomContinent.getText().toString(), 1);
+                        }
+                        map.addRemoveContinentFromMap(newContinent, 'A');
                     }
                 })
                 .show();

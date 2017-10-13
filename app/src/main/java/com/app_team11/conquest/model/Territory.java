@@ -21,6 +21,10 @@ public class Territory {
     private Player territoryOwner;
     private  int armyCount;
 
+    public Territory(String territoryName) {
+        this.territoryName = territoryName;
+    }
+
     public Territory(String territoryName, int centerX, int centerY, Continent continent) {
         this.territoryName = territoryName;
         this.centerPoint = new Point(centerX,centerY);
@@ -84,8 +88,8 @@ public class Territory {
         return centerPoint;
     }
 
-    public void setCenterPoint(Point centerPoint) {
-        this.centerPoint = centerPoint;
+    public void setCenterPoint(int centerX, int centerY) {
+        this.centerPoint = new Point(centerX,centerY);
     }
 
     public Continent getContinent() {
