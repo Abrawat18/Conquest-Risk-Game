@@ -250,5 +250,55 @@ public class ReadMapUtility {
         territoryList.add(tNew);
         //System.out.println("Territory added...");
     }
+    
+    public List<Player> assignArmiesAndNames(int noOfPlayers) {
+        
+        Player p = null;
+
+        if (noOfPlayers == 3) {
+            noOfArmies = 35;
+        } else if (noOfPlayers == 4) {
+            noOfArmies = 30;
+        } else if (noOfPlayers == 5) {
+            noOfArmies = 25;
+        } else if (noOfPlayers == 6) {
+            noOfArmies = 20;
+        }
+        //Object[] playerNames=names.toArray();
+        
+        //***Add condition when noOfPlayers=2
+        for (int i = 1; i <= noOfPlayers; i++) 
+        {
+            p=new Player();
+            p.setPlayerNo(i);
+            p.setPlayerName("P"+i);
+            p.setNoOfInfantry(noOfArmies);
+            playerDetails.add(p);
+        }
+        getFirstPlayer(playerDetails);
+        return playerDetails;
+    }
+    
+
+    public static Player getFirstPlayer(List<Player> Players) {
+        int rnd = new Random().nextInt(Players.size());
+        return Players.get(rnd);
+    }
+    public void printPlayerList()
+    {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~Player List~~~~~~~~~~~~~~~~~~~~");
+        for(int i=0;i<playerDetails.size();i++)
+        {
+            System.out.println("Player "+playerDetails.get(i).getPlayerNo()+": "+playerDetails.get(i).getPlayerName()+"\n"+
+                   playerDetails.get(i).getNoOfInfantry());
+            
+            if(playerDetails.get(i).getPlayerOwnedTerritoriesList().size()>0)
+             for(int j=0;j<playerDetails.get(i).getPlayerOwnedTerritoriesList().size();j++)
+            {
+                System.out.println("owned territory: "+playerDetails.get(i).getPlayerOwnedTerritoriesList().get(j).getTerritoryName());
+            }   
+        }
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
 
 }
