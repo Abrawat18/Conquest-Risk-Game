@@ -97,7 +97,11 @@ public class GameMap {
     public ConfigurableMessage addRemoveContinentFromMap(Continent contObj, char addRemoveFlag) {
         if (addRemoveFlag == 'A') {
             if (null == this.continentList || this.continentList.size() < 32) {
-                this.continentList.add(contObj);
+                for(Continent obj : this.continentList){
+                    if(!obj.getContName().toString().equalsIgnoreCase(contObj.getContName().toString())) {
+                        this.continentList.add(contObj);
+                    }
+                }
                 return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.ADDREMTOLISTSUCCESS);
             } else
                 return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.CONTSIZEVALFAIL);
@@ -120,7 +124,12 @@ public class GameMap {
     public ConfigurableMessage addRemoveTerritoryFromMap(Territory terrObj, char addRemoveFlag) {
         if (addRemoveFlag == 'A') {
             if (null == this.territoryList || this.territoryList.size() < 255) {
-                this.territoryList.add(terrObj);
+                for(Territory obj : this.territoryList){
+                    if(!obj.getTerritoryName().toString().equalsIgnoreCase(terrObj.getTerritoryName().toString())) {
+                        this.territoryList.add(terrObj);
+                    }
+                }
+
                 return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.ADDREMTOLISTSUCCESS);
             } else
                 return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.TERRSIZEVALFAIL);
