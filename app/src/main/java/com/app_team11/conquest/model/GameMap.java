@@ -145,6 +145,17 @@ public class GameMap {
 
     }
 
+    public List<Territory> getTerrForCont(Continent contObj)
+     {
+         List<Territory> terrList = new ArrayList<Territory>();
+         for(Territory obj: this.getTerritoryList()){
+             if(obj.getContinent().getContName().equalsIgnoreCase(contObj.getContName())){
+                 terrList.add(obj);
+             }
+         }
+         return terrList;
+     }
+
     public String getAuthorName() {
         return authorName;
     }
