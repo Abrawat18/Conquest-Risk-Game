@@ -132,6 +132,29 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
             }
         });
 
+        listContinent.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MapEditorActivity.this, SweetAlertDialog.NORMAL_TYPE);
+                sweetAlertDialog.setTitleText("Are you sure you want to remove " + map.getContinentList().get(position).getContName() + "?")
+                        .setConfirmText("Ok")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismiss();
+                                map.addRemoveContinentFromMap(map.getContinentList().get(position), 'R');
+                                continentAdapter.notifyDataSetChanged();
+
+                            }
+                        })
+                        .show();
+
+
+                return false;
+            }
+
+        });
+
         listSuggestTerritory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -150,6 +173,28 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                         .show();
 
             }
+        });
+
+        listTerritory.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MapEditorActivity.this, SweetAlertDialog.NORMAL_TYPE);
+                sweetAlertDialog.setTitleText("Are you sure you want to remove " + map.getTerritoryList().get(position).getTerritoryName() + "?")
+                        .setConfirmText("Ok")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismiss();
+                                newTerritory = map.getTerritoryList().get(position);
+                                map.addRemoveTerritoryFromMap(newTerritory, 'R');
+                                territoryAdapter.notifyDataSetChanged();
+                            }
+                        })
+                        .show();
+
+                return false;
+            }
+
         });
 
         listContinent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
