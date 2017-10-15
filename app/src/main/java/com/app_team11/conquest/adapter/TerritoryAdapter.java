@@ -54,6 +54,10 @@ public class TerritoryAdapter extends BaseAdapter {
         return convertView;
     }
 
+    public void setTerritoryList(List<Territory> territoryList) {
+        this.territoryList = territoryList;
+    }
+
     class ViewHolder{
         private TextView textTerritoryName;
     }

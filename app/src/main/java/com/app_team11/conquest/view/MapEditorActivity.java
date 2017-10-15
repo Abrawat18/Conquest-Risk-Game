@@ -73,14 +73,14 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     private ContinentAdapter continentSuggestAdapter;
     private ContinentAdapter continentAdapter;
     private TerritoryAdapter territoryAdapter;
+    private Continent selectedContinent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_map_editor);
-
         initializeView();
-
         try {
             initialization();
         } catch (JSONException e) {
@@ -200,7 +200,11 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         listContinent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                map.getContinentList().get(position);
+                selectedContinent = map.getContinentList().get(position);
+                List<Territory> selectedTerritory = map.getTerrForCont(selectedContinent);
+                setAdapterForTerritory(selectedTerritory);
+                hideAllLinearLayouts();
+                linearTerritory.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -223,6 +227,11 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     }
 
+    private void setAdapterForTerritory(List<Territory> territoryList) {
+        territoryAdapter.setTerritoryList(territoryList);
+        territoryAdapter.notifyDataSetChanged();
+    }
+
     private void getSuggestedContinentList() throws JSONException {
         continentSuggestList = MapManager.getInstance().getContinentListFromFile(this);
         continentSuggestAdapter = new ContinentAdapter(this, continentSuggestList);
@@ -234,15 +243,17 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     }
 
     private SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
+
+
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
             // Do some drawing when surface is ready
-            canvas = holder.lockCanvas();
+           /* canvas = holder.lockCanvas();
             canvas.drawColor(Color.RED);
             Paint paint = new Paint();
             paint.setColor(Color.GREEN);
             canvas.drawCircle(120f, 130f, 100f, paint);
-            holder.unlockCanvasAndPost(canvas);
+            holder.unlockCanvasAndPost(canvas);*/
         }
 
         @Override
@@ -269,20 +280,29 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         float x = event.getX();
         float y = event.getY();
         if (isWaitingForUserTouchOnAddTerritory && newTerritory != null) {
-            if (!TextUtils.isEmpty(editCustomTerritory.getText())) {
-                newTerritory.setCenterPoint((int) x, (int) y);
-            }
+            newTerritory.setCenterPoint((int) x, (int) y);
+            newTerritory.setContinent(selectedContinent);
             map.addRemoveTerritoryFromMap(newTerritory, 'A');
             newTerritory = null;
             isWaitingForUserTouchOnAddTerritory = false;
+            showMap();
         }
-        hideAllLinearLayouts();
-        linearContinent.setVisibility(View.VISIBLE);
         continentAdapter.notifyDataSetChanged();
         territoryAdapter.notifyDataSetChanged();
         return false;
     }
 
+    private void showMap() {
+        Paint paint = new Paint();
+        paint.setColor(Color.GREEN);
+        canvas = surface.getHolder().lockCanvas();
+
+        for (Territory territory : map.getTerritoryList()) {
+            canvas.drawCircle(territory.getCenterPoint().x, territory.getCenterPoint().y, 100f, paint);
+        }
+        surface.getHolder().unlockCanvasAndPost(canvas);
+
+    }
 
     private void setMap(GameMap map) {
         this.map = map;
@@ -340,10 +360,10 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                         }
                         ConfigurableMessage message = map.addRemoveContinentFromMap(newContinent, 'A');
                         if (message.getMsgCode() == 1) {
-                           Toast.makeText(MapEditorActivity.this,message.getMsgText(),Toast.LENGTH_SHORT).show();
-                        }else {
+                            Toast.makeText(MapEditorActivity.this, message.getMsgText(), Toast.LENGTH_SHORT).show();
+                        } else {
                             // TODO :: Do something with error
-                            Toast.makeText(MapEditorActivity.this,message.getMsgText(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MapEditorActivity.this, message.getMsgText(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
@@ -373,6 +393,25 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
             case R.id.btn_add_custom_territory:
                 addCustomTerritory();
                 break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        if (linearAddContinent.getVisibility() == View.VISIBLE) {
+            hideAllLinearLayouts();
+            linearContinent.setVisibility(View.VISIBLE);
+        } else if (linearTerritory.getVisibility() == View.VISIBLE) {
+            hideAllLinearLayouts();
+            linearContinent.setVisibility(View.VISIBLE);
+
+        } else if (linearAddTerritory.getVisibility() == View.VISIBLE) {
+            hideAllLinearLayouts();
+            linearTerritory.setVisibility(View.VISIBLE);
+        } else if (linearContinent.getVisibility() == View.VISIBLE) {
+            super.onBackPressed();
+
         }
     }
 }

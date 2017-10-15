@@ -11,111 +11,111 @@
         android:layout_height="match_parent"
         android:layout_weight="3" />
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/linear_continent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/linear_continent"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:text="Continent" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Continent" />
-
-                <ListView
-                    android:id="@+id/list_continent"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"></ListView>
-
-                <Button
-                    android:id="@+id/btn_add_continent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Add Continent" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linear_territory"
+            <ListView
+                android:id="@+id/list_continent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:layout_height="0dp"
+                android:layout_weight="1"></ListView>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Territory" />
-
-                <ListView
-                    android:id="@+id/list_territory"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"></ListView>
-
-                <Button
-                    android:id="@+id/btn_add_territory"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Territory" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linear_add_continent"
+            <Button
+                android:id="@+id/btn_add_continent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Add Continent" />
-
-                <ListView
-                    android:id="@+id/list_continent_suggest"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"></ListView>
-
-                <Button
-                    android:id="@+id/btn_add_custom_continent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Add Custom Continent" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linear_add_territory"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Add Territory" />
-
-                <ListView
-                    android:id="@+id/list_territory_suggest"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"></ListView>
-
-                <Button
-                    android:id="@+id/btn_add_custom_territory"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Add Custom Territory" />
-            </LinearLayout>
-
+                android:layout_height="wrap_content"
+                android:text="Add Continent" />
         </LinearLayout>
-    </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/linear_territory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Territory" />
+
+            <ListView
+                android:id="@+id/list_territory"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"></ListView>
+
+            <Button
+                android:id="@+id/btn_add_territory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Territory" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_add_continent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Continent" />
+
+            <ListView
+                android:id="@+id/list_continent_suggest"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"></ListView>
+
+            <Button
+                android:id="@+id/btn_add_custom_continent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Custom Continent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_add_territory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Territory" />
+
+            <ListView
+                android:id="@+id/list_territory_suggest"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"></ListView>
+
+            <Button
+                android:id="@+id/btn_add_custom_territory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Custom Territory" />
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>
