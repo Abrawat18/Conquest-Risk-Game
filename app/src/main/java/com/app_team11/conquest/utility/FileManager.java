@@ -1,6 +1,10 @@
 package com.app_team11.conquest.utility;
 
+import android.os.Environment;
+
 import java.io.*;
+import java.util.List;
+
 /**
  * Created by Vasu on 06-10-2017.
  */
@@ -33,4 +37,25 @@ public class FileManager {
             return writer;
 
     }
+    public File getMapFilePath(String finalName) {
+        String root = Environment.getExternalStorageDirectory().toString();
+        File myDir = new File(root + "/map");
+        if(!myDir.exists()) {
+            myDir.mkdirs();
+        }
+        File file = new File (myDir, finalName);
+        return file;
+    }
+
+    public File getMapFileDirectory() {
+        String root = Environment.getExternalStorageDirectory().toString();
+        File myDir = new File(root + "/map");
+        return myDir;
+    }
+
+    public File[] getAllFileFromDir(File dir){
+        return dir.listFiles();
+    }
+
+
 }

@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.MotionEvent;
@@ -25,10 +26,12 @@ import com.app_team11.conquest.model.Continent;
 import com.app_team11.conquest.model.GameMap;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.ConfigurableMessage;
+import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.utility.MapManager;
 
 import org.json.JSONException;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +41,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * Created by Jaydeep9101 on 06-Oct-17.
  */
 
-//Todo : editor menu : 1. add contenent 2. add teritory 3. on terirtory  selection : show contenent or select contenet , neighbour
+//Todo : editor menu : 1. add continent 2. add territory 3. on terrirtory  selection : show continent or select continent , neighbour
 
 
 public class MapEditorActivity extends Activity implements View.OnTouchListener, View.OnClickListener {
@@ -309,10 +312,6 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     }
 
 
-    private void createNewMap() {
-
-    }
-
     private void loadMap() {
 
     }
@@ -410,6 +409,27 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
             hideAllLinearLayouts();
             linearTerritory.setVisibility(View.VISIBLE);
         } else if (linearContinent.getVisibility() == View.VISIBLE) {
+            final EditText editMapName = new EditText(this);
+            SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MapEditorActivity.this, SweetAlertDialog.NORMAL_TYPE);
+            sweetAlertDialog.setTitleText("Do you want to save Map ?")
+                    .setConfirmText("Yes")
+                    .setCancelText("No")
+                    .setCustomView(editMapName)
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            if (!TextUtils.isEmpty(editMapName.getText())) {
+                                File fileName = FileManager.getInstance().getMapFilePath(editMapName.getText().toString() + ".map");
+
+                            }
+                        }
+                    })
+                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+
+                        }
+                    });
             super.onBackPressed();
 
         }
