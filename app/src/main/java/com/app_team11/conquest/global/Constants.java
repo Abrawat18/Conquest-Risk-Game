@@ -20,6 +20,7 @@ public class Constants {
     public static String ARMY_INFANTRY = "infantry";
     public static String ARMY_CAVALRY = "cavalry";
     public static String ARMY_ARTILLERY = "artillery";
-
+    public static String DUPLICATE_CONTINENT="Continent already exists";
+    public static String DUPLICATE_TERRITORY="Territory already exists";
 
 }

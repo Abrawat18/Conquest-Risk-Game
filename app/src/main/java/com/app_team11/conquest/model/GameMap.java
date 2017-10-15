@@ -96,13 +96,19 @@ public class GameMap {
      */
     public ConfigurableMessage addRemoveContinentFromMap(Continent contObj, char addRemoveFlag) {
         if (addRemoveFlag == 'A') {
+            boolean addFlag = true;
             if (null == this.continentList || this.continentList.size() < 32) {
                 for(Continent obj : this.continentList){
-                    if(!obj.getContName().toString().equalsIgnoreCase(contObj.getContName().toString())) {
-                        this.continentList.add(contObj);
+                    if(obj.getContName().equalsIgnoreCase(contObj.getContName())) {
+                        addFlag=false;
                     }
                 }
-                return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.ADDREMTOLISTSUCCESS);
+                if(addFlag==true) {
+                    this.continentList.add(contObj);
+                    return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.ADDREMTOLISTSUCCESS);
+                }
+                else
+                    return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.DUPLICATE_CONTINENT);
             } else
                 return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.CONTSIZEVALFAIL);
         } else if (addRemoveFlag == 'R') {
@@ -123,14 +129,19 @@ public class GameMap {
      */
     public ConfigurableMessage addRemoveTerritoryFromMap(Territory terrObj, char addRemoveFlag) {
         if (addRemoveFlag == 'A') {
+            boolean addFlag = true;
             if (null == this.territoryList || this.territoryList.size() < 255) {
                 for(Territory obj : this.territoryList){
-                    if(!obj.getTerritoryName().toString().equalsIgnoreCase(terrObj.getTerritoryName().toString())) {
-                        this.territoryList.add(terrObj);
+                    if(obj.getTerritoryName().equalsIgnoreCase(terrObj.getTerritoryName())) {
+                        addFlag=false;
                     }
                 }
-
-                return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.ADDREMTOLISTSUCCESS);
+                if(addFlag==true) {
+                    this.territoryList.add(terrObj);
+                    return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.ADDREMTOLISTSUCCESS);
+                }
+                else
+                    return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.DUPLICATE_TERRITORY);
             } else
                 return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.TERRSIZEVALFAIL);
         } else if (addRemoveFlag == 'R') {
