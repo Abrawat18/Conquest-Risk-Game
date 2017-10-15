@@ -6,6 +6,7 @@ package com.app_team11.conquest.utility;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.model.Continent;
@@ -270,9 +271,9 @@ public class ReadMapUtility {
         for (int i = 1; i <= noOfPlayers; i++) 
         {
             p=new Player();
-            p.setPlayerNo(i);
-            p.setPlayerName("P"+i);
-            p.setNoOfInfantry(noOfArmies);
+            p.setPlayerId(i);
+//            p.setPlayerName("P"+i);
+            p.setAvailableArmyCount(noOfArmies);
             playerDetails.add(p);
         }
         getFirstPlayer(playerDetails);
@@ -289,14 +290,14 @@ public class ReadMapUtility {
         System.out.println("~~~~~~~~~~~~~~~~~~~~Player List~~~~~~~~~~~~~~~~~~~~");
         for(int i=0;i<playerDetails.size();i++)
         {
-            System.out.println("Player "+playerDetails.get(i).getPlayerNo()+": "+playerDetails.get(i).getPlayerName()+"\n"+
+            /*System.out.println("Player "+playerDetails.get(i).getPlayerNo()+": "+playerDetails.get(i).getPlayerName()+"\n"+
                    playerDetails.get(i).getNoOfInfantry());
             
             if(playerDetails.get(i).getPlayerOwnedTerritoriesList().size()>0)
              for(int j=0;j<playerDetails.get(i).getPlayerOwnedTerritoriesList().size();j++)
             {
                 System.out.println("owned territory: "+playerDetails.get(i).getPlayerOwnedTerritoriesList().get(j).getTerritoryName());
-            }   
+            }   */
         }
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }

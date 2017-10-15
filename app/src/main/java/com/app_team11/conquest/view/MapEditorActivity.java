@@ -24,10 +24,12 @@ import com.app_team11.conquest.adapter.TerritoryAdapter;
 import com.app_team11.conquest.model.Continent;
 import com.app_team11.conquest.model.GameMap;
 import com.app_team11.conquest.model.Territory;
+import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.utility.MapManager;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -69,8 +71,8 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     private Territory newTerritory;
     private TerritoryAdapter territorySuggestAdapter;
     private ContinentAdapter continentSuggestAdapter;
-    private ContinentAdapter continentAdapterr;
-    private TerritoryAdapter territoryAdapterr;
+    private ContinentAdapter continentAdapter;
+    private TerritoryAdapter territoryAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -120,7 +122,8 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 sweetAlertDialog.dismiss();
-                                continentList.add(continentSuggestList.get(position));
+                                map.addRemoveContinentFromMap(continentSuggestList.get(position), 'A');
+                                continentAdapter.notifyDataSetChanged();
 
                             }
                         })
@@ -148,9 +151,18 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
             }
         });
+
+        listContinent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                map.getContinentList().get(position);
+            }
+        });
     }
 
     private void initialization() throws JSONException {
+        territoryList = new ArrayList<>();
+        continentList = new ArrayList<>();
         setMap(new GameMap());
         getSuggestedContinentList();
         getSuggestedTerritoryList();
@@ -161,8 +173,8 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         territorySuggestAdapter = new TerritoryAdapter(this, territorySuggestList);
         listSuggestTerritory.setAdapter(territorySuggestAdapter);
 
-        territoryAdapterr = new TerritoryAdapter(this, map.getTerritoryList());
-        listTerritory.setAdapter(territoryAdapterr);
+        territoryAdapter = new TerritoryAdapter(this, map.getTerritoryList());
+        listTerritory.setAdapter(territoryAdapter);
 
     }
 
@@ -171,8 +183,8 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         continentSuggestAdapter = new ContinentAdapter(this, continentSuggestList);
         listSuggestContinent.setAdapter(continentSuggestAdapter);
 
-        continentAdapterr = new ContinentAdapter(this, map.getContinentList());
-        listContinent.setAdapter(continentAdapterr);
+        continentAdapter = new ContinentAdapter(this, map.getContinentList());
+        listContinent.setAdapter(continentAdapter);
 
     }
 
@@ -213,7 +225,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         float y = event.getY();
         if (isWaitingForUserTouchOnAddTerritory && newTerritory != null) {
             if (!TextUtils.isEmpty(editCustomTerritory.getText())) {
-                newTerritory.setCenterPoint( (int) x, (int) y);
+                newTerritory.setCenterPoint((int) x, (int) y);
             }
             map.addRemoveTerritoryFromMap(newTerritory, 'A');
             newTerritory = null;
@@ -221,8 +233,8 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         }
         hideAllLinearLayouts();
         linearContinent.setVisibility(View.VISIBLE);
-        continentAdapterr.notifyDataSetChanged();
-        territoryAdapterr.notifyDataSetChanged();
+        continentAdapter.notifyDataSetChanged();
+        territoryAdapter.notifyDataSetChanged();
         return false;
     }
 
@@ -281,7 +293,13 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                         if (!TextUtils.isEmpty(editCustomContinent.getText().toString())) {
                             newContinent = new Continent(editCustomContinent.getText().toString(), 1);
                         }
-                        map.addRemoveContinentFromMap(newContinent, 'A');
+                        ConfigurableMessage message = map.addRemoveContinentFromMap(newContinent, 'A');
+                        if (message.getMsgCode() == 1) {
+                           Toast.makeText(MapEditorActivity.this,message.getMsgText(),Toast.LENGTH_SHORT).show();
+                        }else {
+                            // TODO :: Do something with error
+                            Toast.makeText(MapEditorActivity.this,message.getMsgText(),Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .show();
