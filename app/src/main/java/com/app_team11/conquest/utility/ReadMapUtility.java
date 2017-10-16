@@ -301,5 +301,28 @@ public class ReadMapUtility {
         }
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
+    public List<Player> randomlyAssignCountries(List<Player> Players, List<Territory> Territories) {
+        int Tcount = 0,Pcount=0;
+        Collections.shuffle(Territories);
+        while (Territories.size() > 0 && Tcount<Territories.size())
+        {
+            System.out.println("Tcount value: "+Tcount);
+            while (Players.size()> 0) 
+            {
+                System.out.println(Territories.get(Tcount).getTerritoryName()+" Territory assigned to" +Players.get(Pcount).getPlayerNo());
+                Players.get(Pcount).addOwnedTerritorySingle(Territories.get(Tcount));
+                if (Pcount == Players.size()-1) 
+                {
+                    Pcount = -1;
+                }
+                
+                break;
+            }
+            Tcount++;
+            Pcount++;
+        printPlayerList();
+        }
+        return Players;
+    }
 
 }
