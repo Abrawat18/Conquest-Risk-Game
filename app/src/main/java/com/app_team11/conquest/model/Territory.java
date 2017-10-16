@@ -32,6 +32,25 @@ public class Territory {
         this.neighbourList = new ArrayList();
     }
 
+    public Territory() {
+
+    }
+
+    public Territory copyTerritory(){
+        Territory  territory = new Territory();
+        territory.setTerritoryName(this.getTerritoryName());
+        territory.setCenterPoint(this.getCenterPoint());
+        territory.setContinent(this.getContinent());
+        territory.setArmyCount(this.getArmyCount());
+        territory.setNeighbourList(this.getNeighbourList());
+        territory.setTerritoryOwner(this.getTerritoryOwner());
+        return territory;
+    }
+
+    private void setCenterPoint(Point centerPoint) {
+        this.centerPoint = centerPoint;
+    }
+
     /**
      * to be called on click of add neighbours/connections
      *  validation1 before saving a map - Validation to check if the number of neighbours not greater than 10

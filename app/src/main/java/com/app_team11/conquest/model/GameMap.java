@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.global.Constants;
+import com.app_team11.conquest.utility.FileManager;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -42,33 +43,33 @@ public class GameMap {
     /**
      * Method to save final data to file on click of save
      *
-     * @param mapObj
      */
-    public void writeDataToFile(GameMap mapObj, BufferedWriter writer) {
+    public void writeDataToFile(File file) {
         try {
+            BufferedWriter writer = FileManager.getInstance().createWriter(file);
             writer.write("[Map]");
             writer.newLine();
-            writer.write("image=" + mapObj.imageName);
+            writer.write("image=" + this.imageName);
             writer.newLine();
-            writer.write("wrap=" + mapObj.wrapFlag);
+            writer.write("wrap=" + this.wrapFlag);
             writer.newLine();
-            writer.write("author=" + mapObj.authorName);
+            writer.write("author=" + this.authorName);
             writer.newLine();
-            writer.write("scroll=" + mapObj.scrollLine);
+            writer.write("scroll=" + this.scrollLine);
             writer.newLine();
-            writer.write("warn=" + mapObj.warnFlag);
+            writer.write("warn=" + this.warnFlag);
             writer.newLine();
             writer.write("[Continents]");
             writer.newLine();
             Log.e(TAG, "CHECKING..!!");
-            for (Continent contObj : mapObj.getContinentList()) {
+            for (Continent contObj : this.getContinentList()) {
                 writer.write(contObj.getContName().toString() + " " + Integer.toString(contObj.getScore()));
                 writer.newLine();
             }
             writer.newLine();
             writer.write("[Territories]");
             writer.newLine();
-            for (Territory terrObj : mapObj.getTerritoryList()) {
+            for (Territory terrObj : this.getTerritoryList()) {
                 StringBuffer finStr = new StringBuffer(terrObj.getTerritoryName().toString() + ", " + terrObj.getCenterPoint().x + ", " + terrObj.getCenterPoint().y + ", " + terrObj.getContinent().getContName().toString());
                 for (int i = 0; i < terrObj.getNeighbourList().size(); i++) {
                     finStr.append(", " + terrObj.getNeighbourList().get(i).getTerritoryName().toString());

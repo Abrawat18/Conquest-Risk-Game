@@ -8,6 +8,10 @@ public class Continent {
     private int score;
     private Player contOwner;
 
+    public Continent() {
+
+    }
+
     public String getContName() {
         return contName;
     }
@@ -35,5 +39,16 @@ public class Continent {
     public Continent(String contName, int score) {
         this.contName = contName;
         this.score = score;
+    }
+
+    public  Continent(String ContName){
+        this.contName = getContName();
+    }
+    public Continent copyContinent(){
+        Continent continent = new Continent();
+        continent.setContName(this.getContName());
+        continent.setScore(this.getScore());
+        continent.setContOwner(this.getContOwner());
+        return continent;
     }
 }

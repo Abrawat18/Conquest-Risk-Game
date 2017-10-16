@@ -57,8 +57,6 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     private ListView listSuggestContinent;
     private ListView listSuggestTerritory;
     private ListView listTerritory;
-    private List<Continent> continentList;
-    private List<Territory> territoryList;
     private List<Continent> continentSuggestList;
     private List<Territory> territorySuggestList;
     private LinearLayout linearTerritory;
@@ -124,10 +122,12 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                sweetAlertDialog.dismiss();
-                                map.addRemoveContinentFromMap(continentSuggestList.get(position), 'A');
+                                ConfigurableMessage config = map.addRemoveContinentFromMap(continentSuggestList.get(position).copyContinent(), 'A');
+                                if (config.getMsgCode() == 0) {
+                                    Toast.makeText(MapEditorActivity.this, config.getMsgText(), Toast.LENGTH_SHORT).show();
+                                }
                                 continentAdapter.notifyDataSetChanged();
-
+                                sweetAlertDialog.dismiss();
                             }
                         })
                         .show();
@@ -168,7 +168,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 sweetAlertDialog.dismiss();
-                                newTerritory = territorySuggestList.get(position);
+                                newTerritory = territorySuggestList.get(position).copyTerritory();
                                 Toast.makeText(MapEditorActivity.this, "Touch on Map to add territory", Toast.LENGTH_SHORT).show();
                                 isWaitingForUserTouchOnAddTerritory = true;
                             }
@@ -213,8 +213,6 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     }
 
     private void initialization() throws JSONException {
-        territoryList = new ArrayList<>();
-        continentList = new ArrayList<>();
         setMap(new GameMap());
         getSuggestedContinentList();
         getSuggestedTerritoryList();
@@ -285,12 +283,16 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         if (isWaitingForUserTouchOnAddTerritory && newTerritory != null) {
             newTerritory.setCenterPoint((int) x, (int) y);
             newTerritory.setContinent(selectedContinent);
-            map.addRemoveTerritoryFromMap(newTerritory, 'A');
+            ConfigurableMessage config = map.addRemoveTerritoryFromMap(newTerritory, 'A');
             newTerritory = null;
             isWaitingForUserTouchOnAddTerritory = false;
-            showMap();
+            if (config.getMsgCode() == 0) {
+                Toast.makeText(this, config.getMsgText(), Toast.LENGTH_SHORT).show();
+            } else {
+
+                showMap();
+            }
         }
-        continentAdapter.notifyDataSetChanged();
         territoryAdapter.notifyDataSetChanged();
         return false;
     }
@@ -346,6 +348,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     }
 
     private void addCustomContinent() {
+        editCustomContinent = new EditText(this);
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
         sweetAlertDialog.setTitleText(" Please Enter Continent Name")
                 .setConfirmText("Ok")
@@ -353,7 +356,6 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
                         if (!TextUtils.isEmpty(editCustomContinent.getText().toString())) {
                             newContinent = new Continent(editCustomContinent.getText().toString(), 1);
                         }
@@ -364,6 +366,9 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                             // TODO :: Do something with error
                             Toast.makeText(MapEditorActivity.this, message.getMsgText(), Toast.LENGTH_SHORT).show();
                         }
+                        continentAdapter.notifyDataSetChanged();
+                        editCustomContinent = null;
+                        sweetAlertDialog.dismiss();
                     }
                 })
                 .show();
@@ -375,6 +380,34 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         linearContinent.setVisibility(View.GONE);
         linearAddTerritory.setVisibility(View.GONE);
         linearTerritory.setVisibility(View.GONE);
+    }
+
+    private void saveToMap() {
+        final EditText editMapName = new EditText(this);
+        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MapEditorActivity.this, SweetAlertDialog.NORMAL_TYPE);
+        sweetAlertDialog.setTitleText("Do you want to save Map ?")
+                .setConfirmText("Yes")
+                .setCancelText("No")
+                .setCustomView(editMapName)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        if (!TextUtils.isEmpty(editMapName.getText())) {
+                            File mapFile = FileManager.getInstance().getMapFilePath(editMapName.getText().toString() + ".map");
+                            map.writeDataToFile(mapFile);
+                            MapEditorActivity.this.finish();
+                        }
+                    }
+                })
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
+                        MapEditorActivity.this.finish();
+
+                    }
+                });
+        sweetAlertDialog.show();
     }
 
     @Override
@@ -404,33 +437,11 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         } else if (linearTerritory.getVisibility() == View.VISIBLE) {
             hideAllLinearLayouts();
             linearContinent.setVisibility(View.VISIBLE);
-
         } else if (linearAddTerritory.getVisibility() == View.VISIBLE) {
             hideAllLinearLayouts();
             linearTerritory.setVisibility(View.VISIBLE);
         } else if (linearContinent.getVisibility() == View.VISIBLE) {
-            final EditText editMapName = new EditText(this);
-            SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MapEditorActivity.this, SweetAlertDialog.NORMAL_TYPE);
-            sweetAlertDialog.setTitleText("Do you want to save Map ?")
-                    .setConfirmText("Yes")
-                    .setCancelText("No")
-                    .setCustomView(editMapName)
-                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                            if (!TextUtils.isEmpty(editMapName.getText())) {
-                                File fileName = FileManager.getInstance().getMapFilePath(editMapName.getText().toString() + ".map");
-
-                            }
-                        }
-                    })
-                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-
-                        }
-                    });
-            super.onBackPressed();
+            saveToMap();
 
         }
     }

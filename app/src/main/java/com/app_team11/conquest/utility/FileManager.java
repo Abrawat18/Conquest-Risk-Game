@@ -11,39 +11,56 @@ import java.util.List;
 public class FileManager {
 
     private static FileManager fileManager;
-    private FileManager(){
+
+    private FileManager() {
 
     }
-    public static FileManager getInstance(){
-        if(fileManager==null){
-            fileManager  = new FileManager();
+
+    public static FileManager getInstance() {
+        if (fileManager == null) {
+            fileManager = new FileManager();
         }
         return fileManager;
     }
-    public BufferedWriter createWriter(String filePath)
-    {   BufferedWriter writer=null;
-        try {
-             writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(filePath), "utf-8"));
-        }
-        catch(FileNotFoundException fnf){
-            fnf.printStackTrace();
-        }
 
-        catch(UnsupportedEncodingException uex){
+    public BufferedWriter createWriter(String filePath) {
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(filePath), "utf-8"));
+        } catch (FileNotFoundException fnf) {
+            fnf.printStackTrace();
+        } catch (UnsupportedEncodingException uex) {
             uex.printStackTrace();
         }
 
-            return writer;
+        return writer;
 
     }
+
+    public BufferedWriter createWriter(File file) {
+
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(file), "utf-8"));
+        } catch (FileNotFoundException fnf) {
+            fnf.printStackTrace();
+        } catch (UnsupportedEncodingException uex) {
+            uex.printStackTrace();
+        }
+
+        return writer;
+
+    }
+
     public File getMapFilePath(String finalName) {
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + "/map");
-        if(!myDir.exists()) {
+        if (!myDir.exists()) {
             myDir.mkdirs();
         }
-        File file = new File (myDir, finalName);
+        File file = new File(myDir, finalName);
         return file;
     }
 
@@ -53,7 +70,7 @@ public class FileManager {
         return myDir;
     }
 
-    public File[] getAllFileFromDir(File dir){
+    public File[] getAllFileFromDir(File dir) {
         return dir.listFiles();
     }
 
