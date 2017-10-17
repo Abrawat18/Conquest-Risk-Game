@@ -10,6 +10,10 @@ public class Constants {
     public static final String ASSETS_CONTINENT_FILE_NAME = "continent.json";
     public static final String ASSETS_TERRITORY_FILE_NAME = "territory.json";
     public static final String ROOT_MAP_DIR = "AllMaps";
+    public static final String KEY_FILE_PATH = "FilePath";
+    public static final String KEY_FROM = "FromWhichActivity";
+    public static final String VALUE_FROM_EDIT_MAP = "FromEditMap";
+    public static final String VALUE_FROM_PLAY_GAME = "FromGamePlay";
     public static String NEIGHBOURSIZEVALFAIL = "Maximum and Minimum number of neighbours allowed is 10 and 1 respectively";
     public static String CONTSIZEVALFAIL = "Minimum number of Continents in a map must be 1";
     public static String TERRSIZEVALFAIL = "Maximum and Minimum number of Territory in a map must be 255 and 1";

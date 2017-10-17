@@ -1,6 +1,7 @@
 package com.app_team11.conquest.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -22,12 +23,14 @@ import android.widget.Toast;
 import com.app_team11.conquest.R;
 import com.app_team11.conquest.adapter.ContinentAdapter;
 import com.app_team11.conquest.adapter.TerritoryAdapter;
+import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.model.Continent;
 import com.app_team11.conquest.model.GameMap;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.utility.MapManager;
+import com.app_team11.conquest.utility.ReadMapUtility;
 
 import org.json.JSONException;
 
@@ -215,7 +218,20 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     }
 
     private void initialization() throws JSONException {
-        setMap(new GameMap());
+        String filePathToLoad = null;
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle bundle = intent.getExtras();
+            if (bundle != null) {
+                filePathToLoad = bundle.getString(Constants.KEY_FILE_PATH);
+            }
+
+        }
+        if (!TextUtils.isEmpty(filePathToLoad)) {
+            setMap(new ReadMapUtility().readFile(filePathToLoad));
+        } else {
+            setMap(new GameMap());
+        }
         getSuggestedContinentList();
         getSuggestedTerritoryList();
     }

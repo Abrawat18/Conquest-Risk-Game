@@ -70,6 +70,12 @@ public class FileManager {
 
     }
 
+    public File[] getFileFromRootMapDir(){
+        String root = Environment.getExternalStorageDirectory().toString();
+        File myDir = new File(root + File.separator+ Constants.ROOT_MAP_DIR);
+        return myDir.listFiles();
+    }
+
     /**
      *
      * @param finalName
