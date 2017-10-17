@@ -5,8 +5,10 @@ import com.app_team11.conquest.global.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
+/**Player model class with cards, score and owned territories information
  * Created by Vasu on 08-10-2017.
+ *
+ *
  */
 
 public class Player {
@@ -50,6 +52,7 @@ public class Player {
 
     /**
      * Method to check if the player can trade in the cards
+     *
      */
     public void checkCardsForTradeIn() {
         int infantryCount = 0;
@@ -73,6 +76,7 @@ public class Player {
 
     /**
      * Method to calculate the total number of reinforcement army
+     *
      */
     public ReinforcementType calcReinforcementArmy(GameMap gameMap, boolean demandedCardTrade, int cardTradeCount) {
         int ownedTerritoryCount = 0;

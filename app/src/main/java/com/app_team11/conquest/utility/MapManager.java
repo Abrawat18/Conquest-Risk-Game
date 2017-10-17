@@ -30,6 +30,12 @@ public class MapManager {
         return mapManager;
     }
 
+    /**
+     *
+     * @param context
+     * @return
+     * @throws JSONException
+     */
     public List<Continent> getContinentListFromFile(Context context) throws JSONException {
         JSONArray continentJsonList = JsonLoader.getInstance().loadJSONFromAsset(context, Constants.ASSETS_CONTINENT_FILE_NAME);
         List<Continent> continentList = new ArrayList<>();
@@ -39,6 +45,12 @@ public class MapManager {
         return continentList;
     }
 
+    /**
+     *
+     * @param context
+     * @return
+     * @throws JSONException
+     */
     public List<Territory> getTerritoryListFromFile(Context context) throws JSONException {
         JSONArray territoryJsonList = JsonLoader.getInstance().loadJSONFromAsset(context, Constants.ASSETS_TERRITORY_FILE_NAME);
         List<Territory> territoryList = new ArrayList<>();
