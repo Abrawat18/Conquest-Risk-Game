@@ -63,11 +63,13 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     private LinearLayout linearAddTerritory;
     private LinearLayout linearContinent;
     private LinearLayout linearAddContinent;
+    private LinearLayout myLayout;
     private SurfaceView surface;
     private boolean isWaitingForUserTouchOnAddTerritory = false;
     private boolean isWaitingForUserTouchOnAddContinent = false;
     private EditText editCustomContinent;
     private EditText editCustomTerritory;
+    private EditText editContinentScore;
     private Continent newContinent;
     private Territory newTerritory;
     private TerritoryAdapter territorySuggestAdapter;
@@ -348,16 +350,21 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     }
 
     private void addCustomContinent() {
+        myLayout = new LinearLayout(this);
         editCustomContinent = new EditText(this);
+        editContinentScore = new EditText(this);
+        myLayout.setOrientation(LinearLayout.VERTICAL);
+        myLayout.addView(editCustomContinent);
+        myLayout.addView(editContinentScore);
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
         sweetAlertDialog.setTitleText(" Please Enter Continent Name")
                 .setConfirmText("Ok")
-                .setCustomView(editCustomContinent)
+                .setCustomView(myLayout)
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        if (!TextUtils.isEmpty(editCustomContinent.getText().toString())) {
-                            newContinent = new Continent(editCustomContinent.getText().toString(), 1);
+                        if (!TextUtils.isEmpty(editCustomContinent.getText().toString()) && !TextUtils.isEmpty(editContinentScore.getText().toString())) {
+                            newContinent = new Continent(editCustomContinent.getText().toString(), Integer.parseInt(editContinentScore.getText().toString()));
                         }
                         ConfigurableMessage message = map.addRemoveContinentFromMap(newContinent, 'A');
                         if (message.getMsgCode() == 1) {
