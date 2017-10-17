@@ -72,16 +72,20 @@ public class Player {
     }
 
     /**
-     * Method to calculate the total number of reinforcement army
+     * This method is used to calculate the total number of reinforcement armies
+     * @param gameMap
+     * @param demandedCardTrade
+     * @param cardTradeCount
+     * @param tradeInCards
+     * @return Reinforcement Army Count
      */
-    public ReinforcementType calcReinforcementArmy(GameMap gameMap, boolean demandedCardTrade, int cardTradeCount) {
+    public ReinforcementType calcReinforcementArmy(GameMap gameMap, boolean demandedCardTrade, int cardTradeCount, List<Cards> tradeInCards) {
         int ownedTerritoryCount = 0;
         int territoryArmy = 0;
         int continentArmy = 0;
         int cardArmy = 0;
         ReinforcementType reinforcementCount = new ReinforcementType();
         boolean ownedTerritoryCard = false;
-
         for (Territory terrObj : gameMap.getTerritoryList()) {
             if (terrObj.getTerritoryOwner().getPlayerId() == this.playerId) {
                 ownedTerritoryCount++;
@@ -96,7 +100,9 @@ public class Player {
         }
 
         if (demandedCardTrade) {
-            //// TODO: 08-10-2017 need to remove the selected cards from the cards list of the player in game play class
+            //// TODO: 08-10-2017 need to add the selected cards back to the total cards list
+            //// TODO: 17-10-2017 what happens when the total cards in the inventory finishes and there is no card left to give to the player when he wins any territory
+            this.getOwnedCards().removeAll(tradeInCards);
             cardArmy = cardTradeCount * 5; //multiplying 5 with the nth card trade of the game
             for (Territory terrObj : gameMap.getTerritoryList()) {
                 for (Cards cardObj : this.ownedCards) {

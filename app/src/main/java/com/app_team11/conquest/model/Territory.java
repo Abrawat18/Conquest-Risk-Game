@@ -19,7 +19,7 @@ public class Territory {
     private Continent continent;
     private List<Territory> neighbourList;
     private Player territoryOwner;
-    private  int armyCount;
+    private int armyCount;
 
     public Territory(String territoryName) {
         this.territoryName = territoryName;
@@ -27,7 +27,7 @@ public class Territory {
 
     public Territory(String territoryName, int centerX, int centerY, Continent continent) {
         this.territoryName = territoryName;
-        this.centerPoint = new Point(centerX,centerY);
+        this.centerPoint = new Point(centerX, centerY);
         this.continent = continent;
         this.neighbourList = new ArrayList();
     }
@@ -36,8 +36,8 @@ public class Territory {
 
     }
 
-    public Territory copyTerritory(){
-        Territory  territory = new Territory();
+    public Territory copyTerritory() {
+        Territory territory = new Territory();
         territory.setTerritoryName(this.getTerritoryName());
         territory.setCenterPoint(this.getCenterPoint());
         territory.setContinent(this.getContinent());
@@ -53,46 +53,49 @@ public class Territory {
 
     /**
      * to be called on click of add neighbours/connections
-     *  validation1 before saving a map - Validation to check if the number of neighbours not greater than 10
+     * validation1 before saving a map - Validation to check if the number of neighbours not greater than 10
+     *
      * @param terrObj
      * @return confirmationMessage
      */
-    public ConfigurableMessage addRemoveNeighbourToTerr(Territory terrObj, char addRemoveFlag)
-    {
-        if(addRemoveFlag == 'A') {
+    public ConfigurableMessage addRemoveNeighbourToTerr(Territory terrObj, char addRemoveFlag) {
+        if (addRemoveFlag == 'A') {
             if (this.neighbourList.size() <= 9) {
                 this.neighbourList.add(terrObj);
-                return new ConfigurableMessage(Constants.MSGSUCCCODE,Constants.ADDREMTOLISTSUCCESS);
+                return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.ADDREMTOLISTSUCCESS);
             } else
-                return new ConfigurableMessage(Constants.MSGFAILCODE,Constants.NEIGHBOURSIZEVALFAIL);
+                return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.NEIGHBOURSIZEVALFAIL);
 
-        }
-        else if(addRemoveFlag == 'R')
-        {
-            if (this.neighbourList.size() >= 2 ) {
+        } else if (addRemoveFlag == 'R') {
+            if (this.neighbourList.size() >= 2) {
                 this.neighbourList.remove(terrObj);
-                return new ConfigurableMessage(Constants.MSGSUCCCODE,Constants.ADDREMTOLISTSUCCESS);
+                return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.ADDREMTOLISTSUCCESS);
             } else
-                return new ConfigurableMessage(Constants.MSGFAILCODE,Constants.NEIGHBOURSIZEVALFAIL);
-        }
-        else
-            return new ConfigurableMessage(Constants.MSGFAILCODE,Constants.INCORRECTFLAG);
+                return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.NEIGHBOURSIZEVALFAIL);
+        } else
+            return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.INCORRECTFLAG);
     }
 
     /**
      * validation1 before saving a map - Validation to check if the number of neighbours not greater than 10
+     *
      * @param terrList
      * @return confirmationMessage
      */
-    public ConfigurableMessage addNeighbourToTerr(List<Territory> terrList)
-    {
+    public ConfigurableMessage addNeighbourToTerr(List<Territory> terrList) {
         this.neighbourList.addAll(terrList);
-        if(this.neighbourList.size()<=10) {
-            return new ConfigurableMessage(Constants.MSGSUCCCODE,Constants.ADDREMTOLISTSUCCESS);
-        }
-        else
-            return new ConfigurableMessage(Constants.MSGFAILCODE,Constants.NEIGHBOURSIZEVALFAIL);
+        if (this.neighbourList.size() <= 10) {
+            return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.ADDREMTOLISTSUCCESS);
+        } else
+            return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.NEIGHBOURSIZEVALFAIL);
 
+    }
+
+    public void addArmyToTerr(int addedArmyCount) {
+        if (this.getTerritoryOwner().getAvailableArmyCount() >= addedArmyCount) {
+            this.armyCount += addedArmyCount;
+            this.getTerritoryOwner().setAvailableArmyCount(this.getTerritoryOwner().getAvailableArmyCount() - addedArmyCount);
+        }
     }
 
     public String getTerritoryName() {
@@ -108,11 +111,11 @@ public class Territory {
     }
 
     public void setCenterPoint(int centerX, int centerY) {
-        this.centerPoint = new Point(centerX,centerY);
+        this.centerPoint = new Point(centerX, centerY);
     }
 
     public Continent getContinent() {
-           return continent;
+        return continent;
     }
 
     public void setContinent(Continent continent) {
@@ -126,6 +129,7 @@ public class Territory {
     public void setNeighbourList(List<Territory> neighbourList) {
         this.neighbourList = neighbourList;
     }
+
     public Player getTerritoryOwner() {
         return territoryOwner;
     }
