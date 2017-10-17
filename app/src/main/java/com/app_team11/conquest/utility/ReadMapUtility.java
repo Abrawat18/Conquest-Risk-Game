@@ -204,21 +204,15 @@ public class ReadMapUtility {
     public Continent searchContinent(String continentName) {
         for (int i = 0; i < continentList.size(); i++)
             if (continentList.get(i).getContName().equalsIgnoreCase(continentName)) {
-                //System.out.println("Continent Found");
                 return continentList.get(i);
             }
-        //System.out.println("Continent not found...");
         return null;
     }
 
     public void createTerritory(String tName, int X, int Y, Continent cont) {
         t = new Territory(tName, X, Y, tempContinent);
         territoryList.add(t);
-        //System.out.println("Territory added: "+t.getTerritoryName());
-        //System.out.println("Territory List size: "+territoryList.size());
-        //printTerritoryList();
-
-    }
+        }
 
     public void updateTerritory(String tName, String X, String Y, String continent, List<Territory> connectedT) {
         Territory tUpdate = searchTerritory(tName);
@@ -226,19 +220,17 @@ public class ReadMapUtility {
         tUpdate.setCenterPoint(Integer.parseInt(X), Integer.parseInt(Y));
         tUpdate.setContinent(cont);
         tUpdate.addNeighbourToTerr(connectedT);
-        //System.out.println("Territory Updated...");
-        //printTerritoryList();
-    }
+     }
 
     public void createTerritory(String tName, String X, String Y, String continent, List<Territory> connectedT) {
         Continent cont1 = searchContinent(continent);
         Territory tNew = new Territory(tName, Integer.parseInt(X), Integer.parseInt(Y), cont1);
         tNew.addNeighbourToTerr(connectedT);
         territoryList.add(tNew);
-        //System.out.println("Territory added...");
+        
     }
 
-    public List<Player> assignArmiesAndNames(int noOfPlayers) {
+    public List<Player> assignArmies(int noOfPlayers) {
 
         Player p = null;
 
@@ -251,17 +243,13 @@ public class ReadMapUtility {
         } else if (noOfPlayers == 6) {
             noOfArmies = 20;
         }
-        //Object[] playerNames=names.toArray();
-
         //***Add condition when noOfPlayers=2
         for (int i = 1; i <= noOfPlayers; i++) {
             p = new Player();
             p.setPlayerId(i);
-//            p.setPlayerName("P"+i);
             p.setAvailableArmyCount(noOfArmies);
             playerDetails.add(p);
         }
-        getFirstPlayer(playerDetails);
         return playerDetails;
     }
 
