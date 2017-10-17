@@ -27,5 +27,5 @@ public class Constants {
     public static String ARMY_ARTILLERY = "artillery";
     public static String DUPLICATE_CONTINENT="Continent already exists";
     public static String DUPLICATE_TERRITORY="Territory already exists";
-
+    public static final float TERRITORY_RADIUS = 100f;
 }

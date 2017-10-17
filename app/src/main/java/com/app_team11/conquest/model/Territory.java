@@ -61,8 +61,9 @@ public class Territory {
     public ConfigurableMessage addRemoveNeighbourToTerr(Territory terrObj, char addRemoveFlag)
     {
         if(addRemoveFlag == 'A') {
-            if (this.neighbourList.size() <= 9) {
+            if (this.neighbourList.size() <= 9  && terrObj.neighbourList.size() <=9) {
                 this.neighbourList.add(terrObj);
+                terrObj.neighbourList.add(this);
                 return new ConfigurableMessage(Constants.MSGSUCCCODE,Constants.ADDREMTOLISTSUCCESS);
             } else
                 return new ConfigurableMessage(Constants.MSGFAILCODE,Constants.NEIGHBOURSIZEVALFAIL);
@@ -70,8 +71,9 @@ public class Territory {
         }
         else if(addRemoveFlag == 'R')
         {
-            if (this.neighbourList.size() >= 2 ) {
+            if (this.neighbourList.size() >= 2 && terrObj.neighbourList.size()>=2) {
                 this.neighbourList.remove(terrObj);
+                terrObj.neighbourList.remove(this);
                 return new ConfigurableMessage(Constants.MSGSUCCCODE,Constants.ADDREMTOLISTSUCCESS);
             } else
                 return new ConfigurableMessage(Constants.MSGFAILCODE,Constants.NEIGHBOURSIZEVALFAIL);
