@@ -285,22 +285,7 @@ public class ReadMapUtility {
         int rnd = new Random().nextInt(Players.size());
         return Players.get(rnd);
     }
-    public void printPlayerList()
-    {
-        System.out.println("~~~~~~~~~~~~~~~~~~~~Player List~~~~~~~~~~~~~~~~~~~~");
-        for(int i=0;i<playerDetails.size();i++)
-        {
-            /*System.out.println("Player "+playerDetails.get(i).getPlayerNo()+": "+playerDetails.get(i).getPlayerName()+"\n"+
-                   playerDetails.get(i).getNoOfInfantry());
-            
-            if(playerDetails.get(i).getPlayerOwnedTerritoriesList().size()>0)
-             for(int j=0;j<playerDetails.get(i).getPlayerOwnedTerritoriesList().size();j++)
-            {
-                System.out.println("owned territory: "+playerDetails.get(i).getPlayerOwnedTerritoriesList().get(j).getTerritoryName());
-            }   */
-        }
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    }
+    
     public List<Player> randomlyAssignCountries(List<Player> Players, List<Territory> Territories) {
         int Tcount = 0,Pcount=0;
         Collections.shuffle(Territories);
