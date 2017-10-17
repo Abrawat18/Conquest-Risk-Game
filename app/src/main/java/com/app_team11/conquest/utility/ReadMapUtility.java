@@ -285,32 +285,19 @@ public class ReadMapUtility {
         int rnd = new Random().nextInt(Players.size());
         return Players.get(rnd);
     }
-    public void printPlayerList()
-    {
-        System.out.println("~~~~~~~~~~~~~~~~~~~~Player List~~~~~~~~~~~~~~~~~~~~");
-        for(int i=0;i<playerDetails.size();i++)
-        {
-            /*System.out.println("Player "+playerDetails.get(i).getPlayerNo()+": "+playerDetails.get(i).getPlayerName()+"\n"+
-                   playerDetails.get(i).getNoOfInfantry());
-            
-            if(playerDetails.get(i).getPlayerOwnedTerritoriesList().size()>0)
-             for(int j=0;j<playerDetails.get(i).getPlayerOwnedTerritoriesList().size();j++)
-            {
-                System.out.println("owned territory: "+playerDetails.get(i).getPlayerOwnedTerritoriesList().get(j).getTerritoryName());
-            }   */
-        }
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    }
+    
     public List<Player> randomlyAssignCountries(List<Player> Players, List<Territory> Territories) {
         int Tcount = 0,Pcount=0;
         Collections.shuffle(Territories);
         while (Territories.size() > 0 && Tcount<Territories.size())
         {
+            //for (int i = 1; i <= Players.size(); i++) 
             System.out.println("Tcount value: "+Tcount);
             while (Players.size()> 0) 
             {
-                System.out.println(Territories.get(Tcount).getTerritoryName()+" Territory assigned to" +Players.get(Pcount).getPlayerNo());
-                Players.get(Pcount).addOwnedTerritorySingle(Territories.get(Tcount));
+                System.out.println(Territories.get(Tcount).getTerritoryName()+" Territory assigned to" +Players.get(Pcount).getPlayerId());
+                //Players.get(Pcount).addOwnedTerritorySingle(Territories.get(Tcount));
+                Territories.get(Tcount).setTerritoryOwner(Players.get(Pcount));
                 if (Pcount == Players.size()-1) 
                 {
                     Pcount = -1;
@@ -320,7 +307,7 @@ public class ReadMapUtility {
             }
             Tcount++;
             Pcount++;
-        printPlayerList();
+
         }
         return Players;
     }
