@@ -23,6 +23,7 @@ public class Territory {
 
     public Territory(String territoryName) {
         this.territoryName = territoryName;
+        this.neighbourList = new ArrayList();
     }
 
     public Territory(String territoryName, int centerX, int centerY, Continent continent) {
@@ -33,7 +34,7 @@ public class Territory {
     }
 
     public Territory() {
-
+        this.neighbourList = new ArrayList();
     }
 
     public Territory copyTerritory(){

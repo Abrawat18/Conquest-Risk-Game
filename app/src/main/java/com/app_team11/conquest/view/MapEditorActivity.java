@@ -342,6 +342,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     }
 
     private void addCustomTerritory() {
+        editCustomTerritory = new EditText(this);
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
         sweetAlertDialog.setTitleText("Please Enter Territory Name")
                 .setConfirmText("Ok")
@@ -415,6 +416,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
                         if (!TextUtils.isEmpty(editMapName.getText())) {
                             File mapFile = FileManager.getInstance().getMapFilePath(editMapName.getText().toString() + ".map");
                             map.writeDataToFile(mapFile);

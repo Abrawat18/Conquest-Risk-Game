@@ -30,6 +30,8 @@
         <activity
             android:name=".view.MapEditorActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".view.MapSelectionAndInitializationActivity"/>
+        <activity android:name=".view.GamePlayActivity"/>
     </application>
 
 </manifest>
