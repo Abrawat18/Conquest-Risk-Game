@@ -279,8 +279,10 @@ public class ReadMapUtility {
             System.out.println("Tcount value: "+Tcount);
             while (Players.size()> 0) 
             {
-                System.out.println(Territories.get(Tcount).getTerritoryName()+" Territory assigned to" +Players.get(Pcount).getPlayerId());
                 Territories.get(Tcount).setTerritoryOwner(Players.get(Pcount));
+                Territories.get(Tcount).setArmyCount(1);
+                int singleArmies=Players.get(Pcount).getAvailableArmyCount()-1;
+                Players.get(Pcount).setAvailableArmyCount(singleArmies);
                 if (Pcount == Players.size()-1) 
                 {
                     Pcount = -1;
@@ -290,6 +292,7 @@ public class ReadMapUtility {
             }
             Tcount++;
             Pcount++;
+
         }
         return Players;
     }
