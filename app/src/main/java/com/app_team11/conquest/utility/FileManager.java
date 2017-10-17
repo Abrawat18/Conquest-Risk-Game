@@ -2,6 +2,8 @@ package com.app_team11.conquest.utility;
 
 import android.os.Environment;
 
+import com.app_team11.conquest.global.Constants;
+
 import java.io.*;
 import java.util.List;
 
@@ -75,7 +77,7 @@ public class FileManager {
      */
     public File getMapFilePath(String finalName) {
         String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + "/map");
+        File myDir = new File(root + File.separator+ Constants.ROOT_MAP_DIR);
         if (!myDir.exists()) {
             myDir.mkdirs();
         }

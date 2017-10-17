@@ -3,11 +3,14 @@ package com.app_team11.conquest.utility;
 /**
  * Created by Nigel on 13-Oct-17.
  */
+
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.model.Continent;
 import com.app_team11.conquest.model.Player;
@@ -16,7 +19,7 @@ public class ReadMapUtility {
     int noOfArmies;
     String currentPart, line = null;
     String[] params;
-    Territory t, tConnected,t2;
+    Territory t, tConnected, t2;
     Continent c;
     List<Territory> territoryList = new ArrayList<Territory>();
     List<Continent> continentList = new ArrayList<Continent>();
@@ -24,7 +27,7 @@ public class ReadMapUtility {
     List<Player> playerDetails = new ArrayList<Player>();
     //GameMap gameMap = new GameMap();
     boolean stop = false;
-    Continent tempContinent=new Continent("tempContinent",0);
+    Continent tempContinent = new Continent("tempContinent", 0);
 
     public List<Territory> currentTerritories() {
         return territoryList;
@@ -74,27 +77,20 @@ public class ReadMapUtility {
                             //System.out.println("Territory: "+ line);
                             //for neighbours
                             params = line.split("\\,");
-                            for (int i = 4; i < params.length; i++)
-                            {
-                                if(ifTerritoryExists(params[i]))
-                                {
-                                    tConnected=searchTerritory(params[i]);
-                                }
-                                else
-                                {
-                                    createTerritory(params[i],0,0,null);
-                                    tConnected=searchTerritory(params[i]);
+                            for (int i = 4; i < params.length; i++) {
+                                if (ifTerritoryExists(params[i])) {
+                                    tConnected = searchTerritory(params[i]);
+                                } else {
+                                    createTerritory(params[i], 0, 0, null);
+                                    tConnected = searchTerritory(params[i]);
                                 }
                                 connectedTerritories.add(tConnected);
                             }
                             //for main territory
-                            if(ifTerritoryExists(params[0]))
-                            {
-                                updateTerritory(params[0],params[1],params[2],params[3],connectedTerritories);
-                            }
-                            else
-                            {
-                                createTerritory(params[0],Integer.parseInt(params[1]),Integer.parseInt(params[2]),setContinent(params[3]));
+                            if (ifTerritoryExists(params[0])) {
+                                updateTerritory(params[0], params[1], params[2], params[3], connectedTerritories);
+                            } else {
+                                createTerritory(params[0], Integer.parseInt(params[1]), Integer.parseInt(params[2]), setContinent(params[3]));
                             }
 
 
@@ -163,9 +159,8 @@ public class ReadMapUtility {
     }
 
 
-
     public void printTerritoryList() {
-        System.out.println("TerritoryList size: "+territoryList.size());
+        System.out.println("TerritoryList size: " + territoryList.size());
         for (int i = 0; i < territoryList.size(); i++) {
             System.out.println("===============Territory List=========================");
             System.out.println(territoryList.get(i).getTerritoryName() + "\t"
@@ -173,11 +168,10 @@ public class ReadMapUtility {
                     + territoryList.get(i).getContinent().getContName() + "\t"
             );
 
-            if(territoryList.get(i).getNeighbourList().size()>0)
-                for(int j=0; j<territoryList.get(i).getNeighbourList().size();j++)
-                {
-                    System.out.println("Size: "+territoryList.get(i).getNeighbourList().size());
-                    System.out.println("Neighbouring "+j+": "+territoryList.get(i).getNeighbourList().get(j).getTerritoryName());
+            if (territoryList.get(i).getNeighbourList().size() > 0)
+                for (int j = 0; j < territoryList.get(i).getNeighbourList().size(); j++) {
+                    System.out.println("Size: " + territoryList.get(i).getNeighbourList().size());
+                    System.out.println("Neighbouring " + j + ": " + territoryList.get(i).getNeighbourList().get(j).getTerritoryName());
                 }
             System.out.println("=====================================================");
         }
@@ -191,40 +185,36 @@ public class ReadMapUtility {
         }
     }
 
-    public boolean ifTerritoryExists(String territoryName)
-    {
-        for(int i=0;i<territoryList.size();i++)
-        {
-            if(territoryList.get(i).getTerritoryName().equalsIgnoreCase(territoryName))
+    public boolean ifTerritoryExists(String territoryName) {
+        for (int i = 0; i < territoryList.size(); i++) {
+            if (territoryList.get(i).getTerritoryName().equalsIgnoreCase(territoryName))
                 return true;
         }
         return false;
     }
-    public Territory searchTerritory(String territoryName)
-    {
-        for(int i=0;i<territoryList.size();i++)
-            if(territoryList.get(i).getTerritoryName().equalsIgnoreCase(territoryName))
-            {
+
+    public Territory searchTerritory(String territoryName) {
+        for (int i = 0; i < territoryList.size(); i++)
+            if (territoryList.get(i).getTerritoryName().equalsIgnoreCase(territoryName)) {
                 //System.out.println("Territory Found");
                 return territoryList.get(i);
             }
         //System.out.println("Territory not found");
         return null;
     }
-    public Continent searchContinent(String continentName)
-    {
-        for(int i=0;i<continentList.size();i++)
-            if(continentList.get(i).getContName().equalsIgnoreCase(continentName))
-            {
+
+    public Continent searchContinent(String continentName) {
+        for (int i = 0; i < continentList.size(); i++)
+            if (continentList.get(i).getContName().equalsIgnoreCase(continentName)) {
                 //System.out.println("Continent Found");
                 return continentList.get(i);
             }
         //System.out.println("Continent not found...");
         return null;
     }
-    public void createTerritory(String tName,int X,int Y,Continent cont)
-    {
-        t=new Territory(tName, X, Y, tempContinent);
+
+    public void createTerritory(String tName, int X, int Y, Continent cont) {
+        t = new Territory(tName, X, Y, tempContinent);
         territoryList.add(t);
         //System.out.println("Territory added: "+t.getTerritoryName());
         //System.out.println("Territory List size: "+territoryList.size());
@@ -232,28 +222,26 @@ public class ReadMapUtility {
 
     }
 
-    public void updateTerritory(String tName, String X,String Y, String continent,List<Territory> connectedT)
-    {
-        Territory tUpdate=searchTerritory(tName);
-        Continent cont=searchContinent(continent);
-        tUpdate.setCenterPoint(Integer.parseInt(X),Integer.parseInt(Y));
+    public void updateTerritory(String tName, String X, String Y, String continent, List<Territory> connectedT) {
+        Territory tUpdate = searchTerritory(tName);
+        Continent cont = searchContinent(continent);
+        tUpdate.setCenterPoint(Integer.parseInt(X), Integer.parseInt(Y));
         tUpdate.setContinent(cont);
         tUpdate.addNeighbourToTerr(connectedT);
         //System.out.println("Territory Updated...");
         //printTerritoryList();
     }
 
-    public void createTerritory(String tName, String X,String Y, String continent,List<Territory> connectedT)
-    {
-        Continent cont1=searchContinent(continent);
-        Territory tNew=new Territory(tName, Integer.parseInt(X), Integer.parseInt(Y), cont1);
+    public void createTerritory(String tName, String X, String Y, String continent, List<Territory> connectedT) {
+        Continent cont1 = searchContinent(continent);
+        Territory tNew = new Territory(tName, Integer.parseInt(X), Integer.parseInt(Y), cont1);
         tNew.addNeighbourToTerr(connectedT);
         territoryList.add(tNew);
         //System.out.println("Territory added...");
     }
-    
+
     public List<Player> assignArmiesAndNames(int noOfPlayers) {
-        
+
         Player p = null;
 
         if (noOfPlayers == 3) {
@@ -266,11 +254,10 @@ public class ReadMapUtility {
             noOfArmies = 20;
         }
         //Object[] playerNames=names.toArray();
-        
+
         //***Add condition when noOfPlayers=2
-        for (int i = 1; i <= noOfPlayers; i++) 
-        {
-            p=new Player();
+        for (int i = 1; i <= noOfPlayers; i++) {
+            p = new Player();
             p.setPlayerId(i);
 //            p.setPlayerName("P"+i);
             p.setAvailableArmyCount(noOfArmies);
@@ -279,48 +266,32 @@ public class ReadMapUtility {
         getFirstPlayer(playerDetails);
         return playerDetails;
     }
-    
+
 
     public static Player getFirstPlayer(List<Player> Players) {
         int rnd = new Random().nextInt(Players.size());
         return Players.get(rnd);
     }
-    public void printPlayerList()
-    {
-        System.out.println("~~~~~~~~~~~~~~~~~~~~Player List~~~~~~~~~~~~~~~~~~~~");
-        for(int i=0;i<playerDetails.size();i++)
-        {
-            /*System.out.println("Player "+playerDetails.get(i).getPlayerNo()+": "+playerDetails.get(i).getPlayerName()+"\n"+
-                   playerDetails.get(i).getNoOfInfantry());
-            
-            if(playerDetails.get(i).getPlayerOwnedTerritoriesList().size()>0)
-             for(int j=0;j<playerDetails.get(i).getPlayerOwnedTerritoriesList().size();j++)
-            {
-                System.out.println("owned territory: "+playerDetails.get(i).getPlayerOwnedTerritoriesList().get(j).getTerritoryName());
-            }   */
-        }
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    }
+
     public List<Player> randomlyAssignCountries(List<Player> Players, List<Territory> Territories) {
-        int Tcount = 0,Pcount=0;
+        int Tcount = 0, Pcount = 0;
         Collections.shuffle(Territories);
-        while (Territories.size() > 0 && Tcount<Territories.size())
-        {
-            System.out.println("Tcount value: "+Tcount);
-            while (Players.size()> 0) 
-            {
-                System.out.println(Territories.get(Tcount).getTerritoryName()+" Territory assigned to" +Players.get(Pcount).getPlayerNo());
-                Players.get(Pcount).addOwnedTerritorySingle(Territories.get(Tcount));
-                if (Pcount == Players.size()-1) 
-                {
+        while (Territories.size() > 0 && Tcount < Territories.size()) {
+            //for (int i = 1; i <= Players.size(); i++) 
+            System.out.println("Tcount value: " + Tcount);
+            while (Players.size() > 0) {
+                System.out.println(Territories.get(Tcount).getTerritoryName() + " Territory assigned to" + Players.get(Pcount).getPlayerId());
+                //Players.get(Pcount).addOwnedTerritorySingle(Territories.get(Tcount));
+                Territories.get(Tcount).setTerritoryOwner(Players.get(Pcount));
+                if (Pcount == Players.size() - 1) {
                     Pcount = -1;
                 }
-                
+
                 break;
             }
             Tcount++;
             Pcount++;
-        printPlayerList();
+
         }
         return Players;
     }
