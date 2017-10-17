@@ -29,6 +29,8 @@ public class ReadMapUtility {
     boolean stop = false;
     Continent tempContinent = new Continent("tempContinent", 0);
     GameMap gm=new GameMap();
+    List<Territory> tempT=new ArrayList<Territory>();
+    
 
     public List<Territory> currentTerritories() {
         return territoryList;
@@ -221,15 +223,19 @@ public class ReadMapUtility {
         Continent cont = searchContinent(continent);
         tUpdate.setCenterPoint(Integer.parseInt(X), Integer.parseInt(Y));
         tUpdate.setContinent(cont);
-        tUpdate.addNeighbourToTerr(connectedT);
-     }
+        tempT=new ArrayList<Territory>();
+        tempT.add(tUpdate);
+        tUpdate.setNeighbourList(tempT);
+        
+    }
 
     public void createTerritory(String tName, String X, String Y, String continent, List<Territory> connectedT) {
         Continent cont1 = searchContinent(continent);
         Territory tNew = new Territory(tName, Integer.parseInt(X), Integer.parseInt(Y), cont1);
-        tNew.addNeighbourToTerr(connectedT);
+        tempT=new ArrayList<Territory>();
+        tempT.add(tNew);
+        tNew.setNeighbourList(connectedT);
         territoryList.add(tNew);
-        
     }
 
     public List<Player> assignArmies(int noOfPlayers) {
