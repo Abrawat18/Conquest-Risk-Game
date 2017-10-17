@@ -25,7 +25,6 @@ public class ReadMapUtility {
     List<Continent> continentList = new ArrayList<Continent>();
     List<Territory> connectedTerritories = new ArrayList<Territory>();
     List<Player> playerDetails = new ArrayList<Player>();
-    //GameMap gameMap = new GameMap();
     boolean stop = false;
     Continent tempContinent = new Continent("tempContinent", 0);
 
@@ -33,7 +32,7 @@ public class ReadMapUtility {
         return territoryList;
     }
 
-    public void readFile(String filePath) {
+    public GameMap readFile(String filePath) {
 
         try {
             FileReader f = new FileReader(filePath);
@@ -42,70 +41,65 @@ public class ReadMapUtility {
             while (sc.hasNext()) {
                 line = sc.nextLine();
 
-                switch (findCurrentPart(line)) //findCurrentPart(line)
+                switch (findCurrentPart(line)) 
                 {
-                    case "map": //System.out.println("====In Map switch case======");
+                    case "map": 
 
                         line = sc.nextLine();
                         while (!line.contains("[") && !line.isEmpty()) {
-                            //System.out.println("Map: "+line);
-                            //params=line.split("\\=");
-                            //System.out.println("Map params: "+params[0]);
                             line = sc.nextLine();
 
                         }
                         break;
 
-                    case "continent"://System.out.println("===In continent switch case===");
+                    case "continent":
                         line = sc.nextLine();
                         while (!line.contains("[") && !line.isEmpty() && sc.hasNext()) {
-                            //System.out.println("Continent: "+line);
-
-                            //System.out.println("Line: "+line);
                             params = line.split("\\=");
                             c = new Continent(params[0], Integer.parseInt(params[1]));
                             continentList.add(c);
                             line = sc.nextLine();
                         }
-                        //for(int i=0;i<continentList.size();i++)
-                        //System.out.println(">>>>continentList: "+continentList.get(i).getContName()+ " Score: "+continentList.get(i).getScore());
                         break;
 
-                    case "territory"://System.out.println("===In territory switch case===");
+                    case "territory":
                         line = sc.nextLine();
                         while (!line.contains("[") && !line.isEmpty()) {
-                            //System.out.println("Territory: "+ line);
                             //for neighbours
                             params = line.split("\\,");
-                            for (int i = 4; i < params.length; i++) {
-                                if (ifTerritoryExists(params[i])) {
-                                    tConnected = searchTerritory(params[i]);
-                                } else {
-                                    createTerritory(params[i], 0, 0, null);
-                                    tConnected = searchTerritory(params[i]);
+                            for (int i = 4; i < params.length; i++) 
+                            {
+                                if(ifTerritoryExists(params[i]))
+                                {
+                                    tConnected=searchTerritory(params[i]);
+                                }
+                                else
+                                {
+                                    createTerritory(params[i],0,0,null);
+                                    tConnected=searchTerritory(params[i]);
                                 }
                                 connectedTerritories.add(tConnected);
                             }
                             //for main territory
-                            if (ifTerritoryExists(params[0])) {
-                                updateTerritory(params[0], params[1], params[2], params[3], connectedTerritories);
-                            } else {
-                                createTerritory(params[0], Integer.parseInt(params[1]), Integer.parseInt(params[2]), setContinent(params[3]));
+                            if(ifTerritoryExists(params[0]))
+                            {
+                                updateTerritory(params[0],params[1],params[2],params[3],connectedTerritories);
                             }
-
-
+                            else
+                            {
+                                createTerritory(params[0],Integer.parseInt(params[1]),Integer.parseInt(params[2]),setContinent(params[3]));
+                            }
+                            
+                            
                             if (sc.hasNext()) {
                                 line = sc.nextLine();
 
                             } else {
                                 break;
                             }
-
+                            
                         }
-                        //System.out.println("&&&&TerritoryList Size: "+territoryList.size());
-                        //for(int i=0;i<territoryList.size();i++)
-                        //System.out.println(">>>>TerritoryList: "+territoryList.get(0).getTerritoryName());
-                        break;
+                         break;
 
                 }
             }
@@ -114,6 +108,10 @@ public class ReadMapUtility {
             System.out.println("Exception" + e);
             e.printStackTrace();
         }
+        GameMap gm=new GameMap();
+        gm.setContinentList(continentList);
+        gm.setTerritoryList(territoryList);
+        return gm;
 
     }
 
