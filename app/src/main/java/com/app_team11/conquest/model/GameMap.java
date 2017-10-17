@@ -157,11 +157,32 @@ public class GameMap {
 
     }
 
+    /**
+     * This method is used to return the territories for the given continent
+     * @param contObj
+     * @return Territory List
+     */
     public List<Territory> getTerrForCont(Continent contObj)
      {
          List<Territory> terrList = new ArrayList<Territory>();
          for(Territory obj: this.getTerritoryList()){
              if(obj.getContinent().getContName().equalsIgnoreCase(contObj.getContName())){
+                 terrList.add(obj);
+             }
+         }
+         return terrList;
+     }
+
+    /**
+     * The method is used to return the territory list owned by the given Player
+     * @param playerObj
+     * @return Territory List
+     */
+     public List<Territory> getTerrForPlayer(Player playerObj)
+     {
+         List<Territory> terrList = new ArrayList<Territory>();
+         for(Territory obj: this.getTerritoryList()){
+             if(playerObj.getPlayerId() == obj.getTerritoryOwner().getPlayerId()){
                  terrList.add(obj);
              }
          }
