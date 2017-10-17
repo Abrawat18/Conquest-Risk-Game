@@ -5,7 +5,7 @@ import com.app_team11.conquest.global.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
+/**Player model class with cards, score and owned territories information
  * Created by Vasu on 08-10-2017.
  */
 

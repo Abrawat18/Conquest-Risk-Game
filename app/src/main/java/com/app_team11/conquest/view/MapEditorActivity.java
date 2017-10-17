@@ -1,6 +1,7 @@
 package com.app_team11.conquest.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -22,12 +23,14 @@ import android.widget.Toast;
 import com.app_team11.conquest.R;
 import com.app_team11.conquest.adapter.ContinentAdapter;
 import com.app_team11.conquest.adapter.TerritoryAdapter;
+import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.model.Continent;
 import com.app_team11.conquest.model.GameMap;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.utility.MapManager;
+import com.app_team11.conquest.utility.ReadMapUtility;
 
 import org.json.JSONException;
 
@@ -63,11 +66,13 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     private LinearLayout linearAddTerritory;
     private LinearLayout linearContinent;
     private LinearLayout linearAddContinent;
+    private LinearLayout myLayout;
     private SurfaceView surface;
     private boolean isWaitingForUserTouchOnAddTerritory = false;
     private boolean isWaitingForUserTouchOnAddContinent = false;
     private EditText editCustomContinent;
     private EditText editCustomTerritory;
+    private EditText editContinentScore;
     private Continent newContinent;
     private Territory newTerritory;
     private TerritoryAdapter territorySuggestAdapter;
@@ -213,7 +218,20 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     }
 
     private void initialization() throws JSONException {
-        setMap(new GameMap());
+        String filePathToLoad = null;
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle bundle = intent.getExtras();
+            if (bundle != null) {
+                filePathToLoad = bundle.getString(Constants.KEY_FILE_PATH);
+            }
+
+        }
+        if (!TextUtils.isEmpty(filePathToLoad)) {
+            setMap(new ReadMapUtility().readFile(filePathToLoad));
+        } else {
+            setMap(new GameMap());
+        }
         getSuggestedContinentList();
         getSuggestedTerritoryList();
     }
@@ -324,6 +342,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     }
 
     private void addCustomTerritory() {
+        editCustomTerritory = new EditText(this);
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
         sweetAlertDialog.setTitleText("Please Enter Territory Name")
                 .setConfirmText("Ok")
@@ -348,16 +367,21 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     }
 
     private void addCustomContinent() {
+        myLayout = new LinearLayout(this);
         editCustomContinent = new EditText(this);
+        editContinentScore = new EditText(this);
+        myLayout.setOrientation(LinearLayout.VERTICAL);
+        myLayout.addView(editCustomContinent);
+        myLayout.addView(editContinentScore);
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
         sweetAlertDialog.setTitleText(" Please Enter Continent Name")
                 .setConfirmText("Ok")
-                .setCustomView(editCustomContinent)
+                .setCustomView(myLayout)
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        if (!TextUtils.isEmpty(editCustomContinent.getText().toString())) {
-                            newContinent = new Continent(editCustomContinent.getText().toString(), 1);
+                        if (!TextUtils.isEmpty(editCustomContinent.getText().toString()) && !TextUtils.isEmpty(editContinentScore.getText().toString())) {
+                            newContinent = new Continent(editCustomContinent.getText().toString(), Integer.parseInt(editContinentScore.getText().toString()));
                         }
                         ConfigurableMessage message = map.addRemoveContinentFromMap(newContinent, 'A');
                         if (message.getMsgCode() == 1) {
@@ -392,6 +416,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
                         if (!TextUtils.isEmpty(editMapName.getText())) {
                             File mapFile = FileManager.getInstance().getMapFilePath(editMapName.getText().toString() + ".map");
                             map.writeDataToFile(mapFile);

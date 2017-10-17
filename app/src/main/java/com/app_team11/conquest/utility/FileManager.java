@@ -2,10 +2,12 @@ package com.app_team11.conquest.utility;
 
 import android.os.Environment;
 
+import com.app_team11.conquest.global.Constants;
+
 import java.io.*;
 import java.util.List;
 
-/**
+/**File Manager Class is used for reading , writing of files and performing relevant operations
  * Created by Vasu on 06-10-2017.
  */
 public class FileManager {
@@ -16,6 +18,10 @@ public class FileManager {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public static FileManager getInstance() {
         if (fileManager == null) {
             fileManager = new FileManager();
@@ -23,6 +29,11 @@ public class FileManager {
         return fileManager;
     }
 
+    /**
+     *
+     * @param filePath
+     * @return
+     */
     public BufferedWriter createWriter(String filePath) {
         BufferedWriter writer = null;
         try {
@@ -38,6 +49,11 @@ public class FileManager {
 
     }
 
+    /**
+     *
+     * @param file
+     * @return
+     */
     public BufferedWriter createWriter(File file) {
 
         BufferedWriter writer = null;
@@ -54,9 +70,20 @@ public class FileManager {
 
     }
 
+    public File[] getFileFromRootMapDir(){
+        String root = Environment.getExternalStorageDirectory().toString();
+        File myDir = new File(root + File.separator+ Constants.ROOT_MAP_DIR);
+        return myDir.listFiles();
+    }
+
+    /**
+     *
+     * @param finalName
+     * @return
+     */
     public File getMapFilePath(String finalName) {
         String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + "/map");
+        File myDir = new File(root + File.separator+ Constants.ROOT_MAP_DIR);
         if (!myDir.exists()) {
             myDir.mkdirs();
         }
@@ -64,12 +91,21 @@ public class FileManager {
         return file;
     }
 
+    /**
+     *
+     * @return
+     */
     public File getMapFileDirectory() {
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + "/map");
         return myDir;
     }
 
+    /**
+     *
+     * @param dir
+     * @return
+     */
     public File[] getAllFileFromDir(File dir) {
         return dir.listFiles();
     }

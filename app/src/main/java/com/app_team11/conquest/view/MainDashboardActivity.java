@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.app_team11.conquest.R;
+import com.app_team11.conquest.global.Constants;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -63,6 +64,11 @@ public class MainDashboardActivity extends Activity implements View.OnClickListe
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         sweetAlertDialog.dismissWithAnimation();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constants.KEY_FROM,Constants.VALUE_FROM_EDIT_MAP);
+                        Intent intent = new Intent(MainDashboardActivity.this,MapSelectionAndInitializationActivity.class);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
                     }
                 })
                 .show();

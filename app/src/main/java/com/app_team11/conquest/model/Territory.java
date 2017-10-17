@@ -9,7 +9,7 @@ import com.app_team11.conquest.global.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
+/**Territory model class with name of territory,position,neighbours,owner,army count,etc
  * Created by Vasu on 06-10-2017.
  */
 public class Territory {
@@ -23,6 +23,7 @@ public class Territory {
 
     public Territory(String territoryName) {
         this.territoryName = territoryName;
+        this.neighbourList = new ArrayList();
     }
 
     public Territory(String territoryName, int centerX, int centerY, Continent continent) {
@@ -33,7 +34,7 @@ public class Territory {
     }
 
     public Territory() {
-
+        this.neighbourList = new ArrayList();
     }
 
     public Territory copyTerritory() {
