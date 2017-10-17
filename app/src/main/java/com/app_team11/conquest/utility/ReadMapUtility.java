@@ -148,11 +148,9 @@ public class ReadMapUtility {
 
 
     public static String findCurrentPart(String line) {
-        //System.out.println(line);
         if (line.contains("[Map]")) {
             return "map";
         } else if (line.contains("[Continents]")) {
-            //System.out.println("returning continent");
             return "continent";
         } else {
             return "territory";
@@ -268,29 +266,70 @@ public class ReadMapUtility {
     }
 
     public List<Player> randomlyAssignCountries(List<Player> Players, List<Territory> Territories) {
-        int Tcount = 0,Pcount=0;
+        int tCount = 0, pCount = 0;
         Collections.shuffle(Territories);
-        while (Territories.size() > 0 && Tcount<Territories.size())
-        {
-            System.out.println("Tcount value: "+Tcount);
-            while (Players.size()> 0) 
-            {
-                Territories.get(Tcount).setTerritoryOwner(Players.get(Pcount));
-                Territories.get(Tcount).setArmyCount(1);
-                int singleArmies=Players.get(Pcount).getAvailableArmyCount()-1;
-                Players.get(Pcount).setAvailableArmyCount(singleArmies);
-                if (Pcount == Players.size()-1) 
-                {
-                    Pcount = -1;
+        while (Territories.size() > 0 && tCount < Territories.size()) {
+            while (Players.size() > 0) {
+                Territories.get(tCount).setTerritoryOwner(Players.get(pCount));
+                //For initial stage
+                Territories.get(tCount).setArmyCount(1);
+                int singleArmies = Players.get(pCount).getAvailableArmyCount() - 1;
+                Players.get(pCount).setAvailableArmyCount(singleArmies);
+                if (pCount == Players.size() - 1) {
+                    pCount = -1;
                 }
-                
+
                 break;
             }
-            Tcount++;
-            Pcount++;
+            tCount++;
+            pCount++;
 
         }
         return Players;
+    }
+    
+    public void armyAssignment(List<Player> pList) 
+    {
+        Player p = new Player();
+        List<Territory> temp = new ArrayList<Territory>();
+        Scanner sc = new Scanner(System.in);
+        Boolean loop = true;
+        int tNumber;
+        boolean needToAssignArmy = true;
+        while (needToAssignArmy) 
+        {
+            needToAssignArmy = false;
+            for (int i = 0; i < pList.size(); i++) 
+            {
+                System.out.println("==========Player "+(i+1)+"===============");
+                System.out.println("Available armies: "+pList.get(i).getAvailableArmyCount());
+                p.setPlayerId(i + 1);
+                temp = gm.getTerrForPlayer(p);
+                if (pList.get(i).getAvailableArmyCount() == 0) {
+                    break;
+                }
+                System.out.println("\nTerritories:");
+                for (int k = 0; k < temp.size(); k++) {
+                    System.out.println(k+1 + "." + temp.get(k).getTerritoryName() + "\n");
+                }
+                System.out.println("Select territory number: ");
+                tNumber = sc.nextInt();
+                tNumber = tNumber - 1;
+
+                System.out.println("Enter number of armies you want to place in Territory " + temp.get(tNumber).getTerritoryName());
+                int armiesToPlace = sc.nextInt();
+                if (pList.get(i).getAvailableArmyCount() > 0 && pList.get(i).getAvailableArmyCount() - armiesToPlace>0) 
+                {
+                    pList.get(i).setAvailableArmyCount(pList.get(i).getAvailableArmyCount() - armiesToPlace);
+                    temp.get(tNumber).setArmyCount(temp.get(tNumber).getArmyCount() + armiesToPlace);
+                    needToAssignArmy = true;
+                    
+                } else if (pList.get(i).getAvailableArmyCount() - armiesToPlace < 0) {
+                    System.out.println("You don't have sufficient army to place...Try again");
+                } 
+
+            }
+        }
     }
 
 }
