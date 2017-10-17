@@ -28,6 +28,7 @@ public class ReadMapUtility {
     List<Player> playerDetails = new ArrayList<Player>();
     boolean stop = false;
     Continent tempContinent = new Continent("tempContinent", 0);
+    GameMap gm=new GameMap();
 
     public List<Territory> currentTerritories() {
         return territoryList;
@@ -109,7 +110,7 @@ public class ReadMapUtility {
             System.out.println("Exception" + e);
             e.printStackTrace();
         }
-        GameMap gm=new GameMap();
+        gm=new GameMap();
         gm.setContinentList(continentList);
         gm.setTerritoryList(territoryList);
         return gm;
