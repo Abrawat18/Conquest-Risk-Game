@@ -9,7 +9,7 @@ import com.app_team11.conquest.global.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
+/**Territory model class with name of territory,position,neighbours,owner,army count,etc
  * Created by Vasu on 06-10-2017.
  */
 public class Territory {

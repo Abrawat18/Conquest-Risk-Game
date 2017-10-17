@@ -14,6 +14,7 @@ import java.util.StringTokenizer;
 
 /**
  * Created by Vasu on 06-10-2017.
+ * GameMap Model class for displaying map and its attributes
  */
 public class GameMap {
     private static final String TAG = GameMap.class.getSimpleName();
@@ -25,11 +26,20 @@ public class GameMap {
     private List<Continent> continentList;
     private List<Territory> territoryList;
 
+
     public GameMap() {
         this.continentList = new ArrayList<Continent>();
         this.territoryList = new ArrayList<Territory>();
     }
 
+    /**
+     *
+     * @param imageName
+     * @param wrapFlag
+     * @param authorName
+     * @param scrollLine
+     * @param warnFlag
+     */
     public GameMap(String imageName, String wrapFlag, String authorName, String scrollLine, String warnFlag) {
         this.imageName = imageName;
         this.wrapFlag = wrapFlag;
