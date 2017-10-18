@@ -2,9 +2,13 @@ package com.app_team11.conquest.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.Toast;
 
 import com.app_team11.conquest.R;
 import com.app_team11.conquest.global.Constants;
@@ -16,6 +20,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  */
 
 public class MainDashboardActivity extends Activity implements View.OnClickListener {
+    private static final int REQUEST_WRITE_STORAGE = 111;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +31,17 @@ public class MainDashboardActivity extends Activity implements View.OnClickListe
         findViewById(R.id.btn_map_editor).setOnClickListener(this);
         findViewById(R.id.btn_settings).setOnClickListener(this);
 
+        checkPermission();
+    }
+
+    public void checkPermission(){
+        boolean hasPermission = (ContextCompat.checkSelfPermission(MainDashboardActivity.this,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+        if (!hasPermission) {
+            ActivityCompat.requestPermissions(MainDashboardActivity.this,
+                    new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    MainDashboardActivity.REQUEST_WRITE_STORAGE);
+        }
     }
 
     @Override
@@ -75,6 +92,22 @@ public class MainDashboardActivity extends Activity implements View.OnClickListe
     }
 
     private void openSetting(){
+
+    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_WRITE_STORAGE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                } else {
+                    Toast.makeText(this, "Please provide this permission to store images into your sd card", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
 
     }
 }

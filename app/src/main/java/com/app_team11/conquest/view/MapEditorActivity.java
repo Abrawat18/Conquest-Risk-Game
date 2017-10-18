@@ -87,7 +87,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     private Territory neighbourTerritoryTo;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_map_editor);
@@ -214,12 +214,16 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedContinent = map.getContinentList().get(position);
-                List<Territory> selectedTerritory = map.getTerrForCont(selectedContinent);
-                setAdapterForTerritory(selectedTerritory);
+                setTerritoryAdapterForSelectedContinent();
                 hideAllLinearLayouts();
                 linearTerritory.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    private void setTerritoryAdapterForSelectedContinent() {
+        List<Territory> selectedTerritory = map.getTerrForCont(selectedContinent);
+        setAdapterForTerritory(selectedTerritory);
     }
 
     private void initialization() throws JSONException {
@@ -307,6 +311,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
             newTerritory.setCenterPoint((int) x, (int) y);
             newTerritory.setContinent(selectedContinent);
             ConfigurableMessage config = map.addRemoveTerritoryFromMap(newTerritory, 'A');
+            setTerritoryAdapterForSelectedContinent();
             newTerritory = null;
             isWaitingForUserTouchOnAddTerritory = false;
             if (config.getMsgCode() == 0) {
@@ -335,7 +340,6 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
             }
 
         }
-        territoryAdapter.notifyDataSetChanged();
 
         return false;
 

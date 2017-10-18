@@ -70,7 +70,7 @@ public class ReadMapUtility {
                         line = sc.nextLine();
                         while (!line.contains("[") && !line.isEmpty()) {
                             //for neighbours
-                            params = line.split("\\,");
+                            params = line.trim().split("\\,");
                             for (int i = 4; i < params.length; i++) 
                             {
                                 if(ifTerritoryExists(params[i]))
@@ -91,7 +91,7 @@ public class ReadMapUtility {
                             }
                             else
                             {
-                                createTerritory(params[0],Integer.parseInt(params[1]),Integer.parseInt(params[2]),setContinent(params[3]));
+                                createTerritory(params[0],Integer.parseInt(params[1].trim()),Integer.parseInt(params[2].trim()),setContinent(params[3]));
                             }
                             
                             
