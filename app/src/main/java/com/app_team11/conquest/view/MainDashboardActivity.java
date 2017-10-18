@@ -60,7 +60,11 @@ public class MainDashboardActivity extends Activity implements View.OnClickListe
     }
 
     private void playGame(){
-
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.KEY_FROM,Constants.VALUE_FROM_PLAY_GAME);
+        Intent intent = new Intent(MainDashboardActivity.this,MapSelectionAndInitializationActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     private void openMapEditor(){
