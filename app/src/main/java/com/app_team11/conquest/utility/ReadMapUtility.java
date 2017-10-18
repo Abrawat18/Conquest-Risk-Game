@@ -122,6 +122,7 @@ public class ReadMapUtility {
     public Continent setContinent(String continentName) {
         int i = -1;
         Continent c1 = null;
+        stop=false;
         while (i < continentList.size() && !stop) {
             i++;
             if (continentName.equalsIgnoreCase(continentList.get(i).getContName().toLowerCase())) {
