@@ -271,17 +271,9 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     }
 
     private SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
-
-
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
-            // Do some drawing when surface is ready
-           /* canvas = holder.lockCanvas();
-            canvas.drawColor(Color.RED);
-            Paint paint = new Paint();
-            paint.setColor(Color.GREEN);
-            canvas.drawCircle(120f, 130f, 100f, paint);
-            holder.unlockCanvasAndPost(canvas);*/
+            showMap();
         }
 
         @Override
