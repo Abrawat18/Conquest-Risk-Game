@@ -10,7 +10,6 @@ import com.app_team11.conquest.utility.FileManager;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 /**
  * Created by Vasu on 06-10-2017.
@@ -51,8 +50,8 @@ public class GameMap {
     }
 
     /**
-     * Method to save final data to file on click of save
-     *
+     * Method is used to write map information to the file
+     * @param file object containing file information
      */
     public void writeDataToFile(File file) {
         try {
@@ -102,9 +101,9 @@ public class GameMap {
      * Method is used to add or remove continents from the map based on validations for min and max continents allowed
      * Validation2
      *
-     * @param contObj
-     * @param addRemoveFlag
-     * @return
+     * @param contObj Continent object which needs to be added or removed from map
+     * @param addRemoveFlag flag to indicate if the continent is needed to be added - 'A' or removed - 'R'
+     * @return custom message
      */
     public ConfigurableMessage addRemoveContinentFromMap(Continent contObj, char addRemoveFlag) {
         if (addRemoveFlag == 'A') {
@@ -117,27 +116,28 @@ public class GameMap {
                 }
                 if(addFlag==true) {
                     this.continentList.add(contObj);
-                    return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.ADDREMTOLISTSUCCESS);
+                    return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
                 }
                 else
-                    return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.DUPLICATE_CONTINENT);
+                    return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.DUPLICATE_CONTINENT);
             } else
-                return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.CONTSIZEVALFAIL);
+                return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.CONT_SIZE_VAL_FAIL);
         } else if (addRemoveFlag == 'R') {
             if (this.continentList.size() > 1) {
                 this.continentList.remove(contObj);
-                return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.ADDREMTOLISTSUCCESS);
+                return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
             } else
-                return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.CONTSIZEVALFAIL);
+                return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.CONT_SIZE_VAL_FAIL);
         } else
-            return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.INCORRECTFLAG);
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.INCORRECT_FLAG);
 
     }
 
     /**
-     * @param terrObj
-     * @param addRemoveFlag
-     * @return
+     * Method is used to add or remove territories from the map
+     * @param terrObj Territory object for the territory that is needed to be removed
+     * @param addRemoveFlag flag to indicate if the territory needs to be removed - 'R' or added - 'A'
+     * @return custom message
      */
     public ConfigurableMessage addRemoveTerritoryFromMap(Territory terrObj, char addRemoveFlag) {
         if (addRemoveFlag == 'A') {
@@ -150,20 +150,20 @@ public class GameMap {
                 }
                 if(addFlag==true) {
                     this.territoryList.add(terrObj);
-                    return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.ADDREMTOLISTSUCCESS);
+                    return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
                 }
                 else
-                    return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.DUPLICATE_TERRITORY);
+                    return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.DUPLICATE_TERRITORY);
             } else
-                return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.TERRSIZEVALFAIL);
+                return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.TERR_SIZE_VAL_FAIL);
         } else if (addRemoveFlag == 'R') {
             if (this.territoryList.size() > 1) {
                 this.territoryList.remove(terrObj);
-                return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.ADDREMTOLISTSUCCESS);
+                return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
             } else
-                return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.TERRSIZEVALFAIL);
+                return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.TERR_SIZE_VAL_FAIL);
         } else
-            return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.INCORRECTFLAG);
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.INCORRECT_FLAG);
 
 
     }
@@ -185,7 +185,7 @@ public class GameMap {
      }
 
     /**
-     * Method to add players to game
+     * Method to add players to game and assign them intitial armies
      * @param playersCount number of players to be added for game
      * @return Configurable Message
      */
@@ -193,16 +193,30 @@ public class GameMap {
      {
          if(playersCount>=2 && playersCount<=6) {
              List<Player> playerList = new ArrayList<Player>();
+             int armyCount=0;
+             if (playersCount== 2)
+                 armyCount= 40;
+             else if (playersCount== 3) {
+                 armyCount= 35;
+             } else if (playersCount== 4) {
+                 armyCount= 30;
+             } else if (playersCount== 5) {
+                 armyCount= 25;
+             } else if (playersCount== 6) {
+                 armyCount= 20;
+             }
              for (int i = 1; i <= playersCount; i++) {
                  Player playerObj = new Player();
                  playerObj.setPlayerId(i);
+                 playerObj.setAvailableArmyCount(armyCount);
                  playerList.add(playerObj);
              }
              this.setPlayerList(playerList);
-             return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.PLAYER_ADDED_SUCCESS);
+
+             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.PLAYER_ADDED_SUCCESS);
          }
          else
-             return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.PLAYER_ADDED_FAILURE);
+             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.PLAYER_ADDED_FAILURE);
      }
 
     /**
