@@ -28,7 +28,7 @@ public class Constants {
     public static final String ARMY_ARTILLERY = "artillery";
     public static final String DUPLICATE_CONTINENT="Continent already exists";
     public static final String DUPLICATE_TERRITORY="Territory already exists";
-    public static final float TERRITORY_RADIUS = 100f;
+    public static final float TERRITORY_RADIUS = 50f;
     public static final String ARMY_ADDED_SUCCESS = "Armies are moved successfully";
     public static final String ARMY_ADDED_FAILURE = "Armies are movement failed as the count of armies for movement exceeded the allowed movement";
     public static final String PLAYER_ADDED_SUCCESS = "Players are added successfully";

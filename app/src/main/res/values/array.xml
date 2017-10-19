@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="continentColor">
+        <item>@color/yellow</item>
+        <item>@color/red</item>
+        <item>@color/fuchsia</item>
+        <item>@color/olive</item>
+        <item>@color/green</item>
+        <item>@color/purple</item>
+        <item>@color/maroon</item>
+        <item>@color/aqua</item>
+        <item>@color/blue</item>
+        <item>@color/lime</item>
+        <item>@color/teal</item>
+        <item>@color/OldLace</item>
+        <item>@color/Wheat</item>
+        <item>@color/Violet</item>
+        <item>@color/BurlyWood</item>
+        <item>@color/Crimson</item>
+        <item>@color/Goldenrod</item>
+        <item>@color/RosyBrown</item>
+        <item>@color/DarkGoldenrod</item>
+
+    </array>
+
+</resources>

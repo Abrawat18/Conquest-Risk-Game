@@ -1,4 +1,14 @@
 package com.app_team11.conquest.model;
+
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.Paint;
+
+import com.app_team11.conquest.R;
+
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Continent Model class with variables Continent Name,Score & Continent Owner
  * Created by Vasu on 06-10-2017.
@@ -8,6 +18,9 @@ public class Continent {
     private String contName;
     private int score;
     private Player contOwner;
+    private int contColor;
+    private static final AtomicInteger count = new AtomicInteger(0);
+    private int continentID;
 
     public Continent() {
 
@@ -43,23 +56,40 @@ public class Continent {
      * @param score
      *
      */
-    public Continent(String contName, int score) {
+    public Continent(String contName, int score,Context context) {
         this.contName = contName;
         this.score = score;
+        setRandomColorToContinent(context);
     }
 
     /**
      *Parametrized constructor
      * @param ContName
      */
-    public  Continent(String ContName){
+    public  Continent(String ContName,Context context){
         this.contName = getContName();
+        setRandomColorToContinent(context);
     }
     public Continent copyContinent(){
         Continent continent = new Continent();
         continent.setContName(this.getContName());
         continent.setScore(this.getScore());
         continent.setContOwner(this.getContOwner());
+        continent.setContColor(this.getContColor());
         return continent;
+    }
+
+    public void setRandomColorToContinent(Context context){
+        continentID = count.incrementAndGet();
+        int[] continentColor = context.getResources().getIntArray(R.array.continentColor);
+        this.setContColor(continentColor[continentID-1]);
+    }
+
+    public int getContColor() {
+        return contColor;
+    }
+
+    public void setContColor(int contColor) {
+        this.contColor = contColor;
     }
 }

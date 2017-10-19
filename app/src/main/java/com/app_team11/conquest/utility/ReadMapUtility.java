@@ -4,6 +4,7 @@ package com.app_team11.conquest.utility;
  * Created by Nigel on 13-Oct-17.
  */
 
+import android.content.Context;
 import android.util.Log;
 
 import java.io.FileReader;
@@ -17,6 +18,7 @@ import com.app_team11.conquest.model.GameMap;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.model.Continent;
 import com.app_team11.conquest.model.Player;
+import com.app_team11.conquest.view.MapEditorActivity;
 
 public class ReadMapUtility {
     int noOfArmies;
@@ -29,10 +31,14 @@ public class ReadMapUtility {
     List<Territory> connectedTerritories = new ArrayList<Territory>();
     List<Player> playerDetails = new ArrayList<Player>();
     boolean stop = false;
-    Continent tempContinent = new Continent("tempContinent", 0);
     GameMap gm = new GameMap();
     List<Territory> tempT = new ArrayList<Territory>();
 
+    Context context;
+
+    public ReadMapUtility(Context context) {
+        this.context = context;
+    }
 
     public List<Territory> currentTerritories() {
         return territoryList;
@@ -61,7 +67,7 @@ public class ReadMapUtility {
                         line = sc.nextLine();
                         while (!line.contains("[") && !line.isEmpty() && sc.hasNext()) {
                             params = line.split("\\=");
-                            c = new Continent(params[0], Integer.parseInt(params[1]));
+                            c = new Continent(params[0], Integer.parseInt(params[1]),context);
                             continentList.add(c);
                             line = sc.nextLine();
                         }

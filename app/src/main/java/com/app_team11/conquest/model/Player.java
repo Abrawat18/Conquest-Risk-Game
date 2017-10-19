@@ -15,6 +15,15 @@ public class Player {
     private int availableArmyCount;
     private List<Cards> ownedCards;
     private Boolean cardTradeIn = false;
+    private boolean isMyTurn;
+
+    public boolean isMyTurn() {
+        return isMyTurn;
+    }
+
+    public void setMyTurn(boolean myTurn) {
+        isMyTurn = myTurn;
+    }
 
     public int getPlayerId() {
         return playerId;
