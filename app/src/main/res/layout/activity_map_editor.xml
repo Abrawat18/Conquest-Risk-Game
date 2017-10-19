@@ -39,7 +39,9 @@
                 android:id="@+id/btn_add_continent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Continent" />
+                android:text="Add Continent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"/>
         </LinearLayout>
 
         <LinearLayout
