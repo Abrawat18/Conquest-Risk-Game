@@ -103,6 +103,7 @@ public class Territory {
             this.armyCount += addedArmyCount;
             this.getTerritoryOwner().setAvailableArmyCount(this.getTerritoryOwner().getAvailableArmyCount() - addedArmyCount);
         }
+        //todo return msg for army invalid count
     }
 
     public String getTerritoryName() {
