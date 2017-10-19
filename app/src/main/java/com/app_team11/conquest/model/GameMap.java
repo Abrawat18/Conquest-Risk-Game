@@ -25,7 +25,7 @@ public class GameMap {
     private String warnFlag;
     private List<Continent> continentList;
     private List<Territory> territoryList;
-
+    private List<Player> playerList;
 
     public GameMap() {
         this.continentList = new ArrayList<Continent>();
@@ -185,6 +185,27 @@ public class GameMap {
      }
 
     /**
+     * Method to add players to game
+     * @param playersCount number of players to be added for game
+     * @return Configurable Message
+     */
+     public ConfigurableMessage addPlayerToGame(int playersCount)
+     {
+         if(playersCount>=2 && playersCount<=6) {
+             List<Player> playerList = new ArrayList<Player>();
+             for (int i = 1; i <= playersCount; i++) {
+                 Player playerObj = new Player();
+                 playerObj.setPlayerId(i);
+                 playerList.add(playerObj);
+             }
+             this.setPlayerList(playerList);
+             return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.PLAYER_ADDED_SUCCESS);
+         }
+         else
+             return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.PLAYER_ADDED_FAILURE);
+     }
+
+    /**
      * The method is used to return the territory list owned by the given Player
      * @param playerObj
      * @return Territory List
@@ -222,6 +243,14 @@ public class GameMap {
 
     public void setTerritoryList(List<Territory> territoryList) {
         this.territoryList = territoryList;
+    }
+
+    public List<Player> getPlayerList() {
+        return playerList;
+    }
+
+    public void setPlayerList(List<Player> playerList) {
+        this.playerList = playerList;
     }
 
     public String getImageName() {

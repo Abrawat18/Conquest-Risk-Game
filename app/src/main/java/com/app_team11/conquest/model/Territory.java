@@ -98,12 +98,19 @@ public class Territory {
 
     }
 
-    public void addArmyToTerr(int addedArmyCount) {
+    /**
+     * Method to add armies in territory selected and remove the same count from player
+     * @param addedArmyCount count of armies to be added
+     * @return error message
+     */
+    public ConfigurableMessage addArmyToTerr(int addedArmyCount) {
         if (this.getTerritoryOwner().getAvailableArmyCount() >= addedArmyCount) {
             this.armyCount += addedArmyCount;
             this.getTerritoryOwner().setAvailableArmyCount(this.getTerritoryOwner().getAvailableArmyCount() - addedArmyCount);
+            return new ConfigurableMessage(Constants.MSGSUCCCODE,Constants.ARMY_ADDED_SUCCESS);
         }
-        //todo return msg for army invalid count
+        else
+            return new ConfigurableMessage(Constants.MSGFAILCODE,Constants.ARMY_ADDED_FAILURE);
     }
 
     public String getTerritoryName() {
