@@ -51,8 +51,8 @@ public class GameMap {
     }
 
     /**
-     * Method to save final data to file on click of save
-     *
+     * Method is used to write map information to the file
+     * @param file object containing file information
      */
     public void writeDataToFile(File file) {
         try {
@@ -102,9 +102,9 @@ public class GameMap {
      * Method is used to add or remove continents from the map based on validations for min and max continents allowed
      * Validation2
      *
-     * @param contObj
-     * @param addRemoveFlag
-     * @return
+     * @param contObj Continent object which needs to be added or removed from map
+     * @param addRemoveFlag flag to indicate if the continent is needed to be added - 'A' or removed - 'R'
+     * @return custom message
      */
     public ConfigurableMessage addRemoveContinentFromMap(Continent contObj, char addRemoveFlag) {
         if (addRemoveFlag == 'A') {
@@ -135,9 +135,10 @@ public class GameMap {
     }
 
     /**
-     * @param terrObj
-     * @param addRemoveFlag
-     * @return
+     * Method is used to add or remove territories from the map
+     * @param terrObj Territory object for the territory that is needed to be removed
+     * @param addRemoveFlag flag to indicate if the territory needs to be removed - 'R' or added - 'A'
+     * @return custom message
      */
     public ConfigurableMessage addRemoveTerritoryFromMap(Territory terrObj, char addRemoveFlag) {
         if (addRemoveFlag == 'A') {
