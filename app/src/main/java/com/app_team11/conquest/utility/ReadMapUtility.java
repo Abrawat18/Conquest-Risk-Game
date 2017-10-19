@@ -4,6 +4,8 @@ package com.app_team11.conquest.utility;
  * Created by Nigel on 13-Oct-17.
  */
 
+import android.util.Log;
+
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -102,7 +104,7 @@ public class ReadMapUtility {
 
         } catch (Exception e) {
             System.out.println("Exception" + e);
-            e.printStackTrace();
+            return null;
         }
         gm = new GameMap();
         gm.setContinentList(continentList);
