@@ -8,7 +8,51 @@
     <color name="addBtnColor">#ffffff</color>
     <color name="removeBtnColor">#ff0000</color>
     <color name="textColor">#000000</color>
-
+    <color name="white">#f9e4e4</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="fuchsia">#FF00FF</color>
+    <color name="red">#FF0000</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="gray">#808080</color>
+    <color name="olive">#808000</color>
+    <color name="purple">#800080</color>
+    <color name="maroon">#800000</color>
+    <color name="aqua">#00FFFF</color>
+    <color name="lime">#00FF00</color>
+    <color name="teal">#008080</color>
+    <color name="green">#afedaf</color>
+    <color name="blue">#0000FF</color>
+    <color name="navy">#000080</color>
+    <color name="black">#63966b</color>
+    <color name="DarkOrange">#FF8C00</color>
+    <color name="Coral">#facea7</color>
+    <color name="HotPink">#FF69B4</color>
+    <color name="Tomato">#FF6347</color>
+    <color name="OrangeRed">#FF4500</color>
+    <color name="DeepPink">#FF1493</color>
+    <color name="OldLace">#FDF5E6</color>
+    <color name="Salmon">#FA8072</color>
+    <color name="Wheat">#F5DEB3</color>
+    <color name="Violet">#EE82EE</color>
+    <color name="DarkSalmon">#f77069bf</color>
+    <color name="LightCyan">#E0FFFF</color>
+    <color name="BurlyWood">#DEB887</color>
+    <color name="Gainsboro">#DCDCDC</color>
+    <color name="Crimson">#DC143C</color>
+    <color name="PaleVioletRed">#DB7093</color>
+    <color name="Goldenrod">#DAA520</color>
+    <color name="Orchid">#DA70D6</color>
+    <color name="Chocolate">#D2691E</color>
+    <color name="Peru">#844508</color>
+    <color name="IndianRed">#CD5C5C</color>
+    <color name="MediumVioletRed">#b7719d</color>
+    <color name="Silver">#C0C0C0</color>
+    <color name="RosyBrown">#ed7373</color>
+    <color name="DarkGoldenrod">#B8860B</color>
+    <color name="FireBrick">#B22222</color>
+    <color name="LightSteelBlue">#16d2d9</color>
+    <color name="PaleTurquoise">#fce46f</color>
+    <color name="GreenYellow">#ADFF2F</color>
 
 
 </resources>

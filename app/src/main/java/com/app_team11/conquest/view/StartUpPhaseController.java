@@ -53,7 +53,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner{
 
         }
         if (!TextUtils.isEmpty(filePathToLoad) && noOfPlayer > 0) {
-            getActivity().setMap(new ReadMapUtility().readFile(filePathToLoad));
+            getActivity().setMap(new ReadMapUtility(getActivity()).readFile(filePathToLoad));
             getActivity().getMap().addPlayerToGame(noOfPlayer);
         } else {
             Toast.makeText(context, "Invalid input please try again later !!", Toast.LENGTH_SHORT).show();

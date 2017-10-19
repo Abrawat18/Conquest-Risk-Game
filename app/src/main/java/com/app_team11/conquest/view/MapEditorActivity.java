@@ -1,7 +1,9 @@
 package com.app_team11.conquest.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -39,6 +41,7 @@ import org.json.JSONException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -86,6 +89,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     private Territory neighbourTerritoryFrom;
     private Territory neighbourTerritoryTo;
     String filePathToLoad = null;
+    private Continent contColor;
 
 
     @Override
@@ -238,7 +242,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
         }
         if (!TextUtils.isEmpty(filePathToLoad)) {
-            setMap(new ReadMapUtility().readFile(filePathToLoad));
+            setMap(new ReadMapUtility(this).readFile(filePathToLoad));
         } else {
             setMap(new GameMap());
         }
@@ -337,12 +341,14 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     }
 
     private void showMap() {
-        Paint paint = new Paint();
-        paint.setColor(Color.GREEN);
+
         Paint linePaint = new Paint();
-        linePaint.setColor(Color.BLUE);
+        linePaint.setColor(Color.WHITE);
+        linePaint.setStrokeWidth(15);
         canvas = surface.getHolder().lockCanvas();
         for (Territory territory : map.getTerritoryList()) {
+            Paint paint = new Paint();
+            paint.setColor(territory.getContinent().getContColor());
             canvas.drawCircle(territory.getCenterPoint().x, territory.getCenterPoint().y, Constants.TERRITORY_RADIUS, paint);
             for (Territory territoryNeighbour : territory.getNeighbourList()) {
                 canvas.drawLine(territory.getCenterPoint().x, territory.getCenterPoint().y, territoryNeighbour.getCenterPoint().x, territoryNeighbour.getCenterPoint().y, linePaint);
@@ -408,7 +414,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         if (!TextUtils.isEmpty(editCustomContinent.getText().toString()) && !TextUtils.isEmpty(editContinentScore.getText().toString())) {
-                            newContinent = new Continent(editCustomContinent.getText().toString(), Integer.parseInt(editContinentScore.getText().toString()));
+                            newContinent = new Continent(editCustomContinent.getText().toString(), Integer.parseInt(editContinentScore.getText().toString()),MapEditorActivity.this);
                         }
                         ConfigurableMessage message = map.addRemoveContinentFromMap(newContinent, 'A');
                         if (message.getMsgCode() == 1) {

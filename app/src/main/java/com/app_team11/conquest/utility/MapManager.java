@@ -40,7 +40,7 @@ public class MapManager {
         JSONArray continentJsonList = JsonLoader.getInstance().loadJSONFromAsset(context, Constants.ASSETS_CONTINENT_FILE_NAME);
         List<Continent> continentList = new ArrayList<>();
         for (int continentIndex = 0; continentIndex < continentJsonList.length(); continentIndex++) {
-            continentList.add(new Continent(continentJsonList.getJSONObject(continentIndex).getString(Constants.KEY_CONTINENT_NAME), continentJsonList.getJSONObject(continentIndex).getInt(Constants.KEY_CONTINENT_SCORE)));
+            continentList.add(new Continent(continentJsonList.getJSONObject(continentIndex).getString(Constants.KEY_CONTINENT_NAME), continentJsonList.getJSONObject(continentIndex).getInt(Constants.KEY_CONTINENT_SCORE),context));
         }
         return continentList;
     }
