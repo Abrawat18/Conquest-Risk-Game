@@ -102,16 +102,16 @@ public class Player {
         if (demandedCardTrade) {
             //// TODO: 08-10-2017 need to add the selected cards back to the total cards list
             //// TODO: 17-10-2017 what happens when the total cards in the inventory finishes and there is no card left to give to the player when he wins any territory
-            this.getOwnedCards().removeAll(tradeInCards);
             cardArmy = cardTradeCount * 5; //multiplying 5 with the nth card trade of the game
             for (Territory terrObj : gameMap.getTerritoryList()) {
-                for (Cards cardObj : this.ownedCards) {
+                for (Cards cardObj : tradeInCards) {
                     if ((terrObj.getTerritoryOwner().getPlayerId() == this.getPlayerId()) && terrObj.getTerritoryName().equalsIgnoreCase(cardObj.getCardTerritory().getTerritoryName())) {
                         reinforcementCount.setMatchedTerrCardReinforcement(2);
                         break;
                     }
                 }
             }
+            this.getOwnedCards().removeAll(tradeInCards);
         }
         reinforcementCount.setOtherTotalReinforcement(territoryArmy + continentArmy + cardArmy);
         return reinforcementCount;
