@@ -110,6 +110,13 @@ public class Territory {
             return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.ARMY_ADDED_FAILURE);
     }
 
+    /**
+     * Method is used to implement the fortification functionality
+     * @param destTerritory the destination territory for fortification
+     * @param currentPlayer the player who has requested fortification
+     * @param countOfArmy number of armies to be moved
+     * @return response message
+     */
     public ConfigurableMessage fortifyTerritory(Territory destTerritory, Player currentPlayer, int countOfArmy) {
         if (this.getArmyCount() > countOfArmy && this.getTerritoryOwner().getPlayerId() == currentPlayer.getPlayerId()) {
             Boolean neighbourFlag = false;
