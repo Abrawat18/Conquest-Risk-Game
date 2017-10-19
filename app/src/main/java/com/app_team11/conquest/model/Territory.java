@@ -98,6 +98,13 @@ public class Territory {
 
     }
 
+    public void addArmyToTerr(int addedArmyCount) {
+        if (this.getTerritoryOwner().getAvailableArmyCount() >= addedArmyCount) {
+            this.armyCount += addedArmyCount;
+            this.getTerritoryOwner().setAvailableArmyCount(this.getTerritoryOwner().getAvailableArmyCount() - addedArmyCount);
+        }
+    }
+
     public String getTerritoryName() {
         return territoryName;
     }
