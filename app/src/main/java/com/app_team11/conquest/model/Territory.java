@@ -65,19 +65,19 @@ public class Territory {
             if (this.neighbourList.size() <= 9 && terrObj.neighbourList.size() <= 9) {
                 this.neighbourList.add(terrObj);
                 terrObj.neighbourList.add(this);
-                return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.ADDREMTOLISTSUCCESS);
+                return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
             } else
-                return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.NEIGHBOURSIZEVALFAIL);
+                return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NEIGHBOUR_SIZE_VAL_FAIL);
 
         } else if (addRemoveFlag == 'R') {
             if (this.neighbourList.size() >= 2 && terrObj.neighbourList.size() >= 2) {
                 this.neighbourList.remove(terrObj);
                 terrObj.neighbourList.remove(this);
-                return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.ADDREMTOLISTSUCCESS);
+                return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
             } else
-                return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.NEIGHBOURSIZEVALFAIL);
+                return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NEIGHBOUR_SIZE_VAL_FAIL);
         } else
-            return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.INCORRECTFLAG);
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.INCORRECT_FLAG);
     }
 
     /**
@@ -89,9 +89,9 @@ public class Territory {
     public ConfigurableMessage addNeighbourToTerr(List<Territory> terrList) {
         this.neighbourList.addAll(terrList);
         if (this.neighbourList.size() <= 10) {
-            return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.ADDREMTOLISTSUCCESS);
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
         } else
-            return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.NEIGHBOURSIZEVALFAIL);
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NEIGHBOUR_SIZE_VAL_FAIL);
 
     }
 
@@ -105,9 +105,9 @@ public class Territory {
         if (this.getTerritoryOwner().getAvailableArmyCount() >= addedArmyCount) {
             this.armyCount += addedArmyCount;
             this.getTerritoryOwner().setAvailableArmyCount(this.getTerritoryOwner().getAvailableArmyCount() - addedArmyCount);
-            return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.ARMY_ADDED_SUCCESS);
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ARMY_ADDED_SUCCESS);
         } else
-            return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.ARMY_ADDED_FAILURE);
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ARMY_ADDED_FAILURE);
     }
 
     /**
@@ -129,13 +129,13 @@ public class Territory {
                 }
             }
             if (neighbourFlag == true) {
-                return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.FORTIFICATION_SUCCESS);
+                return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.FORTIFICATION_SUCCESS);
             }
             else
-                return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.FORTIFICATION_NEIGHBOUR_FAILURE);
+                return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_NEIGHBOUR_FAILURE);
         }
         else
-        return new ConfigurableMessage(Constants.MSGFAILCODE, Constants.FORTIFICATION_FAILURE);
+        return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE);
     }
 
     public String getTerritoryName() {
