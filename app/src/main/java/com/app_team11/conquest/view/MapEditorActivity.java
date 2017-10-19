@@ -85,6 +85,8 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     private boolean isRequestToAddNeighbour;
     private Territory neighbourTerritoryFrom;
     private Territory neighbourTerritoryTo;
+    String filePathToLoad = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,7 +229,6 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     }
 
     private void initialization() throws JSONException {
-        String filePathToLoad = null;
         Intent intent = getIntent();
         if (intent != null) {
             Bundle bundle = intent.getExtras();
@@ -312,22 +313,20 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
                 showMap();
             }
-        }else{
-            for (Territory territory:map.getTerritoryList()){
-                double distanceFromTerritory = MathUtility.getInstance().getDistance(x,y,territory.getCenterPoint().x,territory.getCenterPoint().y);
-                Log.e("Distance",String.valueOf(distanceFromTerritory));
-                if(Constants.TERRITORY_RADIUS > distanceFromTerritory){
-                    if(!isRequestToAddNeighbour){
-                        isRequestToAddNeighbour=true;
-                        neighbourTerritoryFrom=territory;
-                    } else{
-                        neighbourTerritoryTo=territory;
-                        isRequestToAddNeighbour=false;
-                        neighbourTerritoryFrom.addRemoveNeighbourToTerr(neighbourTerritoryTo,'A');
+        } else {
+            for (Territory territory : map.getTerritoryList()) {
+                double distanceFromTerritory = MathUtility.getInstance().getDistance(x, y, territory.getCenterPoint().x, territory.getCenterPoint().y);
+                Log.e("Distance", String.valueOf(distanceFromTerritory));
+                if (Constants.TERRITORY_RADIUS > distanceFromTerritory) {
+                    if (!isRequestToAddNeighbour) {
+                        isRequestToAddNeighbour = true;
+                        neighbourTerritoryFrom = territory;
+                    } else {
+                        neighbourTerritoryTo = territory;
+                        isRequestToAddNeighbour = false;
+                        neighbourTerritoryFrom.addRemoveNeighbourToTerr(neighbourTerritoryTo, 'A');
                         showMap();
                     }
-
-                    Toast.makeText(this,territory.getTerritoryName(),Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -345,8 +344,8 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         canvas = surface.getHolder().lockCanvas();
         for (Territory territory : map.getTerritoryList()) {
             canvas.drawCircle(territory.getCenterPoint().x, territory.getCenterPoint().y, Constants.TERRITORY_RADIUS, paint);
-            for(Territory territoryNeighbour : territory.getNeighbourList()) {
-            canvas.drawLine(territory.getCenterPoint().x,territory.getCenterPoint().y,territoryNeighbour.getCenterPoint().x,territoryNeighbour.getCenterPoint().y,linePaint);
+            for (Territory territoryNeighbour : territory.getNeighbourList()) {
+                canvas.drawLine(territory.getCenterPoint().x, territory.getCenterPoint().y, territoryNeighbour.getCenterPoint().x, territoryNeighbour.getCenterPoint().y, linePaint);
             }
         }
         surface.getHolder().unlockCanvasAndPost(canvas);
@@ -396,6 +395,8 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         myLayout = new LinearLayout(this);
         editCustomContinent = new EditText(this);
         editContinentScore = new EditText(this);
+        editCustomContinent.setHint("Continent Name");
+        editContinentScore.setHint("Continent Score");
         myLayout.setOrientation(LinearLayout.VERTICAL);
         myLayout.addView(editCustomContinent);
         myLayout.addView(editContinentScore);
@@ -435,16 +436,23 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     private void saveToMap() {
         final EditText editMapName = new EditText(this);
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MapEditorActivity.this, SweetAlertDialog.NORMAL_TYPE);
+        if (TextUtils.isEmpty(filePathToLoad)) {
+            sweetAlertDialog.setCustomView(editMapName);
+        }
         sweetAlertDialog.setTitleText("Do you want to save Map ?")
                 .setConfirmText("Yes")
                 .setCancelText("No")
-                .setCustomView(editMapName)
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         sweetAlertDialog.dismiss();
+                        File mapFile = null;
                         if (!TextUtils.isEmpty(editMapName.getText())) {
-                            File mapFile = FileManager.getInstance().getMapFilePath(editMapName.getText().toString() + ".map");
+                            mapFile = FileManager.getInstance().getMapFilePath(editMapName.getText().toString() + ".map");
+                        } else if (!TextUtils.isEmpty(filePathToLoad)) {
+                            mapFile = new File(filePathToLoad);
+                        }
+                        if (mapFile != null) {
                             map.writeDataToFile(mapFile);
                             MapEditorActivity.this.finish();
                         }
@@ -458,6 +466,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
                     }
                 });
+
         sweetAlertDialog.show();
     }
 
