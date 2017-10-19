@@ -28,9 +28,9 @@ public class ReadMapUtility {
     List<Player> playerDetails = new ArrayList<Player>();
     boolean stop = false;
     Continent tempContinent = new Continent("tempContinent", 0);
-    GameMap gm=new GameMap();
-    List<Territory> tempT=new ArrayList<Territory>();
-    
+    GameMap gm = new GameMap();
+    List<Territory> tempT = new ArrayList<Territory>();
+
 
     public List<Territory> currentTerritories() {
         return territoryList;
@@ -45,9 +45,8 @@ public class ReadMapUtility {
             while (sc.hasNext()) {
                 line = sc.nextLine();
 
-                switch (findCurrentPart(line)) 
-                {
-                    case "map": 
+                switch (findCurrentPart(line)) {
+                    case "map":
 
                         line = sc.nextLine();
                         while (!line.contains("[") && !line.isEmpty()) {
@@ -70,40 +69,33 @@ public class ReadMapUtility {
                         line = sc.nextLine();
                         while (!line.contains("[") && !line.isEmpty()) {
                             //for neighbours
-                            params = line.split("\\,");
-                            for (int i = 4; i < params.length; i++) 
-                            {
-                                if(ifTerritoryExists(params[i]))
-                                {
-                                    tConnected=searchTerritory(params[i]);
-                                }
-                                else
-                                {
-                                    createTerritory(params[i],0,0,null);
-                                    tConnected=searchTerritory(params[i]);
+                            params = line.trim().split("\\,");
+                            for (int i = 4; i < params.length; i++) {
+                                if (ifTerritoryExists(params[i].trim())) {
+                                    tConnected = searchTerritory(params[i].trim());
+                                } else {
+                                    createTerritory(params[i].trim(), 0, 0, null);
+                                    tConnected = searchTerritory(params[i].trim());
                                 }
                                 connectedTerritories.add(tConnected);
                             }
                             //for main territory
-                            if(ifTerritoryExists(params[0]))
-                            {
-                                updateTerritory(params[0],params[1],params[2],params[3],connectedTerritories);
+                            if (ifTerritoryExists(params[0].trim())) {
+                                updateTerritory(params[0].trim(), params[1].trim(), params[2].trim(), params[3].trim(), connectedTerritories);
+                            } else {
+                                createTerritory(params[0].trim(), Integer.parseInt(params[1].trim()), Integer.parseInt(params[2].trim()), setContinent(params[3].trim()));
                             }
-                            else
-                            {
-                                createTerritory(params[0],Integer.parseInt(params[1]),Integer.parseInt(params[2]),setContinent(params[3]));
-                            }
-                            
-                            
+
+
                             if (sc.hasNext()) {
                                 line = sc.nextLine();
 
                             } else {
                                 break;
                             }
-                            
+
                         }
-                         break;
+                        break;
 
                 }
             }
@@ -112,7 +104,7 @@ public class ReadMapUtility {
             System.out.println("Exception" + e);
             e.printStackTrace();
         }
-        gm=new GameMap();
+        gm = new GameMap();
         gm.setContinentList(continentList);
         gm.setTerritoryList(territoryList);
         return gm;
@@ -120,8 +112,18 @@ public class ReadMapUtility {
     }
 
     public Continent setContinent(String continentName) {
+
+        for (Continent continent : continentList) {
+            if (continentName.trim().equals(continent.getContName().trim())) {
+                return continent;
+            }
+        }
+        return null;
+
+/*
         int i = -1;
         Continent c1 = null;
+        stop=false;
         while (i < continentList.size() && !stop) {
             i++;
             if (continentName.equalsIgnoreCase(continentList.get(i).getContName().toLowerCase())) {
@@ -134,7 +136,7 @@ public class ReadMapUtility {
 
         }
         System.out.println("returning continent: " + c1.getContName());
-        return c1;
+        return c1;*/
     }
 
     public boolean territoryExists(String tName) {
@@ -212,25 +214,25 @@ public class ReadMapUtility {
     }
 
     public void createTerritory(String tName, int X, int Y, Continent cont) {
-        t = new Territory(tName, X, Y, tempContinent);
+        t = new Territory(tName.trim(), X, Y, cont);
         territoryList.add(t);
-        }
+    }
 
     public void updateTerritory(String tName, String X, String Y, String continent, List<Territory> connectedT) {
         Territory tUpdate = searchTerritory(tName);
         Continent cont = searchContinent(continent);
         tUpdate.setCenterPoint(Integer.parseInt(X), Integer.parseInt(Y));
         tUpdate.setContinent(cont);
-        tempT=new ArrayList<Territory>();
+        tempT = new ArrayList<Territory>();
         tempT.add(tUpdate);
-        tUpdate.setNeighbourList(tempT);
-        
+//        tUpdate.setNeighbourList(tempT);
+        tUpdate.addNeighbourToTerr(connectedT);
     }
 
     public void createTerritory(String tName, String X, String Y, String continent, List<Territory> connectedT) {
         Continent cont1 = searchContinent(continent);
         Territory tNew = new Territory(tName, Integer.parseInt(X), Integer.parseInt(Y), cont1);
-        tempT=new ArrayList<Territory>();
+        tempT = new ArrayList<Territory>();
         tempT.add(tNew);
         tNew.setNeighbourList(connectedT);
         territoryList.add(tNew);
@@ -287,22 +289,19 @@ public class ReadMapUtility {
         }
         return Players;
     }
-    
-    public void armyAssignment(List<Player> pList) 
-    {
+
+    public void armyAssignment(List<Player> pList) {
         Player p = new Player();
         List<Territory> temp = new ArrayList<Territory>();
         Scanner sc = new Scanner(System.in);
         Boolean loop = true;
         int tNumber;
         boolean needToAssignArmy = true;
-        while (needToAssignArmy) 
-        {
+        while (needToAssignArmy) {
             needToAssignArmy = false;
-            for (int i = 0; i < pList.size(); i++) 
-            {
-                System.out.println("==========Player "+(i+1)+"===============");
-                System.out.println("Available armies: "+pList.get(i).getAvailableArmyCount());
+            for (int i = 0; i < pList.size(); i++) {
+                System.out.println("==========Player " + (i + 1) + "===============");
+                System.out.println("Available armies: " + pList.get(i).getAvailableArmyCount());
                 p.setPlayerId(i + 1);
                 temp = gm.getTerrForPlayer(p);
                 if (pList.get(i).getAvailableArmyCount() == 0) {
@@ -310,7 +309,7 @@ public class ReadMapUtility {
                 }
                 System.out.println("\nTerritories:");
                 for (int k = 0; k < temp.size(); k++) {
-                    System.out.println(k+1 + "." + temp.get(k).getTerritoryName() + "\n");
+                    System.out.println(k + 1 + "." + temp.get(k).getTerritoryName() + "\n");
                 }
                 System.out.println("Select territory number: ");
                 tNumber = sc.nextInt();
@@ -318,15 +317,14 @@ public class ReadMapUtility {
 
                 System.out.println("Enter number of armies you want to place in Territory " + temp.get(tNumber).getTerritoryName());
                 int armiesToPlace = sc.nextInt();
-                if (pList.get(i).getAvailableArmyCount() > 0 && pList.get(i).getAvailableArmyCount() - armiesToPlace>0) 
-                {
+                if (pList.get(i).getAvailableArmyCount() > 0 && pList.get(i).getAvailableArmyCount() - armiesToPlace > 0) {
                     pList.get(i).setAvailableArmyCount(pList.get(i).getAvailableArmyCount() - armiesToPlace);
                     temp.get(tNumber).setArmyCount(temp.get(tNumber).getArmyCount() + armiesToPlace);
                     needToAssignArmy = true;
-                    
+
                 } else if (pList.get(i).getAvailableArmyCount() - armiesToPlace < 0) {
                     System.out.println("You don't have sufficient army to place...Try again");
-                } 
+                }
 
             }
         }

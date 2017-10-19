@@ -69,11 +69,12 @@ public class GameMap {
             writer.newLine();
             writer.write("warn=" + this.warnFlag);
             writer.newLine();
+            writer.newLine();
             writer.write("[Continents]");
             writer.newLine();
             Log.e(TAG, "CHECKING..!!");
             for (Continent contObj : this.getContinentList()) {
-                writer.write(contObj.getContName().toString() + " " + Integer.toString(contObj.getScore()));
+                writer.write(contObj.getContName().toString() + "=" + Integer.toString(contObj.getScore()));
                 writer.newLine();
             }
             writer.newLine();
