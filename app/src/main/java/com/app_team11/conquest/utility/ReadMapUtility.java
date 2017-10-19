@@ -93,7 +93,7 @@ public class ReadMapUtility {
                             } else {
                                 createTerritory(params[0].trim(), Integer.parseInt(params[1].trim()), Integer.parseInt(params[2].trim()), setContinent(params[3].trim()));
                             }
-
+                            connectedTerritories.clear();
 
                             if (sc.hasNext()) {
                                 line = sc.nextLine();

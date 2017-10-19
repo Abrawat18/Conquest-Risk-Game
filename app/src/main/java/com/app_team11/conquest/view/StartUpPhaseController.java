@@ -62,6 +62,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
         if (!TextUtils.isEmpty(filePathToLoad) && noOfPlayer > 0) {
             getActivity().setMap(new ReadMapUtility(getActivity()).readFile(filePathToLoad));
             getActivity().getMap().addPlayerToGame(noOfPlayer);
+            getActivity().initializePlayerAdapter();
         } else {
             Toast.makeText(context, "Invalid input please try again later !!", Toast.LENGTH_SHORT).show();
         }
@@ -97,23 +98,23 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
     public void assignInitialArmy() {
         asyncTask = new AsyncTask<Void, Void, Void>() {
             @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                getActivity().setPlayerTurn(getActivity().getMap().getPlayerList().get(0));
+                Toast.makeText(context, "Touch on territory to add army", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
             protected Void doInBackground(Void... params) {
                 boolean needToAssignArmy = true;
                 while (needToAssignArmy) {
                     needToAssignArmy = false;
-                    for (Player player : getActivity().getMap().getPlayerList()) {
+                    for (final Player player : getActivity().getMap().getPlayerList()) {
                         try {
-                            getActivity().setPlayerTurn(player);
 
                             selectedTerritory = null;
                             waitForSelectTerritory = true;
-
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(context, "Touch on territory to add army", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            getActivity().setPlayerTurn(player);
 
                             notified = false;
                             synchronized (asyncTask) {
@@ -143,11 +144,15 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
         float y = event.getY();
         if (waitForSelectTerritory) {
             selectedTerritory = getActivity().getTerritoryAtSelectedPoint((int) x, (int) y);
-            notified = true;
-            synchronized (asyncTask) {
-                asyncTask.notify();
+            if(selectedTerritory!=null &&  selectedTerritory.getTerritoryOwner().equals(getActivity().getPlayerTurn())) {
+                notified = true;
+                synchronized (asyncTask) {
+                    asyncTask.notify();
+                }
+                waitForSelectTerritory = false;
+            }else{
+                getActivity().toastMessageFromBackground("Place army on correct territory !!");
             }
-            waitForSelectTerritory = false;
         }
     }
 

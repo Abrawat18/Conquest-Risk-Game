@@ -32,7 +32,6 @@ public class GameMap {
     }
 
     /**
-     *
      * @param imageName
      * @param wrapFlag
      * @param authorName
@@ -51,6 +50,7 @@ public class GameMap {
 
     /**
      * Method is used to write map information to the file
+     *
      * @param file object containing file information
      */
     public void writeDataToFile(File file) {
@@ -101,7 +101,7 @@ public class GameMap {
      * Method is used to add or remove continents from the map based on validations for min and max continents allowed
      * Validation2
      *
-     * @param contObj Continent object which needs to be added or removed from map
+     * @param contObj       Continent object which needs to be added or removed from map
      * @param addRemoveFlag flag to indicate if the continent is needed to be added - 'A' or removed - 'R'
      * @return custom message
      */
@@ -109,16 +109,15 @@ public class GameMap {
         if (addRemoveFlag == 'A') {
             boolean addFlag = true;
             if (null == this.continentList || this.continentList.size() < 32) {
-                for(Continent obj : this.continentList){
-                    if(obj.getContName().equalsIgnoreCase(contObj.getContName())) {
-                        addFlag=false;
+                for (Continent obj : this.continentList) {
+                    if (obj.getContName().equalsIgnoreCase(contObj.getContName())) {
+                        addFlag = false;
                     }
                 }
-                if(addFlag==true) {
+                if (addFlag == true) {
                     this.continentList.add(contObj);
                     return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
-                }
-                else
+                } else
                     return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.DUPLICATE_CONTINENT);
             } else
                 return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.CONT_SIZE_VAL_FAIL);
@@ -135,7 +134,8 @@ public class GameMap {
 
     /**
      * Method is used to add or remove territories from the map
-     * @param terrObj Territory object for the territory that is needed to be removed
+     *
+     * @param terrObj       Territory object for the territory that is needed to be removed
      * @param addRemoveFlag flag to indicate if the territory needs to be removed - 'R' or added - 'A'
      * @return custom message
      */
@@ -143,16 +143,15 @@ public class GameMap {
         if (addRemoveFlag == 'A') {
             boolean addFlag = true;
             if (null == this.territoryList || this.territoryList.size() < 255) {
-                for(Territory obj : this.territoryList){
-                    if(obj.getTerritoryName().equalsIgnoreCase(terrObj.getTerritoryName())) {
-                        addFlag=false;
+                for (Territory obj : this.territoryList) {
+                    if (obj.getTerritoryName().equalsIgnoreCase(terrObj.getTerritoryName())) {
+                        addFlag = false;
                     }
                 }
-                if(addFlag==true) {
+                if (addFlag == true) {
                     this.territoryList.add(terrObj);
                     return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
-                }
-                else
+                } else
                     return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.DUPLICATE_TERRITORY);
             } else
                 return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.TERR_SIZE_VAL_FAIL);
@@ -170,70 +169,76 @@ public class GameMap {
 
     /**
      * This method is used to return the territories for the given continent
+     *
      * @param contObj
      * @return Territory List
      */
-    public List<Territory> getTerrForCont(Continent contObj)
-     {
-         List<Territory> terrList = new ArrayList<Territory>();
-         for(Territory obj: this.getTerritoryList()){
-             if(obj.getContinent().getContName().equalsIgnoreCase(contObj.getContName())){
-                 terrList.add(obj);
-             }
-         }
-         return terrList;
-     }
+    public List<Territory> getTerrForCont(Continent contObj) {
+        List<Territory> terrList = new ArrayList<Territory>();
+        for (Territory obj : this.getTerritoryList()) {
+            if (obj.getContinent().getContName().equalsIgnoreCase(contObj.getContName())) {
+                terrList.add(obj);
+            }
+        }
+        return terrList;
+    }
 
     /**
      * Method to add players to game and assign them intitial armies
+     *
      * @param playersCount number of players to be added for game
      * @return Configurable Message
      */
-     public ConfigurableMessage addPlayerToGame(int playersCount)
-     {
-         if(playersCount>=2 && playersCount<=6) {
-             List<Player> playerList = new ArrayList<Player>();
-             int armyCount=0;
-             if (playersCount== 2)
-                 armyCount= 40;
-             else if (playersCount== 3) {
-                 armyCount= 35;
-             } else if (playersCount== 4) {
-                 armyCount= 30;
-             } else if (playersCount== 5) {
-                 armyCount= 25;
-             } else if (playersCount== 6) {
-                 armyCount= 20;
-             }
-             for (int i = 1; i <= playersCount; i++) {
-                 Player playerObj = new Player();
-                 playerObj.setPlayerId(i);
-                 playerObj.setAvailableArmyCount(armyCount);
-                 playerList.add(playerObj);
-             }
-             this.setPlayerList(playerList);
+    public ConfigurableMessage addPlayerToGame(int playersCount) {
+        if (playersCount >= 2 && playersCount <= 6) {
+            List<Player> playerList = new ArrayList<Player>();
+            int armyCount = 0;
+            if (playersCount == 2)
+                armyCount = 40;
+            else if (playersCount == 3) {
+                armyCount = 35;
+            } else if (playersCount == 4) {
+                armyCount = 30;
+            } else if (playersCount == 5) {
+                armyCount = 25;
+            } else if (playersCount == 6) {
+                armyCount = 20;
+            }
+            for (int i = 1; i <= playersCount; i++) {
+                Player playerObj = new Player();
+                playerObj.setPlayerId(i);
+                playerObj.setAvailableArmyCount(armyCount);
+                playerList.add(playerObj);
+            }
+            this.setPlayerList(playerList);
 
-             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.PLAYER_ADDED_SUCCESS);
-         }
-         else
-             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.PLAYER_ADDED_FAILURE);
-     }
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.PLAYER_ADDED_SUCCESS);
+        } else
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.PLAYER_ADDED_FAILURE);
+    }
 
     /**
      * The method is used to return the territory list owned by the given Player
+     *
      * @param playerObj
      * @return Territory List
      */
-     public List<Territory> getTerrForPlayer(Player playerObj)
-     {
-         List<Territory> terrList = new ArrayList<Territory>();
-         for(Territory obj: this.getTerritoryList()){
-             if(playerObj.getPlayerId() == obj.getTerritoryOwner().getPlayerId()){
-                 terrList.add(obj);
-             }
-         }
-         return terrList;
-     }
+    public List<Territory> getTerrForPlayer(Player playerObj) {
+        List<Territory> terrList = new ArrayList<Territory>();
+        for (Territory obj : this.getTerritoryList()) {
+            if (playerObj.getPlayerId() == obj.getTerritoryOwner().getPlayerId()) {
+                terrList.add(obj);
+            }
+        }
+        return terrList;
+    }
+
+    public void changeCurrentPlayerTurn(Player player) {
+        for (Player playerFromList : getPlayerList()) {
+            playerFromList.setMyTurn(false);
+        }
+        player.setMyTurn(true);
+    }
 
     public String getAuthorName() {
         return authorName;

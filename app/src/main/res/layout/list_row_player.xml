@@ -15,6 +15,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/text_player_un_assigned_army"
-        android:textSize="20sp" />
+        android:id="@+id/text_player_unassigned_army"
+        android:textSize="20sp"
+        android:layout_marginRight="10dp"
+        />
 </LinearLayout>

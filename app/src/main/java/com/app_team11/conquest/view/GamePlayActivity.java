@@ -12,6 +12,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.app_team11.conquest.R;
 import com.app_team11.conquest.adapter.PlayerListAdapter;
@@ -43,9 +44,11 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_play);
 
-        initializeView();
+        if (savedInstanceState == null) {
+            initializeView();
 
-        initialization();
+            initialization();
+        }
 
     }
 
@@ -62,13 +65,14 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     private void initialization() {
         StartUpPhaseController.getInstance().setContext(this).startStartUpPhase();
+    }
+
+    public void initializePlayerAdapter(){
         if (getMap().getPlayerList() != null) {
             playerListAdapter = new PlayerListAdapter(this, getMap().getPlayerList());
             listPlayer.setAdapter(playerListAdapter);
         }
     }
-
-
 
     public void setSurfaceOnTouchListner(SurfaceOnTouchListner surfaceOnTouchListner) {
         this.surfaceOnTouchListner = surfaceOnTouchListner;
@@ -96,15 +100,36 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     public void setPlayerTurn(Player player) {
         playerTurn = player;
+        getMap().changeCurrentPlayerTurn(player);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                playerListAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    public Player getPlayerTurn() {
+        return playerTurn;
+    }
+
+    public void toastMessageFromBackground(final String msg) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(GamePlayActivity.this, msg, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void showMap() {
-        Paint paint = new Paint();
-        paint.setColor(Color.GREEN);
         Paint linePaint = new Paint();
-        linePaint.setColor(Color.BLUE);
+        linePaint.setColor(Color.WHITE);
+        linePaint.setStrokeWidth(15);
         canvas = surface.getHolder().lockCanvas();
         for (Territory territory : map.getTerritoryList()) {
+            Paint paint = new Paint();
+            paint.setColor(territory.getContinent().getContColor());
             canvas.drawCircle(territory.getCenterPoint().x, territory.getCenterPoint().y, Constants.TERRITORY_RADIUS, paint);
             for (Territory territoryNeighbour : territory.getNeighbourList()) {
                 canvas.drawLine(territory.getCenterPoint().x, territory.getCenterPoint().y, territoryNeighbour.getCenterPoint().x, territoryNeighbour.getCenterPoint().y, linePaint);

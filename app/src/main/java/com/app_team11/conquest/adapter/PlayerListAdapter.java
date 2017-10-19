@@ -50,15 +50,17 @@ public class PlayerListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.list_row_player,parent,false);
             viewHolder = new ViewHolder();
             viewHolder.textPlayerName = (TextView) convertView.findViewById(R.id.text_player_name);
-            viewHolder.textPlayerUnAssignedArmy = (TextView) convertView.findViewById(R.id.text_player_un_assigned_army);
+            viewHolder.textPlayerUnAssignedArmy = (TextView) convertView.findViewById(R.id.text_player_unassigned_army);
             convertView.setTag(viewHolder);
         }
         viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.textPlayerName.setText("Player: "+getItem(position).getPlayerId());
-        viewHolder.textPlayerUnAssignedArmy.setText(getItem(position).getAvailableArmyCount());
+        viewHolder.textPlayerUnAssignedArmy.setText(getItem(position).getAvailableArmyCount()+"");
+        viewHolder.textPlayerName.setTypeface(null, Typeface.BOLD);
         if(getItem(position).isMyTurn()){
-            viewHolder.textPlayerName.setTypeface(null, Typeface.BOLD);
             viewHolder.textPlayerName.setTextColor(Color.GREEN);
+        }else{
+            viewHolder.textPlayerName.setTextColor(Color.WHITE);
         }
         return convertView;
     }

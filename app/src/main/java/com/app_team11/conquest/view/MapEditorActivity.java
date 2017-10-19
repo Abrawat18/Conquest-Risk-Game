@@ -95,13 +95,15 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_map_editor);
-        initializeView();
-        try {
-            initialization();
-        } catch (JSONException e) {
-            e.printStackTrace();
+
+        if(savedInstanceState==null) {
+            initializeView();
+            try {
+                initialization();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -314,7 +316,6 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
             if (config.getMsgCode() == 0) {
                 Toast.makeText(this, config.getMsgText(), Toast.LENGTH_SHORT).show();
             } else {
-
                 showMap();
             }
         } else {
@@ -492,6 +493,12 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                 addCustomTerritory();
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initializeView();
     }
 
     @Override
