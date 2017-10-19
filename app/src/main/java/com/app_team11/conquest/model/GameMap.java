@@ -186,7 +186,7 @@ public class GameMap {
      }
 
     /**
-     * Method to add players to game
+     * Method to add players to game and assign them intitial armies
      * @param playersCount number of players to be added for game
      * @return Configurable Message
      */
@@ -194,12 +194,26 @@ public class GameMap {
      {
          if(playersCount>=2 && playersCount<=6) {
              List<Player> playerList = new ArrayList<Player>();
+             int armyCount=0;
+             if (playersCount== 2)
+                 armyCount= 40;
+             else if (playersCount== 3) {
+                 armyCount= 35;
+             } else if (playersCount== 4) {
+                 armyCount= 30;
+             } else if (playersCount== 5) {
+                 armyCount= 25;
+             } else if (playersCount== 6) {
+                 armyCount= 20;
+             }
              for (int i = 1; i <= playersCount; i++) {
                  Player playerObj = new Player();
                  playerObj.setPlayerId(i);
+                 playerObj.setAvailableArmyCount(armyCount);
                  playerList.add(playerObj);
              }
              this.setPlayerList(playerList);
+
              return new ConfigurableMessage(Constants.MSGSUCCCODE, Constants.PLAYER_ADDED_SUCCESS);
          }
          else
