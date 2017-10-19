@@ -32,4 +32,7 @@ public class Constants {
     public static final String ARMY_ADDED_FAILURE = "Armies are movement failed as the count of armies for movement exceeded the allowed movement";
     public static final String PLAYER_ADDED_SUCCESS = "Players are added successfully";
     public static final String PLAYER_ADDED_FAILURE = "Players must be between 2 and 6";
+    public static final String FORTIFICATION_SUCCESS = "Fortification is successful";
+    public static final String FORTIFICATION_FAILURE = "Fortification is failed due to exceeded army count and/or current player not the owner of the territories";
+    public static final String FORTIFICATION_NEIGHBOUR_FAILURE = "Fortification is failed due to the destinaton territory not a neighbour of the source";
 }
