@@ -49,7 +49,7 @@ public class Continent {
     }
 
     /**
-     *
+     *Parametrized constructor
      * @param ContName
      */
     public  Continent(String ContName){

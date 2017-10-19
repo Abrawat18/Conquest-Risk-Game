@@ -62,7 +62,7 @@ public class Territory {
      */
     public ConfigurableMessage addRemoveNeighbourToTerr(Territory terrObj, char addRemoveFlag) {
         if (addRemoveFlag == 'A') {
-            if (this.neighbourList.size() <= 9 && terrObj.neighbourList.size() <= 9) {
+            if (this.neighbourList.size() <= 10 && terrObj.neighbourList.size() <= 10) {
                 this.neighbourList.add(terrObj);
                 terrObj.neighbourList.add(this);
                 return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
@@ -84,15 +84,11 @@ public class Territory {
      * validation1 before saving a map - Validation to check if the number of neighbours not greater than 10
      *
      * @param terrList
-     * @return confirmationMessage
      */
-    public ConfigurableMessage addNeighbourToTerr(List<Territory> terrList) {
-        this.neighbourList.addAll(terrList);
-        if (this.neighbourList.size() <= 10) {
-            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
-        } else
-            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NEIGHBOUR_SIZE_VAL_FAIL);
-
+    public void addNeighbourToTerr(List<Territory> terrList) {
+        for (Territory objTerr : terrList){
+            addRemoveNeighbourToTerr(objTerr, 'A');
+        }
     }
 
     /**
