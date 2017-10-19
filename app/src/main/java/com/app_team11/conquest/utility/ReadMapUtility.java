@@ -241,8 +241,9 @@ public class ReadMapUtility {
     public List<Player> assignArmies(int noOfPlayers) {
 
         Player p = null;
-
-        if (noOfPlayers == 3) {
+        if (noOfPlayers == 2)
+            noOfArmies = 40;
+        else if (noOfPlayers == 3) {
             noOfArmies = 35;
         } else if (noOfPlayers == 4) {
             noOfArmies = 30;
@@ -268,24 +269,12 @@ public class ReadMapUtility {
     }
 
     public List<Player> randomlyAssignCountries(List<Player> Players, List<Territory> Territories) {
-        int tCount = 0, pCount = 0;
         Collections.shuffle(Territories);
-        while (Territories.size() > 0 && tCount < Territories.size()) {
-            while (Players.size() > 0) {
-                Territories.get(tCount).setTerritoryOwner(Players.get(pCount));
-                //For initial stage
-                Territories.get(tCount).setArmyCount(1);
-                int singleArmies = Players.get(pCount).getAvailableArmyCount() - 1;
-                Players.get(pCount).setAvailableArmyCount(singleArmies);
-                if (pCount == Players.size() - 1) {
-                    pCount = -1;
-                }
-
-                break;
+        for(Territory territory : Territories){
+            for(Player player : Players){
+                territory.setTerritoryOwner(player);
+                territory.addArmyToTerr(1);
             }
-            tCount++;
-            pCount++;
-
         }
         return Players;
     }
@@ -315,17 +304,12 @@ public class ReadMapUtility {
                 tNumber = sc.nextInt();
                 tNumber = tNumber - 1;
 
-                System.out.println("Enter number of armies you want to place in Territory " + temp.get(tNumber).getTerritoryName());
-                int armiesToPlace = sc.nextInt();
-                if (pList.get(i).getAvailableArmyCount() > 0 && pList.get(i).getAvailableArmyCount() - armiesToPlace > 0) {
-                    pList.get(i).setAvailableArmyCount(pList.get(i).getAvailableArmyCount() - armiesToPlace);
-                    temp.get(tNumber).setArmyCount(temp.get(tNumber).getArmyCount() + armiesToPlace);
-                    needToAssignArmy = true;
-
-                } else if (pList.get(i).getAvailableArmyCount() - armiesToPlace < 0) {
-                    System.out.println("You don't have sufficient army to place...Try again");
+                if (pList.get(i).getAvailableArmyCount() > 0) {
+                    temp.get(tNumber).addArmyToTerr(1);
+                    if(pList.get(i).getAvailableArmyCount() > 0) {
+                        needToAssignArmy = true;
+                    }
                 }
-
             }
         }
     }

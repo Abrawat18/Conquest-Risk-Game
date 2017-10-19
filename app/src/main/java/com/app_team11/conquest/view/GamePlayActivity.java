@@ -35,8 +35,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_play);
         initializeView();
-        initialization();
 
+        initialization();
 
     }
 
@@ -47,24 +47,15 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener {
     }
 
     private void initialization() {
-        String filePathToLoad = null;
-        Intent intent = getIntent();
-        if (intent != null) {
-            Bundle bundle = intent.getExtras();
-            if (bundle != null) {
-                filePathToLoad = bundle.getString(Constants.KEY_FILE_PATH);
-            }
-
-        }
-        if (!TextUtils.isEmpty(filePathToLoad)) {
-            setMap(new ReadMapUtility().readFile(filePathToLoad));
-        }
-
-
+        StartUpPhaseController.getInstance().setContext(this).startStartUpPhase();
     }
 
-    private void setMap(GameMap map) {
+    public void setMap(GameMap map) {
         this.map = map;
+    }
+
+    public GameMap getMap() {
+        return map;
     }
 
     private void showMap() {
@@ -104,4 +95,5 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener {
     public boolean onTouch(View v, MotionEvent event) {
         return false;
     }
+
 }
