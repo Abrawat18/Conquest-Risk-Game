@@ -327,8 +327,6 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                         neighbourTerritoryFrom.addRemoveNeighbourToTerr(neighbourTerritoryTo, 'A');
                         showMap();
                     }
-
-                    Toast.makeText(this, territory.getTerritoryName(), Toast.LENGTH_SHORT).show();
                 }
             }
 
