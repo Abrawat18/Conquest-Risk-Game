@@ -1,0 +1,36 @@
+Following Coding Standards were taken care of while development of the Phase I of RISK Game
+ 
+Easy to understand English descriptors are used to describe the variable/class/interface/method,etc.For e.g : The addition and removal of continent functionality in the Map Editor is represented by method called addRemoveContinentFromMap. 
+Following naming conventions provided by Java naming convention are been implemented :
+Class name/Interface name – First letter is capital and others are small , changing keyword is capital and rest are small. 
+E.g. GamePlayActivity,MapEditorActivity,SurfaceOnTouchListner,etc.
+Package name - Package name is entirely in small letters. It contains _(underscore) for changing name if needed. 
+ 	E.g : com.app_team11.conquest 
+Variable name/function name - First letter is small and others are small , changing keyword is capital and rest are small. E.g.
+E.g : Variable Name : msgCode, msgText , Function Name : onCreate()
+Constant - All letters are capital. It has underscore for changing keyword. 
+E.g. : VALUE_FROM_EDIT_MAP , KEY_NO_OF_PLAYER , etc. 
+Every class have the comments at the top which clearly describes the purpose of the creation of class, author information & date on which the class is created. 
+Each and every class should have comments at the top which clearly states the purpose of the class creation (i.e., class summary), author information, created date and last modification date on the top, so that one can come to know that when the class implementation was last changed.
+/**
+* All the oonstants for the project are described here in this class
+* Created by Vasu on 06-10-2017.
+*/
+ 
+All the functions are commented properly with details of parameters and return type
+There are no unused function,variable or constants in the project.
+There is no pending TO-DO Generator blocks in the code.
+There are separate packages for adapter,activities,constants,classes,model,utility,view,etc.
+Each and every resource used in the application is defined in the “res” folder of the application. E.g.
+If we need to use a string value in the application, it should be defined in the “strings.xml” file of the “res/values” folder.
+If we need to use any color to be used in the application, it should be defined in the “colors.xml” file in the “res/values” folder.
+If we need to use static array to be used in the application, it should be defined in the “arrays.xml” file in the “res/values” folder.
+If we need to use static dimension to be used in the application, it should be defined in the “dimens.xml” file in the “res/values” folder.
+If we need to use specific style for controls used in the application, it should be defined in “styles.xml” and the corresponding control theme should be defined in “themes.xml” file in the “res/values” folder
+If there is a base class whose functions are to be referred from other classes, The base class should extend Activity and other classes should extend the extended base class to provide direct access to the base class functions in the other classes.
+Icons and images must be managed properly in the ‘drawable-xxhdpi’,’drawable-xhdpi’, ‘drawable-hdpi’ and ‘drawable-mdpi’ folders of the “res” folders to make application UI look & feel consistent in all the available devices with different screen resolutions. 
+XML Tags are identified by ID.These are in small letters with underscore for changing keyword.For e.g : android:id="@+id/list_player"
+
+
+
+
