@@ -27,13 +27,17 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Continent" />
+                android:text="Continent"
+                android:layout_marginTop="10px"
+                android:layout_marginLeft="10px"/>
 
             <ListView
                 android:id="@+id/list_continent"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"></ListView>
+                android:layout_weight="1"
+                android:layout_marginTop="10px">
+            </ListView>
 
             <Button
                 android:id="@+id/btn_add_continent"
