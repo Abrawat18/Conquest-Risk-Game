@@ -19,7 +19,9 @@ import java.util.Collections;
 
 /**
  * Created by Jaydeep9101 on 19-Oct-17.
+ * @version 1.0.0
  */
+
 
 public class StartUpPhaseController implements SurfaceOnTouchListner {
 
@@ -46,6 +48,9 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
         return getInstance();
     }
 
+    /**
+     * method to initialize map for game play, set the number of players
+     */
     private void getDataFromBundleAndInitializeMap() {
         String filePathToLoad = null;
         Intent intent = getActivity().getIntent();
@@ -72,13 +77,18 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
 
     }
 
+    /**
+     * method to assign territories and armies to territories in the startup phase
+     */
     public void initializationStartupPhase() {
         getDataFromBundleAndInitializeMap();
         randomlyAssignCountries();
         assignInitialArmy();
     }
 
-
+    /**
+     * method to randomly assign territories to each player
+     */
     public void randomlyAssignCountries() {
         Collections.shuffle(getActivity().getMap().getTerritoryList());
         int territoryIndex = 0;
@@ -94,6 +104,9 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
         }
     }
 
+    /**
+     * method to assign intitial armies to each territory on start up
+     */
     public void assignInitialArmy() {
         asyncTask = new AsyncTask<Void, Void, Void>() {
             @Override
@@ -144,6 +157,11 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
         asyncTask.execute();
     }
 
+    /**
+     * {@inheritDoc}
+     * @param v
+     * @param event
+     */
     @Override
     public void onTouch(View v, MotionEvent event) {
         float x = event.getX();

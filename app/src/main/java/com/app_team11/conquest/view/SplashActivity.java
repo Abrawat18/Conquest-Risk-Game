@@ -23,6 +23,9 @@ public class SplashActivity extends Activity{
         openMainMenu();
     }
 
+    /**
+     * method to open the app splash screen
+     */
     private void openMainMenu() {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {

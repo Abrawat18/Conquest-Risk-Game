@@ -59,7 +59,7 @@ public class ReInforcementPhaseController implements SurfaceOnTouchListner {
     }
 
     /**
-     *
+     *method used to start the reinforcement phase in the play game
      */
     public void startReInforceMentPhase() {
         if (getActivity().getMap().getPlayerList().size() > 0) {
@@ -69,10 +69,18 @@ public class ReInforcementPhaseController implements SurfaceOnTouchListner {
         }
     }
 
+    /**
+     * method to stop the reinforcement phase
+     */
     public void stopReInforceMentPhase() {
         waitForSelectTerritory = false;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param v
+     * @param event
+     */
     @Override
     public void onTouch(View v, MotionEvent event) {
         float x = event.getX();
@@ -90,6 +98,9 @@ public class ReInforcementPhaseController implements SurfaceOnTouchListner {
         }
     }
 
+    /**
+     * method to take inputs from user for placing the army in selected territory in reinforcement phase
+     */
     private void askUserToPlaceNoOfArmyToSelectedTerritory() {
         final EditText editNoOfArmy = new EditText(getActivity());
         editNoOfArmy.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -122,6 +133,9 @@ public class ReInforcementPhaseController implements SurfaceOnTouchListner {
                 .show();
     }
 
+    /**
+     * method to call the function for calculation of reinforcement army on the start of the player turn
+     */
     private void calculateReinforcementArmyForPlayer() {
         ReinforcementType reinforcementType = getActivity().getPlayerTurn().calcReinforcementArmy(getActivity().getMap(), false, getActivity().getMap().getNoOfCardTradedCount(), null);
         needToPlaceArmy = reinforcementType.getOtherTotalReinforcement();
