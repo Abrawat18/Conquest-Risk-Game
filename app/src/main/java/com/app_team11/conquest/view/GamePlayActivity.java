@@ -23,6 +23,7 @@ import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
 import com.app_team11.conquest.model.GameMap;
 import com.app_team11.conquest.model.Player;
+import com.app_team11.conquest.model.ReinforcementType;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.MathUtility;
 
@@ -69,11 +70,13 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     }
 
     private void initialization() {
+        disableButtonFortificationPhase();
         StartUpPhaseController.getInstance().setContext(this).startStartUpPhase();
     }
 
     public void onStartupPhaseFinished() {
         ReInforcementPhaseController.getInstance().setContext(this).startReInforceMentPhase();
+        enableButtonFortificationPhase();
     }
 
     public void initializePlayerAdapter() {
@@ -138,10 +141,14 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         });
     }
 
-    private void showMap() {
+    public void showMap() {
         Paint linePaint = new Paint();
         linePaint.setColor(Color.WHITE);
         linePaint.setStrokeWidth(15);
+        TextPaint paintText = new TextPaint();
+        paintText.setColor(Color.BLACK);
+        paintText.setTextSize(25f);
+
         canvas = surface.getHolder().lockCanvas();
         for (Territory territory : map.getTerritoryList()) {
             Paint paint = new Paint();
@@ -150,16 +157,24 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             for (Territory territoryNeighbour : territory.getNeighbourList()) {
                 canvas.drawLine(territory.getCenterPoint().x, territory.getCenterPoint().y, territoryNeighbour.getCenterPoint().x, territoryNeighbour.getCenterPoint().y, linePaint);
             }
-            TextPaint paintText = new TextPaint();
-            String playerID =Integer.toString(territory.getTerritoryOwner().getPlayerId());
-            String noOfArmies = Integer.toString(territory.getTerritoryOwner().getAvailableArmyCount());
-            paintText.setColor(Color.BLACK);
-            paintText.setTextSize(25);
-            canvas.drawText(playerID, (territory.getCenterPoint().x)-30, (territory.getCenterPoint().y)-20,paintText);
+            String playerID = Integer.toString(territory.getTerritoryOwner().getPlayerId());
+            String noOfArmies = Integer.toString(territory.getArmyCount());
+            canvas.drawText(playerID, (territory.getCenterPoint().x) - 30, (territory.getCenterPoint().y) - 20, paintText);
             canvas.drawText(noOfArmies, territory.getCenterPoint().x, territory.getCenterPoint().y, paintText);
         }
         surface.getHolder().unlockCanvasAndPost(canvas);
 
+    }
+
+
+    private void disableButtonFortificationPhase() {
+        btnStartFortificationPhase.setEnabled(false);
+        btnStartFortificationPhase.setAlpha(0.4f);
+    }
+
+    private void enableButtonFortificationPhase() {
+        btnStartFortificationPhase.setEnabled(true);
+        btnStartFortificationPhase.setAlpha(1f);
     }
 
     private SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
@@ -189,6 +204,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_start_fortification_phase:
+                ReInforcementPhaseController.getInstance().stopReInforceMentPhase();
+                FortificationPhaseController.getInstance().setContext(this).startFortificationPhase();
                 break;
         }
     }

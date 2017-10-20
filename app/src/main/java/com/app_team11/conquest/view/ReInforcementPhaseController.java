@@ -105,7 +105,7 @@ public class ReInforcementPhaseController implements SurfaceOnTouchListner {
         final EditText editNoOfArmy = new EditText(getActivity());
         editNoOfArmy.setInputType(InputType.TYPE_CLASS_NUMBER);
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
-        sweetAlertDialog.setTitleText("Please Enter Territory Name")
+        sweetAlertDialog.setTitleText("Enter no of army")
                 .setConfirmText("Ok")
                 .setCustomView(editNoOfArmy)
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -118,6 +118,7 @@ public class ReInforcementPhaseController implements SurfaceOnTouchListner {
                                 ConfigurableMessage configurableMessage = selectedTerritory.addArmyToTerr(requestedToPlaceArmy);
                                 if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
                                     needToPlaceArmy -= requestedToPlaceArmy;
+                                    getActivity().showMap();
                                 }
                                 if (needToPlaceArmy == 0) {
                                     getActivity().setNextPlayerTurn();

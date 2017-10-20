@@ -12,6 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Continent Model class with variables Continent Name,Score & Continent Owner
  * Created by Vasu on 06-10-2017.
+ *
  * @version 1.0.0
  */
 public class Continent {
@@ -53,31 +54,33 @@ public class Continent {
 
     /**
      * Initialize class members
+     *
      * @param contName
      * @param score
-     *
      */
-    public Continent(String contName, int score,Context context) {
+    public Continent(String contName, int score, Context context) {
         this.contName = contName;
         this.score = score;
-        if(context!=null)
+        if (context != null)
             setRandomColorToContinent(context);
     }
 
     /**
-     *Parametrized constructor
+     * Parametrized constructor
+     *
      * @param ContName
      */
-    public  Continent(String ContName,Context context){
+    public Continent(String ContName, Context context) {
         this.contName = getContName();
         setRandomColorToContinent(context);
     }
 
-    public  Continent(String ContName,int score){
+    public Continent(String ContName, int score) {
         this.contName = getContName();
         this.score = score;
     }
-    public Continent copyContinent(){
+
+    public Continent copyContinent() {
         Continent continent = new Continent();
         continent.setContName(this.getContName());
         continent.setScore(this.getScore());
@@ -86,10 +89,10 @@ public class Continent {
         return continent;
     }
 
-    public void setRandomColorToContinent(Context context){
+    public void setRandomColorToContinent(Context context) {
         continentID = count.incrementAndGet();
         int[] continentColor = context.getResources().getIntArray(R.array.continentColor);
-        this.setContColor(continentColor[continentID-1]);
+        this.setContColor(continentColor[(continentID % continentColor.length)]);
     }
 
     public int getContColor() {

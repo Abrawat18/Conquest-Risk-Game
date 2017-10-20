@@ -115,4 +115,16 @@ public class MapSelectionAndInitializationActivity extends Activity {
             }
         });
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString(Constants.KEY_FROM,fromWhichActivity);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        fromWhichActivity = savedInstanceState.getString(Constants.KEY_FROM);
+    }
 }

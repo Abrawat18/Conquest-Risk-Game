@@ -137,7 +137,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
                             if (player.getAvailableArmyCount() > 0) {
                                 needToAssignArmy = true;
                             }
-
+                            getActivity().showMap();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
