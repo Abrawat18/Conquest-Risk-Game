@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Layout;
@@ -148,6 +149,11 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         TextPaint paintText = new TextPaint();
         paintText.setColor(Color.BLACK);
         paintText.setTextSize(25f);
+        paintText.setTypeface(Typeface.create("Arial", Typeface.BOLD));
+        TextPaint paintNoOfArmies = new TextPaint();
+        paintNoOfArmies.setColor(Color.BLACK);
+        paintNoOfArmies.setTextSize(35f);
+        paintText.setTypeface(Typeface.create("Arial", Typeface.BOLD));
 
         canvas = surface.getHolder().lockCanvas();
         for (Territory territory : map.getTerritoryList()) {
@@ -157,11 +163,13 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             for (Territory territoryNeighbour : territory.getNeighbourList()) {
                 canvas.drawLine(territory.getCenterPoint().x, territory.getCenterPoint().y, territoryNeighbour.getCenterPoint().x, territoryNeighbour.getCenterPoint().y, linePaint);
             }
-            String playerID = Integer.toString(territory.getTerritoryOwner().getPlayerId());
-            String noOfArmies = Integer.toString(territory.getArmyCount());
-            canvas.drawText(playerID, (territory.getCenterPoint().x) - 30, (territory.getCenterPoint().y) - 20, paintText);
-            canvas.drawText(noOfArmies, territory.getCenterPoint().x, territory.getCenterPoint().y, paintText);
         }
+         for (Territory territory : map.getTerritoryList()){
+             String playerID = Integer.toString(territory.getTerritoryOwner().getPlayerId());
+             String noOfArmies = Integer.toString(territory.getArmyCount());
+             canvas.drawText(("P=" + playerID), (territory.getCenterPoint().x) - 30, (territory.getCenterPoint().y) - 20, paintText);
+             canvas.drawText(noOfArmies, territory.getCenterPoint().x + 10, territory.getCenterPoint().y + 10, paintNoOfArmies);
+         }
         surface.getHolder().unlockCanvasAndPost(canvas);
 
     }
