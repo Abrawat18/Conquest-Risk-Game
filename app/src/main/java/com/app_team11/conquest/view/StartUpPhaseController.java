@@ -169,10 +169,10 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
         if (waitForSelectTerritory) {
             selectedTerritory = getActivity().getTerritoryAtSelectedPoint((int) x, (int) y);
             if (selectedTerritory != null && selectedTerritory.getTerritoryOwner().equals(getActivity().getPlayerTurn())) {
+                waitForSelectTerritory = false;
                 synchronized (asyncTask) {
                     asyncTask.notify();
                 }
-                waitForSelectTerritory = false;
             } else {
                 getActivity().toastMessageFromBackground("Place army on correct territory !!");
             }
