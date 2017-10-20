@@ -40,12 +40,14 @@ public class ReadMapUtility {
         this.context = context;
     }
 
+    public ReadMapUtility() {   }
+
     public List<Territory> currentTerritories() {
         return territoryList;
     }
 
-    public GameMap readFile(String filePath) {
-
+    public GameMap readFile(String filePath)
+    {
         try {
             FileReader f = new FileReader(filePath);
             Scanner sc = new Scanner(f);
@@ -110,6 +112,7 @@ public class ReadMapUtility {
 
         } catch (Exception e) {
             System.out.println("Exception" + e);
+            e.printStackTrace();
             return null;
         }
         gm = new GameMap();
@@ -233,7 +236,7 @@ public class ReadMapUtility {
         tUpdate.setContinent(cont);
         tempT = new ArrayList<Territory>();
         tempT.add(tUpdate);
-//        tUpdate.setNeighbourList(tempT);
+
         tUpdate.addNeighbourToTerr(connectedT);
     }
 
@@ -276,13 +279,25 @@ public class ReadMapUtility {
         return Players.get(rnd);
     }
 
-    public List<Player> randomlyAssignCountries(List<Player> Players, List<Territory> Territories) {
+ public List<Player> randomlyAssignCountries(List<Player> Players, List<Territory> Territories) {
+        int Tcount = 0,Pcount=0;
         Collections.shuffle(Territories);
-        for(Territory territory : Territories){
-            for(Player player : Players){
-                territory.setTerritoryOwner(player);
-                territory.addArmyToTerr(1);
+        while (Territories.size() > 0 && Tcount<Territories.size())
+        {
+            while (Players.size()> 0)
+            {
+                Territories.get(Tcount).setTerritoryOwner(Players.get(Pcount));
+                Territories.get(Tcount).addArmyToTerr(1);
+                if (Pcount == Players.size()-1)
+                {
+                    Pcount = -1;
+                }
+
+                break;
             }
+            Tcount++;
+            Pcount++;
+
         }
         return Players;
     }

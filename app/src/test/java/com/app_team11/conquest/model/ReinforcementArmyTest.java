@@ -15,14 +15,12 @@ import static org.junit.Assert.*;
  * Created by Nigel on 10/19/2017.
  */
 public class ReinforcementArmyTest {
-    private String fileName;
-
     private List<Territory> territoryList;
     private List<Player> playerList;
     private List<Cards> cardListOwned;
     private List<Cards> cardList;
     private List<Continent> continentList;
-    private GameMap map=new GameMap();
+    private GameMap map;
     private ReinforcementType reinforcementArmy;
 
     private Continent continent;
@@ -42,6 +40,7 @@ public class ReinforcementArmyTest {
         cardList=new ArrayList<Cards>();
         cardListOwned=new ArrayList<Cards>();
         ReinforcementType reinforcementArmy;
+        map=new GameMap();
 
         continent=new Continent("Test Continent 1",7);
         continentList.add(continent);

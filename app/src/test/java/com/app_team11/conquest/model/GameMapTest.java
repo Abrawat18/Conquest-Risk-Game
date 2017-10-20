@@ -20,7 +20,7 @@ public class GameMapTest {
 
     @Before
     public void setUp() {
-        filePath="D:\\APP build 1 docs\\3D.map";
+        filePath="D:\\3D.map";
         failed=false;
         f=new File("D:\\APP build 1 docs\\WriteFile.map");
     }
@@ -30,6 +30,7 @@ public class GameMapTest {
     {
         ReadMapUtility readTest=new ReadMapUtility();
         GameMap gameMap=readTest.readFile(filePath);
+        System.out.println("map is"+gameMap);
         gameMap.setAuthorName("Tester");
         gameMap.setImageName("Test Image");
         gameMap.setScrollLine("yes");
