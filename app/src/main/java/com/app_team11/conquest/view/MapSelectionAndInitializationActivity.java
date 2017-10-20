@@ -24,6 +24,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by RADHEY on 10/15/2017.
+ * @version 1.0.0
  */
 
 public class MapSelectionAndInitializationActivity extends Activity {
@@ -33,19 +34,21 @@ public class MapSelectionAndInitializationActivity extends Activity {
     private String fromWhichActivity;
     private Intent intent = null;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_map_selection);
-
-
         initializeView();
         initialization();
 
     }
 
+    /**
+     * method used to redirect the request if map as from map editor or game play
+     */
     private void initialization() {
         Intent intent = getIntent();
         if(intent!=null){
@@ -59,6 +62,9 @@ public class MapSelectionAndInitializationActivity extends Activity {
         listMenu.setAdapter(mapSelectionAdapter);
     }
 
+    /**
+     * method to initialize the map according to the source of request
+     */
     private void initializeView() {
         listMenu = (ListView) findViewById(R.id.list_map);
         listMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {

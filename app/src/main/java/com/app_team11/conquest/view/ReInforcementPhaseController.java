@@ -36,6 +36,10 @@ public class ReInforcementPhaseController implements SurfaceOnTouchListner {
 
     }
 
+    /**
+     * singleton implementation for Reinforcement controller
+     * @return returns the class object
+     */
     public static ReInforcementPhaseController getInstance() {
         if (reInforcementPhaseController == null) {
             reInforcementPhaseController = new ReInforcementPhaseController();
@@ -43,12 +47,20 @@ public class ReInforcementPhaseController implements SurfaceOnTouchListner {
         return reInforcementPhaseController;
     }
 
+    /**
+     * setting the context variable for reinforcement phase
+     * @param context
+     * @return
+     */
     public ReInforcementPhaseController setContext(Context context) {
         this.context = context;
         getActivity().setSurfaceOnTouchListner(this);
         return getInstance();
     }
 
+    /**
+     *
+     */
     public void startReInforceMentPhase() {
         if (getActivity().getMap().getPlayerList().size() > 0) {
             getActivity().setPlayerTurn(getActivity().getMap().getPlayerList().get(0));

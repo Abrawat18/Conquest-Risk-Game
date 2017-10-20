@@ -47,6 +47,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by Jaydeep9101 on 06-Oct-17.
+ * @version 1.0.0
  */
 
 //Todo : editor menu : 1. add continent 2. add territory 3. on terrirtory  selection : show continent or select continent , neighbour
@@ -107,6 +108,9 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         }
     }
 
+    /**
+     * method to initialize the objects required for the start of map editor
+     */
     private void initializeView() {
         surface = (SurfaceView) findViewById(R.id.surface);
         surface.setOnTouchListener(this);
@@ -229,11 +233,18 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         });
     }
 
+    /**
+     * setting the adapter for continents
+     */
     private void setTerritoryAdapterForSelectedContinent() {
         List<Territory> selectedTerritory = map.getTerrForCont(selectedContinent);
         setAdapterForTerritory(selectedTerritory);
     }
 
+    /**
+     * decides whether the map is loaded from the file or a new map is to be created
+     * @throws JSONException
+     */
     private void initialization() throws JSONException {
         Intent intent = getIntent();
         if (intent != null) {
@@ -252,6 +263,10 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         getSuggestedTerritoryList();
     }
 
+    /**
+     * method to fetch the list of territories from json file
+     * @throws JSONException
+     */
     private void getSuggestedTerritoryList() throws JSONException {
         territorySuggestList = MapManager.getInstance().getTerritoryListFromFile(this);
         territorySuggestAdapter = new TerritoryAdapter(this, territorySuggestList);
@@ -262,11 +277,19 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     }
 
+    /**
+     * adapter for territory
+     * @param territoryList
+     */
     private void setAdapterForTerritory(List<Territory> territoryList) {
         territoryAdapter.setTerritoryList(territoryList);
         territoryAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * method to fetch the list of continents from json file
+     * @throws JSONException
+     */
     private void getSuggestedContinentList() throws JSONException {
         continentSuggestList = MapManager.getInstance().getContinentListFromFile(this);
         continentSuggestAdapter = new ContinentAdapter(this, continentSuggestList);
@@ -341,6 +364,9 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     }
 
+    /**
+     * method is creating and drawing the map object on the screen
+     */
     private void showMap() {
 
         Paint linePaint = new Paint();
@@ -373,6 +399,9 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         linearAddTerritory.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * method to allow the user to add a custom territory by taking input from the screen
+     */
     private void addCustomTerritory() {
         editCustomTerritory = new EditText(this);
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
@@ -398,6 +427,9 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         linearAddContinent.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * method to allow the user to add a custom continent by taking input from the screen
+     */
     private void addCustomContinent() {
         myLayout = new LinearLayout(this);
         editCustomContinent = new EditText(this);
@@ -433,6 +465,9 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     }
 
+    /**
+     * method to hide all the layouts to allow the new layout to be loaded
+     */
     private void hideAllLinearLayouts() {
         linearAddContinent.setVisibility(View.GONE);
         linearContinent.setVisibility(View.GONE);
@@ -440,6 +475,9 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         linearTerritory.setVisibility(View.GONE);
     }
 
+    /**
+     * method is used to save all the information taken from input and write to the file
+     */
     private void saveToMap() {
         final EditText editMapName = new EditText(this);
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MapEditorActivity.this, SweetAlertDialog.NORMAL_TYPE);
@@ -477,6 +515,10 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         sweetAlertDialog.show();
     }
 
+    /**
+     * {@inheritDoc}
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -495,12 +537,18 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onResume() {
         super.onResume();
         initializeView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
