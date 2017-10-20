@@ -67,7 +67,11 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         StartUpPhaseController.getInstance().setContext(this).startStartUpPhase();
     }
 
-    public void initializePlayerAdapter(){
+    public void onStartupPhaseFinished() {
+        ReInforcementPhaseController.getInstance().setContext(this).startReInforceMentPhase();
+    }
+
+    public void initializePlayerAdapter() {
         if (getMap().getPlayerList() != null) {
             playerListAdapter = new PlayerListAdapter(this, getMap().getPlayerList());
             listPlayer.setAdapter(playerListAdapter);
@@ -107,6 +111,13 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 playerListAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    public void setNextPlayerTurn() {
+        int nextPlayerTurnId = (playerTurn.getPlayerId()) % getMap().getPlayerList().size();
+        getMap().changeCurrentPlayerTurn(getMap().getPlayerList().get(nextPlayerTurnId));
+        playerTurn = getMap().getPlayerList().get(nextPlayerTurnId);
+        playerListAdapter.notifyDataSetChanged();
     }
 
     public Player getPlayerTurn() {
@@ -169,4 +180,5 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 break;
         }
     }
+
 }

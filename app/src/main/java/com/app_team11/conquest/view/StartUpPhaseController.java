@@ -28,7 +28,6 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
     private AsyncTask<Void, Void, Void> asyncTask;
     private Territory selectedTerritory;
     private boolean waitForSelectTerritory;
-    private boolean notified;
 
     private StartUpPhaseController() {
 
@@ -100,7 +99,9 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                getActivity().setPlayerTurn(getActivity().getMap().getPlayerList().get(0));
+                if (getActivity().getMap().getPlayerList().size() > 0) {
+                    getActivity().setPlayerTurn(getActivity().getMap().getPlayerList().get(0));
+                }
                 Toast.makeText(context, "Touch on territory to add army", Toast.LENGTH_SHORT).show();
             }
 
@@ -116,7 +117,6 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
                             waitForSelectTerritory = true;
                             getActivity().setPlayerTurn(player);
 
-                            notified = false;
                             synchronized (asyncTask) {
                                 asyncTask.wait();
                             }
@@ -134,6 +134,12 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
 
                 return null;
             }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                getActivity().onStartupPhaseFinished();
+            }
         };
         asyncTask.execute();
     }
@@ -144,13 +150,12 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
         float y = event.getY();
         if (waitForSelectTerritory) {
             selectedTerritory = getActivity().getTerritoryAtSelectedPoint((int) x, (int) y);
-            if(selectedTerritory!=null &&  selectedTerritory.getTerritoryOwner().equals(getActivity().getPlayerTurn())) {
-                notified = true;
+            if (selectedTerritory != null && selectedTerritory.getTerritoryOwner().equals(getActivity().getPlayerTurn())) {
                 synchronized (asyncTask) {
                     asyncTask.notify();
                 }
                 waitForSelectTerritory = false;
-            }else{
+            } else {
                 getActivity().toastMessageFromBackground("Place army on correct territory !!");
             }
         }
