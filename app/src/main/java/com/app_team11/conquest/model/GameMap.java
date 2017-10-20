@@ -234,6 +234,9 @@ public class GameMap {
         return terrList;
     }
 
+    /**
+     *
+     */
     public void increaseCardTradedCount(){
         this.noOfCardTradedCount ++;
     }
