@@ -103,7 +103,7 @@ public class Player {
         territoryArmy = ownedTerritoryCount / 3;
 
         for (Continent contObj : gameMap.getContinentList()) {
-            if (contObj.getContOwner().getPlayerId() == this.playerId) {
+            if (contObj.getContOwner()!=null && contObj.getContOwner().getPlayerId() == this.playerId) {
                 continentArmy += contObj.getScore();
             }
         }

@@ -25,6 +25,7 @@ public class GameMap {
     private List<Continent> continentList;
     private List<Territory> territoryList;
     private List<Player> playerList;
+    private int noOfCardTradedCount;
 
     public GameMap() {
         this.continentList = new ArrayList<Continent>();
@@ -231,6 +232,14 @@ public class GameMap {
             }
         }
         return terrList;
+    }
+
+    public void increaseCardTradedCount(){
+        this.noOfCardTradedCount ++;
+    }
+
+    public int getNoOfCardTradedCount() {
+        return noOfCardTradedCount;
     }
 
     public void changeCurrentPlayerTurn(Player player) {
