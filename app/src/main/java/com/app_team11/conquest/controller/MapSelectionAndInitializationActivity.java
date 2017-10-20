@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.app_team11.conquest.R;
 import com.app_team11.conquest.adapter.MapSelectionAdapter;
@@ -21,6 +22,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by RADHEY on 10/15/2017.
+ *
  * @version 1.0.0
  */
 
@@ -48,9 +50,9 @@ public class MapSelectionAndInitializationActivity extends Activity {
      */
     private void initialization() {
         Intent intent = getIntent();
-        if(intent!=null){
+        if (intent != null) {
             Bundle bundle = intent.getExtras();
-            if(bundle !=null){
+            if (bundle != null) {
                 fromWhichActivity = bundle.getString(Constants.KEY_FROM);
             }
         }
@@ -72,15 +74,14 @@ public class MapSelectionAndInitializationActivity extends Activity {
                 bundle.putString(Constants.KEY_FILE_PATH, mapFiles[position].getPath());
 
 
-
-                if(fromWhichActivity.equals(Constants.VALUE_FROM_EDIT_MAP)){
+                if (fromWhichActivity.equals(Constants.VALUE_FROM_EDIT_MAP)) {
                     intent = new Intent(MapSelectionAndInitializationActivity.this, MapEditorActivity.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
 
-                }else if(fromWhichActivity.equals(Constants.VALUE_FROM_PLAY_GAME)){
+                } else if (fromWhichActivity.equals(Constants.VALUE_FROM_PLAY_GAME)) {
                     intent = new Intent(MapSelectionAndInitializationActivity.this, GamePlayActivity.class);
-                    final EditText editNoOfPlayer  = new EditText(MapSelectionAndInitializationActivity.this);
+                    final EditText editNoOfPlayer = new EditText(MapSelectionAndInitializationActivity.this);
                     SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MapSelectionAndInitializationActivity.this, SweetAlertDialog.NORMAL_TYPE);
                     sweetAlertDialog.setTitleText(" Please Enter No of Player")
                             .setConfirmText("Ok")
@@ -89,11 +90,15 @@ public class MapSelectionAndInitializationActivity extends Activity {
                                 @Override
                                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                                     if (!TextUtils.isEmpty(editNoOfPlayer.getText().toString())) {
-                                        bundle.putInt(Constants.KEY_NO_OF_PLAYER,Integer.parseInt(editNoOfPlayer.getText().toString()));
-                                        intent.putExtras(bundle);
-                                        startActivity(intent);
-                                        sweetAlertDialog.dismiss();
-                                    }else {
+                                        if ((Integer.parseInt(editNoOfPlayer.getText().toString()) <= 6) && (Integer.parseInt(editNoOfPlayer.getText().toString()) > 1)) {
+                                            bundle.putInt(Constants.KEY_NO_OF_PLAYER, Integer.parseInt(editNoOfPlayer.getText().toString()));
+                                            intent.putExtras(bundle);
+                                            startActivity(intent);
+                                            sweetAlertDialog.dismiss();
+                                        }else{
+                                            Toast.makeText(MapSelectionAndInitializationActivity.this,"Invalid No of players!!",Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else {
                                         editNoOfPlayer.setError("Please enter no of players");
                                     }
 
@@ -116,7 +121,7 @@ public class MapSelectionAndInitializationActivity extends Activity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putString(Constants.KEY_FROM,fromWhichActivity);
+        savedInstanceState.putString(Constants.KEY_FROM, fromWhichActivity);
     }
 
     @Override
