@@ -70,13 +70,14 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
             if (selectedTerritory != null && selectedTerritory.getTerritoryOwner().equals(getActivity().getPlayerTurn())) {
                 if (fortificationFromTerritory == null) {
                     fortificationFromTerritory = selectedTerritory;
-                    getActivity().toastMessageFromBackground("Select to territory");
+                    getActivity().toastMessageFromBackground(Constants.FORTIFICATION_SELECT_TO_TERR);
                 } else {
                     fortificationToTerritory = selectedTerritory;
                     askUserToMoveNoOfArmyToSelectedTerritory();
                 }
             } else {
-                getActivity().toastMessageFromBackground("Select only your territory !!");
+                getActivity().toastMessageFromBackground(Constants.FORTIFICATION_INCORRECT_TERRITORY);
+                initializeForNextPlayer();
             }
         }
     }

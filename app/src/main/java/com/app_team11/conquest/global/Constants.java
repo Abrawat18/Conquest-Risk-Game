@@ -38,4 +38,6 @@ public class Constants {
     public static final String FORTIFICATION_SUCCESS = "Fortification is successful";
     public static final String FORTIFICATION_FAILURE = "Fortification is failed due to exceeded army count and/or current player not the owner of the territories";
     public static final String FORTIFICATION_NEIGHBOUR_FAILURE = "Fortification is failed due to the destinaton territory not a neighbour of the source";
+    public static final String FORTIFICATION_INCORRECT_TERRITORY = "Select only your territory !!";
+    public static final String FORTIFICATION_SELECT_TO_TERR = "Select to territory";
 }
