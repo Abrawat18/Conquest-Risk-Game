@@ -1,4 +1,4 @@
-package com.app_team11.conquest.view;
+package com.app_team11.conquest.controller;
 
 import android.app.Activity;
 import android.content.Intent;

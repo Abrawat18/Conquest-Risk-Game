@@ -1,4 +1,4 @@
-package com.app_team11.conquest.view;
+package com.app_team11.conquest.controller;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
-import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.ReinforcementType;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.ConfigurableMessage;

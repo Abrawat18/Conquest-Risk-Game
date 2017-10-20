@@ -5,7 +5,6 @@ package com.app_team11.conquest.utility;
  */
 
 import android.content.Context;
-import android.util.Log;
 
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ import com.app_team11.conquest.model.GameMap;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.model.Continent;
 import com.app_team11.conquest.model.Player;
-import com.app_team11.conquest.view.MapEditorActivity;
 
 public class ReadMapUtility {
     int noOfArmies;

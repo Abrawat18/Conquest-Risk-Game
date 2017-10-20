@@ -1,15 +1,11 @@
-package com.app_team11.conquest.view;
+package com.app_team11.conquest.controller;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -39,9 +35,7 @@ import com.app_team11.conquest.utility.ReadMapUtility;
 import org.json.JSONException;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 

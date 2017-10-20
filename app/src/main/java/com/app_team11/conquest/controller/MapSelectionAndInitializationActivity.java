@@ -1,4 +1,4 @@
-package com.app_team11.conquest.view;
+package com.app_team11.conquest.controller;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,13 +9,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.app_team11.conquest.R;
 import com.app_team11.conquest.adapter.MapSelectionAdapter;
 import com.app_team11.conquest.global.Constants;
-import com.app_team11.conquest.model.Continent;
-import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.utility.FileManager;
 
 import java.io.File;

@@ -1,4 +1,4 @@
-package com.app_team11.conquest.view;
+package com.app_team11.conquest.controller;
 
 import android.app.Activity;
 import android.graphics.Canvas;
@@ -7,8 +7,6 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Layout;
-import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -24,11 +22,8 @@ import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
 import com.app_team11.conquest.model.GameMap;
 import com.app_team11.conquest.model.Player;
-import com.app_team11.conquest.model.ReinforcementType;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.MathUtility;
-
-import static android.R.attr.width;
 
 /**
  * Created by RADHEY on 10/15/2017
@@ -203,7 +198,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
          for (Territory territory : map.getTerritoryList()){
              String playerID = Integer.toString(territory.getTerritoryOwner().getPlayerId());
              String noOfArmies = Integer.toString(territory.getArmyCount());
-             canvas.drawText(("P=" + playerID), (territory.getCenterPoint().x) - 30, (territory.getCenterPoint().y) - 20, paintText);
+             canvas.drawText(("P" + playerID), (territory.getCenterPoint().x) - 30, (territory.getCenterPoint().y) - 20, paintText);
              canvas.drawText(noOfArmies, territory.getCenterPoint().x + 10, territory.getCenterPoint().y + 10, paintNoOfArmies);
          }
         surface.getHolder().unlockCanvasAndPost(canvas);
