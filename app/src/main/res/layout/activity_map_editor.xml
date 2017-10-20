@@ -27,25 +27,34 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Continent"
+                android:layout_marginLeft="10px"
                 android:layout_marginTop="10px"
-                android:layout_marginLeft="10px"/>
+                android:text="Continent"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/green"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                android:typeface="serif" />
 
             <ListView
                 android:id="@+id/list_continent"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginTop="10px">
-            </ListView>
+                android:layout_marginTop="10px"
+                android:layout_weight="1"></ListView>
 
             <Button
                 android:id="@+id/btn_add_continent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Continent"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"/>
+                android:text="Add Continent"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                android:typeface="sans" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,7 +67,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Territory" />
+                android:fontFamily="sans-serif"
+                android:text="Territory"
+                android:textAlignment="center"
+                android:textColor="@color/green"
+                android:textSize="18sp"
+                android:textStyle="bold|italic" />
 
             <ListView
                 android:id="@+id/list_territory"
@@ -70,7 +84,11 @@
                 android:id="@+id/btn_add_territory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Territory" />
+                android:text="Add Territory"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                android:typeface="sans" />
         </LinearLayout>
 
         <LinearLayout
@@ -83,7 +101,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Continent" />
+                android:text="Add Continent"
+                android:textAlignment="center"
+                android:textColor="@color/green"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                android:typeface="sans" />
 
             <ListView
                 android:id="@+id/list_continent_suggest"
@@ -95,7 +118,11 @@
                 android:id="@+id/btn_add_custom_continent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Custom Continent" />
+                android:text="Add Custom Continent"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                android:typeface="sans" />
         </LinearLayout>
 
         <LinearLayout
@@ -108,7 +135,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Territory" />
+                android:text="Add Territory"
+                android:textAlignment="center"
+                android:textColor="@color/green"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                android:typeface="sans" />
 
             <ListView
                 android:id="@+id/list_territory_suggest"
@@ -120,7 +152,11 @@
                 android:id="@+id/btn_add_custom_territory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Custom Territory" />
+                android:text="Add Custom Territory"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                android:typeface="sans" />
         </LinearLayout>
 
     </LinearLayout>
