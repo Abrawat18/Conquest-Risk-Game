@@ -22,9 +22,9 @@ import com.app_team11.conquest.view.MapEditorActivity;
 
 public class ReadMapUtility {
     int noOfArmies;
-    String currentPart, line = null;
+    String line = null;
     String[] params;
-    Territory t, tConnected, t2;
+    Territory t, tConnected;
     Continent c;
     List<Territory> territoryList = new ArrayList<Territory>();
     List<Continent> continentList = new ArrayList<Continent>();
@@ -112,7 +112,6 @@ public class ReadMapUtility {
 
         } catch (Exception e) {
             System.out.println("Exception" + e);
-            e.printStackTrace();
             return null;
         }
         gm = new GameMap();

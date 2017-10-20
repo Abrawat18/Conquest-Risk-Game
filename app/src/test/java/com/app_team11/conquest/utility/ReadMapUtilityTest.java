@@ -24,7 +24,7 @@ public class ReadMapUtilityTest
         }
 
    @Test
-    public void startUpPhaseTest()
+    public void setUpPhaseTest()
    {
        ReadMapUtility read=new ReadMapUtility();
        GameMap gameMap=read.readFile(filePath);
