@@ -26,6 +26,7 @@ public class GameMap {
     private List<Continent> continentList;
     private List<Territory> territoryList;
     private List<Player> playerList;
+    private int noOfCardTradedCount;
 
     public GameMap() {
         this.continentList = new ArrayList<Continent>();
@@ -101,7 +102,7 @@ public class GameMap {
      * Method is used to add or remove continents from the map based on validations for min and max continents allowed
      * Validation2
      *
-     * @param contObj       Continent object which needs to be added or removed from map
+     * @param contObj Continent object which needs to be added or removed from map
      * @param addRemoveFlag flag to indicate if the continent is needed to be added - 'A' or removed - 'R'
      * @return custom message
      */
@@ -207,7 +208,7 @@ public class GameMap {
             for (int i = 1; i <= playersCount; i++) {
                 Player playerObj = new Player();
                 playerObj.setPlayerId(i);
-                playerObj.setAvailableArmyCount(armyCount);
+                playerObj.setAvailableArmyCount(armyCount); //adding initial one army each to every territory from the player's count of army
                 playerList.add(playerObj);
             }
             this.setPlayerList(playerList);
@@ -232,6 +233,18 @@ public class GameMap {
         }
         return terrList;
     }
+
+    /**
+     *
+     */
+    public void increaseCardTradedCount(){
+        this.noOfCardTradedCount ++;
+    }
+
+    public int getNoOfCardTradedCount() {
+        return noOfCardTradedCount;
+    }
+
 
     /**
      * method to set the turn of the current player for game play

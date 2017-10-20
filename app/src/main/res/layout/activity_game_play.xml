@@ -5,6 +5,12 @@
     android:orientation="horizontal"
     android:weightSum="10">
 
+    <SurfaceView
+        android:id="@+id/surface"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="7" />
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -14,7 +20,8 @@
         <ListView
             android:id="@+id/list_player"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
+            android:layout_height="0dp"
+            android:layout_weight="1"></ListView>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,9 +29,4 @@
             android:id="@+id/btn_start_fortification_phase"/>
     </LinearLayout>
 
-    <SurfaceView
-        android:id="@+id/surface"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="7" />
 </LinearLayout>

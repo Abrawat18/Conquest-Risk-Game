@@ -104,7 +104,7 @@ public class Player {
         territoryArmy = ownedTerritoryCount / 3;
 
         for (Continent contObj : gameMap.getContinentList()) {
-            if (contObj.getContOwner().getPlayerId() == this.playerId) {
+            if (contObj.getContOwner()!=null && contObj.getContOwner().getPlayerId() == this.playerId) {
                 continentArmy += contObj.getScore();
             }
         }
@@ -117,7 +117,7 @@ public class Player {
             for (Territory terrObj : gameMap.getTerritoryList()) {
                 for (Cards cardObj : tradeInCards) {
                     if ((terrObj.getTerritoryOwner().getPlayerId() == this.getPlayerId()) && terrObj.getTerritoryName().equalsIgnoreCase(cardObj.getCardTerritory().getTerritoryName())) {
-                        reinforcementCount.setMatchedTerrCardReinforcement(2);
+                        reinforcementCount.setMatchedTerrCardReinforcement(2); //adding the count of armies for cards having the territory owned by the player
                         matchedTerr.add(terrObj);
                     }
                 }
