@@ -18,7 +18,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by Jaydeep9101 on 19-Oct-17.
- */
+ * @version 1.0.0
+ *
+ * */
 
 public class FortificationPhaseController implements SurfaceOnTouchListner {
 
@@ -35,6 +37,10 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
 
     }
 
+    /**
+     * method to implement singleton architecture for class
+     * @return FortificationController object
+     */
     public static FortificationPhaseController getInstance() {
         if (fortificationPhaseController == null) {
             fortificationPhaseController = new FortificationPhaseController();
@@ -42,12 +48,20 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
         return fortificationPhaseController;
     }
 
+    /**
+     * method to set the context to controller
+     * @param context
+     * @return FortificationController Object
+     */
     public FortificationPhaseController setContext(Context context) {
         this.context = context;
         getActivity().setSurfaceOnTouchListner(this);
         return getInstance();
     }
 
+    /**
+     * method to initiate the fortification phase
+     */
     public void startFortificationPhase() {
         if (getActivity().getMap().getPlayerList().size() > 0) {
             getActivity().setPlayerTurn(getActivity().getMap().getPlayerList().get(0));
@@ -56,10 +70,18 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
         }
     }
 
+    /**
+     * method to stop the fortification phase
+     */
     public void stopFortificationPhase() {
         waitForSelectTerritory = false;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param v view
+     * @param event event
+     */
     @Override
     public void onTouch(View v, MotionEvent event) {
         float x = event.getX();
@@ -82,6 +104,9 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
         }
     }
 
+    /**
+     * method to bring a pop up to ask the user to enter the armies to be moved
+     */
     private void askUserToMoveNoOfArmyToSelectedTerritory() {
         final EditText editNoOfArmy = new EditText(getActivity());
         editNoOfArmy.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -110,6 +135,9 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
                 .show();
     }
 
+    /**
+     * intitialize the fortification phase for the next player
+     */
     private void initializeForNextPlayer() {
         fortificationFromTerritory  =null;
         fortificationToTerritory = null;

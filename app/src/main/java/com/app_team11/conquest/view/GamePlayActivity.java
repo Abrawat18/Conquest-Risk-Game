@@ -31,7 +31,8 @@ import com.app_team11.conquest.utility.MathUtility;
 import static android.R.attr.width;
 
 /**
- * Created by RADHEY on 10/15/2017.
+ * Created by RADHEY on 10/15/2017
+ * version 1.0.0
  */
 
 
@@ -46,6 +47,10 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private Button btnStartFortificationPhase;
     private PlayerListAdapter playerListAdapter;
 
+    /**
+     * {@inheritDoc}
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +64,9 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     }
 
-
+    /**
+     * method to initialize the view for Game play activity on the screen
+     */
     private void initializeView() {
         listPlayer = (ListView) findViewById(R.id.list_player);
         btnStartFortificationPhase = (Button) findViewById(R.id.btn_start_fortification_phase);
@@ -70,22 +77,32 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         btnStartFortificationPhase.setOnClickListener(this);
     }
 
+    /**
+     * method to disable the fortification button during the game play phase
+     */
     private void initialization() {
         disableButtonFortificationPhase();
         StartUpPhaseController.getInstance().setContext(this).startStartUpPhase();
     }
 
+    /**
+     * method to enable the button for fortification start
+     */
     public void onStartupPhaseFinished() {
         ReInforcementPhaseController.getInstance().setContext(this).startReInforceMentPhase();
         enableButtonFortificationPhase();
     }
 
+    /**
+     * method to initialize the player adapter with data
+     */
     public void initializePlayerAdapter() {
         if (getMap().getPlayerList() != null) {
             playerListAdapter = new PlayerListAdapter(this, getMap().getPlayerList());
             listPlayer.setAdapter(playerListAdapter);
         }
     }
+
 
     public void setSurfaceOnTouchListner(SurfaceOnTouchListner surfaceOnTouchListner) {
         this.surfaceOnTouchListner = surfaceOnTouchListner;
@@ -99,7 +116,12 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         return map;
     }
 
-
+    /**
+     * method to initialize the territory object with points from the screen
+     * @param x x-coordinate for the selected location for territory on map
+     * @param y y-coordinate for the selected location for territory on map
+     * @return territory object
+     */
     public Territory getTerritoryAtSelectedPoint(int x, int y) {
         for (Territory territory : map.getTerritoryList()) {
             double distanceFromTerritory = MathUtility.getInstance().getDistance(x, y, territory.getCenterPoint().x, territory.getCenterPoint().y);
@@ -110,7 +132,10 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         return null;
     }
 
-
+    /**
+     * method to set the turn of the player in start up and reinforcement phase
+     * @param player player object whose turn is to be set
+     */
     public void setPlayerTurn(Player player) {
         playerTurn = player;
         getMap().changeCurrentPlayerTurn(player);
@@ -122,6 +147,10 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         });
     }
 
+    /**
+     *method to set the turn of the player in fortification phase
+     *
+     */
     public void setNextPlayerTurn() {
         int nextPlayerTurnId = (playerTurn.getPlayerId()) % getMap().getPlayerList().size();
         getMap().changeCurrentPlayerTurn(getMap().getPlayerList().get(nextPlayerTurnId));
@@ -133,6 +162,10 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         return playerTurn;
     }
 
+    /**
+     *  method to create the toast
+     * @param msg message string
+     */
     public void toastMessageFromBackground(final String msg) {
         runOnUiThread(new Runnable() {
             @Override
@@ -142,6 +175,9 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         });
     }
 
+    /**
+     * method to initialise objects and load the map on the screen
+     */
     public void showMap() {
         Paint linePaint = new Paint();
         linePaint.setColor(Color.WHITE);
@@ -174,12 +210,17 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     }
 
-
+    /**
+     * method to disable button for fortification phase
+     */
     private void disableButtonFortificationPhase() {
         btnStartFortificationPhase.setEnabled(false);
         btnStartFortificationPhase.setAlpha(0.4f);
     }
 
+    /**
+     * method to enable button for fortification phase
+     */
     private void enableButtonFortificationPhase() {
         btnStartFortificationPhase.setEnabled(true);
         btnStartFortificationPhase.setAlpha(1f);
@@ -202,12 +243,22 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         }
     };
 
+    /**
+     * {@inheritDoc}
+     * @param v view
+     * @param event
+     * @return
+     */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         surfaceOnTouchListner.onTouch(v, event);
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param v view
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
