@@ -1,6 +1,7 @@
 package com.app_team11.conquest.model;
 
 /**
+ * Card model for defining the card object.
  * Created by Vasu on 08-10-2017.
  * @version 1.0.0
  */
