@@ -16,16 +16,15 @@ import java.io.File;
 public class ReadMapUtilityTest
 {
     private String filePath;
+    int armyCount;
 
     @Before
     public void setUp() {
         filePath="D:\\APP build 1 docs\\Test Read Map File.map";
-        int armyCount;
-
-   }
+        }
 
    @Test
-    public void startUpPhaseTest()
+    public void setUpPhaseTest()
    {
        ReadMapUtility read=new ReadMapUtility();
        GameMap gameMap=read.readFile(filePath);
@@ -46,12 +45,7 @@ public class ReadMapUtilityTest
            System.out.println("Owner: "+gameMap.getTerritoryList().get(i).getTerritoryOwner().getPlayerId() +
            "\tTerritory name: "+gameMap.getTerritoryList().get(i).getTerritoryName());
        assertEquals(33,gameMap.getPlayerList().get(0).getAvailableArmyCount());
-
-       //read.armyAssignment(gameMap.getPlayerList());
-
-      // assertEquals(12,gameMap.getTerritoryList().get(0).getArmyCount());
-
-   }
+    }
 
    @After
     public void cleanUp()

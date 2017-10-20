@@ -1,7 +1,12 @@
-package com.app_team11.conquest.model;
+package com.app_team11.conquest.utility;
 
 import com.app_team11.conquest.global.Constants;
-import com.app_team11.conquest.utility.ConfigurableMessage;
+import com.app_team11.conquest.model.Cards;
+import com.app_team11.conquest.model.Continent;
+import com.app_team11.conquest.model.GameMap;
+import com.app_team11.conquest.model.Player;
+import com.app_team11.conquest.model.ReinforcementType;
+import com.app_team11.conquest.model.Territory;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,13 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.*;
 
 /**
- * Created by Nigel on 10/19/2017.
+ * Created by Nigel on 19-Oct-17.
  */
-public class TerritoryTest {
+
+public class FortifyPhaseTest {
     private List<Territory> territoryList;
+    private List<Player> playerList;
     private List<Continent> continentList;
     private GameMap map;
     private ConfigurableMessage cm;
@@ -31,46 +37,36 @@ public class TerritoryTest {
     {
         continentList=new ArrayList<Continent>();
         territoryList=new ArrayList<Territory>();
+        playerList=new ArrayList<Player>();
         map=new GameMap();
         cm=new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.FORTIFICATION_SUCCESS);
         continent=new Continent("Test Continent 1",7);
         continentList.add(continent);
 
-
+        for(int i=1;i<=2;i++) {
             player = new Player();
             player.setPlayerId(i);
             player.setCardTradeIn(true);
+            playerList.add(player);
+        }
 
-
-        for(i=1;i<=3;i++)
+        for(i=1;i<=2;i++)
         {
             territory=new Territory("Test Territory "+i,0,i,continent);
-            territory.setTerritoryOwner(player);
+            territory.setTerritoryOwner(playerList.get(i-1));
             territoryList.add(territory);
         }
 
-        territoryList.get(0).addRemoveNeighbourToTerr(territoryList.get(1),'A');
-        territoryList.get(1).addRemoveNeighbourToTerr(territoryList.get(0),'A');
-
-        territoryList.get(1).addRemoveNeighbourToTerr(territoryList.get(2),'A');
-        territoryList.get(2).addRemoveNeighbourToTerr(territoryList.get(1),'A');
-
         //assign territories to players
-        territoryList.get(0).setTerritoryOwner(player);
+        territoryList.get(0).setTerritoryOwner(playerList.get(0));
         territoryList.get(0).setArmyCount(15);
-        territoryList.get(1).setTerritoryOwner(player);
-        territoryList.get(1).setArmyCount(0);
-        territoryList.get(2).setTerritoryOwner(player);
-        territoryList.get(2).setArmyCount(3);
-
+        territoryList.get(1).setTerritoryOwner(playerList.get(0));
     }
 
     @Test
-    public void fortificationTestCases()
+    public void testFortifyPhase()
     {
-        assertEquals(1,territoryList.get(0).fortifyTerritory(territoryList.get(1), player, 10).getMsgCode());
-
-        assertEquals(0,territoryList.get(2).fortifyTerritory(territoryList.get(1), player, 10).getMsgCode());
+        //since they are not neighbouring territories, fortification phase cannot proceed.
+       assertEquals(0,territoryList.get(0).fortifyTerritory(territoryList.get(1), playerList.get(0), 10).getMsgCode());
     }
-
 }

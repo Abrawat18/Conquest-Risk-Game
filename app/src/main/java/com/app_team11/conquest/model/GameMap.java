@@ -12,8 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * primary class for Game play indicating data variables required to implement the game
  * Created by Vasu on 06-10-2017.
- * GameMap Model class for displaying map and its attributes
+ * @version 1.0.0
  */
 public class GameMap {
     private static final String TAG = GameMap.class.getSimpleName();
@@ -25,6 +26,7 @@ public class GameMap {
     private List<Continent> continentList;
     private List<Territory> territoryList;
     private List<Player> playerList;
+    private int noOfCardTradedCount;
 
     public GameMap() {
         this.continentList = new ArrayList<Continent>();
@@ -50,7 +52,6 @@ public class GameMap {
 
     /**
      * Method is used to write map information to the file
-     *
      * @param file object containing file information
      */
     public void writeDataToFile(File file) {
@@ -101,7 +102,7 @@ public class GameMap {
      * Method is used to add or remove continents from the map based on validations for min and max continents allowed
      * Validation2
      *
-     * @param contObj       Continent object which needs to be added or removed from map
+     * @param contObj Continent object which needs to be added or removed from map
      * @param addRemoveFlag flag to indicate if the continent is needed to be added - 'A' or removed - 'R'
      * @return custom message
      */
@@ -207,7 +208,7 @@ public class GameMap {
             for (int i = 1; i <= playersCount; i++) {
                 Player playerObj = new Player();
                 playerObj.setPlayerId(i);
-                playerObj.setAvailableArmyCount(armyCount);
+                playerObj.setAvailableArmyCount(armyCount); //adding initial one army each to every territory from the player's count of army
                 playerList.add(playerObj);
             }
             this.setPlayerList(playerList);
@@ -233,6 +234,22 @@ public class GameMap {
         return terrList;
     }
 
+    /**
+     *
+     */
+    public void increaseCardTradedCount(){
+        this.noOfCardTradedCount ++;
+    }
+
+    public int getNoOfCardTradedCount() {
+        return noOfCardTradedCount;
+    }
+
+
+    /**
+     * method to set the turn of the current player for game play
+     * @param player object of the player to whom the turn is to be placed
+     */
     public void changeCurrentPlayerTurn(Player player) {
         for (Player playerFromList : getPlayerList()) {
             playerFromList.setMyTurn(false);

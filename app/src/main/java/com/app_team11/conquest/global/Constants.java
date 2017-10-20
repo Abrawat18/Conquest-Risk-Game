@@ -1,6 +1,8 @@
 package com.app_team11.conquest.global;
 /**
+ * All the oonstants for the project are described here in this class
  * Created by Vasu on 06-10-2017.
+ *
  */
 public class Constants {
 

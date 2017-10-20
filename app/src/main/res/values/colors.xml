@@ -8,7 +8,7 @@
     <color name="addBtnColor">#ffffff</color>
     <color name="removeBtnColor">#ff0000</color>
     <color name="textColor">#000000</color>
-    <color name="white">#f9e4e4</color>
+    <color name="white">#ffffff</color>
     <color name="yellow">#FFFF00</color>
     <color name="fuchsia">#FF00FF</color>
     <color name="red">#FF0000</color>
@@ -20,7 +20,7 @@
     <color name="aqua">#00FFFF</color>
     <color name="lime">#00FF00</color>
     <color name="teal">#008080</color>
-    <color name="green">#afedaf</color>
+    <color name="green">#17e317</color>
     <color name="blue">#0000FF</color>
     <color name="navy">#000080</color>
     <color name="black">#63966b</color>

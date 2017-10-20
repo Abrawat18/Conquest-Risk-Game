@@ -12,6 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Continent Model class with variables Continent Name,Score & Continent Owner
  * Created by Vasu on 06-10-2017.
+ * @version 1.0.0
  */
 public class Continent {
 
@@ -59,7 +60,8 @@ public class Continent {
     public Continent(String contName, int score,Context context) {
         this.contName = contName;
         this.score = score;
-        setRandomColorToContinent(context);
+        if(context!=null)
+            setRandomColorToContinent(context);
     }
 
     /**
@@ -69,6 +71,11 @@ public class Continent {
     public  Continent(String ContName,Context context){
         this.contName = getContName();
         setRandomColorToContinent(context);
+    }
+
+    public  Continent(String ContName,int score){
+        this.contName = getContName();
+        this.score = score;
     }
     public Continent copyContinent(){
         Continent continent = new Continent();

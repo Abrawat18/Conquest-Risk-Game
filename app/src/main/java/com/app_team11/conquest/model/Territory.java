@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Territory model class with name of territory,position,neighbours,owner,army count,etc
  * Created by Vasu on 06-10-2017.
+ * @version 1.0.0
  */
 public class Territory {
 
@@ -38,6 +39,10 @@ public class Territory {
         this.neighbourList = new ArrayList();
     }
 
+    /**
+     * method to prevent conflict between the json territory object and map territory object
+     * @return copied territory object
+     */
     public Territory copyTerritory() {
         Territory territory = new Territory();
         territory.setTerritoryName(this.getTerritoryName());
@@ -49,15 +54,11 @@ public class Territory {
         return territory;
     }
 
-    private void setCenterPoint(Point centerPoint) {
-        this.centerPoint = centerPoint;
-    }
-
     /**
      * to be called on click of add neighbours/connections
      * validation1 before saving a map - Validation to check if the number of neighbours not greater than 10
-     *
-     * @param terrObj
+     * @param terrObj territory which is required to be added or removed
+     * @param addRemoveFlag flag to point out whether the method to be used to add or remove territories
      * @return confirmationMessage
      */
     public ConfigurableMessage addRemoveNeighbourToTerr(Territory terrObj, char addRemoveFlag) {
@@ -82,7 +83,6 @@ public class Territory {
 
     /**
      * validation1 before saving a map - Validation to check if the number of neighbours not greater than 10
-     *
      * @param terrList
      */
     public void addNeighbourToTerr(List<Territory> terrList) {
@@ -95,7 +95,7 @@ public class Territory {
      * Method to add armies in territory selected and remove the same count from player
      *
      * @param addedArmyCount count of armies to be added
-     * @return error message
+     * @return custom message
      */
     public ConfigurableMessage addArmyToTerr(int addedArmyCount) {
         if (this.getTerritoryOwner().getAvailableArmyCount() >= addedArmyCount) {
@@ -180,6 +180,9 @@ public class Territory {
 
     public void setArmyCount(int armyCount) {
         this.armyCount = armyCount;
+    }
+    private void setCenterPoint(Point centerPoint) {
+        this.centerPoint = centerPoint;
     }
 
 }

@@ -17,11 +17,16 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by Jaydeep9101 on 06-Oct-17.
+ * @version 1.0.0
  */
 
 public class MainDashboardActivity extends Activity implements View.OnClickListener {
     private static final int REQUEST_WRITE_STORAGE = 111;
 
+    /**
+     * {@inheritDoc}
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +39,9 @@ public class MainDashboardActivity extends Activity implements View.OnClickListe
         checkPermission();
     }
 
+    /**
+     * method to check for access/permissions to file manager in the system
+     */
     public void checkPermission(){
         boolean hasPermission = (ContextCompat.checkSelfPermission(MainDashboardActivity.this,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
@@ -44,6 +52,10 @@ public class MainDashboardActivity extends Activity implements View.OnClickListe
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -59,6 +71,9 @@ public class MainDashboardActivity extends Activity implements View.OnClickListe
         }
     }
 
+    /**
+     * method called on click of play game
+     */
     private void playGame(){
         Bundle bundle = new Bundle();
         bundle.putString(Constants.KEY_FROM,Constants.VALUE_FROM_PLAY_GAME);
@@ -67,6 +82,9 @@ public class MainDashboardActivity extends Activity implements View.OnClickListe
         startActivity(intent);
     }
 
+    /**
+     * method called on click of edit map
+     */
     private void openMapEditor(){
         new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE)
                 .setTitleText("Map Editor")
@@ -99,8 +117,12 @@ public class MainDashboardActivity extends Activity implements View.OnClickListe
 
     }
 
-
-
+    /**
+     * {@inheritDoc}
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

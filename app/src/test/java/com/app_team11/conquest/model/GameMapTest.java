@@ -17,35 +17,52 @@ public class GameMapTest {
     private String filePath;
     private boolean failed;
     private File f;
+    private Territory territory;
+    private Continent continent;
+    private int currentSize;
 
     @Before
     public void setUp() {
         filePath="D:\\APP build 1 docs\\3D.map";
         failed=false;
         f=new File("D:\\APP build 1 docs\\WriteFile.map");
+        continent=new Continent("Test Continent",5);
+        territory=new Territory("Test Territory",0,1,continent);
+        currentSize=0;
     }
 
     @Test
-    public void gameMapFunctionalityTest()
-    {
-        ReadMapUtility readTest=new ReadMapUtility();
-        GameMap gameMap=readTest.readFile(filePath);
+    public void gameMapFunctionalityTest() {
+        ReadMapUtility readTest = new ReadMapUtility();
+        GameMap gameMap = readTest.readFile(filePath);
+        System.out.println("map is" + gameMap);
         gameMap.setAuthorName("Tester");
         gameMap.setImageName("Test Image");
         gameMap.setScrollLine("yes");
         gameMap.setWarnFlag("yes");
         gameMap.setWrapFlag("yes");
 
-        try{
-            gameMap.writeDataToFile(f);
-        }
-        catch (Exception e)
-        {
-            System.out.println("Failed...");
-            failed=true;
-        }
-        assertFalse(failed);
+        System.out.println("Continent list: " + gameMap.getContinentList().size());
+        System.out.println("Territory list size: " + gameMap.getTerritoryList().size());
+        assertEquals(2, gameMap.getContinentList().size());
+        assertEquals(13, gameMap.getTerritoryList().size());
 
+        gameMap.setPlayerList(readTest.assignArmies(3));
+        assertEquals(3, gameMap.getPlayerList().size());
+        for (int i = 0; i < gameMap.getPlayerList().size(); i++)
+            System.out.println("Player id: " + gameMap.getPlayerList().get(i).getPlayerId());
+
+
+        readTest.randomlyAssignCountries(gameMap.getPlayerList(), gameMap.getTerritoryList());
+        for (int i = 0; i < gameMap.getTerritoryList().size(); i++)
+            System.out.println("Owner: " + gameMap.getTerritoryList().get(i).getTerritoryOwner().getPlayerId() +
+                    "\tTerritory name: " + gameMap.getTerritoryList().get(i).getTerritoryName());
+
+        System.out.println("Territory 1 neighbours list size: " + gameMap.getTerritoryList().get(0).getNeighbourList().size());
+        currentSize = gameMap.getTerritoryList().get(0).getNeighbourList().size();
+        gameMap.getTerritoryList().get(0).addRemoveNeighbourToTerr(territory, 'A');
+        System.out.println("Territory 1 neighbours list size after adding territory: " + gameMap.getTerritoryList().get(0).getNeighbourList().size());
+        assertEquals(currentSize + 1, gameMap.getTerritoryList().get(0).getNeighbourList().size());
 
     }
 

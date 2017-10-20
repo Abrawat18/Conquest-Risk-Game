@@ -22,9 +22,9 @@ import com.app_team11.conquest.view.MapEditorActivity;
 
 public class ReadMapUtility {
     int noOfArmies;
-    String currentPart, line = null;
+    String line = null;
     String[] params;
-    Territory t, tConnected, t2;
+    Territory t, tConnected;
     Continent c;
     List<Territory> territoryList = new ArrayList<Territory>();
     List<Continent> continentList = new ArrayList<Continent>();
@@ -40,12 +40,14 @@ public class ReadMapUtility {
         this.context = context;
     }
 
+    public ReadMapUtility() {   }
+
     public List<Territory> currentTerritories() {
         return territoryList;
     }
 
-    public GameMap readFile(String filePath) {
-
+    public GameMap readFile(String filePath)
+    {
         try {
             FileReader f = new FileReader(filePath);
             Scanner sc = new Scanner(f);
@@ -128,23 +130,7 @@ public class ReadMapUtility {
         }
         return null;
 
-/*
-        int i = -1;
-        Continent c1 = null;
-        stop=false;
-        while (i < continentList.size() && !stop) {
-            i++;
-            if (continentName.equalsIgnoreCase(continentList.get(i).getContName().toLowerCase())) {
-                System.out.println("Loop " + i);
-                c1 = continentList.get(i);
-                System.out.println("setContinent: " + c1.getContName());
-                stop = true;
-                break;
-            }
 
-        }
-        System.out.println("returning continent: " + c1.getContName());
-        return c1;*/
     }
 
     public boolean territoryExists(String tName) {
@@ -156,7 +142,7 @@ public class ReadMapUtility {
         return false;
     }
 
-
+    //find whether data falls in the Map,Territory or Continent section
     public static String findCurrentPart(String line) {
         if (line.contains("[Map]")) {
             return "map";
@@ -209,7 +195,6 @@ public class ReadMapUtility {
                 //System.out.println("Territory Found");
                 return territoryList.get(i);
             }
-        //System.out.println("Territory not found");
         return null;
     }
 
@@ -233,7 +218,7 @@ public class ReadMapUtility {
         tUpdate.setContinent(cont);
         tempT = new ArrayList<Territory>();
         tempT.add(tUpdate);
-//        tUpdate.setNeighbourList(tempT);
+
         tUpdate.addNeighbourToTerr(connectedT);
     }
 
@@ -246,6 +231,11 @@ public class ReadMapUtility {
         territoryList.add(tNew);
     }
 
+    /**
+     * This method takes an input for number of players and assigns armies accordingly.
+     * @param noOfPlayers
+     * @return
+     */
     public List<Player> assignArmies(int noOfPlayers) {
 
         Player p = null;
@@ -276,17 +266,34 @@ public class ReadMapUtility {
         return Players.get(rnd);
     }
 
-    public List<Player> randomlyAssignCountries(List<Player> Players, List<Territory> Territories) {
+
+     public List<Player> randomlyAssignCountries(List<Player> Players, List<Territory> Territories) {
+        int Tcount = 0,Pcount=0;
         Collections.shuffle(Territories);
-        for(Territory territory : Territories){
-            for(Player player : Players){
-                territory.setTerritoryOwner(player);
-                territory.addArmyToTerr(1);
+        while (Territories.size() > 0 && Tcount<Territories.size())
+        {
+            while (Players.size()> 0)
+            {
+                Territories.get(Tcount).setTerritoryOwner(Players.get(Pcount));
+                Territories.get(Tcount).addArmyToTerr(1);
+                if (Pcount == Players.size()-1)
+                {
+                    Pcount = -1;
+                }
+
+                break;
             }
+            Tcount++;
+            Pcount++;
+
         }
         return Players;
     }
 
+    /**
+     * This method assigns armies to the territories based on the respective user's choice
+     * @param pList
+     */
     public void armyAssignment(List<Player> pList) {
         Player p = new Player();
         List<Territory> temp = new ArrayList<Territory>();

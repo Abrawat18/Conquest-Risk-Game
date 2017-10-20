@@ -7,6 +7,7 @@ import java.util.List;
 
 /**Player model class with cards, score and owned territories information
  * Created by Vasu on 08-10-2017.
+ * @version 1.0.0
  */
 
 public class Player {
@@ -103,22 +104,24 @@ public class Player {
         territoryArmy = ownedTerritoryCount / 3;
 
         for (Continent contObj : gameMap.getContinentList()) {
-            if (contObj.getContOwner().getPlayerId() == this.playerId) {
+            if (contObj.getContOwner()!=null && contObj.getContOwner().getPlayerId() == this.playerId) {
                 continentArmy += contObj.getScore();
             }
         }
 
         if (demandedCardTrade) {
-            //// TODO: 08-10-2017 need to add the selected cards back to the total cards list
+            //// TODO: 08-10-2017 need to add the selected cards back to the total cards list and incrementing the card trade count in each trade
             //// TODO: 17-10-2017 what happens when the total cards in the inventory finishes and there is no card left to give to the player when he wins any territory
             cardArmy = cardTradeCount * 5; //multiplying 5 with the nth card trade of the game
+            List<Territory> matchedTerr = new ArrayList<Territory>();
             for (Territory terrObj : gameMap.getTerritoryList()) {
                 for (Cards cardObj : tradeInCards) {
                     if ((terrObj.getTerritoryOwner().getPlayerId() == this.getPlayerId()) && terrObj.getTerritoryName().equalsIgnoreCase(cardObj.getCardTerritory().getTerritoryName())) {
-                        reinforcementCount.setMatchedTerrCardReinforcement(2);
-                        break;
+                        reinforcementCount.setMatchedTerrCardReinforcement(2); //adding the count of armies for cards having the territory owned by the player
+                        matchedTerr.add(terrObj);
                     }
                 }
+                reinforcementCount.setMatchedTerritoryList(matchedTerr);
             }
             this.getOwnedCards().removeAll(tradeInCards);
         }
