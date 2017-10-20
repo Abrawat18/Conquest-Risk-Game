@@ -6,6 +6,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -22,6 +25,8 @@ import com.app_team11.conquest.model.GameMap;
 import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.MathUtility;
+
+import static android.R.attr.width;
 
 /**
  * Created by RADHEY on 10/15/2017.
@@ -134,6 +139,13 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             for (Territory territoryNeighbour : territory.getNeighbourList()) {
                 canvas.drawLine(territory.getCenterPoint().x, territory.getCenterPoint().y, territoryNeighbour.getCenterPoint().x, territoryNeighbour.getCenterPoint().y, linePaint);
             }
+            TextPaint paintText = new TextPaint();
+            String playerID =Integer.toString(territory.getTerritoryOwner().getPlayerId());
+            String noOfArmies = Integer.toString(territory.getTerritoryOwner().getAvailableArmyCount());
+            paintText.setColor(Color.BLACK);
+            paintText.setTextSize(25);
+            canvas.drawText(playerID, (territory.getCenterPoint().x)-30, (territory.getCenterPoint().y)-20,paintText);
+            canvas.drawText(noOfArmies, territory.getCenterPoint().x, territory.getCenterPoint().y, paintText);
         }
         surface.getHolder().unlockCanvasAndPost(canvas);
 
