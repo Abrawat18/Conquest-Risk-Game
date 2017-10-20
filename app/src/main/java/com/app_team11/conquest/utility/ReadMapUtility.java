@@ -131,23 +131,7 @@ public class ReadMapUtility {
         }
         return null;
 
-/*
-        int i = -1;
-        Continent c1 = null;
-        stop=false;
-        while (i < continentList.size() && !stop) {
-            i++;
-            if (continentName.equalsIgnoreCase(continentList.get(i).getContName().toLowerCase())) {
-                System.out.println("Loop " + i);
-                c1 = continentList.get(i);
-                System.out.println("setContinent: " + c1.getContName());
-                stop = true;
-                break;
-            }
 
-        }
-        System.out.println("returning continent: " + c1.getContName());
-        return c1;*/
     }
 
     public boolean territoryExists(String tName) {
@@ -159,7 +143,7 @@ public class ReadMapUtility {
         return false;
     }
 
-
+    //find whether data falls in the Map,Territory or Continent section
     public static String findCurrentPart(String line) {
         if (line.contains("[Map]")) {
             return "map";
@@ -212,7 +196,6 @@ public class ReadMapUtility {
                 //System.out.println("Territory Found");
                 return territoryList.get(i);
             }
-        //System.out.println("Territory not found");
         return null;
     }
 
@@ -249,6 +232,11 @@ public class ReadMapUtility {
         territoryList.add(tNew);
     }
 
+    /**
+     * This method takes an input for number of players and assigns armies accordingly.
+     * @param noOfPlayers
+     * @return
+     */
     public List<Player> assignArmies(int noOfPlayers) {
 
         Player p = null;
@@ -279,7 +267,8 @@ public class ReadMapUtility {
         return Players.get(rnd);
     }
 
- public List<Player> randomlyAssignCountries(List<Player> Players, List<Territory> Territories) {
+
+     public List<Player> randomlyAssignCountries(List<Player> Players, List<Territory> Territories) {
         int Tcount = 0,Pcount=0;
         Collections.shuffle(Territories);
         while (Territories.size() > 0 && Tcount<Territories.size())
@@ -302,6 +291,10 @@ public class ReadMapUtility {
         return Players;
     }
 
+    /**
+     * This method assigns armies to the territories based on the respective user's choice
+     * @param pList
+     */
     public void armyAssignment(List<Player> pList) {
         Player p = new Player();
         List<Territory> temp = new ArrayList<Territory>();
