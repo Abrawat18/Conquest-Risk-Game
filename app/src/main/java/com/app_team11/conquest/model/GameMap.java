@@ -12,8 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * primary class for Game play indicating data variables required to implement the game
  * Created by Vasu on 06-10-2017.
- * GameMap Model class for displaying map and its attributes
+ * @version 1.0.0
  */
 public class GameMap {
     private static final String TAG = GameMap.class.getSimpleName();
@@ -50,7 +51,6 @@ public class GameMap {
 
     /**
      * Method is used to write map information to the file
-     *
      * @param file object containing file information
      */
     public void writeDataToFile(File file) {
@@ -233,6 +233,10 @@ public class GameMap {
         return terrList;
     }
 
+    /**
+     * method to set the turn of the current player for game play
+     * @param player object of the player to whom the turn is to be placed
+     */
     public void changeCurrentPlayerTurn(Player player) {
         for (Player playerFromList : getPlayerList()) {
             playerFromList.setMyTurn(false);

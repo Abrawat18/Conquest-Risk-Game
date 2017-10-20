@@ -7,6 +7,7 @@ import java.util.List;
 
 /**Player model class with cards, score and owned territories information
  * Created by Vasu on 08-10-2017.
+ * @version 1.0.0
  */
 
 public class Player {
