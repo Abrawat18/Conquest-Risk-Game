@@ -84,6 +84,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * method to enable the button for fortification start
      */
     public void onStartupPhaseFinished() {
+        Toast.makeText(this,"ReInforcement Phase Started !!",Toast.LENGTH_SHORT).show();
         ReInforcementPhaseController.getInstance().setContext(this).startReInforceMentPhase();
         enableButtonFortificationPhase();
     }
@@ -264,4 +265,9 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        StartUpPhaseController.getInstance().stopStartupPhase();
+        super.onBackPressed();
+    }
 }

@@ -30,7 +30,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
     private AsyncTask<Void, Void, Void> asyncTask;
     private Territory selectedTerritory;
     private boolean waitForSelectTerritory;
-
+    private boolean needToStop=false;
     private StartUpPhaseController() {
 
     }
@@ -48,6 +48,11 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
         return getInstance();
     }
 
+    public void stopStartupPhase(){
+        needToStop = true;
+        asyncTask.notify();
+        asyncTask.cancel(true);
+    }
     /**
      * method to initialize map for game play, set the number of players
      */
@@ -121,7 +126,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
             @Override
             protected Void doInBackground(Void... params) {
                 boolean needToAssignArmy = true;
-                while (needToAssignArmy) {
+                while (needToAssignArmy && !needToStop) {
                     needToAssignArmy = false;
                     for (final Player player : getActivity().getMap().getPlayerList()) {
                         try {
@@ -132,6 +137,9 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
 
                             synchronized (asyncTask) {
                                 asyncTask.wait();
+                            }
+                            if(needToStop){
+                                break;
                             }
                             selectedTerritory.addArmyToTerr(1);
                             if (player.getAvailableArmyCount() > 0) {
