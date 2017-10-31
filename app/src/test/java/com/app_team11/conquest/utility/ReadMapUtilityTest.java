@@ -20,7 +20,7 @@ public class ReadMapUtilityTest
 
     @Before
     public void setUp() {
-        filePath="D:\\APP build 1 docs\\Test Read Map File.map";
+        filePath="D:\\Test Read Map File.map";
         }
 
    @Test

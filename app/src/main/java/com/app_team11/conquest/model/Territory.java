@@ -63,13 +63,16 @@ public class Territory {
      */
     public ConfigurableMessage addRemoveNeighbourToTerr(Territory terrObj, char addRemoveFlag) {
         if (addRemoveFlag == 'A') {
-            if (this.neighbourList.size() <= 10 && terrObj.neighbourList.size() <= 10) {
-                this.neighbourList.add(terrObj);
-                terrObj.neighbourList.add(this);
-                return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
-            } else
-                return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NEIGHBOUR_SIZE_VAL_FAIL);
-
+            if(!this.getNeighbourList().contains(terrObj)) {
+                if (this.neighbourList.size() <= 10 && terrObj.neighbourList.size() <= 10) {
+                    this.neighbourList.add(terrObj);
+                    terrObj.neighbourList.add(this);
+                    return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
+                } else
+                    return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NEIGHBOUR_SIZE_VAL_FAIL);
+            }
+            else
+                return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NEIGHBOUR_ALREADY_EXISTS);
         } else if (addRemoveFlag == 'R') {
             if (this.neighbourList.size() >= 2 && terrObj.neighbourList.size() >= 2) {
                 this.neighbourList.remove(terrObj);

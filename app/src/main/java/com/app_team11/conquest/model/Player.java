@@ -5,8 +5,10 @@ import com.app_team11.conquest.global.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-/**Player model class with cards, score and owned territories information
+/**
+ * Player model class with cards, score and owned territories information
  * Created by Vasu on 08-10-2017.
+ *
  * @version 1.0.0
  */
 
@@ -83,6 +85,7 @@ public class Player {
 
     /**
      * This method is used to calculate the total number of reinforcement armies
+     *
      * @param gameMap
      * @param demandedCardTrade
      * @param cardTradeCount
@@ -91,7 +94,7 @@ public class Player {
      */
     public ReinforcementType calcReinforcementArmy(GameMap gameMap, boolean demandedCardTrade, int cardTradeCount, List<Cards> tradeInCards) {
         int ownedTerritoryCount = 0;
-        int territoryArmy = 0;
+        int territoryArmy = 3;
         int continentArmy = 0;
         int cardArmy = 0;
         ReinforcementType reinforcementCount = new ReinforcementType();
@@ -101,10 +104,11 @@ public class Player {
                 ownedTerritoryCount++;
             }
         }
+        if(ownedTerritoryCount>9) //calculating territory army only when owned territory count > 9, else default value is set to 3
         territoryArmy = ownedTerritoryCount / 3;
 
         for (Continent contObj : gameMap.getContinentList()) {
-            if (contObj.getContOwner()!=null && contObj.getContOwner().getPlayerId() == this.playerId) {
+            if (contObj.getContOwner() != null && contObj.getContOwner().getPlayerId() == this.playerId) {
                 continentArmy += contObj.getScore();
             }
         }
@@ -112,7 +116,29 @@ public class Player {
         if (demandedCardTrade) {
             //// TODO: 08-10-2017 need to add the selected cards back to the total cards list and incrementing the card trade count in each trade
             //// TODO: 17-10-2017 what happens when the total cards in the inventory finishes and there is no card left to give to the player when he wins any territory
-            cardArmy = cardTradeCount * 5; //multiplying 5 with the nth card trade of the game
+            switch (cardTradeCount) {
+                case 1:
+                    cardArmy = 4;
+                    break;
+                case 2:
+                    cardArmy = 6;
+                    break;
+                case 3:
+                    cardArmy = 8;
+                    break;
+                case 4:
+                    cardArmy = 10;
+                    break;
+                case 5:
+                    cardArmy = 12;
+                    break;
+                case 6:
+                    cardArmy = 15;
+                    break;
+            }
+            if (cardTradeCount > 6)
+                cardArmy = 15 + (cardTradeCount - 6) * 5; //for trade count more than 6
+
             List<Territory> matchedTerr = new ArrayList<Territory>();
             for (Territory terrObj : gameMap.getTerritoryList()) {
                 for (Cards cardObj : tradeInCards) {

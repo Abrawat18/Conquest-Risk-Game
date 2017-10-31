@@ -41,6 +41,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by Jaydeep9101 on 06-Oct-17.
+ *
  * @version 1.0.0
  */
 
@@ -92,7 +93,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_editor);
 
-        if(savedInstanceState==null) {
+        if (savedInstanceState == null) {
             initializeView();
             try {
                 initialization();
@@ -237,6 +238,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     /**
      * decides whether the map is loaded from the file or a new map is to be created
+     *
      * @throws JSONException
      */
     private void initialization() throws JSONException {
@@ -259,6 +261,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     /**
      * method to fetch the list of territories from json file
+     *
      * @throws JSONException
      */
     private void getSuggestedTerritoryList() throws JSONException {
@@ -273,6 +276,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     /**
      * adapter for territory
+     *
      * @param territoryList
      */
     private void setAdapterForTerritory(List<Territory> territoryList) {
@@ -282,6 +286,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     /**
      * method to fetch the list of continents from json file
+     *
      * @throws JSONException
      */
     private void getSuggestedContinentList() throws JSONException {
@@ -346,8 +351,16 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                     } else {
                         neighbourTerritoryTo = territory;
                         isRequestToAddNeighbour = false;
-                        neighbourTerritoryFrom.addRemoveNeighbourToTerr(neighbourTerritoryTo, 'A');
-                        showMap();
+                        if (neighbourTerritoryTo != neighbourTerritoryFrom) {
+                            ConfigurableMessage msg = neighbourTerritoryFrom.addRemoveNeighbourToTerr(neighbourTerritoryTo, 'A');
+                            if (msg.getMsgCode() == Constants.MSG_SUCC_CODE) {
+                                showMap();
+                            } else
+                                showToast(msg.getMsgText());
+
+                        } else {
+                            showToast(Constants.TOAST_MSG_SAME_NEIGHBOUR_ERROR);
+                        }
                     }
                 }
             }
@@ -356,6 +369,10 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
         return false;
 
+    }
+
+    private void showToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -441,7 +458,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         if (!TextUtils.isEmpty(editCustomContinent.getText().toString()) && !TextUtils.isEmpty(editContinentScore.getText().toString())) {
-                            newContinent = new Continent(editCustomContinent.getText().toString(), Integer.parseInt(editContinentScore.getText().toString()),MapEditorActivity.this);
+                            newContinent = new Continent(editCustomContinent.getText().toString(), Integer.parseInt(editContinentScore.getText().toString()), MapEditorActivity.this);
                         }
                         ConfigurableMessage message = map.addRemoveContinentFromMap(newContinent, 'A');
                         if (message.getMsgCode() == 1) {
@@ -511,6 +528,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     /**
      * {@inheritDoc}
+     *
      * @param v
      */
     @Override

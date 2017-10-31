@@ -17,7 +17,7 @@ public class InvalidMapTest {
 
     @Before
     public void setUp() {
-        filePath="D:\\APP build 1 docs\\Invalid test file.map";
+        filePath="D:\\Invalid test file.map";
         failed=false;
     }
     @Test

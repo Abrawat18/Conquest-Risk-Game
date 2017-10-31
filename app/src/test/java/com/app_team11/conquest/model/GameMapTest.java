@@ -23,9 +23,9 @@ public class GameMapTest {
 
     @Before
     public void setUp() {
-        filePath="D:\\APP build 1 docs\\3D.map";
+        filePath="D:\\3D.map";
         failed=false;
-        f=new File("D:\\APP build 1 docs\\WriteFile.map");
+        f=new File("D:\\WriteFile.map");
         continent=new Continent("Test Continent",5);
         territory=new Territory("Test Territory",0,1,continent);
         currentSize=0;

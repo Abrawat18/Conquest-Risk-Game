@@ -19,7 +19,7 @@ public class ValidMapTest {
 
     @Before
     public void setUp() {
-        filePath="D:\\APP build 1 docs\\3D.map";
+        filePath="D:\\3D.map";
         failed=false;
     }
     @Test
