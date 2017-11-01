@@ -1,6 +1,7 @@
 package com.app_team11.conquest.model;
 
 import com.app_team11.conquest.global.Constants;
+import com.app_team11.conquest.utility.ConfigurableMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,5 +156,84 @@ public class Player {
         return reinforcementCount;
     }
 
+
+    /**
+     * Checks whether player is attacking an already owned territory
+     * @param attackerTerritory
+     * @param defenderTerritory
+     * @return
+     */
+
+    public Boolean isAdjacentTerritory(Territory attackerTerritory, Territory defenderTerritory)
+    {
+
+        for(Territory t: defenderTerritory.getNeighbourList())
+        {
+            if(attackerTerritory.getTerritoryName().equals(t.getTerritoryName()) && attackerTerritory.getTerritoryOwner()!=t.getTerritoryOwner())
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check for sufficient armies
+     * @param attackerTerritory
+     * @return
+     */
+    public Boolean hasSufficientArmies(Territory attackerTerritory)
+    {
+        if(attackerTerritory.getArmyCount()>=2)
+            return true;
+        return false;
+    }
+
+    /**
+     * Checks whether attack can be continued
+     * @param defenderTerritory
+     * @return
+     */
+    public Boolean canContinueAttackOnThisTerritory(Territory defenderTerritory)
+    {
+        if(defenderTerritory.getArmyCount()==0)
+            return false;
+        return true;
+    }
+
+    /**
+     * Validate the attack
+     * @param attackerTerritory
+     * @param defenderTerritory
+     * @return
+     */
+    public ConfigurableMessage validateAttackBetweenTerritories(Territory attackerTerritory, Territory defenderTerritory)
+    {
+        Boolean adjacenTerritories=isAdjacentTerritory(attackerTerritory,defenderTerritory);
+        Boolean sufficientArmiesForAttack=hasSufficientArmies(attackerTerritory);
+        Boolean continueAttack=canContinueAttackOnThisTerritory(defenderTerritory);
+        if (adjacenTerritories && sufficientArmiesForAttack && continueAttack) {
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, "Success");
+        } else
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, "Fail");
+    }
+
+    int attackerDiceValues[];
+    int defenderDiceValues[];
+
+    public Territory winner(Territory attackerTerritory, Territory defenderTerritory, int attackerDice,int defenderDice)
+    {
+        Territory winner=null;
+
+        return winner;
+    }
+
+    public void attackPhase(Territory attackerTerritory, Territory defenderTerritory, int attackerDice,int defenderDice)
+    {
+        ConfigurableMessage canAttack=validateAttackBetweenTerritories(defenderTerritory,attackerTerritory);
+        //check if validations are true
+        if(canAttack.getMsgText()=="SUCCESS" && attackerTerritory.getArmyCount()+1>attackerDice)
+        {
+
+        }
+    }
 
 }
