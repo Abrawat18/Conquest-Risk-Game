@@ -42,4 +42,6 @@ public class Constants {
     public static final String FORTIFICATION_SELECT_TO_TERR = "Select to territory";
     public static final String TOAST_MSG_SAME_NEIGHBOUR_ERROR = "Neighbour cannot be same as source territory";
     public static final String NEIGHBOUR_ALREADY_EXISTS = "The selected neighbour already exists";
+    public static final String SUCCESS = "SUCCESS";
+    public static final String FAILURE = "FAILURE";
 }

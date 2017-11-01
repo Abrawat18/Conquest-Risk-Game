@@ -6,6 +6,7 @@ import com.app_team11.conquest.utility.ConfigurableMessage;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Player model class with cards, score and owned territories information
  * Created by Vasu on 08-10-2017.
@@ -211,29 +212,103 @@ public class Player {
         Boolean sufficientArmiesForAttack=hasSufficientArmies(attackerTerritory);
         Boolean continueAttack=canContinueAttackOnThisTerritory(defenderTerritory);
         if (adjacenTerritories && sufficientArmiesForAttack && continueAttack) {
-            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, "Success");
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
         } else
-            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, "Fail");
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
     }
 
-    int attackerDiceValues[];
-    int defenderDiceValues[];
 
-    public Territory winner(Territory attackerTerritory, Territory defenderTerritory, int attackerDice,int defenderDice)
-    {
-        Territory winner=null;
-
-        return winner;
-    }
-
+    /**
+     *  The attack phase method
+     * @param attackerTerritory
+     * @param defenderTerritory
+     * @param attackerDice
+     * @param defenderDice
+     */
     public void attackPhase(Territory attackerTerritory, Territory defenderTerritory, int attackerDice,int defenderDice)
     {
+        Territory winner=null;
+        //int attackerDiceValues[]=new int[attackerDice];
+        //int defenderDiceValues[]=new int[defenderDice];
+
+        int attackerDiceValues[]={1,2,3};
+        int defenderDiceValues[]={2,5};
+        int attackerDiceValue=0,defenderDiceValue=0;
+
         ConfigurableMessage canAttack=validateAttackBetweenTerritories(defenderTerritory,attackerTerritory);
         //check if validations are true
         if(canAttack.getMsgText()=="SUCCESS" && attackerTerritory.getArmyCount()+1>attackerDice)
         {
+            //Load dice values
 
+
+            //check for each Dice value of attacker and defender
+            for(int i=0;i<attackerDiceValues.length;i++)
+            {
+                attackerDice=getHighestValue(attackerDiceValues);
+                Boolean loop=true;
+
+                for(int j=0;j<defenderDiceValues.length && loop==true;j++)
+                {
+                    defenderDiceValue=getHighestValue(defenderDiceValues);
+                    if(attackerDiceValue>defenderDiceValue)
+                    {
+                        defenderTerritory.setArmyCount(defenderTerritory.getArmyCount()-1);
+                        if(defenderTerritory.getArmyCount()==0)
+                        {
+                            defenderTerritory.setTerritoryOwner(attackerTerritory.getTerritoryOwner());
+                            //defenderTerritory.setArmyCount(defenderTerritory.getArmyCount()+attackerDice);
+                            loop=false;
+                        }
+                    }
+                    else
+                    {
+                        attackerTerritory.setArmyCount(attackerTerritory.getArmyCount()-1);
+                    }
+
+                    if(attackerDiceValues.length>0 && defenderDiceValues.length>0)
+                    {
+                        attackerDiceValues = deleteElement(attackerDiceValues, attackerDiceValue);
+                        defenderDiceValues = deleteElement(defenderDiceValues, defenderDiceValue);
+                    }
+                    else{
+                        loop=false;
+                    }
+
+                }
+
+
+            }
         }
+    }
+
+    public int getHighestValue(int diceArray[])
+    {
+        int max=diceArray[0];
+        for (int counter = 1; counter < diceArray.length; counter++)
+        {
+            if (diceArray[counter] > max)
+            {
+                max = diceArray[counter];
+            }
+        }
+        return max;
+    }
+
+    public int[] deleteElement(int diceArray[],int element)
+    {
+        for(int i=0; i<diceArray.length; i++)
+        {
+            if(diceArray[i] == element)
+            {
+                for(int j=i; j<(diceArray.length-1); j++)
+                {
+                    diceArray[j] = diceArray[j+1];
+                }
+                break;
+            }
+        }
+        return diceArray;
     }
 
 }
