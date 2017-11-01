@@ -13,8 +13,9 @@ import static org.junit.Assert.*;
 
 /**
  * Created by Nigel on 10/19/2017.
+ * Check for calculation of reinforcement armies.
  */
-public class ReinforcementArmyTest {
+public class PlayerTest {
     private List<Territory> territoryList;
     private List<Player> playerList;
     private List<Cards> cardListOwned;

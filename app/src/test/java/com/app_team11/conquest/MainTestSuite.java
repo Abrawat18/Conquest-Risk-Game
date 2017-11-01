@@ -14,9 +14,6 @@ package com.app_team11.conquest;
         StartupPhaseTestSuite.class,
         ReinforcementPhaseTestSuite.class,
         FortificationPhaseTestSuite.class
-
-
-
 })
     public class MainTestSuite {
 

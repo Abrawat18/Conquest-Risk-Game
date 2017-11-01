@@ -14,7 +14,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class CheckCardTradIn {
+public class CardTest {
     private String filePath;
     private boolean failed;
     private List<Cards> cardList;

@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -19,14 +21,14 @@ public class ValidMapTest {
 
     @Before
     public void setUp() {
-        filePath="D:\\3D.map";
+        filePath="app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\3D.map";
         failed=false;
     }
     @Test
     public void validMapTest()
     {
         ReadMapUtility readTest=new ReadMapUtility();
-        GameMap gameMap=readTest.readFile(filePath);
+        GameMap gameMap=readTest.readFile(System.getProperty("user.dir") + File.separator +filePath);
         if(gameMap.getContinentList()!=null && gameMap.getTerritoryList()!=null && gameMap.getPlayerList()!=null)
             assertFalse(failed);
 
