@@ -12,6 +12,7 @@ import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.ConfigurableMessage;
+import com.app_team11.conquest.view.GamePlayActivity;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 

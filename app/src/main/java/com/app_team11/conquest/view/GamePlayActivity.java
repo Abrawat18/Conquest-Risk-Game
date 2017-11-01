@@ -1,4 +1,4 @@
-package com.app_team11.conquest.controller;
+package com.app_team11.conquest.view;
 
 import android.app.Activity;
 import android.graphics.Canvas;
@@ -18,6 +18,9 @@ import android.widget.Toast;
 
 import com.app_team11.conquest.R;
 import com.app_team11.conquest.adapter.PlayerListAdapter;
+import com.app_team11.conquest.controller.FortificationPhaseController;
+import com.app_team11.conquest.controller.ReInforcementPhaseController;
+import com.app_team11.conquest.controller.StartUpPhaseController;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
 import com.app_team11.conquest.model.GameMap;

@@ -14,6 +14,7 @@ import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
 import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.ReadMapUtility;
+import com.app_team11.conquest.view.GamePlayActivity;
 
 import java.util.Collections;
 
