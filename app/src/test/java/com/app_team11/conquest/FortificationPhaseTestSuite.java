@@ -1,6 +1,5 @@
 package com.app_team11.conquest;
 
-import com.app_team11.conquest.model.ReinforcementArmyTest;
 import com.app_team11.conquest.utility.FortifyPhaseTest;
 
 import org.junit.runner.RunWith;

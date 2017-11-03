@@ -44,6 +44,11 @@ public class ReadMapUtility {
         return territoryList;
     }
 
+    /**
+     * This method takes a file path as input and generates a GameMap object for Map creation
+     * @param filePath
+     * @return
+     */
     public GameMap readFile(String filePath)
     {
         try {
@@ -187,6 +192,11 @@ public class ReadMapUtility {
         return false;
     }
 
+    /**
+     * This method searches for a territory from the territoryList
+     * @param territoryName
+     * @return
+     */
     public Territory searchTerritory(String territoryName) {
         for (int i = 0; i < territoryList.size(); i++)
             if (territoryList.get(i).getTerritoryName().equalsIgnoreCase(territoryName)) {
@@ -196,6 +206,11 @@ public class ReadMapUtility {
         return null;
     }
 
+    /**
+     * This method searches for a continent in the continentList
+     * @param continentName
+     * @return
+     */
     public Continent searchContinent(String continentName) {
         for (int i = 0; i < continentList.size(); i++)
             if (continentList.get(i).getContName().equalsIgnoreCase(continentName)) {
@@ -204,11 +219,26 @@ public class ReadMapUtility {
         return null;
     }
 
+    /**
+     * This method creates a new territory
+     * @param tName
+     * @param X
+     * @param Y
+     * @param cont
+     */
     public void createTerritory(String tName, int X, int Y, Continent cont) {
         t = new Territory(tName.trim(), X, Y, cont);
         territoryList.add(t);
     }
 
+    /**
+     * This method updates an existing territory
+     * @param tName
+     * @param X
+     * @param Y
+     * @param continent
+     * @param connectedT
+     */
     public void updateTerritory(String tName, String X, String Y, String continent, List<Territory> connectedT) {
         Territory tUpdate = searchTerritory(tName);
         Continent cont = searchContinent(continent);
@@ -220,6 +250,14 @@ public class ReadMapUtility {
         tUpdate.addNeighbourToTerr(connectedT);
     }
 
+    /**
+     * This method creates territories
+     * @param tName
+     * @param X
+     * @param Y
+     * @param continent
+     * @param connectedT
+     */
     public void createTerritory(String tName, String X, String Y, String continent, List<Territory> connectedT) {
         Continent cont1 = searchContinent(continent);
         Territory tNew = new Territory(tName, Integer.parseInt(X), Integer.parseInt(Y), cont1);
@@ -264,7 +302,12 @@ public class ReadMapUtility {
         return Players.get(rnd);
     }
 
-
+    /**
+     * This method randomly assigns countries to players
+     * @param Players
+     * @param Territories
+     * @return
+     */
      public List<Player> randomlyAssignCountries(List<Player> Players, List<Territory> Territories) {
         int Tcount = 0,Pcount=0;
         Collections.shuffle(Territories);

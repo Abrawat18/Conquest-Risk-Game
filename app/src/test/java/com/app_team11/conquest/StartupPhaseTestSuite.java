@@ -11,6 +11,7 @@ import com.app_team11.conquest.utility.InvalidMapTest;
 import com.app_team11.conquest.utility.ReadMapUtility;
 import com.app_team11.conquest.utility.ReadMapUtilityTest;
 import com.app_team11.conquest.utility.ValidMapTest;
+import com.app_team11.conquest.model.CardTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -25,8 +26,8 @@ import org.junit.runners.Suite;
             TerritoryTest.class,
             InvalidMapTest.class,
             ReadMapUtilityTest.class,
-            ValidMapTest.class
-
+            ValidMapTest.class,
+            CardTest.class
     })
 
     public class StartupPhaseTestSuite {

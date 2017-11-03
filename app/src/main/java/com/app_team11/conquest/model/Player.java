@@ -1,9 +1,11 @@
 package com.app_team11.conquest.model;
 
 import com.app_team11.conquest.global.Constants;
+import com.app_team11.conquest.utility.ConfigurableMessage;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Player model class with cards, score and owned territories information
@@ -155,5 +157,158 @@ public class Player {
         return reinforcementCount;
     }
 
+
+    /**
+     * Checks whether player is attacking an already owned territory
+     * @param attackerTerritory
+     * @param defenderTerritory
+     * @return
+     */
+
+    public Boolean isAdjacentTerritory(Territory attackerTerritory, Territory defenderTerritory)
+    {
+
+        for(Territory t: defenderTerritory.getNeighbourList())
+        {
+            if(attackerTerritory.getTerritoryName().equals(t.getTerritoryName()) && attackerTerritory.getTerritoryOwner()!=t.getTerritoryOwner())
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check for sufficient armies
+     * @param attackerTerritory
+     * @return
+     */
+    public Boolean hasSufficientArmies(Territory attackerTerritory)
+    {
+        if(attackerTerritory.getArmyCount()>=2)
+            return true;
+        return false;
+    }
+
+    /**
+     * Checks whether attack can be continued
+     * @param defenderTerritory
+     * @return
+     */
+    public Boolean canContinueAttackOnThisTerritory(Territory defenderTerritory)
+    {
+        if(defenderTerritory.getArmyCount()==0)
+            return false;
+        return true;
+    }
+
+    /**
+     * Validate the attack
+     * @param attackerTerritory
+     * @param defenderTerritory
+     * @return
+     */
+    public ConfigurableMessage validateAttackBetweenTerritories(Territory attackerTerritory, Territory defenderTerritory)
+    {
+        Boolean adjacenTerritories=isAdjacentTerritory(attackerTerritory,defenderTerritory);
+        Boolean sufficientArmiesForAttack=hasSufficientArmies(attackerTerritory);
+        Boolean continueAttack=canContinueAttackOnThisTerritory(defenderTerritory);
+        if (adjacenTerritories && sufficientArmiesForAttack && continueAttack) {
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
+        } else
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
+    }
+
+
+    /**
+     *  The attack phase method
+     * @param attackerTerritory
+     * @param defenderTerritory
+     * @param attackerDice
+     * @param defenderDice
+     */
+    public void attackPhase(Territory attackerTerritory, Territory defenderTerritory, int attackerDice,int defenderDice)
+    {
+        Territory winner=null;
+        //int attackerDiceValues[]=new int[attackerDice];
+        //int defenderDiceValues[]=new int[defenderDice];
+
+        int attackerDiceValues[]={1,2,3};
+        int defenderDiceValues[]={2,5};
+        int attackerDiceValue=0,defenderDiceValue=0;
+
+        ConfigurableMessage canAttack=validateAttackBetweenTerritories(defenderTerritory,attackerTerritory);
+        //check if validations are true
+        if(canAttack.getMsgText()=="SUCCESS" && attackerTerritory.getArmyCount()+1>attackerDice)
+        {
+            //Load dice values
+
+
+            //check for each Dice value of attacker and defender
+            for(int i=0;i<attackerDiceValues.length;i++)
+            {
+                attackerDice=getHighestValue(attackerDiceValues);
+                Boolean loop=true;
+
+                for(int j=0;j<defenderDiceValues.length && loop==true;j++)
+                {
+                    defenderDiceValue=getHighestValue(defenderDiceValues);
+                    if(attackerDiceValue>defenderDiceValue)
+                    {
+                        defenderTerritory.setArmyCount(defenderTerritory.getArmyCount()-1);
+                        if(defenderTerritory.getArmyCount()==0)
+                        {
+                            defenderTerritory.setTerritoryOwner(attackerTerritory.getTerritoryOwner());
+                            //defenderTerritory.setArmyCount(defenderTerritory.getArmyCount()+attackerDice);
+                            loop=false;
+                        }
+                    }
+                    else
+                    {
+                        attackerTerritory.setArmyCount(attackerTerritory.getArmyCount()-1);
+                    }
+
+                    if(attackerDiceValues.length>0 && defenderDiceValues.length>0)
+                    {
+                        attackerDiceValues = deleteElement(attackerDiceValues, attackerDiceValue);
+                        defenderDiceValues = deleteElement(defenderDiceValues, defenderDiceValue);
+                    }
+                    else{
+                        loop=false;
+                    }
+
+                }
+
+
+            }
+        }
+    }
+
+    public int getHighestValue(int diceArray[])
+    {
+        int max=diceArray[0];
+        for (int counter = 1; counter < diceArray.length; counter++)
+        {
+            if (diceArray[counter] > max)
+            {
+                max = diceArray[counter];
+            }
+        }
+        return max;
+    }
+
+    public int[] deleteElement(int diceArray[],int element)
+    {
+        for(int i=0; i<diceArray.length; i++)
+        {
+            if(diceArray[i] == element)
+            {
+                for(int j=i; j<(diceArray.length-1); j++)
+                {
+                    diceArray[j] = diceArray[j+1];
+                }
+                break;
+            }
+        }
+        return diceArray;
+    }
 
 }

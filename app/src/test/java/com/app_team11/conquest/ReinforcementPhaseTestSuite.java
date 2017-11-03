@@ -1,13 +1,6 @@
 package com.app_team11.conquest;
 
-import com.app_team11.conquest.model.GameMapTest;
-import com.app_team11.conquest.model.InvalidTerritoryAdditionTest;
-import com.app_team11.conquest.model.ReinforcementArmyTest;
-import com.app_team11.conquest.model.RemoveTerritoryTest;
-import com.app_team11.conquest.model.TerritoryTest;
-import com.app_team11.conquest.utility.InvalidMapTest;
-import com.app_team11.conquest.utility.ReadMapUtility;
-import com.app_team11.conquest.utility.ValidMapTest;
+import com.app_team11.conquest.model.PlayerTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -19,7 +12,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-        ReinforcementArmyTest.class,
+        PlayerTest.class,
 
 
 })
