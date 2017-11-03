@@ -164,7 +164,6 @@ public class Player {
      * @param defenderTerritory
      * @return
      */
-
     public Boolean isAdjacentTerritory(Territory attackerTerritory, Territory defenderTerritory)
     {
 
@@ -227,7 +226,6 @@ public class Player {
      */
     public void attackPhase(Territory attackerTerritory, Territory defenderTerritory, int attackerDice,int defenderDice)
     {
-        Territory winner=null;
         //int attackerDiceValues[]=new int[attackerDice];
         //int defenderDiceValues[]=new int[defenderDice];
 
@@ -282,6 +280,11 @@ public class Player {
         }
     }
 
+    /**
+     * This method returns the highest value from a given list.
+     * @param diceArray
+     * @return Maximum element from the list
+     */
     public int getHighestValue(int diceArray[])
     {
         int max=diceArray[0];
@@ -295,6 +298,12 @@ public class Player {
         return max;
     }
 
+    /**
+     * This method deletes the element from the list.
+     * @param diceArray
+     * @param element
+     * @return the modified list
+     */
     public int[] deleteElement(int diceArray[],int element)
     {
         for(int i=0; i<diceArray.length; i++)
