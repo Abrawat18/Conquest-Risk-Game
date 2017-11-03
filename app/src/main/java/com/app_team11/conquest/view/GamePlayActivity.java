@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.app_team11.conquest.R;
 import com.app_team11.conquest.adapter.PlayerListAdapter;
 import com.app_team11.conquest.controller.FortificationPhaseController;
-import com.app_team11.conquest.controller.ReInforcementPhaseController;
+import com.app_team11.conquest.controller.ReinforcementPhaseController;
 import com.app_team11.conquest.controller.StartUpPhaseController;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
@@ -88,7 +88,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     public void onStartupPhaseFinished() {
         Toast.makeText(this,"ReInforcement Phase Started !!",Toast.LENGTH_SHORT).show();
-        ReInforcementPhaseController.getInstance().setContext(this).startReInforceMentPhase();
+        ReinforcementPhaseController.getInstance().setContext(this).startReInforceMentPhase();
         enableButtonFortificationPhase();
     }
 
@@ -262,7 +262,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_start_fortification_phase:
-                ReInforcementPhaseController.getInstance().stopReInforceMentPhase();
+                ReinforcementPhaseController.getInstance().stopReInforceMentPhase();
                 FortificationPhaseController.getInstance().setContext(this).startFortificationPhase();
                 break;
         }

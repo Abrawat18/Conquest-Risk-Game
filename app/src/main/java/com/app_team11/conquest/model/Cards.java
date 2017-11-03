@@ -10,19 +10,34 @@ public class Cards {
     private Territory cardTerritory;
     private String armyType;
 
-    // getters and setters of class method
+    /**
+     * Returns the territory in card
+     * @return cardTerritory
+     */
     public Territory getCardTerritory() {
         return cardTerritory;
     }
 
+    /**
+     * Sets the territory in the card
+     * @param cardTerritory
+     */
     public void setCardTerritory(Territory cardTerritory) {
         this.cardTerritory = cardTerritory;
     }
 
+    /**
+     * Returns the type of army
+     * @return armyType
+     */
     public String getArmyType() {
         return armyType;
     }
 
+    /**
+     *Sets tge type of army
+     * @param armyType
+     */
     public void setArmyType(String armyType) {
         this.armyType = armyType;
     }

@@ -28,22 +28,42 @@ public class Continent {
 
     }
 
+    /**
+     * Returns the name od continent
+     * @return continent name
+     */
     public String getContName() {
         return contName;
     }
 
+    /**
+     * Sets the name of the continent
+     * @param contName
+     */
     public void setContName(String contName) {
         this.contName = contName;
     }
 
+    /**
+     * Returns the score
+     * @return score
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * Sets the score
+     * @param score
+     */
     public void setScore(int score) {
         this.score = score;
     }
 
+    /**
+     * Returns the Owner of Continent
+     * @return continent owner
+     */
     public Player getContOwner() {
         return contOwner;
     }

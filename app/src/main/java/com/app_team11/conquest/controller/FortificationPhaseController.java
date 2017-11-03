@@ -24,7 +24,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class FortificationPhaseController implements SurfaceOnTouchListner {
 
-
     private Context context;
     private static FortificationPhaseController fortificationPhaseController;
     private AsyncTask<Void, Void, Void> asyncTask;
