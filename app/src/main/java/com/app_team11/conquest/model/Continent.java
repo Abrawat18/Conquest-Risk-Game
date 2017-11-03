@@ -68,6 +68,10 @@ public class Continent {
         return contOwner;
     }
 
+    /**
+     * Sets the Owner of the Continent
+     * @param contOwner
+     */
     public void setContOwner(Player contOwner) {
         this.contOwner = contOwner;
     }
