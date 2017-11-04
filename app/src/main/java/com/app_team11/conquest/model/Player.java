@@ -227,11 +227,8 @@ public class Player {
      */
     public void attackPhase(Territory attackerTerritory, Territory defenderTerritory, int attackerDice,int defenderDice)
     {
-        //int attackerDiceValues[]=new int[attackerDice];
-        //int defenderDiceValues[]=new int[defenderDice];
-
-        int attackerDiceValues[]={1,2,3};
-        int defenderDiceValues[]={2,5};
+        int attackerDiceValues[]=getRandomDiceValues(attackerDice);
+        int defenderDiceValues[]=getRandomDiceValues(defenderDice);
         int attackerDiceValue=0,defenderDiceValue=0;
 
         ConfigurableMessage canAttack=validateAttackBetweenTerritories(defenderTerritory,attackerTerritory);
@@ -322,13 +319,17 @@ public class Player {
     }
 
 
-
+    /**
+     * Generates random dice values depending on number of attacker/defender dice
+     * @param arraySize
+     * @return randomly generated dice array
+     */
     public static int[] getRandomDiceValues(int arraySize)
     {
         int[] diceValues={1,2,3,4,5,6};
         int[] randomArray=new int[arraySize];
         int randomNumber=0;
-        for(int i=0;i<diceValues.length;i++)
+        for(int i=0;i<arraySize;i++)
         {
             randomNumber=new Random().nextInt(diceValues.length);
             randomArray[i]=randomNumber;
