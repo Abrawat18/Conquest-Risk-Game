@@ -346,7 +346,7 @@ public class GameMap {
     }
 
     /**
-     * Setting the wrap property
+     * Returns the wrap property
      * @return wrapFlag
      */
     public String getWrapFlag() {
@@ -354,17 +354,25 @@ public class GameMap {
     }
 
     /**
-     *
+     *Sets the wrap property
      * @param wrapFlag
      */
     public void setWrapFlag(String wrapFlag) {
         this.wrapFlag = wrapFlag;
     }
 
+    /**
+     * Sets the scroll Line
+     * @param scrollLine
+     */
     public void setScrollLine(String scrollLine) {
         this.scrollLine = scrollLine;
     }
 
+    /**
+     * Sets the wrap property
+     * @param warnFlag
+     */
     public void setWarnFlag(String warnFlag) {
         this.warnFlag = warnFlag;
     }

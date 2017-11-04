@@ -268,6 +268,9 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         }
     }
 
+    /**
+     * Method is called when the back is pressed for the startup phase
+     */
     @Override
     public void onBackPressed() {
         StartUpPhaseController.getInstance().stopStartupPhase();

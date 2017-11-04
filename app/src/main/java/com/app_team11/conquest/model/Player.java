@@ -23,42 +23,82 @@ public class Player {
     private Boolean cardTradeIn = false;
     private boolean isMyTurn;
 
+    /**
+     * Method to check if the player has got his turn
+     * @return
+     */
     public boolean isMyTurn() {
         return isMyTurn;
     }
 
+    /**
+     * Gives turn to the player
+     * @param myTurn
+     */
     public void setMyTurn(boolean myTurn) {
         isMyTurn = myTurn;
     }
 
+    /**
+     * Returns the player ID
+     * @return playerID
+     */
     public int getPlayerId() {
         return playerId;
     }
 
+    /**
+     * Sets the ID of the player
+     * @param playerId
+     */
     public void setPlayerId(int playerId) {
         this.playerId = playerId;
     }
 
+    /**
+     * Returns the available army count
+     * @return availableArmyCount
+     */
     public int getAvailableArmyCount() {
         return availableArmyCount;
     }
 
+    /**
+     * Sets the available army count
+     * @param availableArmyCount
+     */
     public void setAvailableArmyCount(int availableArmyCount) {
         this.availableArmyCount = availableArmyCount;
     }
 
+    /**
+     * Returns the Owned cards
+     * @return ownedCards
+     */
     public List<Cards> getOwnedCards() {
         return ownedCards;
     }
 
+    /**
+     * Sets the owned cards
+     * @param ownedCards
+     */
     public void setOwnedCards(List<Cards> ownedCards) {
         this.ownedCards = ownedCards;
     }
 
+    /**
+     * Returns the trade in cards
+     * @return cardTradeIn
+     */
     public Boolean getCardTradeIn() {
         return cardTradeIn;
     }
 
+    /**
+     * Sets the trade in cards
+     * @param cardTradeIn
+     */
     public void setCardTradeIn(Boolean cardTradeIn) {
         this.cardTradeIn = cardTradeIn;
     }
