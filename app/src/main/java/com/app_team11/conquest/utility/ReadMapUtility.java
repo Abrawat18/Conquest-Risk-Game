@@ -1,6 +1,7 @@
 package com.app_team11.conquest.utility;
 
 /**
+ * Reads the map from the text file
  * Created by Nigel on 13-Oct-17.
  */
 
@@ -38,6 +39,9 @@ public class ReadMapUtility {
         this.context = context;
     }
 
+    /**
+     * Default Constructor
+     */
     public ReadMapUtility() {   }
 
     public List<Territory> currentTerritories() {
@@ -124,6 +128,11 @@ public class ReadMapUtility {
 
     }
 
+    /**
+     * Sets the name of the continent
+     * @param continentName
+     * @return continent
+     */
     public Continent setContinent(String continentName) {
 
         for (Continent continent : continentList) {
@@ -136,6 +145,11 @@ public class ReadMapUtility {
 
     }
 
+    /**
+     * Checks if the territory exists
+     * @param tName
+     * @return true
+     */
     public boolean territoryExists(String tName) {
         for (int i = 0; i < territoryList.size(); i++) {
             if (tName.equals(territoryList.get(i).getTerritoryName())) {
@@ -157,7 +171,9 @@ public class ReadMapUtility {
 
     }
 
-
+    /**
+     * Prints thelist of territory as per the size
+     */
     public void printTerritoryList() {
         System.out.println("TerritoryList size: " + territoryList.size());
         for (int i = 0; i < territoryList.size(); i++) {
@@ -176,6 +192,9 @@ public class ReadMapUtility {
         }
     }
 
+    /**
+     * Prints the list of continent as per the size of the continent list
+     */
     public void printContinentList() {
         System.out.println("====Continent List===");
         for (int i = 0; i < continentList.size(); i++) {
@@ -184,6 +203,11 @@ public class ReadMapUtility {
         }
     }
 
+    /**
+     * Checks if the territory exists or not
+     * @param territoryName
+     * @return true
+     */
     public boolean ifTerritoryExists(String territoryName) {
         for (int i = 0; i < territoryList.size(); i++) {
             if (territoryList.get(i).getTerritoryName().equalsIgnoreCase(territoryName))
@@ -296,7 +320,11 @@ public class ReadMapUtility {
         return playerDetails;
     }
 
-
+    /**
+     * Returns the first player
+     * @param Players
+     * @return Players
+     */
     public static Player getFirstPlayer(List<Player> Players) {
         int rnd = new Random().nextInt(Players.size());
         return Players.get(rnd);
