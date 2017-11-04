@@ -5,6 +5,7 @@ import com.app_team11.conquest.utility.ConfigurableMessage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -319,5 +320,22 @@ public class Player {
         }
         return diceArray;
     }
+
+
+
+    public static int[] getRandomDiceValues(int arraySize)
+    {
+        int[] diceValues={1,2,3,4,5,6};
+        int[] randomArray=new int[arraySize];
+        int randomNumber=0;
+        for(int i=0;i<diceValues.length;i++)
+        {
+            randomNumber=new Random().nextInt(diceValues.length);
+            randomArray[i]=randomNumber;
+        }
+        return randomArray;
+    }
+
+
 
 }
