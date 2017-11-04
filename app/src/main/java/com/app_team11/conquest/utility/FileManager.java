@@ -90,9 +90,22 @@ public class FileManager {
         File file = new File(myDir, finalName);
         return file;
     }
-
     /**
      *
+     * @param finalName
+     * @return
+     */
+    public File getLogPath(String finalName) {
+        String root = Environment.getExternalStorageDirectory().toString();
+        File myDir = new File(root + File.separator + Constants.ROOT_LOG_DIR);
+        if (!myDir.exists()) {
+            myDir.mkdirs();
+        }
+        File file = new File(myDir, finalName);
+        return file;
+    }
+
+    /**
      * @return
      */
     public File getMapFileDirectory() {
@@ -108,6 +121,41 @@ public class FileManager {
      */
     public File[] getAllFileFromDir(File dir) {
         return dir.listFiles();
+    }
+
+
+    /**
+     * @param text
+     * @return
+     */
+    public void writeLog(String text) {
+        BufferedWriter output = null;
+        try {
+            File filePath = getLogPath(Constants.GAME_LOG);
+            output = new BufferedWriter(new FileWriter(filePath, true));
+            output.write(text);
+            output.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (output != null) {
+                try {
+                    output.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * @return
+     */
+    public void deleteLog() {
+        File filePath = getLogPath(Constants.GAME_LOG);
+        if (filePath.exists()) {
+            filePath.delete();
+        }
     }
 
 
