@@ -42,6 +42,7 @@ public class MapSelectionAndInitializationActivity extends Activity {
         setContentView(R.layout.activity_map_selection);
         initializeView();
         initialization();
+        FileManager.getInstance().writeLog("Map selected.");
 
     }
 

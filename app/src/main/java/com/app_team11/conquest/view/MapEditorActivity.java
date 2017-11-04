@@ -21,6 +21,7 @@ import com.app_team11.conquest.model.Continent;
 import com.app_team11.conquest.model.GameMap;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.ConfigurableMessage;
+import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.utility.MathUtility;
 
 import org.json.JSONException;
@@ -38,7 +39,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MapEditorActivity extends Activity implements View.OnTouchListener, View.OnClickListener {
 
-    private static final String TAG = MapEditorActivity.class.getSimpleName();
     public Canvas canvas;
     private Button btnAddContenent;
     private Button btnAddTerritory;
@@ -53,12 +53,6 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     private LinearLayout linearContinent;
     public LinearLayout linearAddContinent;
     public SurfaceView surface;
-    private Continent selectedContinent;
-    private boolean isRequestToAddNeighbour;
-    private Territory neighbourTerritoryFrom;
-    private Territory neighbourTerritoryTo;
-    String filePathToLoad = null;
-    private Continent contColor;
 
 
     @Override
@@ -70,6 +64,8 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
             initializeView();
             try {
                 MapEditorController.getInstance().initialization(this);
+                FileManager.getInstance().writeLog("Map Editor activity has been launched.");
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -182,78 +178,6 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-
-    /*private void addTerritory() {
-        hideAllLinearLayouts();
-        linearAddTerritory.setVisibility(View.VISIBLE);
-    }*/
-
-    /**
-     * method to allow the user to add a custom territory by taking input from the screen
-     */
-    /*private void addCustomTerritory() {
-        editCustomTerritory = new EditText(this);
-        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
-        sweetAlertDialog.setTitleText("Please Enter Territory Name")
-                .setConfirmText("Ok")
-                .setCustomView(editCustomTerritory)
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
-                        if (!TextUtils.isEmpty(editCustomTerritory.getText().toString())) {
-                            newTerritory = new Territory(editCustomTerritory.getText().toString());
-                            Toast.makeText(MapEditorActivity.this, "Touch on Map to add territory", Toast.LENGTH_SHORT).show();
-                            isWaitingForUserTouchOnAddTerritory = true;
-                        }
-                    }
-                })
-                .show();
-    }
-
-    private void addContinent() {
-        hideAllLinearLayouts();
-        linearAddContinent.setVisibility(View.VISIBLE);
-    }
-
-    *//**
-     * method to allow the user to add a custom continent by taking input from the screen
-     *//*
-    private void addCustomContinent() {
-        myLayout = new LinearLayout(this);
-        editCustomContinent = new EditText(this);
-        editContinentScore = new EditText(this);
-        editCustomContinent.setHint("Continent Name");
-        editContinentScore.setHint("Continent Score");
-        myLayout.setOrientation(LinearLayout.VERTICAL);
-        myLayout.addView(editCustomContinent);
-        myLayout.addView(editContinentScore);
-        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
-        sweetAlertDialog.setTitleText(" Please Enter Continent Name")
-                .setConfirmText("Ok")
-                .setCustomView(myLayout)
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        if (!TextUtils.isEmpty(editCustomContinent.getText().toString()) && !TextUtils.isEmpty(editContinentScore.getText().toString())) {
-                            newContinent = new Continent(editCustomContinent.getText().toString(), Integer.parseInt(editContinentScore.getText().toString()), MapEditorActivity.this);
-                        }
-                        ConfigurableMessage message = map.addRemoveContinentFromMap(newContinent, 'A');
-                        if (message.getMsgCode() == 1) {
-                            Toast.makeText(MapEditorActivity.this, message.getMsgText(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            // TODO :: Do something with error
-                            Toast.makeText(MapEditorActivity.this, message.getMsgText(), Toast.LENGTH_SHORT).show();
-                        }
-                        continentAdapter.notifyDataSetChanged();
-                        editCustomContinent = null;
-                        sweetAlertDialog.dismiss();
-                    }
-                })
-                .show();
-
-    }*/
-
     /**
      * method to hide all the layouts to allow the new layout to be loaded
      */
@@ -265,46 +189,6 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     }
 
     /**
-     * method is used to save all the information taken from input and write to the file
-     */
-    /*private void saveToMap() {
-        final EditText editMapName = new EditText(this);
-        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MapEditorActivity.this, SweetAlertDialog.NORMAL_TYPE);
-        if (TextUtils.isEmpty(filePathToLoad)) {
-            sweetAlertDialog.setCustomView(editMapName);
-        }
-        sweetAlertDialog.setTitleText("Do you want to save Map ?")
-                .setConfirmText("Yes")
-                .setCancelText("No")
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
-                        File mapFile = null;
-                        if (!TextUtils.isEmpty(editMapName.getText())) {
-                            mapFile = FileManager.getInstance().getMapFilePath(editMapName.getText().toString() + ".map");
-                        } else if (!TextUtils.isEmpty(filePathToLoad)) {
-                            mapFile = new File(filePathToLoad);
-                        }
-                        if (mapFile != null) {
-                            map.writeDataToFile(mapFile);
-                            MapEditorActivity.this.finish();
-                        }
-                    }
-                })
-                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
-                        MapEditorActivity.this.finish();
-
-                    }
-                });
-
-        sweetAlertDialog.show();
-    }
-*/
-    /**
      * {@inheritDoc}
      *
      * @param v
@@ -313,16 +197,25 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_add_continent:
+                FileManager.getInstance().writeLog("Adding continent...");
                 MapEditorController.getInstance().addContinent();
+                FileManager.getInstance().writeLog("Continent added.");
+
                 break;
             case R.id.btn_add_territory:
+                FileManager.getInstance().writeLog("Adding territory...");
                 MapEditorController.getInstance().addTerritory();
+                FileManager.getInstance().writeLog("Territory added.");
                 break;
             case R.id.btn_add_custom_continent:
+                FileManager.getInstance().writeLog("Adding custom continent...");
                 MapEditorController.getInstance().addCustomContinent();
+                FileManager.getInstance().writeLog("Custom continent added.");
                 break;
             case R.id.btn_add_custom_territory:
+                FileManager.getInstance().writeLog("Adding custom territory...");
                 MapEditorController.getInstance().addCustomTerritory();
+                FileManager.getInstance().writeLog("Custom territory added.");
                 break;
         }
     }
@@ -352,7 +245,9 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
             hideAllLinearLayouts();
             linearTerritory.setVisibility(View.VISIBLE);
         } else if (linearContinent.getVisibility() == View.VISIBLE) {
+            FileManager.getInstance().writeLog("Saving map...");
             MapEditorController.getInstance().saveToMap();
+            FileManager.getInstance().writeLog("Map Saved.");
 
         }
     }
