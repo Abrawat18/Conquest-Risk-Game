@@ -143,6 +143,10 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
         getActivity().toastMessageFromBackground("Select from territory");
     }
 
+    /**
+     * GamePlay Activity Method
+     * @return GamePlayActivity
+     */
     private GamePlayActivity getActivity() {
         return (GamePlayActivity) context;
     }

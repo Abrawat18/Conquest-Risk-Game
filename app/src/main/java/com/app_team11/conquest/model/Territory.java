@@ -137,53 +137,104 @@ public class Territory {
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE);
     }
 
+    /**
+     * Returns the name of territory
+     * @return territory Name
+     */
     public String getTerritoryName() {
         return territoryName;
     }
 
+    /**
+     * Sets the name of territory
+     * @param territoryName
+     */
     public void setTerritoryName(String territoryName) {
         this.territoryName = territoryName;
     }
-
+    /**
+     * Gives the center point
+     * @return gives the center point
+     */
     public Point getCenterPoint() {
         return centerPoint;
     }
 
+    /**
+     * Sets the center point
+     * @param centerX
+     * @param centerY
+     */
     public void setCenterPoint(int centerX, int centerY) {
         this.centerPoint = new Point(centerX, centerY);
     }
 
+    /**
+     * Returns the name of continent
+     * @return returns the name of continent
+     */
     public Continent getContinent() {
         return continent;
     }
-
+    /**
+     * Returns the name of continent
+     * @return returns the name of continent
+     */
     public void setContinent(Continent continent) {
         this.continent = continent;
     }
-
+    /**
+     * Sets the list of neighbour
+     * @return neighbourList
+     */
     public List<Territory> getNeighbourList() {
         return neighbourList;
     }
 
+    /**
+     * Sets the neighbour list
+     * @param neighbourList
+     */
     public void setNeighbourList(List<Territory> neighbourList) {
         this.neighbourList = neighbourList;
     }
 
+    /**
+     * Returns the owner of territory
+     * @return territoryOwner
+     */
     public Player getTerritoryOwner() {
         return territoryOwner;
     }
 
+    /**
+     * Sets the owner of territory
+     * @param territoryOwner
+     */
     public void setTerritoryOwner(Player territoryOwner) {
         this.territoryOwner = territoryOwner;
     }
 
+    /**
+     * Returns the count of army
+     * @return armyCount
+     */
     public int getArmyCount() {
         return armyCount;
     }
 
+    /**
+     * Sets the count of army
+     * @param armyCount
+     */
     public void setArmyCount(int armyCount) {
         this.armyCount = armyCount;
     }
+
+    /**
+     * Sets the center point
+     * @param centerPoint
+     */
     private void setCenterPoint(Point centerPoint) {
         this.centerPoint = centerPoint;
     }
