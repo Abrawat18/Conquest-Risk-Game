@@ -5,6 +5,7 @@ import com.app_team11.conquest.utility.ConfigurableMessage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -164,7 +165,6 @@ public class Player {
      * @param defenderTerritory
      * @return
      */
-
     public Boolean isAdjacentTerritory(Territory attackerTerritory, Territory defenderTerritory)
     {
 
@@ -227,12 +227,8 @@ public class Player {
      */
     public void attackPhase(Territory attackerTerritory, Territory defenderTerritory, int attackerDice,int defenderDice)
     {
-        Territory winner=null;
-        //int attackerDiceValues[]=new int[attackerDice];
-        //int defenderDiceValues[]=new int[defenderDice];
-
-        int attackerDiceValues[]={1,2,3};
-        int defenderDiceValues[]={2,5};
+        int attackerDiceValues[]=getRandomDiceValues(attackerDice);
+        int defenderDiceValues[]=getRandomDiceValues(defenderDice);
         int attackerDiceValue=0,defenderDiceValue=0;
 
         ConfigurableMessage canAttack=validateAttackBetweenTerritories(defenderTerritory,attackerTerritory);
@@ -282,6 +278,11 @@ public class Player {
         }
     }
 
+    /**
+     * This method returns the highest value from a given list.
+     * @param diceArray
+     * @return Maximum element from the list
+     */
     public int getHighestValue(int diceArray[])
     {
         int max=diceArray[0];
@@ -295,6 +296,12 @@ public class Player {
         return max;
     }
 
+    /**
+     * This method deletes the element from the list.
+     * @param diceArray
+     * @param element
+     * @return the modified list
+     */
     public int[] deleteElement(int diceArray[],int element)
     {
         for(int i=0; i<diceArray.length; i++)
@@ -310,5 +317,26 @@ public class Player {
         }
         return diceArray;
     }
+
+
+    /**
+     * Generates random dice values depending on number of attacker/defender dice
+     * @param arraySize
+     * @return randomly generated dice array
+     */
+    public static int[] getRandomDiceValues(int arraySize)
+    {
+        int[] diceValues={1,2,3,4,5,6};
+        int[] randomArray=new int[arraySize];
+        int randomNumber=0;
+        for(int i=0;i<arraySize;i++)
+        {
+            randomNumber=new Random().nextInt(diceValues.length);
+            randomArray[i]=randomNumber;
+        }
+        return randomArray;
+    }
+
+
 
 }

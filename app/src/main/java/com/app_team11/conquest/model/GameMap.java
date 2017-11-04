@@ -28,12 +28,17 @@ public class GameMap {
     private List<Player> playerList;
     private int noOfCardTradedCount;
 
+    /**
+     * Initialize the class members
+     *
+     */
     public GameMap() {
         this.continentList = new ArrayList<Continent>();
         this.territoryList = new ArrayList<Territory>();
     }
 
     /**
+     * Initializa the class members
      * @param imageName
      * @param wrapFlag
      * @param authorName
@@ -235,12 +240,17 @@ public class GameMap {
     }
 
     /**
+     * Method to increase the number of card traded count
      *
      */
     public void increaseCardTradedCount(){
         this.noOfCardTradedCount ++;
     }
 
+    /**
+     * Return the number of traded cards
+     * @return
+     */
     public int getNoOfCardTradedCount() {
         return noOfCardTradedCount;
     }
@@ -257,50 +267,96 @@ public class GameMap {
         player.setMyTurn(true);
     }
 
+    /**
+     * Returns the name of the author
+     * @return AuthorName
+     */
     public String getAuthorName() {
         return authorName;
     }
-
+/**
+ * Sets the name of author
+ */
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
     }
 
+    /**
+     *Returns the list of continent
+     * @return ContinentList
+     */
     public List<Continent> getContinentList() {
         return continentList;
     }
 
+    /**
+     * Sets the list of continent in the Player
+     * @param continentList
+     */
     public void setContinentList(List<Continent> continentList) {
         this.continentList = continentList;
     }
 
+    /**
+     * Sets the list of territory
+     * @return TerritoryList
+     */
     public List<Territory> getTerritoryList() {
         return territoryList;
     }
 
+    /**
+     * Sets the List of Territory
+     * @param territoryList
+     */
     public void setTerritoryList(List<Territory> territoryList) {
         this.territoryList = territoryList;
     }
 
+    /**
+     * Sets the player list
+     * @return playerList
+     */
     public List<Player> getPlayerList() {
         return playerList;
     }
 
+    /**
+     * Sets the Player List
+     * @param playerList
+     */
     public void setPlayerList(List<Player> playerList) {
         this.playerList = playerList;
     }
 
+    /**
+     * Returns the name of the Image
+     * @return ImageName
+     */
     public String getImageName() {
         return imageName;
     }
 
+    /**
+     * Sets the name of the Image
+     * @param imageName
+     */
     public void setImageName(String imageName) {
         this.imageName = imageName;
     }
 
+    /**
+     * Setting the wrap property
+     * @return wrapFlag
+     */
     public String getWrapFlag() {
         return wrapFlag;
     }
 
+    /**
+     *
+     * @param wrapFlag
+     */
     public void setWrapFlag(String wrapFlag) {
         this.wrapFlag = wrapFlag;
     }
