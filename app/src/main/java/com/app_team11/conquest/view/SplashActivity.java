@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.app_team11.conquest.R;
+import com.app_team11.conquest.utility.FileManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -21,6 +22,7 @@ public class SplashActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         openMainMenu();
+        FileManager.getInstance().deleteLog();
     }
 
     /**
