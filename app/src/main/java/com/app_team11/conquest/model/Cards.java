@@ -9,6 +9,20 @@ package com.app_team11.conquest.model;
 public class Cards {
     private Territory cardTerritory;
     private String armyType;
+    private boolean isSelected;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public Cards(Territory cardTerritory, String armyType) {
+        this.cardTerritory=cardTerritory;
+        this.armyType=armyType;
+    }
 
     // getters and setters of class method
     public Territory getCardTerritory() {

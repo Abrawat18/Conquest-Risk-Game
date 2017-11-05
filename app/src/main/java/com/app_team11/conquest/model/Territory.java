@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Territory model class with name of territory,position,neighbours,owner,army count,etc
  * Created by Vasu on 06-10-2017.
+ *
  * @version 1.0.0
  */
 public class Territory {
@@ -41,6 +42,7 @@ public class Territory {
 
     /**
      * method to prevent conflict between the json territory object and map territory object
+     *
      * @return copied territory object
      */
     public Territory copyTerritory() {
@@ -57,21 +59,21 @@ public class Territory {
     /**
      * to be called on click of add neighbours/connections
      * validation1 before saving a map - Validation to check if the number of neighbours not greater than 10
-     * @param terrObj territory which is required to be added or removed
+     *
+     * @param terrObj       territory which is required to be added or removed
      * @param addRemoveFlag flag to point out whether the method to be used to add or remove territories
      * @return confirmationMessage
      */
     public ConfigurableMessage addRemoveNeighbourToTerr(Territory terrObj, char addRemoveFlag) {
         if (addRemoveFlag == 'A') {
-            if(!this.getNeighbourList().contains(terrObj)) {
+            if (!this.getNeighbourList().contains(terrObj)) {
                 if (this.neighbourList.size() <= 10 && terrObj.neighbourList.size() <= 10) {
                     this.neighbourList.add(terrObj);
                     terrObj.neighbourList.add(this);
                     return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
                 } else
                     return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NEIGHBOUR_SIZE_VAL_FAIL);
-            }
-            else
+            } else
                 return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NEIGHBOUR_ALREADY_EXISTS);
         } else if (addRemoveFlag == 'R') {
             if (this.neighbourList.size() >= 2 && terrObj.neighbourList.size() >= 2) {
@@ -86,10 +88,11 @@ public class Territory {
 
     /**
      * validation1 before saving a map - Validation to check if the number of neighbours not greater than 10
+     *
      * @param terrList
      */
     public void addNeighbourToTerr(List<Territory> terrList) {
-        for (Territory objTerr : terrList){
+        for (Territory objTerr : terrList) {
             addRemoveNeighbourToTerr(objTerr, 'A');
         }
     }
@@ -100,10 +103,14 @@ public class Territory {
      * @param addedArmyCount count of armies to be added
      * @return custom message
      */
-    public ConfigurableMessage addArmyToTerr(int addedArmyCount) {
-        if (this.getTerritoryOwner().getAvailableArmyCount() >= addedArmyCount) {
+    public ConfigurableMessage addArmyToTerr(int addedArmyCount, boolean isMatchedCardTerrArmy) {
+        if ((this.getTerritoryOwner().getAvailableArmyCount() >= addedArmyCount) || isMatchedCardTerrArmy) {
             this.armyCount += addedArmyCount;
-            this.getTerritoryOwner().setAvailableArmyCount(this.getTerritoryOwner().getAvailableArmyCount() - addedArmyCount);
+            if (!isMatchedCardTerrArmy)
+                this.getTerritoryOwner().setAvailableArmyCount(this.getTerritoryOwner().getAvailableArmyCount() - addedArmyCount);
+            else
+                this.getTerritoryOwner().setAvailableCardTerrCount(this.getTerritoryOwner().getAvailableCardTerrCount() - addedArmyCount);
+
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ARMY_ADDED_SUCCESS);
         } else
             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ARMY_ADDED_FAILURE);
@@ -111,9 +118,10 @@ public class Territory {
 
     /**
      * Method is used to implement the fortification functionality
+     *
      * @param destTerritory the destination territory for fortification
      * @param currentPlayer the player who has requested fortification
-     * @param countOfArmy number of armies to be moved
+     * @param countOfArmy   number of armies to be moved
      * @return response message
      */
     public ConfigurableMessage fortifyTerritory(Territory destTerritory, Player currentPlayer, int countOfArmy) {
@@ -129,12 +137,10 @@ public class Territory {
             }
             if (neighbourFlag == true) {
                 return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.FORTIFICATION_SUCCESS);
-            }
-            else
+            } else
                 return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_NEIGHBOUR_FAILURE);
-        }
-        else
-        return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE);
+        } else
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE);
     }
 
     public String getTerritoryName() {
@@ -184,6 +190,7 @@ public class Territory {
     public void setArmyCount(int armyCount) {
         this.armyCount = armyCount;
     }
+
     private void setCenterPoint(Point centerPoint) {
         this.centerPoint = centerPoint;
     }

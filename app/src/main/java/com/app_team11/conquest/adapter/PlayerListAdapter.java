@@ -51,11 +51,13 @@ public class PlayerListAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             viewHolder.textPlayerName = (TextView) convertView.findViewById(R.id.text_player_name);
             viewHolder.textPlayerUnAssignedArmy = (TextView) convertView.findViewById(R.id.text_player_unassigned_army);
+            viewHolder.textPlayerTerrArmy = (TextView) convertView.findViewById(R.id.text_player_unassigned_terr_army);
             convertView.setTag(viewHolder);
         }
         viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.textPlayerName.setText("Player: "+getItem(position).getPlayerId());
         viewHolder.textPlayerUnAssignedArmy.setText(getItem(position).getAvailableArmyCount()+"");
+        viewHolder.textPlayerTerrArmy.setText(getItem(position).getAvailableCardTerrCount()+"");
         viewHolder.textPlayerName.setTypeface(null, Typeface.BOLD);
         if(getItem(position).isMyTurn()){
             viewHolder.textPlayerName.setTextColor(Color.GREEN);
@@ -68,5 +70,6 @@ public class PlayerListAdapter extends BaseAdapter {
     class ViewHolder{
         private TextView textPlayerName;
         private TextView textPlayerUnAssignedArmy;
+        private TextView textPlayerTerrArmy;
     }
 }

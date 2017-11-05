@@ -44,4 +44,5 @@ public class Constants {
     public static final String NEIGHBOUR_ALREADY_EXISTS = "The selected neighbour already exists";
     public static final String SUCCESS = "SUCCESS";
     public static final String FAILURE = "FAILURE";
+    public static final String TOAST_MSG_MAX_CARDS_SELECTION_ERROR = "You can not select more than 3 cards";
 }

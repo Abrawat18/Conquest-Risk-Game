@@ -316,7 +316,7 @@ public class ReadMapUtility {
             while (Players.size()> 0)
             {
                 Territories.get(Tcount).setTerritoryOwner(Players.get(Pcount));
-                Territories.get(Tcount).addArmyToTerr(1);
+                Territories.get(Tcount).addArmyToTerr(1,false);
                 if (Pcount == Players.size()-1)
                 {
                     Pcount = -1;
@@ -361,7 +361,7 @@ public class ReadMapUtility {
                 tNumber = tNumber - 1;
 
                 if (pList.get(i).getAvailableArmyCount() > 0) {
-                    temp.get(tNumber).addArmyToTerr(1);
+                    temp.get(tNumber).addArmyToTerr(1, false);
                     if(pList.get(i).getAvailableArmyCount() > 0) {
                         needToAssignArmy = true;
                     }

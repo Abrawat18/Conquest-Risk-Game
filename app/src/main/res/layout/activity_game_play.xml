@@ -4,19 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:weightSum="4">
-
     <SurfaceView
         android:id="@+id/surface"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3" />
-
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
-
         <ListView
             android:id="@+id/list_player"
             android:layout_width="match_parent"
@@ -27,6 +24,11 @@
             android:layout_height="wrap_content"
             android:text="Start Fortification Phase"
             android:id="@+id/btn_start_fortification_phase"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Trade-In Cards"
+            android:id="@+id/btn_tradeIn_cards"/>
     </LinearLayout>
 
 </LinearLayout>

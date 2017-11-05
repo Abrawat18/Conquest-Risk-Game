@@ -44,9 +44,12 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private ListView listPlayer;
     private Button btnStartFortificationPhase;
     private PlayerListAdapter playerListAdapter;
+    private Button btnTradeInCards;
+    private Toast commonToast;
 
     /**
      * {@inheritDoc}
+     *
      * @param savedInstanceState
      */
     @Override
@@ -68,11 +71,12 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private void initializeView() {
         listPlayer = (ListView) findViewById(R.id.list_player);
         btnStartFortificationPhase = (Button) findViewById(R.id.btn_start_fortification_phase);
+        btnTradeInCards = (Button) findViewById(R.id.btn_tradeIn_cards);
         surface = (SurfaceView) findViewById(R.id.surface);
         surface.setOnTouchListener(this);
         surface.getHolder().addCallback(surfaceCallback);
-
         btnStartFortificationPhase.setOnClickListener(this);
+        btnTradeInCards.setOnClickListener(this);
     }
 
     /**
@@ -81,13 +85,14 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private void initialization() {
         disableButtonFortificationPhase();
         StartUpPhaseController.getInstance().setContext(this).startStartUpPhase();
+        commonToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
     }
 
     /**
      * method to enable the button for fortification start
      */
     public void onStartupPhaseFinished() {
-        Toast.makeText(this,"ReInforcement Phase Started !!",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "ReInforcement Phase Started !!", Toast.LENGTH_SHORT).show();
         ReInforcementPhaseController.getInstance().setContext(this).startReInforceMentPhase();
         enableButtonFortificationPhase();
     }
@@ -117,6 +122,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * method to initialize the territory object with points from the screen
+     *
      * @param x x-coordinate for the selected location for territory on map
      * @param y y-coordinate for the selected location for territory on map
      * @return territory object
@@ -133,6 +139,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * method to set the turn of the player in start up and reinforcement phase
+     *
      * @param player player object whose turn is to be set
      */
     public void setPlayerTurn(Player player) {
@@ -147,8 +154,14 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     }
 
     /**
-     *method to set the turn of the player in fortification phase
-     *
+     * method to update the data in adapter
+     */
+    public void notifyPlayerListAdapter() {
+        playerListAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * method to set the turn of the player in fortification phase
      */
     public void setNextPlayerTurn() {
         int nextPlayerTurnId = (playerTurn.getPlayerId()) % getMap().getPlayerList().size();
@@ -162,14 +175,16 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     }
 
     /**
-     *  method to create the toast
+     * method to create the toast
+     *
      * @param msg message string
      */
     public void toastMessageFromBackground(final String msg) {
+        commonToast.setText(msg);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(GamePlayActivity.this, msg, Toast.LENGTH_SHORT).show();
+                commonToast.show();
             }
         });
     }
@@ -199,12 +214,12 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 canvas.drawLine(territory.getCenterPoint().x, territory.getCenterPoint().y, territoryNeighbour.getCenterPoint().x, territoryNeighbour.getCenterPoint().y, linePaint);
             }
         }
-         for (Territory territory : map.getTerritoryList()){
-             String playerID = Integer.toString(territory.getTerritoryOwner().getPlayerId());
-             String noOfArmies = Integer.toString(territory.getArmyCount());
-             canvas.drawText(("P" + playerID), (territory.getCenterPoint().x) - 30, (territory.getCenterPoint().y) - 20, paintText);
-             canvas.drawText(noOfArmies, territory.getCenterPoint().x + 10, territory.getCenterPoint().y + 10, paintNoOfArmies);
-         }
+        for (Territory territory : map.getTerritoryList()) {
+            String playerID = Integer.toString(territory.getTerritoryOwner().getPlayerId());
+            String noOfArmies = Integer.toString(territory.getArmyCount());
+            canvas.drawText(("P" + playerID), (territory.getCenterPoint().x) - 30, (territory.getCenterPoint().y) - 20, paintText);
+            canvas.drawText(noOfArmies, territory.getCenterPoint().x + 10, territory.getCenterPoint().y + 10, paintNoOfArmies);
+        }
         surface.getHolder().unlockCanvasAndPost(canvas);
 
     }
@@ -244,7 +259,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * {@inheritDoc}
-     * @param v view
+     *
+     * @param v     view
      * @param event
      * @return
      */
@@ -256,6 +272,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * {@inheritDoc}
+     *
      * @param v view
      */
     @Override
@@ -265,6 +282,9 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 ReInforcementPhaseController.getInstance().stopReInforceMentPhase();
                 FortificationPhaseController.getInstance().setContext(this).startFortificationPhase();
                 break;
+            case R.id.btn_tradeIn_cards:
+                ReInforcementPhaseController.getInstance().showCardTradePopUp();
+                break;
         }
     }
 
@@ -273,4 +293,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         StartUpPhaseController.getInstance().stopStartupPhase();
         super.onBackPressed();
     }
+
+
 }

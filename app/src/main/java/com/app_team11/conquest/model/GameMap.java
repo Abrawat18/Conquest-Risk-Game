@@ -26,7 +26,7 @@ public class GameMap {
     private List<Continent> continentList;
     private List<Territory> territoryList;
     private List<Player> playerList;
-    private int noOfCardTradedCount;
+    private int noOfCardTradedCount=1;
 
     public GameMap() {
         this.continentList = new ArrayList<Continent>();

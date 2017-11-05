@@ -102,7 +102,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
             for (Player player : getActivity().getMap().getPlayerList()) {
                 Territory territory = getActivity().getMap().getTerritoryList().get(territoryIndex++);
                 territory.setTerritoryOwner(player);
-                territory.addArmyToTerr(1);
+                territory.addArmyToTerr(1,false);
                 if (territoryIndex == getActivity().getMap().getTerritoryList().size()) {
                     break;
                 }
@@ -142,7 +142,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
                             if(needToStop){
                                 break;
                             }
-                            selectedTerritory.addArmyToTerr(1);
+                            selectedTerritory.addArmyToTerr(1,false);
                             if (player.getAvailableArmyCount() > 0) {
                                 needToAssignArmy = true;
                             }

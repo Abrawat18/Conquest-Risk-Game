@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <GridView android:id="@+id/grid_card"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:numColumns="4"></GridView>
+    <Button android:id="@+id/btn_tradeIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Trade-In"/>
+
+</LinearLayout>
