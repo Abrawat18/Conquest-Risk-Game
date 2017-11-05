@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.app_team11.conquest.R;
 import com.app_team11.conquest.global.Constants;
+import com.app_team11.conquest.view.GameLogActivity;
 import com.app_team11.conquest.view.GamePlayActivity;
 import com.app_team11.conquest.view.MainDashboardActivity;
 import com.app_team11.conquest.view.MapEditorActivity;
@@ -21,7 +22,7 @@ import com.app_team11.conquest.view.MapSelectionAndInitializationActivity;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
- * Created by Abhishek on 31-Nov-17.
+ * Created by Abhishek on 31-Oct-17.
  *
  * @version 1.0.0
  */
@@ -73,6 +74,10 @@ public class MainDashboardController {
         getActivity().startActivity(intent);
     }
 
+    public void openGameLog() {
+        Intent intent = new Intent(getActivity(), GameLogActivity.class);
+        getActivity().startActivity(intent);
+    }
     /**
      * method called on click of edit map
      */
@@ -111,4 +116,6 @@ public class MainDashboardController {
     public MainDashboardActivity getActivity() {
         return (MainDashboardActivity) context;
     }
+
+
 }
