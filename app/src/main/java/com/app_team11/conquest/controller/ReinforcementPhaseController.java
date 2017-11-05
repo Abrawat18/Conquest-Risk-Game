@@ -1,19 +1,13 @@
 package com.app_team11.conquest.controller;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.Toast;
 
-import com.app_team11.conquest.R;
 import com.app_team11.conquest.adapter.CardListAdapter;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
@@ -36,7 +30,6 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
 
     private Context context;
     private static StartUpPhaseController startUpPhaseController;
-    private AsyncTask<Void, Void, Void> asyncTask;
     private Territory selectedTerritory;
     private boolean waitForSelectTerritory;
     private static ReinforcementPhaseController reinforcementPhaseController;
@@ -77,12 +70,8 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
      * method used to start the reinforcement phase in the play game
      */
     public void startReInforceMentPhase() {
-        if (getActivity().getMap().getPlayerList().size() > 0) {
-            getActivity().setPlayerTurn(getActivity().getMap().getPlayerList().get(0));
-            getActivity().getPlayerTurn().addObserver(getActivity());
-            waitForSelectTerritory = true;
-            calculateReinforcementArmyForPlayer(null);
-        }
+        waitForSelectTerritory = true;
+        calculateReinforcementArmyForPlayer(null);
     }
 
     /**
@@ -154,10 +143,7 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
                                     getActivity().showMap();
                                 }
                                 if (needToPlaceArmy == 0 && getActivity().getPlayerTurn().getAvailableCardTerrCount() == 0) {
-                                    getActivity().setNextPlayerTurn();
-                                    //// TODO: 04-11-2017 need to delete the below line
-                                    getActivity().getPlayerTurn().addObserver(getActivity());
-                                    calculateReinforcementArmyForPlayer(null);
+                                    getActivity().onReInforcementPhaseCompleted();
                                 }
                                 getActivity().toastMessageFromBackground("Select territory to place Army :" + needToPlaceArmy);
                             } else {

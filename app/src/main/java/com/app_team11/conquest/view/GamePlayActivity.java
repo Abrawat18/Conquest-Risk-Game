@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.app_team11.conquest.R;
 import com.app_team11.conquest.adapter.CardListAdapter;
 import com.app_team11.conquest.adapter.PlayerListAdapter;
+import com.app_team11.conquest.controller.AttackPhaseController;
 import com.app_team11.conquest.controller.FortificationPhaseController;
 import com.app_team11.conquest.controller.ReinforcementPhaseController;
 import com.app_team11.conquest.controller.StartUpPhaseController;
@@ -31,6 +32,7 @@ import com.app_team11.conquest.model.Cards;
 import com.app_team11.conquest.model.GameMap;
 import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.Territory;
+import com.app_team11.conquest.utility.GamePhaseManager;
 import com.app_team11.conquest.utility.MathUtility;
 
 import java.util.ArrayList;
@@ -52,15 +54,16 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private SurfaceOnTouchListner surfaceOnTouchListner;
     private Player playerTurn;
     private ListView listPlayer;
-    private Button btnStartFortificationPhase;
+    private Button btnStopAttack;
     private PlayerListAdapter playerListAdapter;
     private Button btnTradeInCards;
     private Toast commonToast;
-    private List<Cards> cardList=new ArrayList<>();
+    private List<Cards> cardList = new ArrayList<>();
     private CardListAdapter cardListAdapter;
 
     /**
      * {@inheritDoc}
+     *
      * @param savedInstanceState
      */
     @Override
@@ -70,7 +73,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
         if (savedInstanceState == null) {
             initializeView();
-
             initialization();
         }
 
@@ -81,12 +83,12 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     private void initializeView() {
         listPlayer = (ListView) findViewById(R.id.list_player);
-        btnStartFortificationPhase = (Button) findViewById(R.id.btn_start_fortification_phase);
+        btnStopAttack = (Button) findViewById(R.id.btn_stop_attack);
         btnTradeInCards = (Button) findViewById(R.id.btn_tradeIn_cards);
         surface = (SurfaceView) findViewById(R.id.surface);
         surface.setOnTouchListener(this);
         surface.getHolder().addCallback(surfaceCallback);
-        btnStartFortificationPhase.setOnClickListener(this);
+        btnStopAttack.setOnClickListener(this);
         btnTradeInCards.setOnClickListener(this);
     }
 
@@ -112,18 +114,70 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         cardList.add(new Cards(terr7, "infantry"));
         cardList.add(new Cards(terr8, "artillery"));
         cardList.add(new Cards(terr9, "cavalry"));
-        disableButtonFortificationPhase();
-        StartUpPhaseController.getInstance().setContext(this).startStartUpPhase();
+
         commonToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
+
+        changeGamePhase();
     }
 
     /**
      * method to enable the button for fortification start
      */
     public void onStartupPhaseFinished() {
-        Toast.makeText(this,"ReInforcement Phase Started !!",Toast.LENGTH_SHORT).show();
-        ReinforcementPhaseController.getInstance().setContext(this).startReInforceMentPhase();
-        enableButtonFortificationPhase();
+        Toast.makeText(this, "ReInforcement Phase Started !!", Toast.LENGTH_SHORT).show();
+        if (getMap().getPlayerList().size() > 0) {
+            setPlayerTurn(getMap().getPlayerList().get(0));
+            getPlayerTurn().addObserver(this);
+        }
+        changeGamePhase();
+    }
+
+    /**
+     * event on Completing Reinforcement Phase
+     */
+    public void onReInforcementPhaseCompleted() {
+        changeGamePhase();
+    }
+
+
+    /**
+     * event on stopping Attack Phase
+     */
+    public void onAttackPhaseStopped() {
+        changeGamePhase();
+    }
+
+    /**
+     * event on Completing Fortification Phase
+     */
+    public void onFortificationPhaseStopped() {
+        setNextPlayerTurn();
+        changeGamePhase();
+    }
+
+    public void changeGamePhase() {
+        GamePhaseManager.getInstance().changePhase();
+        switch (GamePhaseManager.getInstance().getCurrentPhase()) {
+            case GamePhaseManager.PHASE_STARTUP:
+                btnStopAttack.setVisibility(View.GONE);
+                GamePhaseManager.getInstance().setCurrentPhase(GamePhaseManager.PHASE_STARTUP);
+                StartUpPhaseController.getInstance().setContext(this).startStartUpPhase();
+                break;
+            case GamePhaseManager.PHASE_REINFORCEMENT:
+                btnStopAttack.setVisibility(View.GONE);
+                ReinforcementPhaseController.getInstance().setContext(this).startReInforceMentPhase();
+                break;
+            case GamePhaseManager.PHASE_ATTACK:
+                btnStopAttack.setVisibility(View.VISIBLE);
+                Toast.makeText(this, "Attack Phase Started !!", Toast.LENGTH_SHORT).show();
+                AttackPhaseController.getInstance().setContext(this).startAttackPhase();
+                break;
+            case GamePhaseManager.PHASE_FORTIFICATION:
+                btnStopAttack.setVisibility(View.GONE);
+                Toast.makeText(this, "Fortification Phase Started !!", Toast.LENGTH_SHORT).show();
+                FortificationPhaseController.getInstance().setContext(this).startFortificationPhase();
+                break;
+        }
     }
 
     /**
@@ -151,6 +205,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * method to initialize the territory object with points from the screen
+     *
      * @param x x-coordinate for the selected location for territory on map
      * @param y y-coordinate for the selected location for territory on map
      * @return territory object
@@ -167,6 +222,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * method to set the turn of the player in start up and reinforcement phase
+     *
      * @param player player object whose turn is to be set
      */
     public void setPlayerTurn(Player player) {
@@ -188,8 +244,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     }
 
     /**
-     *method to set the turn of the player in fortification phase
-     *
+     * method to set the turn of the player in fortification phase
      */
     public void setNextPlayerTurn() {
         int nextPlayerTurnId = (playerTurn.getPlayerId()) % getMap().getPlayerList().size();
@@ -203,7 +258,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     }
 
     /**
-     *  method to create the toast
+     * method to create the toast
+     *
      * @param msg message string
      */
     public void toastMessageFromBackground(final String msg) {
@@ -251,22 +307,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     }
 
-    /**
-     * method to disable button for fortification phase
-     */
-    private void disableButtonFortificationPhase() {
-        btnStartFortificationPhase.setEnabled(false);
-        btnStartFortificationPhase.setAlpha(0.4f);
-    }
-
-    /**
-     * method to enable button for fortification phase
-     */
-    private void enableButtonFortificationPhase() {
-        btnStartFortificationPhase.setEnabled(true);
-        btnStartFortificationPhase.setAlpha(1f);
-    }
-
     private SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
@@ -286,7 +326,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * {@inheritDoc}
-     * @param v view
+     *
+     * @param v     view
      * @param event
      * @return
      */
@@ -298,14 +339,14 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * {@inheritDoc}
+     *
      * @param v view
      */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_start_fortification_phase:
-                ReinforcementPhaseController.getInstance().stopReInforceMentPhase();
-                FortificationPhaseController.getInstance().setContext(this).startFortificationPhase();
+            case R.id.btn_stop_attack:
+                onAttackPhaseStopped();
                 break;
             case R.id.btn_tradeIn_cards:
                 showCardTradePopUp();
@@ -327,17 +368,18 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         notifyCardListAdapter();
     }
 
-    public void notifyCardListAdapter(){
-        if(cardListAdapter!=null){
+    public void notifyCardListAdapter() {
+        if (cardListAdapter != null) {
             cardListAdapter.notifyDataSetChanged();
         }
     }
+
     public void showCardTradePopUp() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.activity_player_cards);
         //TODO :: remove below line
         getPlayerTurn().setOwnedCards(cardList);
-        cardListAdapter = new CardListAdapter(this,getPlayerTurn().getOwnedCards());
+        cardListAdapter = new CardListAdapter(this, getPlayerTurn().getOwnedCards());
         dialog.setTitle("Trade-In Cards");
         GridView cardGrid = (GridView) dialog.findViewById(R.id.grid_card);
         Button dialogButton = (Button) dialog.findViewById(R.id.btn_tradeIn);

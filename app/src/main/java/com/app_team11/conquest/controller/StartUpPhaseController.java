@@ -50,9 +50,13 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
     }
 
     public void stopStartupPhase(){
-        needToStop = true;
-        asyncTask.notify();
-        asyncTask.cancel(true);
+        try {
+            needToStop = true;
+            asyncTask.notify();
+            asyncTask.cancel(true);
+        }catch (Exception ex){
+            asyncTask.cancel(true);
+        }
     }
     /**
      * method to initialize map for game play, set the number of players
@@ -111,7 +115,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
     }
 
     /**
-     * method to assign intitial armies to each territory on start up
+     * method to assign initial armies to each territory on start up
      */
     public void assignInitialArmy() {
         asyncTask = new AsyncTask<Void, Void, Void>() {
@@ -186,6 +190,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
                 getActivity().toastMessageFromBackground("Place army on correct territory !!");
             }
         }
+
     }
 
 

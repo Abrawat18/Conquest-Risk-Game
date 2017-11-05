@@ -26,7 +26,6 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
 
     private Context context;
     private static FortificationPhaseController fortificationPhaseController;
-    private AsyncTask<Void, Void, Void> asyncTask;
     private Territory selectedTerritory;
     private boolean waitForSelectTerritory;
     private Territory fortificationFromTerritory;
@@ -62,11 +61,8 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
      * method to initiate the fortification phase
      */
     public void startFortificationPhase() {
-        if (getActivity().getMap().getPlayerList().size() > 0) {
-            getActivity().setPlayerTurn(getActivity().getMap().getPlayerList().get(0));
-            waitForSelectTerritory = true;
-            initializeForNextPlayer();
-        }
+        waitForSelectTerritory = true;
+        initializeForPlayer();
     }
 
     /**
@@ -74,6 +70,7 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
      */
     public void stopFortificationPhase() {
         waitForSelectTerritory = false;
+        getActivity().onFortificationPhaseStopped();
     }
 
     /**
@@ -98,7 +95,7 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
                 }
             } else {
                 getActivity().toastMessageFromBackground(Constants.FORTIFICATION_INCORRECT_TERRITORY);
-                initializeForNextPlayer();
+                initializeForPlayer();
             }
         }
     }
@@ -121,12 +118,10 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
                             int requestedToPlaceArmy = Integer.parseInt(editNoOfArmy.getText().toString());
                             ConfigurableMessage configurableMessage = fortificationFromTerritory.fortifyTerritory(fortificationToTerritory,getActivity().getPlayerTurn(),requestedToPlaceArmy);
                             if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
-                                getActivity().setNextPlayerTurn();
-                                initializeForNextPlayer();
-                                getActivity().showMap();
+                                stopFortificationPhase();
                             } else {
                                 getActivity().toastMessageFromBackground(configurableMessage.getMsgText());
-                                initializeForNextPlayer();
+                                initializeForPlayer();
                             }
                         }
                     }
@@ -135,9 +130,9 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
     }
 
     /**
-     * intitialize the fortification phase for the next player
+     * initialize the fortification phase for the next player
      */
-    private void initializeForNextPlayer() {
+    private void initializeForPlayer() {
         fortificationFromTerritory  =null;
         fortificationToTerritory = null;
         getActivity().toastMessageFromBackground("Select from territory");
