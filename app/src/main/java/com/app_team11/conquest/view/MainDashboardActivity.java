@@ -39,6 +39,7 @@ public class MainDashboardActivity extends Activity implements View.OnClickListe
         findViewById(R.id.btn_play_game).setOnClickListener(this);
         findViewById(R.id.btn_map_editor).setOnClickListener(this);
         findViewById(R.id.btn_settings).setOnClickListener(this);
+        findViewById(R.id.btn_show_log).setOnClickListener(this);
 
 
         MainDashboardController.getInstance().initialization(this);
@@ -63,6 +64,9 @@ public class MainDashboardActivity extends Activity implements View.OnClickListe
             case R.id.btn_settings:
                 MainDashboardController.getInstance().openSetting();
                 FileManager.getInstance().writeLog("Launching setting activity...");
+                break;
+            case R.id.btn_show_log:
+                MainDashboardController.getInstance().openGameLog();
                 break;
         }
     }
