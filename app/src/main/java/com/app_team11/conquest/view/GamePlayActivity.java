@@ -362,16 +362,16 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 int noOfSelectedCards = 0;
                 if (!cardList.get(position).isSelected()) {
                     for (Cards card : cardList) {
-                        if (card.isSelected()) {
-                            noOfSelectedCards++;
-                        }
-                        if (noOfSelectedCards > 3) {
+                        if (noOfSelectedCards >= 3) {
                             toastMessageFromBackground(Constants.TOAST_MSG_MAX_CARDS_SELECTION_ERROR);
                             break;
                         }
+                        if (card.isSelected()) {
+                            noOfSelectedCards++;
+                        }
                     }
                 }
-                if (noOfSelectedCards <= 3 || cardList.get(position).isSelected()) {
+                if (noOfSelectedCards < 3 || cardList.get(position).isSelected()) {
                     cardList.get(position).setSelected(!cardList.get(position).isSelected());
                 }
                 cardListAdapter.notifyDataSetChanged();
