@@ -1,6 +1,6 @@
 package com.app_team11.conquest.utility;
 
-/**
+/**Calculated the distance between the two selected points
  * Created by RADHEY on 10/17/2017.
  */
 

@@ -49,7 +49,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * {@inheritDoc}
-     *
      * @param savedInstanceState
      */
     @Override
@@ -92,7 +91,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * method to enable the button for fortification start
      */
     public void onStartupPhaseFinished() {
-        Toast.makeText(this, "ReInforcement Phase Started !!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"ReInforcement Phase Started !!",Toast.LENGTH_SHORT).show();
         ReInforcementPhaseController.getInstance().setContext(this).startReInforceMentPhase();
         enableButtonFortificationPhase();
     }
@@ -122,7 +121,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * method to initialize the territory object with points from the screen
-     *
      * @param x x-coordinate for the selected location for territory on map
      * @param y y-coordinate for the selected location for territory on map
      * @return territory object
@@ -139,7 +137,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * method to set the turn of the player in start up and reinforcement phase
-     *
      * @param player player object whose turn is to be set
      */
     public void setPlayerTurn(Player player) {
@@ -161,7 +158,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     }
 
     /**
-     * method to set the turn of the player in fortification phase
+     *method to set the turn of the player in fortification phase
+     *
      */
     public void setNextPlayerTurn() {
         int nextPlayerTurnId = (playerTurn.getPlayerId()) % getMap().getPlayerList().size();
@@ -175,8 +173,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     }
 
     /**
-     * method to create the toast
-     *
+     *  method to create the toast
      * @param msg message string
      */
     public void toastMessageFromBackground(final String msg) {
@@ -259,8 +256,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * {@inheritDoc}
-     *
-     * @param v     view
+     * @param v view
      * @param event
      * @return
      */
@@ -272,7 +268,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * {@inheritDoc}
-     *
      * @param v view
      */
     @Override
@@ -288,11 +283,12 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         }
     }
 
+    /**
+     * Method is called when the back is pressed for the startup phase
+     */
     @Override
     public void onBackPressed() {
         StartUpPhaseController.getInstance().stopStartupPhase();
         super.onBackPressed();
     }
-
-
 }

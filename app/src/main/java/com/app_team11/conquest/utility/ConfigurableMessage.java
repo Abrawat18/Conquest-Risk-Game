@@ -20,18 +20,34 @@ public class ConfigurableMessage {
         this.msgText = msgText;
     }
 
+    /**
+     * Returns the message code
+     * @return msgcode
+     */
     public int getMsgCode() {
         return msgCode;
     }
 
+    /**
+     * Sets the message code
+     * @param msgCode
+     */
     public void setMsgCode(int msgCode) {
         this.msgCode = msgCode;
     }
 
+    /**
+     * Returns the message text
+     * @return msgText
+     */
     public String getMsgText() {
         return msgText;
     }
 
+    /**
+     * Sets the message text
+     * @param msgText
+     */
     public void setMsgText(String msgText) {
         this.msgText = msgText;
     }

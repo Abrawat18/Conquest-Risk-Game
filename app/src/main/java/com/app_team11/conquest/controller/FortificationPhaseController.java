@@ -24,7 +24,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class FortificationPhaseController implements SurfaceOnTouchListner {
 
-
     private Context context;
     private static FortificationPhaseController fortificationPhaseController;
     private AsyncTask<Void, Void, Void> asyncTask;
@@ -144,6 +143,10 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
         getActivity().toastMessageFromBackground("Select from territory");
     }
 
+    /**
+     * GamePlay Activity Method
+     * @return GamePlayActivity
+     */
     private GamePlayActivity getActivity() {
         return (GamePlayActivity) context;
     }

@@ -13,6 +13,9 @@ import android.widget.Toast;
 import com.app_team11.conquest.R;
 import com.app_team11.conquest.controller.MainDashboardController;
 import com.app_team11.conquest.global.Constants;
+import com.app_team11.conquest.utility.FileManager;
+
+import java.io.IOException;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -39,6 +42,7 @@ public class MainDashboardActivity extends Activity implements View.OnClickListe
 
 
         MainDashboardController.getInstance().initialization(this);
+        FileManager.getInstance().writeLog("Dashboard has been launched!");
     }
 
     /**
@@ -50,12 +54,15 @@ public class MainDashboardActivity extends Activity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btn_play_game:
                 MainDashboardController.getInstance().playGame();
+                FileManager.getInstance().writeLog("Launching game play activity...");
                 break;
             case R.id.btn_map_editor:
                 MainDashboardController.getInstance().openMapEditor();
+                FileManager.getInstance().writeLog("Launching Map editor activity...");
                 break;
             case R.id.btn_settings:
                 MainDashboardController.getInstance().openSetting();
+                FileManager.getInstance().writeLog("Launching setting activity...");
                 break;
         }
     }

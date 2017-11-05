@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Territory model class with name of territory,position,neighbours,owner,army count,etc
  * Created by Vasu on 06-10-2017.
- *
  * @version 1.0.0
  */
 public class Territory {
@@ -42,7 +41,6 @@ public class Territory {
 
     /**
      * method to prevent conflict between the json territory object and map territory object
-     *
      * @return copied territory object
      */
     public Territory copyTerritory() {
@@ -59,8 +57,7 @@ public class Territory {
     /**
      * to be called on click of add neighbours/connections
      * validation1 before saving a map - Validation to check if the number of neighbours not greater than 10
-     *
-     * @param terrObj       territory which is required to be added or removed
+     * @param terrObj territory which is required to be added or removed
      * @param addRemoveFlag flag to point out whether the method to be used to add or remove territories
      * @return confirmationMessage
      */
@@ -88,7 +85,6 @@ public class Territory {
 
     /**
      * validation1 before saving a map - Validation to check if the number of neighbours not greater than 10
-     *
      * @param terrList
      */
     public void addNeighbourToTerr(List<Territory> terrList) {
@@ -118,10 +114,9 @@ public class Territory {
 
     /**
      * Method is used to implement the fortification functionality
-     *
      * @param destTerritory the destination territory for fortification
      * @param currentPlayer the player who has requested fortification
-     * @param countOfArmy   number of armies to be moved
+     * @param countOfArmy number of armies to be moved
      * @return response message
      */
     public ConfigurableMessage fortifyTerritory(Territory destTerritory, Player currentPlayer, int countOfArmy) {
@@ -143,54 +138,104 @@ public class Territory {
             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE);
     }
 
+    /**
+     * Returns the name of territory
+     * @return territory Name
+     */
     public String getTerritoryName() {
         return territoryName;
     }
 
+    /**
+     * Sets the name of territory
+     * @param territoryName
+     */
     public void setTerritoryName(String territoryName) {
         this.territoryName = territoryName;
     }
-
+    /**
+     * Gives the center point
+     * @return gives the center point
+     */
     public Point getCenterPoint() {
         return centerPoint;
     }
 
+    /**
+     * Sets the center point
+     * @param centerX
+     * @param centerY
+     */
     public void setCenterPoint(int centerX, int centerY) {
         this.centerPoint = new Point(centerX, centerY);
     }
 
+    /**
+     * Returns the name of continent
+     * @return returns the name of continent
+     */
     public Continent getContinent() {
         return continent;
     }
-
+    /**
+     * Returns the name of continent
+     * @return returns the name of continent
+     */
     public void setContinent(Continent continent) {
         this.continent = continent;
     }
-
+    /**
+     * Sets the list of neighbour
+     * @return neighbourList
+     */
     public List<Territory> getNeighbourList() {
         return neighbourList;
     }
 
+    /**
+     * Sets the neighbour list
+     * @param neighbourList
+     */
     public void setNeighbourList(List<Territory> neighbourList) {
         this.neighbourList = neighbourList;
     }
 
+    /**
+     * Returns the owner of territory
+     * @return territoryOwner
+     */
     public Player getTerritoryOwner() {
         return territoryOwner;
     }
 
+    /**
+     * Sets the owner of territory
+     * @param territoryOwner
+     */
     public void setTerritoryOwner(Player territoryOwner) {
         this.territoryOwner = territoryOwner;
     }
 
+    /**
+     * Returns the count of army
+     * @return armyCount
+     */
     public int getArmyCount() {
         return armyCount;
     }
 
+    /**
+     * Sets the count of army
+     * @param armyCount
+     */
     public void setArmyCount(int armyCount) {
         this.armyCount = armyCount;
     }
 
+    /**
+     * Sets the center point
+     * @param centerPoint
+     */
     private void setCenterPoint(Point centerPoint) {
         this.centerPoint = centerPoint;
     }

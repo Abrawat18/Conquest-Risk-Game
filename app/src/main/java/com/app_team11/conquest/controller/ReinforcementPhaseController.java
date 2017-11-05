@@ -32,19 +32,19 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * Created by Jaydeep9101 on 19-Oct-17.
  */
 
-public class ReInforcementPhaseController implements SurfaceOnTouchListner {
+public class ReinforcementPhaseController implements SurfaceOnTouchListner {
 
     private Context context;
     private static StartUpPhaseController startUpPhaseController;
     private AsyncTask<Void, Void, Void> asyncTask;
     private Territory selectedTerritory;
     private boolean waitForSelectTerritory;
-    private static ReInforcementPhaseController reInforcementPhaseController;
+    private static ReinforcementPhaseController reinforcementPhaseController;
     private int needToPlaceArmy;
     private List<Cards> cardList = new ArrayList<Cards>();
     private List<Territory> needToPlaceTerrArmyList;
 
-    private ReInforcementPhaseController() {
+    private ReinforcementPhaseController() {
 
     }
 
@@ -53,11 +53,11 @@ public class ReInforcementPhaseController implements SurfaceOnTouchListner {
      *
      * @return returns the class object
      */
-    public static ReInforcementPhaseController getInstance() {
-        if (reInforcementPhaseController == null) {
-            reInforcementPhaseController = new ReInforcementPhaseController();
+    public static ReinforcementPhaseController getInstance() {
+        if (reinforcementPhaseController == null) {
+            reinforcementPhaseController = new ReinforcementPhaseController();
         }
-        return reInforcementPhaseController;
+        return reinforcementPhaseController;
     }
 
     /**
@@ -66,7 +66,7 @@ public class ReInforcementPhaseController implements SurfaceOnTouchListner {
      * @param context
      * @return
      */
-    public ReInforcementPhaseController setContext(Context context) {
+    public ReinforcementPhaseController setContext(Context context) {
         this.context = context;
         getActivity().setSurfaceOnTouchListner(this);
         return getInstance();
