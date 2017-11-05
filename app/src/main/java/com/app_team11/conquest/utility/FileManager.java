@@ -5,7 +5,9 @@ import android.os.Environment;
 import com.app_team11.conquest.global.Constants;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**File Manager Class is used for reading , writing of files and performing relevant operations
  * Created by Vasu on 06-10-2017.
@@ -146,6 +148,25 @@ public class FileManager {
                 }
             }
         }
+    }
+
+    /**
+     * @return
+     */
+    public List<String> readLog() {
+        Scanner scanner = null;
+        ArrayList<String> list = new ArrayList<String>();
+        File filePath = FileManager.getInstance().getLogPath(Constants.GAME_LOG);
+        try {
+            scanner = new Scanner(filePath);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        while (scanner.hasNext()) {
+            list.add(scanner.nextLine());
+        }
+        scanner.close();
+        return list;
     }
 
     /**
