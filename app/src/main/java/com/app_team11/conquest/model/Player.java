@@ -5,6 +5,7 @@ import com.app_team11.conquest.utility.ConfigurableMessage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.Random;
 
 
@@ -15,7 +16,7 @@ import java.util.Random;
  * @version 1.0.0
  */
 
-public class Player {
+public class Player extends Observable{
 
     private int playerId;
     private int availableArmyCount;
@@ -139,7 +140,6 @@ public class Player {
      * This method is used to calculate the total number of reinforcement armies
      *
      * @param gameMap
-     * @param demandedCardTrade
      * @param cardTradeCount
      * @param tradeInCards
      * @return Reinforcement Army Count
@@ -202,6 +202,8 @@ public class Player {
                 reinforcementCount.setMatchedTerritoryList(matchedTerr);
             }
             this.getOwnedCards().removeAll(tradeInCards);
+            setChanged();
+            notifyObservers(this);
         }
         reinforcementCount.setOtherTotalReinforcement(territoryArmy + continentArmy + cardArmy);
         return reinforcementCount;

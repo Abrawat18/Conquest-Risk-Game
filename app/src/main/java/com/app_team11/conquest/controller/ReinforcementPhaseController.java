@@ -43,6 +43,7 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
     private int needToPlaceArmy;
     private List<Cards> cardList = new ArrayList<Cards>();
     private List<Territory> needToPlaceTerrArmyList;
+    private CardListAdapter cardListAdapter;
 
     private ReinforcementPhaseController() {
 
@@ -76,22 +77,9 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
      * method used to start the reinforcement phase in the play game
      */
     public void startReInforceMentPhase() {
-        Territory terr1 = new Territory("Anguilla");
-        Territory terr2 = new Territory("Armenia");
-        Territory terr3 = new Territory("Bangladesh");
-        cardList.add(new Cards(terr1, "infantry"));
-        cardList.add(new Cards(terr2, "artillery"));
-        cardList.add(new Cards(terr3, "cavalry"));
-        cardList.add(new Cards(terr2, "artillery"));
-        cardList.add(new Cards(terr1, "infantry"));
-        cardList.add(new Cards(terr3, "cavalry"));
-        cardList.add(new Cards(terr1, "infantry"));
-        cardList.add(new Cards(terr2, "artillery"));
-        cardList.add(new Cards(terr3, "cavalry"));
-        cardList.add(new Cards(terr2, "artillery"));
-
         if (getActivity().getMap().getPlayerList().size() > 0) {
             getActivity().setPlayerTurn(getActivity().getMap().getPlayerList().get(0));
+            getActivity().getPlayerTurn().addObserver(getActivity());
             waitForSelectTerritory = true;
             calculateReinforcementArmyForPlayer(null);
         }
@@ -167,6 +155,8 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
                                 }
                                 if (needToPlaceArmy == 0 && getActivity().getPlayerTurn().getAvailableCardTerrCount() == 0) {
                                     getActivity().setNextPlayerTurn();
+                                    //// TODO: 04-11-2017 need to delete the below line
+                                    getActivity().getPlayerTurn().addObserver(getActivity());
                                     calculateReinforcementArmyForPlayer(null);
                                 }
                                 getActivity().toastMessageFromBackground("Select territory to place Army :" + needToPlaceArmy);
@@ -182,7 +172,7 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
     /**
      * method to call the function for calculation of reinforcement army on the start of the player turn
      */
-    private void calculateReinforcementArmyForPlayer(List<Cards> tradeInCardList) {
+    public void calculateReinforcementArmyForPlayer(List<Cards> tradeInCardList) {
         if (getActivity().getPlayerTurn().getOwnedCards().size() < 5 || (tradeInCardList != null && tradeInCardList.size() == 3)) {
             ReinforcementType reinforcementType = getActivity().getPlayerTurn().calcReinforcementArmy(getActivity().getMap(), getActivity().getMap().getNoOfCardTradedCount(), tradeInCardList);
             needToPlaceArmy = reinforcementType.getOtherTotalReinforcement();
@@ -205,52 +195,5 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
         return (GamePlayActivity) context;
     }
 
-    public void showCardTradePopUp() {
-        final Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.activity_player_cards);
-        final CardListAdapter cardListAdapter = new CardListAdapter(getActivity(), cardList);
-        dialog.setTitle("Trade-In Cards");
-        GridView cardGrid = (GridView) dialog.findViewById(R.id.grid_card);
-        Button dialogButton = (Button) dialog.findViewById(R.id.btn_tradeIn);
-        dialogButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                List<Cards> selectedCardList = new ArrayList<Cards>();
-                for (Cards card : cardList) {
-                    if (card.isSelected()) {
-                        selectedCardList.add(card);
-                    }
-                }
-                if (selectedCardList.size() == 3) {
-                    calculateReinforcementArmyForPlayer(selectedCardList);
-                }
-            }
-        });
 
-        cardGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int noOfSelectedCards = 0;
-                if (!cardList.get(position).isSelected()) {
-                    for (Cards card : cardList) {
-                        if (card.isSelected()) {
-                            noOfSelectedCards++;
-                        }
-                        if (noOfSelectedCards > 3) {
-                            getActivity().toastMessageFromBackground(Constants.TOAST_MSG_MAX_CARDS_SELECTION_ERROR);
-                            break;
-                        }
-                    }
-                }
-                if (noOfSelectedCards <= 3 || cardList.get(position).isSelected()) {
-                    cardList.get(position).setSelected(!cardList.get(position).isSelected());
-                }
-                cardListAdapter.notifyDataSetChanged();
-            }
-        });
-//        cardGrid.setAdapter(new CardListAdapter(getActivity(), getActivity().getPlayerTurn().getOwnedCards()));
-        cardGrid.setAdapter(cardListAdapter);
-        dialog.show();
-
-    }
 }

@@ -1,6 +1,7 @@
 package com.app_team11.conquest.view;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,21 +13,30 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.app_team11.conquest.R;
+import com.app_team11.conquest.adapter.CardListAdapter;
 import com.app_team11.conquest.adapter.PlayerListAdapter;
 import com.app_team11.conquest.controller.FortificationPhaseController;
 import com.app_team11.conquest.controller.ReinforcementPhaseController;
 import com.app_team11.conquest.controller.StartUpPhaseController;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
+import com.app_team11.conquest.model.Cards;
 import com.app_team11.conquest.model.GameMap;
 import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.MathUtility;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by RADHEY on 10/15/2017
@@ -34,7 +44,7 @@ import com.app_team11.conquest.utility.MathUtility;
  */
 
 
-public class GamePlayActivity extends Activity implements View.OnTouchListener, View.OnClickListener {
+public class GamePlayActivity extends Activity implements View.OnTouchListener, View.OnClickListener, Observer {
 
     private GameMap map;
     private SurfaceView surface;
@@ -46,6 +56,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private PlayerListAdapter playerListAdapter;
     private Button btnTradeInCards;
     private Toast commonToast;
+    private List<Cards> cardList=new ArrayList<>();
+    private CardListAdapter cardListAdapter;
 
     /**
      * {@inheritDoc}
@@ -82,6 +94,24 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * method to disable the fortification button during the game play phase
      */
     private void initialization() {
+        Territory terr1 = new Territory("Anguilla");
+        Territory terr2 = new Territory("Armenia");
+        Territory terr3 = new Territory("Bangladesh");
+        Territory terr4 = new Territory("Bangladesh4");
+        Territory terr5 = new Territory("Bangladesh5");
+        Territory terr6 = new Territory("Bangladesh6");
+        Territory terr7 = new Territory("Bangladesh7");
+        Territory terr8 = new Territory("Bangladesh8");
+        Territory terr9 = new Territory("Bangladesh9");
+        cardList.add(new Cards(terr1, "infantry"));
+        cardList.add(new Cards(terr2, "artillery"));
+        cardList.add(new Cards(terr3, "cavalry"));
+        cardList.add(new Cards(terr4, "artillery"));
+        cardList.add(new Cards(terr5, "infantry"));
+        cardList.add(new Cards(terr6, "cavalry"));
+        cardList.add(new Cards(terr7, "infantry"));
+        cardList.add(new Cards(terr8, "artillery"));
+        cardList.add(new Cards(terr9, "cavalry"));
         disableButtonFortificationPhase();
         StartUpPhaseController.getInstance().setContext(this).startStartUpPhase();
         commonToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
@@ -278,7 +308,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 FortificationPhaseController.getInstance().setContext(this).startFortificationPhase();
                 break;
             case R.id.btn_tradeIn_cards:
-                ReinforcementPhaseController.getInstance().showCardTradePopUp();
+                showCardTradePopUp();
                 break;
         }
     }
@@ -290,5 +320,66 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     public void onBackPressed() {
         StartUpPhaseController.getInstance().stopStartupPhase();
         super.onBackPressed();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        notifyCardListAdapter();
+    }
+
+    public void notifyCardListAdapter(){
+        if(cardListAdapter!=null){
+            cardListAdapter.notifyDataSetChanged();
+        }
+    }
+    public void showCardTradePopUp() {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.activity_player_cards);
+        //TODO :: remove below line
+        getPlayerTurn().setOwnedCards(cardList);
+        cardListAdapter = new CardListAdapter(this,getPlayerTurn().getOwnedCards());
+        dialog.setTitle("Trade-In Cards");
+        GridView cardGrid = (GridView) dialog.findViewById(R.id.grid_card);
+        Button dialogButton = (Button) dialog.findViewById(R.id.btn_tradeIn);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Cards> selectedCardList = new ArrayList<Cards>();
+                for (Cards card : cardList) {
+                    if (card.isSelected()) {
+                        selectedCardList.add(card);
+                    }
+                }
+                if (selectedCardList.size() == 3) {
+                    ReinforcementPhaseController.getInstance().calculateReinforcementArmyForPlayer(selectedCardList);
+                }
+            }
+        });
+
+        cardGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int noOfSelectedCards = 0;
+                if (!cardList.get(position).isSelected()) {
+                    for (Cards card : cardList) {
+                        if (card.isSelected()) {
+                            noOfSelectedCards++;
+                        }
+                        if (noOfSelectedCards > 3) {
+                            toastMessageFromBackground(Constants.TOAST_MSG_MAX_CARDS_SELECTION_ERROR);
+                            break;
+                        }
+                    }
+                }
+                if (noOfSelectedCards <= 3 || cardList.get(position).isSelected()) {
+                    cardList.get(position).setSelected(!cardList.get(position).isSelected());
+                }
+                cardListAdapter.notifyDataSetChanged();
+            }
+        });
+//        cardGrid.setAdapter(new CardListAdapter(getActivity(), getActivity().getPlayerTurn().getOwnedCards()));
+        cardGrid.setAdapter(cardListAdapter);
+        dialog.show();
+
     }
 }

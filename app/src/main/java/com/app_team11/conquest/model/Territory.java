@@ -8,13 +8,14 @@ import com.app_team11.conquest.global.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 /**
  * Territory model class with name of territory,position,neighbours,owner,army count,etc
  * Created by Vasu on 06-10-2017.
  * @version 1.0.0
  */
-public class Territory {
+public class Territory extends Observable{
 
     private String territoryName;
     private Point centerPoint;
