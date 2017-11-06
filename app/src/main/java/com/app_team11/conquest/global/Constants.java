@@ -47,4 +47,9 @@ public class Constants {
     public static final String SUCCESS = "SUCCESS";
     public static final String FAILURE = "FAILURE";
     public static final String TOAST_MSG_MAX_CARDS_SELECTION_ERROR = "You can not select more than 3 cards";
+    public static final String NOT_ADJACENT_TERRITORY = "You can attack only adjacent territories";
+    public static final String INSUFFUCIENT_ARMIES = "You don't have enough armies to attack";
+    public static final String NO_ARMIES = "This territory doesn't have any armies";
+
+
 }

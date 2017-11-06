@@ -217,13 +217,13 @@ public class Player extends Observable{
      * @return
      */
 
-    public Boolean isAdjacentTerritory(Territory attackerTerritory, Territory defenderTerritory) {
+    public ConfigurableMessage isAdjacentTerritory(Territory attackerTerritory, Territory defenderTerritory) {
 
         for (Territory neigbourTerritory : defenderTerritory.getNeighbourList()) {
             if (attackerTerritory.getTerritoryName().equals(neigbourTerritory.getTerritoryName()) && attackerTerritory.getTerritoryOwner() != neigbourTerritory.getTerritoryOwner())
-                return true;
+                return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
         }
-        return false;
+        return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NOT_ADJACENT_TERRITORY);
     }
 
     /**
@@ -231,10 +231,10 @@ public class Player extends Observable{
      * @param attackerTerritory
      * @return
      */
-    public Boolean hasSufficientArmies(Territory attackerTerritory) {
+    public ConfigurableMessage hasSufficientArmies(Territory attackerTerritory) {
         if (attackerTerritory.getArmyCount() >= 2)
-            return true;
-        return false;
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
+        return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.INSUFFUCIENT_ARMIES);
     }
 
     /**
@@ -242,10 +242,10 @@ public class Player extends Observable{
      * @param defenderTerritory
      * @return
      */
-    public Boolean canContinueAttackOnThisTerritory(Territory defenderTerritory) {
+    public ConfigurableMessage canContinueAttackOnThisTerritory(Territory defenderTerritory) {
         if (defenderTerritory.getArmyCount() == 0)
-            return false;
-        return true;
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NO_ARMIES);
+        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
     }
 
     /**
@@ -254,14 +254,26 @@ public class Player extends Observable{
      * @param defenderTerritory
      * @return
      */
-    public ConfigurableMessage validateAttackBetweenTerritories(Territory attackerTerritory, Territory defenderTerritory) {
-        Boolean adjacenTerritories = isAdjacentTerritory(attackerTerritory, defenderTerritory);
-        Boolean sufficientArmiesForAttack = hasSufficientArmies(attackerTerritory);
-        Boolean continueAttack = canContinueAttackOnThisTerritory(defenderTerritory);
-        if (adjacenTerritories && sufficientArmiesForAttack && continueAttack) {
+    public ConfigurableMessage validateAttackBetweenTerritories(Territory attackerTerritory, Territory defenderTerritory)
+    {
+        ConfigurableMessage isAdjacenTerritories = isAdjacentTerritory(attackerTerritory, defenderTerritory);
+        ConfigurableMessage hasSufficientArmiesForAttack = hasSufficientArmies(attackerTerritory);
+        ConfigurableMessage canContinueAttack = canContinueAttackOnThisTerritory(defenderTerritory);
+
+        if (isAdjacenTerritories.getMsgCode()==0)
+            return isAdjacenTerritories;
+        else if(hasSufficientArmiesForAttack.getMsgCode()==0)
+        {
+            return hasSufficientArmiesForAttack;
+        }
+         else if(canContinueAttack.getMsgCode()==0)
+        {
+            return canContinueAttack;
+        }
+        else
+        {
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
-        } else
-            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
+        }
     }
 
 
