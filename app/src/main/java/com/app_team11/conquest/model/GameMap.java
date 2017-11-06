@@ -240,6 +240,40 @@ public class GameMap {
     }
 
     /**
+     * This method checks whether attacker has eliminated the defender and gets assigned with defenders cards
+     * @param attackerTerritory
+     * @param defenderTerritory
+     * @return
+     */
+    public ConfigurableMessage eliminatedPlayer(Territory attackerTerritory, Territory defenderTerritory)
+    {
+        for(Territory territory : this.getTerritoryList())
+        {
+            if(territory.getTerritoryOwner()==defenderTerritory.getTerritoryOwner())
+            {
+                return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
+            }
+        }
+        attackerTerritory.getTerritoryOwner().addOwnedCards(defenderTerritory.getTerritoryOwner().getOwnedCards());
+        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
+    }
+
+    /**
+     * This method checks whether player won the game
+     * @param player
+     * @return
+     */
+    public ConfigurableMessage playerWonTheGame(Player player)
+    {
+        for(Territory territory : this.getTerritoryList())
+        {
+            if(territory.getTerritoryOwner()!=player)
+                return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
+        }
+        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.PLAYER_WON);
+    }
+
+    /**
      * Method to increase the number of card traded count
      *
      */

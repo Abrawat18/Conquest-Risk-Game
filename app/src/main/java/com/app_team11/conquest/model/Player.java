@@ -97,6 +97,11 @@ public class Player extends Observable{
         this.ownedCards = ownedCards;
     }
 
+    public void addOwnedCards(List<Cards> addCards)
+    {
+        this.getOwnedCards().addAll(addCards);
+    }
+
     /**
      * Returns the trade in cards
      * @return cardTradeIn
@@ -217,13 +222,13 @@ public class Player extends Observable{
      * @return
      */
 
-    public Boolean isAdjacentTerritory(Territory attackerTerritory, Territory defenderTerritory) {
+    public ConfigurableMessage isAdjacentTerritory(Territory attackerTerritory, Territory defenderTerritory) {
 
-        for (Territory t : defenderTerritory.getNeighbourList()) {
-            if (attackerTerritory.getTerritoryName().equals(t.getTerritoryName()) && attackerTerritory.getTerritoryOwner() != t.getTerritoryOwner())
-                return true;
+        for (Territory neigbourTerritory : defenderTerritory.getNeighbourList()) {
+            if (attackerTerritory.getTerritoryName().equals(neigbourTerritory.getTerritoryName()) && attackerTerritory.getTerritoryOwner() != neigbourTerritory.getTerritoryOwner())
+                return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
         }
-        return false;
+        return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NOT_ADJACENT_TERRITORY);
     }
 
     /**
@@ -231,10 +236,10 @@ public class Player extends Observable{
      * @param attackerTerritory
      * @return
      */
-    public Boolean hasSufficientArmies(Territory attackerTerritory) {
+    public ConfigurableMessage hasSufficientArmies(Territory attackerTerritory) {
         if (attackerTerritory.getArmyCount() >= 2)
-            return true;
-        return false;
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
+        return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.INSUFFUCIENT_ARMIES);
     }
 
     /**
@@ -242,10 +247,10 @@ public class Player extends Observable{
      * @param defenderTerritory
      * @return
      */
-    public Boolean canContinueAttackOnThisTerritory(Territory defenderTerritory) {
+    public ConfigurableMessage canContinueAttackOnThisTerritory(Territory defenderTerritory) {
         if (defenderTerritory.getArmyCount() == 0)
-            return false;
-        return true;
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NO_ARMIES);
+        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
     }
 
     /**
@@ -254,14 +259,26 @@ public class Player extends Observable{
      * @param defenderTerritory
      * @return
      */
-    public ConfigurableMessage validateAttackBetweenTerritories(Territory attackerTerritory, Territory defenderTerritory) {
-        Boolean adjacenTerritories = isAdjacentTerritory(attackerTerritory, defenderTerritory);
-        Boolean sufficientArmiesForAttack = hasSufficientArmies(attackerTerritory);
-        Boolean continueAttack = canContinueAttackOnThisTerritory(defenderTerritory);
-        if (adjacenTerritories && sufficientArmiesForAttack && continueAttack) {
+    public ConfigurableMessage validateAttackBetweenTerritories(Territory attackerTerritory, Territory defenderTerritory)
+    {
+        ConfigurableMessage isAdjacenTerritories = isAdjacentTerritory(attackerTerritory, defenderTerritory);
+        ConfigurableMessage hasSufficientArmiesForAttack = hasSufficientArmies(attackerTerritory);
+        ConfigurableMessage canContinueAttack = canContinueAttackOnThisTerritory(defenderTerritory);
+
+        if (isAdjacenTerritories.getMsgCode()==0)
+            return isAdjacenTerritories;
+        else if(hasSufficientArmiesForAttack.getMsgCode()==0)
+        {
+            return hasSufficientArmiesForAttack;
+        }
+         else if(canContinueAttack.getMsgCode()==0)
+        {
+            return canContinueAttack;
+        }
+        else
+        {
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
-        } else
-            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
+        }
     }
 
 
@@ -272,49 +289,92 @@ public class Player extends Observable{
      * @param attackerDice
      * @param defenderDice
      */
-    public void attackPhase(Territory attackerTerritory, Territory defenderTerritory, int attackerDice,int defenderDice)
-    {
-        int attackerDiceValues[]=getRandomDiceValues(attackerDice);
-        int defenderDiceValues[]=getRandomDiceValues(defenderDice);
-        int attackerDiceValue=0,defenderDiceValue=0;
+    public ConfigurableMessage attackPhase(Territory attackerTerritory, Territory defenderTerritory, int attackerDice,int defenderDice) {
+        setNumberOfDiceRolled(attackerDice);
+        if (attackerTerritory.getArmyCount() + 1 <= attackerDice) {
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ATTACKER_DICE);
+        } else if (defenderTerritory.getArmyCount() < 2 && defenderDice == 2) {
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.CHOOSE_LESS_NUMBER_DICE);
+        }
 
-        ConfigurableMessage canAttack = validateAttackBetweenTerritories(defenderTerritory, attackerTerritory);
-        //check if validations are true
-        if (canAttack.getMsgText() == "SUCCESS" && attackerTerritory.getArmyCount() + 1 > attackerDice) {
-            //Load dice values
+        //Validations are true for attacking and hence proceeding with logic
 
+        //Load dice values
+        int attackerDiceValues[] = getRandomDiceValues(attackerDice);
+        int defenderDiceValues[] = getRandomDiceValues(defenderDice);
+        int attackerDiceValue = 0, defenderDiceValue = 0;
 
-            //check for each Dice value of attacker and defender
-            for (int i = 0; i < attackerDiceValues.length; i++) {
-                attackerDice = getHighestValue(attackerDiceValues);
-                Boolean loop = true;
+        //Attacker Dice=3 and Defender Dice=2
+        if (attackerDiceValues.length == 3 && defenderTerritory.getArmyCount() != 0) {
+            attackerDice = getHighestValue(attackerDiceValues);
+            defenderDiceValue = getHighestValue(defenderDiceValues);
+            if (attackerDiceValue > defenderDiceValue)
+            {
+                if((defenderTerritory.getArmyCount() - 1)==0)
+                    return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ATTACKER_WON);
+                else
+                    defenderTerritory.setArmyCount(defenderTerritory.getArmyCount() - 1);
+            }
+            else {
+                attackerTerritory.setArmyCount(attackerTerritory.getArmyCount() - 1);
+                return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ATTACKER_LOST);
+            }
+            attackerDiceValues = deleteElement(attackerDiceValues, attackerDiceValue);
+            defenderDiceValues = deleteElement(defenderDiceValues, defenderDiceValue);
+        }
 
-                for (int j = 0; j < defenderDiceValues.length && loop == true; j++) {
-                    defenderDiceValue = getHighestValue(defenderDiceValues);
-                    if (attackerDiceValue > defenderDiceValue) {
-                        defenderTerritory.setArmyCount(defenderTerritory.getArmyCount() - 1);
-                        if (defenderTerritory.getArmyCount() == 0) {
-                            defenderTerritory.setTerritoryOwner(attackerTerritory.getTerritoryOwner());
-                            //defenderTerritory.setArmyCount(defenderTerritory.getArmyCount()+attackerDice);
-                            loop = false;
-                        }
-                    } else {
-                        attackerTerritory.setArmyCount(attackerTerritory.getArmyCount() - 1);
-                    }
-
-                    if (attackerDiceValues.length > 0 && defenderDiceValues.length > 0) {
-                        attackerDiceValues = deleteElement(attackerDiceValues, attackerDiceValue);
-                        defenderDiceValues = deleteElement(defenderDiceValues, defenderDiceValue);
-                    } else {
-                        loop = false;
-                    }
-
-                }
-
-
+        //Attacker Dice=2 and Defender Dice=1
+        if (attackerDiceValues.length == 2 && defenderTerritory.getArmyCount() != 0) {
+            attackerDice = getHighestValue(attackerDiceValues);
+            defenderDiceValue = defenderDiceValues[0];
+            if (attackerDiceValue > defenderDiceValue)
+            {
+                if((defenderTerritory.getArmyCount() - 1)==0)
+                    return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ATTACKER_WON);
+                else
+                    defenderTerritory.setArmyCount(defenderTerritory.getArmyCount() - 1);
+            }
+            else
+                {
+                    attackerTerritory.setArmyCount(attackerTerritory.getArmyCount() - 1);
+                    return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ATTACKER_LOST);
             }
         }
+        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
     }
+    private int numberOfDiceRolled;
+
+    public int getNumberOfDiceRolled() {
+        return numberOfDiceRolled;
+    }
+
+    public void setNumberOfDiceRolled(int numberOfDiceRolled) {
+        this.numberOfDiceRolled = numberOfDiceRolled;
+    }
+
+    /**
+     * This method is for conditions related to capturing a territory
+     * @param attackerTerritory
+     * @param defenderTerritory
+     * @param moveArmiesToCapturedTerritory
+     * @return
+     */
+    public ConfigurableMessage captureTerritory(Territory attackerTerritory, Territory defenderTerritory, int moveArmiesToCapturedTerritory)
+    {
+        if(attackerTerritory.getArmyCount()-moveArmiesToCapturedTerritory==0)
+        {
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.LEAVE_ONE_ARMY);
+        }
+        else if(defenderTerritory.getArmyCount()==0 && moveArmiesToCapturedTerritory<this.numberOfDiceRolled)
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.PLACE_MORE_ARMIES);
+        else {
+            attackerTerritory.setArmyCount(attackerTerritory.getArmyCount() - moveArmiesToCapturedTerritory);
+            defenderTerritory.setArmyCount(moveArmiesToCapturedTerritory);
+            defenderTerritory.setTerritoryOwner(attackerTerritory.getTerritoryOwner());
+        }
+        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
+    }
+
 
     /**
      * This method returns the highest value from a given list.

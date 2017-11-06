@@ -47,4 +47,15 @@ public class Constants {
     public static final String SUCCESS = "SUCCESS";
     public static final String FAILURE = "FAILURE";
     public static final String TOAST_MSG_MAX_CARDS_SELECTION_ERROR = "You can not select more than 3 cards";
+    public static final String NOT_ADJACENT_TERRITORY = "You can attack only adjacent territories";
+    public static final String INSUFFUCIENT_ARMIES = "You don't have enough armies to attack";
+    public static final String NO_ARMIES = "This territory doesn't have any armies";
+    public static final String ATTACKER_DICE = "Attacker's number of dice should be less than the army count";
+    public static final String CHOOSE_LESS_NUMBER_DICE  = "Defender reduce the number of dice";
+    public static final String PLACE_MORE_ARMIES = "The number of armies you place should be more than the number of dice you last chose";
+    public static final String LEAVE_ONE_ARMY = "You must leave atleast one army behind";
+    public static final String ATTACKER_WON = "Attacker won";
+    public static final String ATTACKER_LOST = "Attacker lost";
+    public static final String PLAYER_WON="Congratulations! You won the game!";
+
 }
