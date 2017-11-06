@@ -5,6 +5,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
+import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.view.GamePlayActivity;
 
 /**
@@ -40,11 +41,12 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
     }
     public void startAttackPhase() {
         initializationAttackPhase();
+        FileManager.getInstance().writeLog("Game Attack phase started.");
 
     }
 
     private void initializationAttackPhase() {
-
+        FileManager.getInstance().writeLog("Attack phase initialized.");
     }
 
 

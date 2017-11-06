@@ -5,7 +5,9 @@ import android.graphics.Point;
 
 import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.global.Constants;
+import com.app_team11.conquest.utility.FileManager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -68,6 +70,7 @@ public class Territory extends Observable{
                 if (this.neighbourList.size() <= 10 && terrObj.neighbourList.size() <= 10) {
                     this.neighbourList.add(terrObj);
                     terrObj.neighbourList.add(this);
+                    FileManager.getInstance().writeLog("Data added in the list successfully !!");
                     return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
                 } else
                     return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NEIGHBOUR_SIZE_VAL_FAIL);
