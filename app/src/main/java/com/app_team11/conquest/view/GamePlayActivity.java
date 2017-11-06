@@ -16,7 +16,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app_team11.conquest.R;
@@ -61,6 +63,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private Toast commonToast;
     private List<Cards> cardList = new ArrayList<>();
     private CardListAdapter cardListAdapter;
+    private LinearLayout linearWorldDominationView;
+    private List<TextView> textViewPlayerDominationList = new ArrayList<>();
 
     /**
      * {@inheritDoc}
@@ -86,6 +90,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         listPlayer = (ListView) findViewById(R.id.list_player);
         btnStopAttack = (Button) findViewById(R.id.btn_stop_attack);
         btnTradeInCards = (Button) findViewById(R.id.btn_tradeIn_cards);
+        linearWorldDominationView= (LinearLayout)findViewById(R.id.linear_world_domination_view);
         surface = (SurfaceView) findViewById(R.id.surface);
         surface.setOnTouchListener(this);
         surface.getHolder().addCallback(surfaceCallback);
@@ -188,6 +193,40 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 FortificationPhaseController.getInstance().setContext(this).startFortificationPhase();
                 break;
         }
+    }
+
+    /**
+     * method to initialize the world domination view
+     */
+    public void initializeDominationView(int playerCount){
+
+        for(int i=0; i<playerCount;i++){
+            TextView tv = new TextView(this);
+            tv.setText("P"+i);
+            tv.setLayoutParams(setLayoutParamsForPlayer(0));
+            linearWorldDominationView.addView(tv);
+            textViewPlayerDominationList.add(tv);
+
+        }
+    }
+
+    /**
+     * method to update the world domination view
+     */
+    public void updateDominationView(){
+        int totalTerr = getMap().getTerritoryList().size();
+        for(Player player: getMap().getPlayerList()){
+            int totalPlayerTerrCount = getMap().getTerrForPlayer(player).size();
+            int percDomination = (totalPlayerTerrCount/totalTerr)*100;
+            textViewPlayerDominationList.get(player.getPlayerId()-1).setLayoutParams(setLayoutParamsForPlayer(percDomination));
+        }
+    }
+
+
+    private LinearLayout.LayoutParams setLayoutParamsForPlayer(int playerDominationPercent) {
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.weight=playerDominationPercent;
+        return lp;
     }
 
     /**

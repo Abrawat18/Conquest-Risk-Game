@@ -173,42 +173,45 @@ public class Player extends Observable{
         if (tradeInCards != null && tradeInCards.size() == 3) {
             //// TODO: 08-10-2017 need to add the selected cards back to the total cards list
             //// TODO: 17-10-2017 what happens when the total cards in the inventory finishes and there is no card left to give to the player when he wins any territory
-            switch (cardTradeCount) {
-                case 1:
-                    cardArmy = 4;
-                    break;
-                case 2:
-                    cardArmy = 6;
-                    break;
-                case 3:
-                    cardArmy = 8;
-                    break;
-                case 4:
-                    cardArmy = 10;
-                    break;
-                case 5:
-                    cardArmy = 12;
-                    break;
-                case 6:
-                    cardArmy = 15;
-                    break;
-            }
-            if (cardTradeCount > 6)
-                cardArmy = 15 + (cardTradeCount - 6) * 5; //for trade count more than 6
 
-            List<Territory> matchedTerr = new ArrayList<Territory>();
-            for (Territory terrObj : gameMap.getTerritoryList()) {
-                for (Cards cardObj : tradeInCards) {
-                    if ((terrObj.getTerritoryOwner().getPlayerId() == this.getPlayerId()) && terrObj.getTerritoryName().equalsIgnoreCase(cardObj.getCardTerritory().getTerritoryName())) {
-                        reinforcementCount.setMatchedTerrCardReinforcement(2); //adding the count of armies for cards having the territory owned by the player
-                        matchedTerr.add(terrObj);
-                    }
+            if ((tradeInCards.get(0).getArmyType().equals(tradeInCards.get(1).getArmyType()) && tradeInCards.get(1).getArmyType().equals(tradeInCards.get(2).getArmyType())) || (!tradeInCards.get(0).getArmyType().equals(tradeInCards.get(1).getArmyType()) && !tradeInCards.get(1).getArmyType().equals(tradeInCards.get(2).getArmyType()) && !tradeInCards.get(2).getArmyType().equals(tradeInCards.get(1).getArmyType()))) {
+                switch (cardTradeCount) {
+                    case 1:
+                        cardArmy = 4;
+                        break;
+                    case 2:
+                        cardArmy = 6;
+                        break;
+                    case 3:
+                        cardArmy = 8;
+                        break;
+                    case 4:
+                        cardArmy = 10;
+                        break;
+                    case 5:
+                        cardArmy = 12;
+                        break;
+                    case 6:
+                        cardArmy = 15;
+                        break;
                 }
-                reinforcementCount.setMatchedTerritoryList(matchedTerr);
+                if (cardTradeCount > 6)
+                    cardArmy = 15 + (cardTradeCount - 6) * 5; //for trade count more than 6
+
+                List<Territory> matchedTerr = new ArrayList<Territory>();
+                for (Territory terrObj : gameMap.getTerritoryList()) {
+                    for (Cards cardObj : tradeInCards) {
+                        if ((terrObj.getTerritoryOwner().getPlayerId() == this.getPlayerId()) && terrObj.getTerritoryName().equalsIgnoreCase(cardObj.getCardTerritory().getTerritoryName())) {
+                            reinforcementCount.setMatchedTerrCardReinforcement(2); //adding the count of armies for cards having the territory owned by the player
+                            matchedTerr.add(terrObj);
+                        }
+                    }
+                    reinforcementCount.setMatchedTerritoryList(matchedTerr);
+                }
+                this.getOwnedCards().removeAll(tradeInCards);
+                setChanged();
+                notifyObservers(this);
             }
-            this.getOwnedCards().removeAll(tradeInCards);
-            setChanged();
-            notifyObservers(this);
         }
         reinforcementCount.setOtherTotalReinforcement(territoryArmy + continentArmy + cardArmy);
         return reinforcementCount;

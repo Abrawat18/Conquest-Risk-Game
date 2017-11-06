@@ -5,11 +5,24 @@
     android:orientation="horizontal"
     android:weightSum="4">
 
-    <SurfaceView
-        android:id="@+id/surface"
+    <RelativeLayout
+        android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3" />
+        android:layout_weight="3">
+    <SurfaceView
+        android:id="@+id/surface"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/linear_world_domination_view"
+            android:weightSum="100"></LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="0dp"
