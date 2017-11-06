@@ -9,5 +9,7 @@
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/text_game_log" />
+        android:id="@+id/text_game_log"
+        android:ellipsize="end"
+        android:maxLines="5" />
 </LinearLayout>
