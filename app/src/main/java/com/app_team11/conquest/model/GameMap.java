@@ -258,11 +258,16 @@ public class GameMap {
         return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
     }
 
+    /**
+     * This method checks whether player won the game
+     * @param player
+     * @return
+     */
     public ConfigurableMessage playerWonTheGame(Player player)
     {
         for(Territory territory : this.getTerritoryList())
         {
-            if(territory.getTerritoryOwner()!==player)
+            if(territory.getTerritoryOwner()!=player)
                 return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
         }
         return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.PLAYER_WON);
