@@ -12,6 +12,7 @@ import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.ConfigurableMessage;
+import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.view.GamePlayActivity;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -63,6 +64,7 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
     public void startFortificationPhase() {
         waitForSelectTerritory = true;
         initializeForPlayer();
+        FileManager.getInstance().writeLog("Fortification Phase started.");
     }
 
     /**
@@ -116,6 +118,7 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
                         sweetAlertDialog.dismiss();
                         if (!TextUtils.isEmpty(editNoOfArmy.getText().toString())) {
                             int requestedToPlaceArmy = Integer.parseInt(editNoOfArmy.getText().toString());
+                            FileManager.getInstance().writeLog("Requested number of armies to be moved - " + requestedToPlaceArmy);
                             ConfigurableMessage configurableMessage = fortificationFromTerritory.fortifyTerritory(fortificationToTerritory,getActivity().getPlayerTurn(),requestedToPlaceArmy);
                             if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
                                 getActivity().showMap();

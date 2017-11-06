@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.app_team11.conquest.R;
 import com.app_team11.conquest.global.Constants;
+import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.view.GameLogActivity;
 import com.app_team11.conquest.view.GamePlayActivity;
 import com.app_team11.conquest.view.MainDashboardActivity;
@@ -72,6 +73,7 @@ public class MainDashboardController {
         Intent intent = new Intent(getActivity(), MapSelectionAndInitializationActivity.class);
         intent.putExtras(bundle);
         getActivity().startActivity(intent);
+        FileManager.getInstance().writeLog("Game Play started !!");
     }
 
     public void openGameLog() {

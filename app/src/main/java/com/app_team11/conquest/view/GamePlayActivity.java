@@ -32,6 +32,7 @@ import com.app_team11.conquest.model.Cards;
 import com.app_team11.conquest.model.GameMap;
 import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.Territory;
+import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.utility.GamePhaseManager;
 import com.app_team11.conquest.utility.MathUtility;
 
@@ -90,6 +91,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         surface.getHolder().addCallback(surfaceCallback);
         btnStopAttack.setOnClickListener(this);
         btnTradeInCards.setOnClickListener(this);
+        FileManager.getInstance().writeLog("Game Play View Initialized !!");
     }
 
     /**
@@ -124,7 +126,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * method to enable the button for fortification start
      */
     public void onStartupPhaseFinished() {
-        Toast.makeText(this, "ReInforcement Phase Started !!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Reinforcement Phase Started !!", Toast.LENGTH_SHORT).show();
+        FileManager.getInstance().writeLog("Reinforcement Phase Started !!");
         if (getMap().getPlayerList().size() > 0) {
             setPlayerTurn(getMap().getPlayerList().get(0));
             getPlayerTurn().addObserver(this);
@@ -137,6 +140,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     public void onReInforcementPhaseCompleted() {
         changeGamePhase();
+        FileManager.getInstance().writeLog("Reinforcement Phase Completed");
     }
 
 
@@ -144,6 +148,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * event on stopping Attack Phase
      */
     public void onAttackPhaseStopped() {
+        FileManager.getInstance().writeLog("Attack phase started !!");
         changeGamePhase();
     }
 
@@ -151,6 +156,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * event on Completing Fortification Phase
      */
     public void onFortificationPhaseStopped() {
+        FileManager.getInstance().writeLog("Fortification Phase Completed");
         setNextPlayerTurn();
         changeGamePhase();
     }
@@ -161,20 +167,24 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             case GamePhaseManager.PHASE_STARTUP:
                 btnStopAttack.setVisibility(View.GONE);
                 GamePhaseManager.getInstance().setCurrentPhase(GamePhaseManager.PHASE_STARTUP);
+                FileManager.getInstance().writeLog("Game Startup phase starting...");
                 StartUpPhaseController.getInstance().setContext(this).startStartUpPhase();
                 break;
             case GamePhaseManager.PHASE_REINFORCEMENT:
                 btnStopAttack.setVisibility(View.GONE);
+                FileManager.getInstance().writeLog("Reinforcement phase starting...");
                 ReinforcementPhaseController.getInstance().setContext(this).startReInforceMentPhase();
                 break;
             case GamePhaseManager.PHASE_ATTACK:
                 btnStopAttack.setVisibility(View.VISIBLE);
                 Toast.makeText(this, "Attack Phase Started !!", Toast.LENGTH_SHORT).show();
+                FileManager.getInstance().writeLog("Attack phase starting...");
                 AttackPhaseController.getInstance().setContext(this).startAttackPhase();
                 break;
             case GamePhaseManager.PHASE_FORTIFICATION:
                 btnStopAttack.setVisibility(View.GONE);
                 Toast.makeText(this, "Fortification Phase Started !!", Toast.LENGTH_SHORT).show();
+                FileManager.getInstance().writeLog("Fortification Phase starting...");
                 FortificationPhaseController.getInstance().setContext(this).startFortificationPhase();
                 break;
         }
@@ -228,6 +238,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     public void setPlayerTurn(Player player) {
         playerTurn = player;
         getMap().changeCurrentPlayerTurn(player);
+        FileManager.getInstance().writeLog("Player turn - " + playerTurn.getPlayerId());
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -394,7 +405,9 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                     }
                 }
                 if (selectedCardList.size() == 3) {
+                    FileManager.getInstance().writeLog("Trading card for Player " + getPlayerTurn().getPlayerId());
                     ReinforcementPhaseController.getInstance().calculateReinforcementArmyForPlayer(selectedCardList);
+
                 }
             }
         });

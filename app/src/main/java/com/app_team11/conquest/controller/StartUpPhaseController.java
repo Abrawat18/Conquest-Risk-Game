@@ -13,6 +13,7 @@ import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
 import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.Territory;
+import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.utility.ReadMapUtility;
 import com.app_team11.conquest.view.GamePlayActivity;
 
@@ -67,10 +68,12 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
             if (bundle != null) {
                 filePathToLoad = bundle.getString(Constants.KEY_FILE_PATH);
                 noOfPlayer = bundle.getInt(Constants.KEY_NO_OF_PLAYER);
+                FileManager.getInstance().writeLog("Number of players for game play - " + noOfPlayer);
             }
 
         }
         if (!TextUtils.isEmpty(filePathToLoad) && noOfPlayer > 0) {
+            FileManager.getInstance().writeLog("Initializing map for game play...");
             getActivity().setMap(new ReadMapUtility(getActivity()).readFile(filePathToLoad));
             getActivity().getMap().addPlayerToGame(noOfPlayer);
             getActivity().initializePlayerAdapter();
@@ -81,7 +84,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
 
     public void startStartUpPhase() {
         initializationStartupPhase();
-
+        FileManager.getInstance().writeLog("Game Startup phase started.");
     }
 
     /**
@@ -98,6 +101,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
      */
     public void randomlyAssignCountries() {
         Collections.shuffle(getActivity().getMap().getTerritoryList());
+        FileManager.getInstance().writeLog("Randomly assigning territories to each player!!");
         int territoryIndex = 0;
         while (territoryIndex < getActivity().getMap().getTerritoryList().size()) {
             for (Player player : getActivity().getMap().getPlayerList()) {
@@ -117,6 +121,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
     public void assignInitialArmy() {
         waitForSelectTerritory=true;
         if (getActivity().getMap().getPlayerList().size() > 0) {
+            FileManager.getInstance().writeLog("Assigning initial armies to each territory on start up...");
             getActivity().setPlayerTurn(getActivity().getMap().getPlayerList().get(0));
         }
 
