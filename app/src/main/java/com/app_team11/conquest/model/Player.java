@@ -284,71 +284,49 @@ public class Player extends Observable{
      * @param attackerDice
      * @param defenderDice
      */
-    public ConfigurableMessage attackPhase(Territory attackerTerritory, Territory defenderTerritory, int attackerDice,int defenderDice)
-    {
-        if(attackerTerritory.getArmyCount() + 1 <= attackerDice)
-        {
-            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ATTACKER_DICE );
-        }
-        else if(defenderTerritory.getArmyCount()<2 && defenderDice==2)
-        {
-            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.CHOOSE_LESS_NUMBER_DICE );
+    public ConfigurableMessage attackPhase(Territory attackerTerritory, Territory defenderTerritory, int attackerDice,int defenderDice) {
+        if (attackerTerritory.getArmyCount() + 1 <= attackerDice) {
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ATTACKER_DICE);
+        } else if (defenderTerritory.getArmyCount() < 2 && defenderDice == 2) {
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.CHOOSE_LESS_NUMBER_DICE);
         }
 
         //Validations are true for attacking and hence proceeding with logic
 
         //Load dice values
-        int attackerDiceValues[]=getRandomDiceValues(attackerDice);
-        int defenderDiceValues[]=getRandomDiceValues(defenderDice);
-        int attackerDiceValue=0,defenderDiceValue=0;
+        int attackerDiceValues[] = getRandomDiceValues(attackerDice);
+        int defenderDiceValues[] = getRandomDiceValues(defenderDice);
+        int attackerDiceValue = 0, defenderDiceValue = 0;
 
-        if(attackerDiceValues.length==3)
-        {
+        //Attacker Dice=3 and Defender Dice=2
+        if (attackerDiceValues.length == 3 && defenderTerritory.getArmyCount() != 0) {
             attackerDice = getHighestValue(attackerDiceValues);
             defenderDiceValue = getHighestValue(defenderDiceValues);
-            if(attackerDiceValue > defenderDiceValue)
-            {
+            if (attackerDiceValue > defenderDiceValue) {
                 defenderTerritory.setArmyCount(defenderTerritory.getArmyCount() - 1);
+            } else {
+                attackerTerritory.setArmyCount(attackerTerritory.getArmyCount() - 1);
+            }
+            attackerDiceValues = deleteElement(attackerDiceValues, attackerDiceValue);
+            defenderDiceValues = deleteElement(defenderDiceValues, defenderDiceValue);
+        }
+
+        //Attacker Dice=2 and Defender Dice=1
+        if (attackerDiceValues.length == 2 && defenderTerritory.getArmyCount() != 0) {
+            attackerDice = getHighestValue(attackerDiceValues);
+            defenderDiceValue = defenderDiceValues[0];
+            if (attackerDiceValue > defenderDiceValue) {
+                defenderTerritory.setArmyCount(defenderTerritory.getArmyCount() - 1);
+            } else {
+                attackerTerritory.setArmyCount(attackerTerritory.getArmyCount() - 1);
             }
         }
-        //check for each Dice value of attacker and defender
-            for (int i = 0; i < attackerDiceValues.length; i++)
-            {
-                attackerDice = getHighestValue(attackerDiceValues);
-                Boolean loop = true;
-
-                for (int j = 0; j < defenderDiceValues.length && loop == true; j++)
-                {
-                    defenderDiceValue = getHighestValue(defenderDiceValues);
-                    if (attackerDiceValue > defenderDiceValue)
-                    {
-                        defenderTerritory.setArmyCount(defenderTerritory.getArmyCount() - 1);
-                        if (defenderTerritory.getArmyCount() == 0)
-                        {
-                            defenderTerritory.setTerritoryOwner(attackerTerritory.getTerritoryOwner());
-                            //defenderTerritory.setArmyCount(defenderTerritory.getArmyCount()+attackerDice);
-                            loop = false;
-                        }
-                    } else {
-                        attackerTerritory.setArmyCount(attackerTerritory.getArmyCount() - 1);
-                    }
-
-                    if (attackerDiceValues.length > 0 && defenderDiceValues.length > 0)
-                    {
-                        attackerDiceValues = deleteElement(attackerDiceValues, attackerDiceValue);
-                        defenderDiceValues = deleteElement(defenderDiceValues, defenderDiceValue);
-                    }
-                    else
-                    {
-                        loop = false;
-                    }
-
-                }
-
-
-            }
-
+        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
     }
+
+
+
+
 
     /**
      * This method returns the highest value from a given list.
