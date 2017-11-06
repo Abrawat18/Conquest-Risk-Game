@@ -239,6 +239,19 @@ public class GameMap {
         return terrList;
     }
 
+    public ConfigurableMessage eliminatedPlayer(Territory attackerTerritory, Territory defenderTerritory)
+    {
+        for(Territory territory : this.getTerritoryList())
+        {
+            if(territory.getTerritoryOwner()==defenderTerritory.getTerritoryOwner())
+            {
+                return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
+            }
+        }
+        attackerTerritory.getTerritoryOwner().addOwnedCards(defenderTerritory.getTerritoryOwner().getOwnedCards());
+        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
+    }
+
     /**
      * Method to increase the number of card traded count
      *

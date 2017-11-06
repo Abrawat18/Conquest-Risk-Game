@@ -97,6 +97,11 @@ public class Player extends Observable{
         this.ownedCards = ownedCards;
     }
 
+    public void addOwnedCards(List<Cards> addCards)
+    {
+        this.getOwnedCards().addAll(addCards);
+    }
+
     /**
      * Returns the trade in cards
      * @return cardTradeIn
@@ -369,9 +374,6 @@ public class Player extends Observable{
         }
         return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
     }
-
-
-
 
 
     /**
