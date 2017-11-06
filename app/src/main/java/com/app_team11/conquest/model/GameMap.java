@@ -26,6 +26,7 @@ public class GameMap {
     private List<Continent> continentList;
     private List<Territory> territoryList;
     private List<Player> playerList;
+    private List<Cards> cardList;
     private int noOfCardTradedCount=1;
 
     /**
@@ -273,6 +274,24 @@ public class GameMap {
         return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.PLAYER_WON);
     }
 
+
+    /**
+     * Method to assign cards in the startup phase
+     */
+    public void assignCards()
+    {
+        String[] armyType={"Infantry","Cavalry","Artillery"};
+        int i=0;
+        for(Territory territory : this.getTerritoryList())
+        {
+            this.cardList.add(new Cards(territory,armyType[i]));
+            i++;
+            if(i==3)
+                i=0;
+        }
+
+    }
+
     /**
      * Method to increase the number of card traded count
      *
@@ -410,6 +429,29 @@ public class GameMap {
     public void setWarnFlag(String warnFlag) {
         this.warnFlag = warnFlag;
     }
+
+    /**
+     * Gets the card list
+     * @return
+     */
+    public List<Cards> getCardList() {
+        return cardList;
+    }
+
+    /**
+     * sets the card list
+     * @param cardList
+     */
+    public void setCardList(List<Cards> cardList) {
+        this.cardList = cardList;
+    }
+
+    public void addCardToList(Cards card)
+    {
+        this.cardList.add(card);
+    }
+
+
 
 }
 

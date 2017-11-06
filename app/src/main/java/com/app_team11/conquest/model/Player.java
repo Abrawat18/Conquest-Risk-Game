@@ -308,10 +308,13 @@ public class Player extends Observable{
         if (attackerDiceValues.length == 3 && defenderTerritory.getArmyCount() != 0) {
             attackerDice = getHighestValue(attackerDiceValues);
             defenderDiceValue = getHighestValue(defenderDiceValues);
+
+            //if attacker wins
             if (attackerDiceValue > defenderDiceValue)
             {
-                if((defenderTerritory.getArmyCount() - 1)==0)
+                if((defenderTerritory.getArmyCount() - 1)==0) {
                     return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ATTACKER_WON);
+                }
                 else
                     defenderTerritory.setArmyCount(defenderTerritory.getArmyCount() - 1);
             }
@@ -330,7 +333,10 @@ public class Player extends Observable{
             if (attackerDiceValue > defenderDiceValue)
             {
                 if((defenderTerritory.getArmyCount() - 1)==0)
+                {
+
                     return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ATTACKER_WON);
+                }
                 else
                     defenderTerritory.setArmyCount(defenderTerritory.getArmyCount() - 1);
             }
