@@ -219,8 +219,8 @@ public class Player extends Observable{
 
     public Boolean isAdjacentTerritory(Territory attackerTerritory, Territory defenderTerritory) {
 
-        for (Territory t : defenderTerritory.getNeighbourList()) {
-            if (attackerTerritory.getTerritoryName().equals(t.getTerritoryName()) && attackerTerritory.getTerritoryOwner() != t.getTerritoryOwner())
+        for (Territory neigbourTerritory : defenderTerritory.getNeighbourList()) {
+            if (attackerTerritory.getTerritoryName().equals(neigbourTerritory.getTerritoryName()) && attackerTerritory.getTerritoryOwner() != neigbourTerritory.getTerritoryOwner())
                 return true;
         }
         return false;
