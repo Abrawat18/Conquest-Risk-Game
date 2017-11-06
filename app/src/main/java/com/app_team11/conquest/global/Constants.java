@@ -52,5 +52,9 @@ public class Constants {
     public static final String NO_ARMIES = "This territory doesn't have any armies";
     public static final String ATTACKER_DICE = "Attacker's number of dice should be less than the army count";
     public static final String CHOOSE_LESS_NUMBER_DICE  = "Defender reduce the number of dice";
+    public static final String PLACE_MORE_ARMIES = "The number of armies you place should be more than the number of dice you last chose";
+    public static final String LEAVE_ONE_ARMY = "You must leave atleast one army behind";
+    public static final String ATTACKER_WON = "Attacker won";
+    public static final String ATTACKER_LOST = "Attacker lost";
 
 }
