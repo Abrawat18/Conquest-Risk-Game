@@ -50,6 +50,7 @@ public class Constants {
     public static final String NOT_ADJACENT_TERRITORY = "You can attack only adjacent territories";
     public static final String INSUFFUCIENT_ARMIES = "You don't have enough armies to attack";
     public static final String NO_ARMIES = "This territory doesn't have any armies";
-
+    public static final String ATTACKER_DICE = "Attacker's number of dice should be less than the army count";
+    public static final String CHOOSE_LESS_NUMBER_DICE  = "Defender reduce the number of dice";
 
 }
