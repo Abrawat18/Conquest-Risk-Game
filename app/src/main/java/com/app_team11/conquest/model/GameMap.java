@@ -239,6 +239,12 @@ public class GameMap {
         return terrList;
     }
 
+    /**
+     * This method checks whether attacker has eliminated the defender and gets assigned with defenders cards
+     * @param attackerTerritory
+     * @param defenderTerritory
+     * @return
+     */
     public ConfigurableMessage eliminatedPlayer(Territory attackerTerritory, Territory defenderTerritory)
     {
         for(Territory territory : this.getTerritoryList())
@@ -250,6 +256,16 @@ public class GameMap {
         }
         attackerTerritory.getTerritoryOwner().addOwnedCards(defenderTerritory.getTerritoryOwner().getOwnedCards());
         return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
+    }
+
+    public ConfigurableMessage playerWonTheGame(Player player)
+    {
+        for(Territory territory : this.getTerritoryList())
+        {
+            if(territory.getTerritoryOwner()!==player)
+                return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
+        }
+        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.PLAYER_WON);
     }
 
     /**

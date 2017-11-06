@@ -56,5 +56,6 @@ public class Constants {
     public static final String LEAVE_ONE_ARMY = "You must leave atleast one army behind";
     public static final String ATTACKER_WON = "Attacker won";
     public static final String ATTACKER_LOST = "Attacker lost";
+    public static final String PLAYER_WON="Congratulations! You won the game!";
 
 }
