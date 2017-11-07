@@ -174,7 +174,7 @@ public class ReadMapUtility {
     }
 
     /**
-     * Prints thelist of territory as per the size
+     * Prints the list of territory as per the size
      */
     public void printTerritoryList() {
         System.out.println("TerritoryList size: " + territoryList.size());

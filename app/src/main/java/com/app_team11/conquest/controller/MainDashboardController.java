@@ -36,6 +36,10 @@ public class MainDashboardController {
     private MainDashboardController() {
     }
 
+    /**
+     * Getting the instance of MainDashboardController
+     * @return mainDashboardController
+     */
     public static MainDashboardController getInstance() {
         if (mainDashboardController == null) {
             mainDashboardController = new MainDashboardController();
