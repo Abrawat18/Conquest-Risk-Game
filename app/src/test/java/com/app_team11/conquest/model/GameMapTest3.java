@@ -61,7 +61,7 @@ public class GameMapTest3 {
         }
 
         @Test
-        public void attackPhase()
+        public void invalidEliminatedPlayer()
         {
             cm=p.validateAttackBetweenTerritories(territoryList.get(1),territory3);
             assertEquals(Constants.SUCCESS,cm.getMsgText());
