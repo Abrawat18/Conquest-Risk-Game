@@ -222,7 +222,7 @@ public class Player extends Observable{
      * Checks whether player is attacking an already owned territory
      * @param attackerTerritory
      * @param defenderTerritory
-     * @return
+     * @return whether adjacent or not
      */
 
     public ConfigurableMessage isAdjacentTerritory(Territory attackerTerritory, Territory defenderTerritory) {
