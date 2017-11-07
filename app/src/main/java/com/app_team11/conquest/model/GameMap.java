@@ -14,6 +14,7 @@ import java.util.List;
 /**
  * primary class for Game play indicating data variables required to implement the game
  * Created by Vasu on 06-10-2017.
+ *
  * @version 1.0.0
  */
 public class GameMap {
@@ -27,11 +28,10 @@ public class GameMap {
     private List<Territory> territoryList;
     private List<Player> playerList;
     private List<Cards> cardList;
-    private int noOfCardTradedCount=1;
+    private int noOfCardTradedCount = 1;
 
     /**
      * Initialize the class members
-     *
      */
     public GameMap() {
         this.continentList = new ArrayList<Continent>();
@@ -40,6 +40,7 @@ public class GameMap {
 
     /**
      * Initializa the class members
+     *
      * @param imageName
      * @param wrapFlag
      * @param authorName
@@ -58,6 +59,7 @@ public class GameMap {
 
     /**
      * Method is used to write map information to the file
+     *
      * @param file object containing file information
      */
     public void writeDataToFile(File file) {
@@ -108,7 +110,7 @@ public class GameMap {
      * Method is used to add or remove continents from the map based on validations for min and max continents allowed
      * Validation2
      *
-     * @param contObj Continent object which needs to be added or removed from map
+     * @param contObj       Continent object which needs to be added or removed from map
      * @param addRemoveFlag flag to indicate if the continent is needed to be added - 'A' or removed - 'R'
      * @return custom message
      */
@@ -242,16 +244,14 @@ public class GameMap {
 
     /**
      * This method checks whether attacker has eliminated the defender and gets assigned with defenders cards
+     *
      * @param attackerTerritory
      * @param defenderTerritory
      * @return
      */
-    public ConfigurableMessage eliminatedPlayer(Territory attackerTerritory, Territory defenderTerritory)
-    {
-        for(Territory territory : this.getTerritoryList())
-        {
-            if(territory.getTerritoryOwner()==defenderTerritory.getTerritoryOwner())
-            {
+    public ConfigurableMessage eliminatedPlayer(Territory attackerTerritory, Territory defenderTerritory) {
+        for (Territory territory : this.getTerritoryList()) {
+            if (territory.getTerritoryOwner() == defenderTerritory.getTerritoryOwner()) {
                 return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
             }
         }
@@ -261,49 +261,43 @@ public class GameMap {
 
     /**
      * This method checks whether player won the game
+     *
      * @param player
      * @return
      */
-    public ConfigurableMessage playerWonTheGame(Player player)
-    {
-        for(Territory territory : this.getTerritoryList())
-        {
-            if(territory.getTerritoryOwner()!=player)
+    public ConfigurableMessage playerWonTheGame(Player player) {
+        for (Territory territory : this.getTerritoryList()) {
+            if (territory.getTerritoryOwner() != player)
                 return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
         }
         return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.PLAYER_WON);
     }
-    
-
 
 
     /**
-     * Method to assign cards in the startup phase
+     * Method to create cards in the startup phase
      */
-    public void assignCards()
-    {
-        String[] armyType={"Infantry","Cavalry","Artillery"};
-        int i=0;
-        for(Territory territory : this.getTerritoryList())
-        {
-            this.cardList.add(new Cards(territory,armyType[i]));
-            i++;
-            if(i==3)
-                i=0;
+    public void assignCards() {
+        String[] armyType = {Constants.ARMY_INFANTRY, Constants.ARMY_CAVALRY, Constants.ARMY_ARTILLERY};
+        int armyTypeIndex = 0;
+        for (Territory territory : this.getTerritoryList()) {
+            this.cardList.add(new Cards(territory, armyType[armyTypeIndex++]));
+            if (armyTypeIndex == 3)
+                armyTypeIndex = 0;
         }
 
     }
 
     /**
      * Method to increase the number of card traded count
-     *
      */
-    public void increaseCardTradedCount(){
-        this.noOfCardTradedCount ++;
+    public void increaseCardTradedCount() {
+        this.noOfCardTradedCount++;
     }
 
     /**
      * Return the number of traded cards
+     *
      * @return
      */
     public int getNoOfCardTradedCount() {
@@ -313,6 +307,7 @@ public class GameMap {
 
     /**
      * method to set the turn of the current player for game play
+     *
      * @param player object of the player to whom the turn is to be placed
      */
     public void changeCurrentPlayerTurn(Player player) {
@@ -324,20 +319,23 @@ public class GameMap {
 
     /**
      * Returns the name of the author
+     *
      * @return AuthorName
      */
     public String getAuthorName() {
         return authorName;
     }
-/**
- * Sets the name of author
- */
+
+    /**
+     * Sets the name of author
+     */
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
     }
 
     /**
-     *Returns the list of continent
+     * Returns the list of continent
+     *
      * @return ContinentList
      */
     public List<Continent> getContinentList() {
@@ -346,6 +344,7 @@ public class GameMap {
 
     /**
      * Sets the list of continent in the Player
+     *
      * @param continentList
      */
     public void setContinentList(List<Continent> continentList) {
@@ -354,6 +353,7 @@ public class GameMap {
 
     /**
      * Sets the list of territory
+     *
      * @return TerritoryList
      */
     public List<Territory> getTerritoryList() {
@@ -362,6 +362,7 @@ public class GameMap {
 
     /**
      * Sets the List of Territory
+     *
      * @param territoryList
      */
     public void setTerritoryList(List<Territory> territoryList) {
@@ -370,6 +371,7 @@ public class GameMap {
 
     /**
      * Sets the player list
+     *
      * @return playerList
      */
     public List<Player> getPlayerList() {
@@ -378,6 +380,7 @@ public class GameMap {
 
     /**
      * Sets the Player List
+     *
      * @param playerList
      */
     public void setPlayerList(List<Player> playerList) {
@@ -386,6 +389,7 @@ public class GameMap {
 
     /**
      * Returns the name of the Image
+     *
      * @return ImageName
      */
     public String getImageName() {
@@ -394,6 +398,7 @@ public class GameMap {
 
     /**
      * Sets the name of the Image
+     *
      * @param imageName
      */
     public void setImageName(String imageName) {
@@ -402,6 +407,7 @@ public class GameMap {
 
     /**
      * Returns the wrap property
+     *
      * @return wrapFlag
      */
     public String getWrapFlag() {
@@ -409,7 +415,8 @@ public class GameMap {
     }
 
     /**
-     *Sets the wrap property
+     * Sets the wrap property
+     *
      * @param wrapFlag
      */
     public void setWrapFlag(String wrapFlag) {
@@ -418,6 +425,7 @@ public class GameMap {
 
     /**
      * Sets the scroll Line
+     *
      * @param scrollLine
      */
     public void setScrollLine(String scrollLine) {
@@ -426,18 +434,20 @@ public class GameMap {
 
     /**
      * Sets the wrap property
+     *
      * @param warnFlag
      */
     public void setWarnFlag(String warnFlag) {
         this.warnFlag = warnFlag;
     }
-    
+
     public List<Cards> getCardList() {
         return cardList;
     }
 
     /**
      * sets the card list
+     *
      * @param cardList
      */
     public void setCardList(List<Cards> cardList) {
@@ -445,13 +455,11 @@ public class GameMap {
     }
 
     /**
-    * Adds a card to the existing list
-    */
-    public void addCardToList(Cards card)
-    {
+     * Adds a card to the existing list
+     */
+    public void addCardToList(Cards card) {
         this.cardList.add(card);
     }
-
 
 
 }

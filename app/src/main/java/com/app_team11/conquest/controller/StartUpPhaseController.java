@@ -94,6 +94,12 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
         getDataFromBundleAndInitializeMap();
         randomlyAssignCountries();
         assignInitialArmy();
+        worldDominationViewSet();
+    }
+
+    public void worldDominationViewSet(){
+        int playerCount=getActivity().getMap().getPlayerList().size();
+        getActivity().initializeDominationView(playerCount);
     }
 
     /**
