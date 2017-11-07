@@ -61,17 +61,13 @@ public class PlayerTest {
             territoryList.add(territory);
         }
             for(int j=1;j<4;j++) {
-            card=new Cards();
-            card.setArmyType(Constants.ARMY_INFANTRY);
-            card.setCardTerritory(territoryList.get(j));
+            card=new Cards(territoryList.get(j),Constants.ARMY_INFANTRY);
             cardListOwned.add(card);
 
         }
         for(i=0;i<3;i++)
         {
-            card=new Cards();
-            card.setArmyType(Constants.ARMY_INFANTRY);
-            card.setCardTerritory(territoryList.get(i+3));
+            card=new Cards(territoryList.get(i+3),Constants.ARMY_INFANTRY);
             cardList.add(card);
         }
 
@@ -86,7 +82,7 @@ public class PlayerTest {
     @Test
     public void calcReinforcementArmy() throws Exception
     {
-        reinforcementArmy=playerList.get(0).calcReinforcementArmy(map,true,1,cardList);
+        reinforcementArmy=playerList.get(0).calcReinforcementArmy(map,1,cardList);
         int totalCountReturned = reinforcementArmy.getOtherTotalReinforcement() + reinforcementArmy.getMatchedTerrCardReinforcement();
         System.out.println(reinforcementArmy.getOtherTotalReinforcement()+" "+reinforcementArmy.getMatchedTerrCardReinforcement());
         assertEquals(16,totalCountReturned);
