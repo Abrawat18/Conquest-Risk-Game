@@ -12,20 +12,20 @@ import java.util.List;
 import static junit.framework.Assert.assertEquals;
 
 /**
- * Created by Nigel on 06-Nov-17.
- * Checks for valid attack phase
+ * Created by Nigel on 07-Nov-17.
  */
 
-public class PlayerTest6 {
+public class PlayerTest8 {
     List<Territory> territoryList;
     List<Player> playerList;
-    Player player,player1;
+    Player player,player1,p;
     Territory territory,territory3;
     ConfigurableMessage cm;
 
     @Before
     public void setUp()
     {
+        p=new Player();
         territoryList=new ArrayList<Territory>();
         player=new Player();
         player.setAvailableArmyCount(10);
@@ -56,11 +56,21 @@ public class PlayerTest6 {
     @Test
     public void attackPhase()
     {
-        cm=new Player().validateAttackBetweenTerritories(territoryList.get(1),territory3);
+        cm=p.validateAttackBetweenTerritories(territoryList.get(1),territory3);
         assertEquals(Constants.SUCCESS,cm.getMsgText());
 
-        cm=new Player().attackPhase(territoryList.get(1),territory3,3,2);
+        cm=p.attackPhase(territoryList.get(1),territory3,3,2);
         System.out.println(cm.getMsgText());
+
+        if(cm.getMsgCode()==1)
+        {
+            cm=p.captureTerritory(territoryList.get(1),territory3,6);
+            assertEquals(Constants.LEAVE_ONE_ARMY,cm.getMsgText());
+
+            cm=p.captureTerritory(territoryList.get(1),territory3,5);
+            assertEquals(Constants.SUCCESS,cm.getMsgText());
+
+        }
 
     }
 }
