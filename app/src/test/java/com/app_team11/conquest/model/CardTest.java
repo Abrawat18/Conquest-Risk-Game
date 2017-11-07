@@ -9,6 +9,7 @@ import com.app_team11.conquest.utility.ReadMapUtility;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class CardTest {
 
     @Before
     public void setUp() {
-        filePath="D:\\APP build 1 docs\\3D.map";
+        filePath="app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\3D.map";
         failed=false;
         cardList=new ArrayList<Cards>();
         tradeIn=false;
@@ -32,7 +33,7 @@ public class CardTest {
     @Test
     public void validMapTest() {
         ReadMapUtility readTest = new ReadMapUtility();
-        GameMap gameMap = readTest.readFile(filePath);
+        GameMap gameMap = readTest.readFile(System.getProperty("user.dir") + File.separator + filePath);
         assertNotNull(gameMap);
 
         gameMap.setPlayerList(readTest.assignArmies(3));
@@ -40,9 +41,7 @@ public class CardTest {
 
         for(i=0;i<=4;i++)
         {
-            card=new Cards();
-            card.setArmyType(Constants.ARMY_INFANTRY);
-            card.setCardTerritory(gameMap.getTerritoryList().get(i));
+            card=new Cards(gameMap.getTerritoryList().get(i),Constants.ARMY_INFANTRY);
             cardList.add(card);
 
             gameMap.getPlayerList().get(0).setOwnedCards(cardList);
