@@ -304,8 +304,14 @@ public class Player extends Observable {
         //Load dice values
         List<Integer> attackerDiceValues = getRandomDiceValues(attackerDice);
         List<Integer> defenderDiceValues = getRandomDiceValues(defenderDice);
-        Log.e(TAG, "Attacker Dice:" + attackerDiceValues.toString());
-        Log.e(TAG, "Defender Dice:" + defenderDiceValues.toString());
+        try {
+            Log.e(TAG, "Attacker Dice:" + attackerDiceValues.toString());
+            Log.e(TAG, "Defender Dice:" + defenderDiceValues.toString());
+        }
+        catch(Exception e)
+        {
+
+        }
         int attackerDiceValue = 0, defenderDiceValue = 0;
         int attackerWonCounter = 0;
 
