@@ -1,6 +1,6 @@
 package com.app_team11.conquest;
 
-import com.app_team11.conquest.utility.TerritoryTest1;
+import com.app_team11.conquest.model.TerritoryTest1;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
