@@ -30,6 +30,7 @@ public class ReadMapUtility {
     List<Territory> connectedTerritories = new ArrayList<Territory>();
     List<Player> playerDetails = new ArrayList<Player>();
     boolean stop = false;
+
     GameMap gm = new GameMap();
     List<Territory> tempT = new ArrayList<Territory>();
 
