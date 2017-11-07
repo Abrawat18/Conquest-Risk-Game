@@ -18,7 +18,6 @@ import static junit.framework.Assert.assertEquals;
 
 public class PlayerTest1 {
 
-    GameMap map;
     List<Territory> territoryList;
     List<Player> playerList;
     Player player,player1;
@@ -29,7 +28,6 @@ public class PlayerTest1 {
     public void setUp()
     {
         territoryList=new ArrayList<Territory>();
-        map=new GameMap();
         player=new Player();
         player.setAvailableArmyCount(3);
         player.setPlayerId(0);
