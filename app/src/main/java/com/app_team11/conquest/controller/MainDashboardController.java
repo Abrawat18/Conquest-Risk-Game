@@ -23,8 +23,8 @@ import com.app_team11.conquest.view.MapSelectionAndInitializationActivity;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
+ *Launches the main dashboard activity
  * Created by Abhishek on 31-Oct-17.
- *
  * @version 1.0.0
  */
 
@@ -47,6 +47,10 @@ public class MainDashboardController {
         return mainDashboardController;
     }
 
+    /**
+     * Context Initialization
+     * @param context
+     */
     public void initialization(Context context) {
 
         this.context = context;
@@ -80,6 +84,9 @@ public class MainDashboardController {
         FileManager.getInstance().writeLog("Game Play started !!");
     }
 
+    /**
+     * Opens the game log window
+     */
     public void openGameLog() {
         Intent intent = new Intent(getActivity(), GameLogActivity.class);
         getActivity().startActivity(intent);
@@ -115,10 +122,17 @@ public class MainDashboardController {
                 .show();
     }
 
+    /**
+     * opens the setting page
+     */
     public void openSetting() {
 
     }
 
+    /**
+     * Creation of context for the MainDashboardActivity
+     * @return MainDashboardActivity
+     */
     public MainDashboardActivity getActivity() {
         return (MainDashboardActivity) context;
     }
