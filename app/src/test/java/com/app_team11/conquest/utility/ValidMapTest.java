@@ -28,10 +28,18 @@ public class ValidMapTest {
     public void validMapTest()
     {
         ReadMapUtility readTest=new ReadMapUtility();
-        GameMap gameMap=readTest.readFile(System.getProperty("user.dir") + File.separator +filePath);
-        if(gameMap.getContinentList()!=null && gameMap.getTerritoryList()!=null && gameMap.getPlayerList()!=null)
-            assertFalse(failed);
+        try {
+            System.out.println(System.getProperty("user.dir") + File.separator + filePath);
 
+            GameMap gameMap = readTest.readFile(System.getProperty("user.dir") + File.separator + filePath);
+
+            if (gameMap.getContinentList() != null && gameMap.getTerritoryList() != null && gameMap.getPlayerList() != null)
+                assertFalse(failed);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     @After
     public void clean()

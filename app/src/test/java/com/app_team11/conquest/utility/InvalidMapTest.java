@@ -26,6 +26,7 @@ public class InvalidMapTest {
     public void invalidMapTest() throws Exception
     {
         ReadMapUtility readTest=new ReadMapUtility();
+        System.out.println(System.getProperty("user.dir") + File.separator + filePath);
         assertEquals(null,readTest.readFile(System.getProperty("user.dir") + File.separator + filePath));
 
     }
