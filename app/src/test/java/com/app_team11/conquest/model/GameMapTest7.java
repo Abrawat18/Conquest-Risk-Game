@@ -12,9 +12,10 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by Nigel on 20-Oct-17.
+ * Remove territory test
  */
 
-public class RemoveTerritoryTest {
+public class GameMapTest7 {
     private List<Continent> continentList;
     private List<Territory> territoryList;
     private List<Player> playerList;
@@ -57,9 +58,7 @@ public class RemoveTerritoryTest {
 
     }
 
-    /**
-     * Checks whether neighbouring territory can be removed
-     */
+
     @Test
     public void invalidTerritoryCondition()
     {

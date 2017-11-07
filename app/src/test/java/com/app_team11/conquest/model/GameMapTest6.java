@@ -12,9 +12,10 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by Nigel on 19-Oct-17.
+ * Checks for invalid territory condition
  */
 
-public class InvalidTerritoryAdditionTest
+public class GameMapTest6
 {
     private List<Continent> continentList;
     private List<Territory> territoryList;

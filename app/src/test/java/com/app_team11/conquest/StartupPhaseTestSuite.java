@@ -4,8 +4,8 @@ package com.app_team11.conquest;
  * Created by Nigel on 20-Oct-17.
  */
 import com.app_team11.conquest.model.GameMapTest1;
-import com.app_team11.conquest.model.InvalidTerritoryAdditionTest;
-import com.app_team11.conquest.model.RemoveTerritoryTest;
+import com.app_team11.conquest.model.GameMapTest6;
+import com.app_team11.conquest.model.GameMapTest7;
 import com.app_team11.conquest.model.TerritoryTest;
 import com.app_team11.conquest.utility.InvalidMapTest;
 import com.app_team11.conquest.utility.ReadMapUtilityTest;
@@ -20,8 +20,8 @@ import org.junit.runners.Suite;
 
     @Suite.SuiteClasses({
             GameMapTest1.class,
-            InvalidTerritoryAdditionTest.class,
-            RemoveTerritoryTest.class,
+            GameMapTest6.class,
+            GameMapTest7.class,
             TerritoryTest.class,
             InvalidMapTest.class,
             ReadMapUtilityTest.class,
