@@ -30,6 +30,7 @@ public class ReadMapUtility {
     List<Territory> connectedTerritories = new ArrayList<Territory>();
     List<Player> playerDetails = new ArrayList<Player>();
     boolean stop = false;
+
     GameMap gm = new GameMap();
     List<Territory> tempT = new ArrayList<Territory>();
 
@@ -119,6 +120,7 @@ public class ReadMapUtility {
 
         } catch (Exception e) {
             System.out.println("Exception" + e);
+            e.printStackTrace();
             return null;
         }
         gm = new GameMap();
@@ -172,7 +174,7 @@ public class ReadMapUtility {
     }
 
     /**
-     * Prints thelist of territory as per the size
+     * Prints the list of territory as per the size
      */
     public void printTerritoryList() {
         System.out.println("TerritoryList size: " + territoryList.size());

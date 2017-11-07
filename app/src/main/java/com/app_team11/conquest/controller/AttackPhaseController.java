@@ -9,6 +9,7 @@ import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.view.GamePlayActivity;
 
 /**
+ * Attack phase Class - the main class of the game where actual conquest takes place
  * Created by Jaydeep9101 on 05-Nov-17.
  */
 
@@ -21,6 +22,10 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     }
 
+    /**
+     * Getting the instance of AtackPhaseController
+     * @return mainDashboardController
+     */
     public static AttackPhaseController getInstance() {
         if (instance == null) {
             instance = new AttackPhaseController();
@@ -30,27 +35,36 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     /**
      * setting the context variable for reinforcement phase
-     *
      * @param context
-     * @return
+     * @return getInstance()
      */
     public AttackPhaseController setContext(Context context) {
         this.context = context;
         getActivity().setSurfaceOnTouchListner(this);
         return getInstance();
     }
+
+    /**
+     * Writing log when the attack phase gets started
+     * Initializing attack phase
+     */
     public void startAttackPhase() {
         initializationAttackPhase();
         FileManager.getInstance().writeLog("Game Attack phase started.");
 
     }
 
+    /**
+     * Writing log for Initialization of attack phase
+     * Initializing attack phase
+     */
     private void initializationAttackPhase() {
         FileManager.getInstance().writeLog("Attack phase initialized.");
     }
 
 
     /**
+     * Getting the X and Y coordinate for the touch
      * {@inheritDoc}
      * @param v
      * @param event
@@ -61,7 +75,10 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
         float y = event.getY();
     }
 
-
+    /**
+     * Creation of context for the GamePlayActivity
+     * @return GamePlayActivity
+     */
     public GamePlayActivity getActivity() {
         return (GamePlayActivity) context;
     }

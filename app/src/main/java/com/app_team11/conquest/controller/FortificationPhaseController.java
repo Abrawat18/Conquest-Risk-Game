@@ -18,6 +18,7 @@ import com.app_team11.conquest.view.GamePlayActivity;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
+ * Fortification phase is implemented in this class. Selection of territory and movement of army to selected territory.
  * Created by Jaydeep9101 on 19-Oct-17.
  * @version 1.0.0
  *

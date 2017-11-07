@@ -29,8 +29,8 @@ import java.util.Scanner;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
+ * GameLogController class is implemented to shwo the logs for each and every changes in the game
  * Created by Abhishek on 03-Nov-17.
- *
  * @version 1.0.0
  */
 
@@ -43,6 +43,10 @@ public class GameLogController {
     private GameLogController() {
     }
 
+    /**
+     * Getting the instance of GameLogController
+     * @return gameLogController
+     */
     public static GameLogController getInstance() {
         if (gameLogController == null) {
             gameLogController = new GameLogController();
@@ -50,6 +54,10 @@ public class GameLogController {
         return gameLogController;
     }
 
+    /**
+     * Context Initialization
+     * @param context
+     */
     public void initialization(Context context) {
 
         this.context = context;
@@ -58,6 +66,10 @@ public class GameLogController {
         getActivity().listGameLog.setAdapter(gameLogAdapter);
     }
 
+    /**
+     * Creation of context for the GamePlayActivity
+     * @return GamePlayActivity
+     */
     public GameLogActivity getActivity() {
         return (GameLogActivity) context;
     }

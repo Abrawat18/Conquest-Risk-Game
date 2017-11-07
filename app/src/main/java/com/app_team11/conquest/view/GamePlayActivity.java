@@ -203,10 +203,11 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     public void initializeDominationView(int playerCount){
 
-        for(int i=0; i<playerCount;i++){
+        for(int i=1; i<=playerCount;i++){
             TextView tv = new TextView(this);
             tv.setText("P"+i);
-            tv.setLayoutParams(setLayoutParamsForPlayer(0));
+            tv.setTextColor(Color.BLACK);
+            tv.setLayoutParams(setLayoutParamsForPlayer(20));
             linearWorldDominationView.addView(tv);
             textViewPlayerDominationList.add(tv);
 
@@ -218,10 +219,12 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     public void updateDominationView(){
         int totalTerr = getMap().getTerritoryList().size();
+        int[] playerColor = getResources().getIntArray(R.array.continentColor);
         for(Player player: getMap().getPlayerList()){
             int totalPlayerTerrCount = getMap().getTerrForPlayer(player).size();
-            int percDomination = (totalPlayerTerrCount/totalTerr)*100;
+            int percDomination = (totalPlayerTerrCount*100/totalTerr);
             textViewPlayerDominationList.get(player.getPlayerId()-1).setLayoutParams(setLayoutParamsForPlayer(percDomination));
+            textViewPlayerDominationList.get(player.getPlayerId()-1).setBackgroundColor(playerColor[playerColor.length-player.getPlayerId()]);
         }
     }
 
