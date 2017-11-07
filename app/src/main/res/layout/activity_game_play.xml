@@ -37,6 +37,12 @@
             android:layout_weight="1"></ListView>
 
         <Button
+            android:id="@+id/btn_new_attack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="New Attack" />
+
+        <Button
             android:id="@+id/btn_stop_attack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

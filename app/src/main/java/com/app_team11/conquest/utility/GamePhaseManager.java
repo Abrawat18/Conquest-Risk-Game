@@ -24,6 +24,9 @@ public class GamePhaseManager {
         return instace;
     }
 
+    public void resetCurrentPhase(){
+        currentPhase=0;
+    }
     public int getCurrentPhase() {
         return currentPhase;
     }

@@ -1,7 +1,6 @@
 package com.app_team11.conquest.controller;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.MotionEvent;
@@ -91,13 +90,13 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
             if (selectedTerritory != null && selectedTerritory.getTerritoryOwner().equals(getActivity().getPlayerTurn())) {
                 if (fortificationFromTerritory == null) {
                     fortificationFromTerritory = selectedTerritory;
-                    getActivity().toastMessageFromBackground(Constants.FORTIFICATION_SELECT_TO_TERR);
+                    getActivity().toastMessageFromBackground(Constants.SELECT_TO_TERR);
                 } else {
                     fortificationToTerritory = selectedTerritory;
                     askUserToMoveNoOfArmyToSelectedTerritory();
                 }
             } else {
-                getActivity().toastMessageFromBackground(Constants.FORTIFICATION_INCORRECT_TERRITORY);
+                getActivity().toastMessageFromBackground(Constants.INCORRECT_TERRITORY);
                 initializeForPlayer();
             }
         }

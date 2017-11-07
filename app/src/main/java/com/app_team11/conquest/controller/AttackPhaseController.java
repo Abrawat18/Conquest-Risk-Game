@@ -1,12 +1,22 @@
 package com.app_team11.conquest.controller;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
+import com.app_team11.conquest.model.Territory;
+import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.view.GamePlayActivity;
+import com.app_team11.conquest.view.MapSelectionAndInitializationActivity;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Attack phase Class - the main class of the game where actual conquest takes place
@@ -17,6 +27,12 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     private static AttackPhaseController instance;
     private Context context;
+    private Territory fromTerritory;
+    private Territory toTerritory;
+    private boolean isRequestForAttack;
+    private Territory selectedTerritory;
+    private int attackerDice;
+    private int defenderDice;
 
     private AttackPhaseController() {
 
@@ -50,6 +66,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
      */
     public void startAttackPhase() {
         initializationAttackPhase();
+        FileManager.getInstance().writeLog("Attack phase initialized.");
         FileManager.getInstance().writeLog("Game Attack phase started.");
 
     }
@@ -59,7 +76,10 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
      * Initializing attack phase
      */
     private void initializationAttackPhase() {
-        FileManager.getInstance().writeLog("Attack phase initialized.");
+        isRequestForAttack=true;
+        fromTerritory = null;
+        toTerritory = null;
+        getActivity().toastMessageFromBackground("Select from territory");
     }
 
 
@@ -73,6 +93,87 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
     public void onTouch(View v, MotionEvent event) {
         float x = event.getX();
         float y = event.getY();
+
+        if (isRequestForAttack) {
+            selectedTerritory = getActivity().getTerritoryAtSelectedPoint((int) x, (int) y);
+            if (selectedTerritory != null) {
+                if (fromTerritory != null) {
+                    toTerritory = selectedTerritory;
+                    //Attack
+                    ConfigurableMessage configurableMessage = getActivity().getPlayerTurn().validateAttackBetweenTerritories(fromTerritory, toTerritory);
+                    if (configurableMessage.getMsgCode() == Constants.MSG_FAIL_CODE) {
+                        getActivity().toastMessageFromBackground(configurableMessage.getMsgText());
+                        initializationAttackPhase();
+                    } else {
+                        configureAttackPhase();
+                    }
+
+
+                } else if (fromTerritory == null && selectedTerritory.getTerritoryOwner().equals(getActivity().getPlayerTurn())) {
+                    fromTerritory = selectedTerritory;
+                    getActivity().toastMessageFromBackground(Constants.SELECT_TO_TERR);
+                } else {
+                    getActivity().toastMessageFromBackground(Constants.INCORRECT_TERRITORY);
+                }
+            }
+        }
+
+    }
+
+    private void configureAttackPhase() {
+        //Dice selection...
+        LinearLayout linearInput = new LinearLayout(getActivity());
+        linearInput.setOrientation(LinearLayout.VERTICAL);
+        final EditText editAttackDice = new EditText(getActivity());
+        final EditText editDefenderDice = new EditText(getActivity());
+        editAttackDice.setHint("Attacker dice");
+        editDefenderDice.setHint("Defender dice");
+        linearInput.addView(editAttackDice);
+        linearInput.addView(editDefenderDice);
+
+        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
+        sweetAlertDialog.setTitleText("Please Enter Number of Dice")
+                .setConfirmText("Ok")
+                .setCustomView(linearInput)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        if (!TextUtils.isEmpty(editAttackDice.getText().toString()) && !TextUtils.isEmpty(editDefenderDice.getText().toString())) {
+                            sweetAlertDialog.dismiss();
+                            attackerDice = Integer.parseInt(editAttackDice.getText().toString());
+                            defenderDice = Integer.parseInt(editDefenderDice.getText().toString());
+                            if (attackerDice > 3 || attackerDice <= 0) {
+                                editAttackDice.setError("Attacker dice should not be more than 3 or less than 1");
+                            } else if (defenderDice > 2 || defenderDice <= 0) {
+                                editDefenderDice.setError("Defender dice should not be more than 2 or less than 1");
+                            } else {
+                                ConfigurableMessage resultAttackPhase = getActivity().getPlayerTurn().attackPhase(fromTerritory, toTerritory, attackerDice, defenderDice);
+                                getActivity().toastMessageFromBackground(resultAttackPhase.getMsgText());
+                                if (resultAttackPhase.getMsgCode() == Constants.MSG_FAIL_CODE) {
+                                    if (toTerritory.getArmyCount() == 0) {
+                                        //army movement selection
+                                    }
+                                } else {
+                                    //select new attack
+                                    isRequestForAttack = false;
+                                }
+                            }
+                        } else {
+                            editAttackDice.setError("Please Enter Number of Attacker Dice");
+                            editDefenderDice.setError("Please Enter Number of Defender Dice");
+                        }
+
+                    }
+                }).setCancelText("Cancel")
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
+                    }
+                })
+                .show();
+
+
     }
 
     /**

@@ -280,6 +280,7 @@ public class GameMap {
     public void assignCards() {
         String[] armyType = {Constants.ARMY_INFANTRY, Constants.ARMY_CAVALRY, Constants.ARMY_ARTILLERY};
         int armyTypeIndex = 0;
+        this.cardList = new ArrayList<>();
         for (Territory territory : this.getTerritoryList()) {
             this.cardList.add(new Cards(territory, armyType[armyTypeIndex++]));
             if (armyTypeIndex == 3)

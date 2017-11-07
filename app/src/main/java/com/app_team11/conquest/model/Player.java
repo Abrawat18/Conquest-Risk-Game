@@ -1,9 +1,12 @@
 package com.app_team11.conquest.model;
 
+import android.util.Log;
+
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Random;
@@ -18,6 +21,7 @@ import java.util.Random;
 
 public class Player extends Observable {
 
+    private static final String TAG = Player.class.getSimpleName();
     private int playerId;
     private int availableArmyCount;
     private int availableCardTerrCount;
@@ -53,7 +57,6 @@ public class Player extends Observable {
 
     /**
      * Returns the player ID
-     *
      * @return playerID
      */
     public int getPlayerId() {
@@ -62,7 +65,6 @@ public class Player extends Observable {
 
     /**
      * Sets the ID of the player
-     *
      * @param playerId
      */
     public void setPlayerId(int playerId) {
@@ -71,7 +73,6 @@ public class Player extends Observable {
 
     /**
      * Returns the available army count
-     *
      * @return availableArmyCount
      */
     public int getAvailableArmyCount() {
@@ -80,7 +81,6 @@ public class Player extends Observable {
 
     /**
      * Sets the available army count
-     *
      * @param availableArmyCount
      */
     public void setAvailableArmyCount(int availableArmyCount) {
@@ -89,7 +89,6 @@ public class Player extends Observable {
 
     /**
      * Returns the Owned cards
-     *
      * @return ownedCards
      */
     public List<Cards> getOwnedCards() {
@@ -98,7 +97,6 @@ public class Player extends Observable {
 
     /**
      * Sets the owned cards
-     *
      * @param ownedCards
      */
     public void setOwnedCards(List<Cards> ownedCards) {
@@ -111,7 +109,6 @@ public class Player extends Observable {
 
     /**
      * Returns the trade in cards
-     *
      * @return cardTradeIn
      */
     public Boolean getCardTradeIn() {
@@ -120,7 +117,6 @@ public class Player extends Observable {
 
     /**
      * Sets the trade in cards
-     *
      * @param cardTradeIn
      */
     public void setCardTradeIn(Boolean cardTradeIn) {
@@ -231,24 +227,20 @@ public class Player extends Observable {
 
     /**
      * Checks whether player is attacking an already owned territory
-     *
      * @param attackerTerritory
      * @param defenderTerritory
      * @return whether adjacent or not
      */
 
     public ConfigurableMessage isAdjacentTerritory(Territory attackerTerritory, Territory defenderTerritory) {
-
-        for (Territory neigbourTerritory : defenderTerritory.getNeighbourList()) {
-            if (attackerTerritory.getTerritoryName().equals(neigbourTerritory.getTerritoryName()) && attackerTerritory.getTerritoryOwner() != neigbourTerritory.getTerritoryOwner())
-                return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
+        if ((attackerTerritory.getNeighbourList().contains(defenderTerritory)) && (!attackerTerritory.getTerritoryOwner().equals(defenderTerritory.getTerritoryOwner()))) {
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
         }
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NOT_ADJACENT_TERRITORY);
     }
 
     /**
      * Check for sufficient armies
-     *
      * @param attackerTerritory
      * @return
      */
@@ -260,7 +252,6 @@ public class Player extends Observable {
 
     /**
      * Checks whether attack can be continued
-     *
      * @param defenderTerritory
      * @return
      */
@@ -272,7 +263,6 @@ public class Player extends Observable {
 
     /**
      * Validate the attack
-     *
      * @param attackerTerritory
      * @param defenderTerritory
      * @return
@@ -295,8 +285,7 @@ public class Player extends Observable {
 
 
     /**
-     * The attack phase method
-     *
+     *  The attack phase method
      * @param attackerTerritory
      * @param defenderTerritory
      * @param attackerDice
@@ -304,56 +293,45 @@ public class Player extends Observable {
      */
     public ConfigurableMessage attackPhase(Territory attackerTerritory, Territory defenderTerritory, int attackerDice, int defenderDice) {
         setNumberOfDiceRolled(attackerDice);
-        if (attackerTerritory.getArmyCount() + 1 <= attackerDice) {
+        if (attackerTerritory.getArmyCount() <= attackerDice) {
             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ATTACKER_DICE);
-        } else if (defenderTerritory.getArmyCount() < 2 && defenderDice == 2) {
+        } else if (defenderTerritory.getArmyCount() < defenderDice) {
             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.CHOOSE_LESS_NUMBER_DICE);
         }
 
         //Validations are true for attacking and hence proceeding with logic
 
         //Load dice values
-        int attackerDiceValues[] = getRandomDiceValues(attackerDice);
-        int defenderDiceValues[] = getRandomDiceValues(defenderDice);
+        List<Integer> attackerDiceValues = getRandomDiceValues(attackerDice);
+        List<Integer> defenderDiceValues = getRandomDiceValues(defenderDice);
+        Log.e(TAG, "Attacker Dice:" + attackerDiceValues.toString());
+        Log.e(TAG, "Defender Dice:" + defenderDiceValues.toString());
         int attackerDiceValue = 0, defenderDiceValue = 0;
+        int attackerWonCounter = 0;
 
-        //Attacker Dice=3 and Defender Dice=2
-        if (attackerDiceValues.length == 3 && defenderTerritory.getArmyCount() != 0) {
-            attackerDice = getHighestValue(attackerDiceValues);
-            defenderDiceValue = getHighestValue(defenderDiceValues);
+        Collections.sort(attackerDiceValues, Collections.reverseOrder());
+        Collections.sort(defenderDiceValues, Collections.reverseOrder());
+
+        while (defenderDiceValues.size() > 0) {
+            attackerDiceValue = attackerDiceValues.get(0);
+            defenderDiceValue = defenderDiceValues.get(0);
 
             //if attacker wins
             if (attackerDiceValue > defenderDiceValue) {
-                if ((defenderTerritory.getArmyCount() - 1) == 0) {
-                    return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ATTACKER_WON);
-                } else
-                    defenderTerritory.setArmyCount(defenderTerritory.getArmyCount() - 1);
+                defenderTerritory.setArmyCount(defenderTerritory.getArmyCount() - 1);
+                attackerWonCounter++;
             } else {
                 attackerTerritory.setArmyCount(attackerTerritory.getArmyCount() - 1);
-                return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ATTACKER_LOST);
+                attackerWonCounter--;
             }
-            attackerDiceValues = deleteElement(attackerDiceValues, attackerDiceValue);
-            defenderDiceValues = deleteElement(defenderDiceValues, defenderDiceValue);
+            attackerDiceValues.remove(0);
+            defenderDiceValues.remove(0);
         }
-
-        //Attacker Dice=2 and Defender Dice=1
-        if (attackerDiceValues.length == 2 && defenderTerritory.getArmyCount() != 0) {
-            attackerDice = getHighestValue(attackerDiceValues);
-            defenderDiceValue = defenderDiceValues[0];
-            if (attackerDiceValue > defenderDiceValue) {
-                if ((defenderTerritory.getArmyCount() - 1) == 0) {
-
-                    return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ATTACKER_WON);
-                } else
-                    defenderTerritory.setArmyCount(defenderTerritory.getArmyCount() - 1);
-            } else {
-                attackerTerritory.setArmyCount(attackerTerritory.getArmyCount() - 1);
-                return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ATTACKER_LOST);
-            }
+        if (attackerWonCounter > 0) {
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ATTACKER_WON);
+        } else {
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ATTACKER_LOST);
         }
-        String phaseViewMessage = "Player " + this.getPlayerId() + " has attacked from " + attackerTerritory.getTerritoryName() + " to " + defenderTerritory.getTerritoryName();
-        PhaseViewModel.getInstance().addPhaseViewContent(phaseViewMessage);
-        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
     }
 
     private int numberOfDiceRolled;
@@ -368,7 +346,6 @@ public class Player extends Observable {
 
     /**
      * This method is for conditions related to capturing a territory
-     *
      * @param attackerTerritory
      * @param defenderTerritory
      * @param moveArmiesToCapturedTerritory
@@ -392,23 +369,16 @@ public class Player extends Observable {
 
     /**
      * This method returns the highest value from a given list.
-     *
      * @param diceArray
      * @return Maximum element from the list
      */
-    public int getHighestValue(int diceArray[]) {
-        int max = diceArray[0];
-        for (int counter = 1; counter < diceArray.length; counter++) {
-            if (diceArray[counter] > max) {
-                max = diceArray[counter];
-            }
-        }
-        return max;
+    public int getHighestValue(List<Integer> diceArray) {
+        Collections.sort(diceArray, Collections.reverseOrder());
+        return diceArray.get(0);
     }
 
     /**
      * This method deletes the element from the list.
-     *
      * @param diceArray
      * @param element
      * @return the modified list
@@ -428,17 +398,13 @@ public class Player extends Observable {
 
     /**
      * Generates random dice values depending on number of attacker/defender dice
-     *
      * @param arraySize
      * @return randomly generated dice array
      */
-    public static int[] getRandomDiceValues(int arraySize) {
-        int[] diceValues = {1, 2, 3, 4, 5, 6};
-        int[] randomArray = new int[arraySize];
-        int randomNumber = 0;
+    public static List<Integer> getRandomDiceValues(int arraySize) {
+        List<Integer> randomArray = new ArrayList<>();
         for (int i = 0; i < arraySize; i++) {
-            randomNumber = new Random().nextInt(diceValues.length);
-            randomArray[i] = randomNumber;
+            randomArray.add(1 + new Random().nextInt(6));
         }
         return randomArray;
     }
