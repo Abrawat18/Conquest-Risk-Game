@@ -349,6 +349,8 @@ public class Player extends Observable{
                     return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ATTACKER_LOST);
             }
         }
+        String phaseViewMessage="Player "+this.getPlayerId()+" has attacked from "+attackerTerritory.getTerritoryName()+" to "+defenderTerritory.getTerritoryName();
+        PhaseViewModel.getInstance().addPhaseViewContent(phaseViewMessage);
         return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
     }
     private int numberOfDiceRolled;
@@ -381,6 +383,8 @@ public class Player extends Observable{
             defenderTerritory.setArmyCount(moveArmiesToCapturedTerritory);
             defenderTerritory.setTerritoryOwner(attackerTerritory.getTerritoryOwner());
         }
+        String message="Player "+attackerTerritory.getTerritoryOwner().getPlayerId()+" has captured "+defenderTerritory.getTerritoryName();
+        PhaseViewModel.getInstance().addPhaseViewContent(message);
         return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
     }
 
