@@ -47,6 +47,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Trade-In Cards" />
+
+        <Button
+            android:id="@+id/btn_show_log"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show Log" />
+
     </LinearLayout>
 
 </LinearLayout>

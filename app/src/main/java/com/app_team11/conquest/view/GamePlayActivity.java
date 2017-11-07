@@ -2,6 +2,7 @@ package com.app_team11.conquest.view;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -26,6 +27,7 @@ import com.app_team11.conquest.adapter.CardListAdapter;
 import com.app_team11.conquest.adapter.PlayerListAdapter;
 import com.app_team11.conquest.controller.AttackPhaseController;
 import com.app_team11.conquest.controller.FortificationPhaseController;
+import com.app_team11.conquest.controller.MainDashboardController;
 import com.app_team11.conquest.controller.ReinforcementPhaseController;
 import com.app_team11.conquest.controller.StartUpPhaseController;
 import com.app_team11.conquest.global.Constants;
@@ -90,6 +92,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         listPlayer = (ListView) findViewById(R.id.list_player);
         btnStopAttack = (Button) findViewById(R.id.btn_stop_attack);
         btnTradeInCards = (Button) findViewById(R.id.btn_tradeIn_cards);
+        findViewById(R.id.btn_show_log).setOnClickListener(this);
         linearWorldDominationView= (LinearLayout)findViewById(R.id.linear_world_domination_view);
         surface = (SurfaceView) findViewById(R.id.surface);
         surface.setOnTouchListener(this);
@@ -401,6 +404,10 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 break;
             case R.id.btn_tradeIn_cards:
                 showCardTradePopUp();
+                break;
+            case R.id.btn_show_log:
+                Intent intent = new Intent(this, GameLogActivity.class);
+                this.startActivity(intent);
                 break;
         }
     }
