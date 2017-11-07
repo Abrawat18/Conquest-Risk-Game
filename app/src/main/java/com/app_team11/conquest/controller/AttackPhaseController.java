@@ -1,6 +1,7 @@
 package com.app_team11.conquest.controller;
 
 import android.content.Context;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,6 +41,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Getting the instance of AtackPhaseController
+     *
      * @return mainDashboardController
      */
     public static AttackPhaseController getInstance() {
@@ -51,6 +53,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     /**
      * setting the context variable for reinforcement phase
+     *
      * @param context
      * @return getInstance()
      */
@@ -76,7 +79,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
      * Initializing attack phase
      */
     private void initializationAttackPhase() {
-        isRequestForAttack=true;
+        isRequestForAttack = true;
         fromTerritory = null;
         toTerritory = null;
         getActivity().toastMessageFromBackground("Select from territory");
@@ -86,6 +89,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
     /**
      * Getting the X and Y coordinate for the touch
      * {@inheritDoc}
+     *
      * @param v
      * @param event
      */
@@ -149,9 +153,11 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
                             } else {
                                 ConfigurableMessage resultAttackPhase = getActivity().getPlayerTurn().attackPhase(fromTerritory, toTerritory, attackerDice, defenderDice);
                                 getActivity().toastMessageFromBackground(resultAttackPhase.getMsgText());
-                                if (resultAttackPhase.getMsgCode() == Constants.MSG_FAIL_CODE) {
+                                getActivity().showMap();
+                                if (resultAttackPhase.getMsgCode() == Constants.MSG_SUCC_CODE) {
                                     if (toTerritory.getArmyCount() == 0) {
                                         //army movement selection
+                                        captureWonTerritoryAndSendArmy();
                                     }
                                 } else {
                                     //select new attack
@@ -176,8 +182,40 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     }
 
+    private void captureWonTerritoryAndSendArmy() {
+        final EditText editNoOfArmy = new EditText(getActivity());
+        editNoOfArmy.setInputType(InputType.TYPE_CLASS_NUMBER);
+        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
+        sweetAlertDialog.setTitleText("Enter no of Army to move")
+                .setConfirmText("Ok")
+                .setCustomView(editNoOfArmy)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        if (!TextUtils.isEmpty(editNoOfArmy.getText().toString())) {
+                            int requestedToPlaceArmy = Integer.parseInt(editNoOfArmy.getText().toString());
+                            if (requestedToPlaceArmy > 0) {
+                                ConfigurableMessage configurableMessage = getActivity().getPlayerTurn().captureTerritory(fromTerritory, toTerritory, requestedToPlaceArmy);
+                                getActivity().toastMessageFromBackground(configurableMessage.getMsgText());
+                                if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
+                                    getActivity().showMap();
+                                    getActivity().updateDominationView();
+                                    sweetAlertDialog.dismiss();
+                                } else {
+                                    editNoOfArmy.setError("Invalid Input!!");
+                                }
+                            } else {
+                                editNoOfArmy.setError("Invalid Input!!");
+                            }
+                        }
+                    }
+                })
+                .show();
+    }
+
     /**
      * Creation of context for the GamePlayActivity
+     *
      * @return GamePlayActivity
      */
     public GamePlayActivity getActivity() {

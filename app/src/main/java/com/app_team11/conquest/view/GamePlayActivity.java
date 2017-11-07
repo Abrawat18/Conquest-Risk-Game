@@ -95,7 +95,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         btnNewAttack = (Button) findViewById(R.id.btn_new_attack);
         btnTradeInCards = (Button) findViewById(R.id.btn_tradeIn_cards);
         findViewById(R.id.btn_show_log).setOnClickListener(this);
-        linearWorldDominationView= (LinearLayout)findViewById(R.id.linear_world_domination_view);
+        linearWorldDominationView = (LinearLayout) findViewById(R.id.linear_world_domination_view);
         surface = (SurfaceView) findViewById(R.id.surface);
         surface.setOnTouchListener(this);
         surface.getHolder().addCallback(surfaceCallback);
@@ -191,11 +191,11 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     /**
      * method to initialize the world domination view
      */
-    public void initializeDominationView(int playerCount){
+    public void initializeDominationView(int playerCount) {
 
-        for(int i=1; i<=playerCount;i++){
+        for (int i = 1; i <= playerCount; i++) {
             TextView tv = new TextView(this);
-            tv.setText("P"+i);
+            tv.setText("P" + i);
             tv.setTextColor(Color.BLACK);
             tv.setLayoutParams(setLayoutParamsForPlayer(20));
             linearWorldDominationView.addView(tv);
@@ -207,21 +207,21 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     /**
      * method to update the world domination view
      */
-    public void updateDominationView(){
+    public void updateDominationView() {
         int totalTerr = getMap().getTerritoryList().size();
         int[] playerColor = getResources().getIntArray(R.array.continentColor);
-        for(Player player: getMap().getPlayerList()){
+        for (Player player : getMap().getPlayerList()) {
             int totalPlayerTerrCount = getMap().getTerrForPlayer(player).size();
-            int percDomination = (totalPlayerTerrCount*100/totalTerr);
-            textViewPlayerDominationList.get(player.getPlayerId()-1).setLayoutParams(setLayoutParamsForPlayer(percDomination));
-            textViewPlayerDominationList.get(player.getPlayerId()-1).setBackgroundColor(playerColor[playerColor.length-player.getPlayerId()]);
+            int percDomination = (totalPlayerTerrCount * 100 / totalTerr);
+            textViewPlayerDominationList.get(player.getPlayerId() - 1).setLayoutParams(setLayoutParamsForPlayer(percDomination));
+            textViewPlayerDominationList.get(player.getPlayerId() - 1).setBackgroundColor(playerColor[playerColor.length - player.getPlayerId()]);
         }
     }
 
 
     private LinearLayout.LayoutParams setLayoutParamsForPlayer(int playerDominationPercent) {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.weight=playerDominationPercent;
+        lp.weight = playerDominationPercent;
         return lp;
     }
 
@@ -323,35 +323,38 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * method to initialise objects and load the map on the screen
      */
     public void showMap() {
-        Paint linePaint = new Paint();
-        linePaint.setColor(Color.WHITE);
-        linePaint.setStrokeWidth(15);
-        TextPaint paintText = new TextPaint();
-        paintText.setColor(Color.BLACK);
-        paintText.setTextSize(25f);
-        paintText.setTypeface(Typeface.create("Arial", Typeface.BOLD));
-        TextPaint paintNoOfArmies = new TextPaint();
-        paintNoOfArmies.setColor(Color.BLACK);
-        paintNoOfArmies.setTextSize(35f);
-        paintText.setTypeface(Typeface.create("Arial", Typeface.BOLD));
+        if (map != null) {
+            Paint linePaint = new Paint();
+            linePaint.setColor(Color.WHITE);
+            linePaint.setStrokeWidth(15);
+            TextPaint paintText = new TextPaint();
+            paintText.setColor(Color.BLACK);
+            paintText.setTextSize(25f);
+            paintText.setTypeface(Typeface.create("Arial", Typeface.BOLD));
+            TextPaint paintNoOfArmies = new TextPaint();
+            paintNoOfArmies.setColor(Color.BLACK);
+            paintNoOfArmies.setTextSize(35f);
+            paintText.setTypeface(Typeface.create("Arial", Typeface.BOLD));
 
-        canvas = surface.getHolder().lockCanvas();
-        for (Territory territory : map.getTerritoryList()) {
-            Paint paint = new Paint();
-            paint.setColor(territory.getContinent().getContColor());
-            canvas.drawCircle(territory.getCenterPoint().x, territory.getCenterPoint().y, Constants.TERRITORY_RADIUS, paint);
-            for (Territory territoryNeighbour : territory.getNeighbourList()) {
-                canvas.drawLine(territory.getCenterPoint().x, territory.getCenterPoint().y, territoryNeighbour.getCenterPoint().x, territoryNeighbour.getCenterPoint().y, linePaint);
+            canvas = surface.getHolder().lockCanvas();
+            if (canvas != null) {
+                for (Territory territory : map.getTerritoryList()) {
+                    Paint paint = new Paint();
+                    paint.setColor(territory.getContinent().getContColor());
+                    canvas.drawCircle(territory.getCenterPoint().x, territory.getCenterPoint().y, Constants.TERRITORY_RADIUS, paint);
+                    for (Territory territoryNeighbour : territory.getNeighbourList()) {
+                        canvas.drawLine(territory.getCenterPoint().x, territory.getCenterPoint().y, territoryNeighbour.getCenterPoint().x, territoryNeighbour.getCenterPoint().y, linePaint);
+                    }
+                }
+                for (Territory territory : map.getTerritoryList()) {
+                    String playerID = Integer.toString(territory.getTerritoryOwner().getPlayerId());
+                    String noOfArmies = Integer.toString(territory.getArmyCount());
+                    canvas.drawText(("P" + playerID), (territory.getCenterPoint().x) - 30, (territory.getCenterPoint().y) - 20, paintText);
+                    canvas.drawText(noOfArmies, territory.getCenterPoint().x + 10, territory.getCenterPoint().y + 10, paintNoOfArmies);
+                }
+                surface.getHolder().unlockCanvasAndPost(canvas);
             }
         }
-        for (Territory territory : map.getTerritoryList()) {
-            String playerID = Integer.toString(territory.getTerritoryOwner().getPlayerId());
-            String noOfArmies = Integer.toString(territory.getArmyCount());
-            canvas.drawText(("P" + playerID), (territory.getCenterPoint().x) - 30, (territory.getCenterPoint().y) - 20, paintText);
-            canvas.drawText(noOfArmies, territory.getCenterPoint().x + 10, territory.getCenterPoint().y + 10, paintNoOfArmies);
-        }
-        surface.getHolder().unlockCanvasAndPost(canvas);
-
     }
 
     private SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
@@ -413,8 +416,16 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     @Override
     public void onBackPressed() {
-        StartUpPhaseController.getInstance().stopStartupPhase();
         super.onBackPressed();
+    }
+
+    /**
+     * On Resume from some events
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showMap();
     }
 
     @Override

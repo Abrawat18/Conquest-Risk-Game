@@ -1,5 +1,6 @@
 package com.app_team11.conquest.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
@@ -9,7 +10,7 @@ import java.util.Observable;
 
 public class PhaseViewModel extends Observable {
 
-    private List<String> listPhaseViewContent;
+    private List<String> listPhaseViewContent = new ArrayList<>();
     private static PhaseViewModel phaseViewModel;
 
     private PhaseViewModel() {
