@@ -70,7 +70,11 @@ public class Territory extends Observable{
                 if (this.neighbourList.size() <= 10 && terrObj.neighbourList.size() <= 10) {
                     this.neighbourList.add(terrObj);
                     terrObj.neighbourList.add(this);
-                    FileManager.getInstance().writeLog("Data added in the list successfully !!");
+                    try{
+                        FileManager.getInstance().writeLog("Data added in the list successfully !!");
+                    }catch (Exception ex){
+
+                    }
                     return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
                 } else
                     return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NEIGHBOUR_SIZE_VAL_FAIL);
@@ -80,6 +84,8 @@ public class Territory extends Observable{
             if (this.neighbourList.size() >= 2 && terrObj.neighbourList.size() >= 2) {
                 this.neighbourList.remove(terrObj);
                 terrObj.neighbourList.remove(this);
+                String message=terrObj.getTerritoryName()+" added.";
+                PhaseViewModel.getInstance().addPhaseViewContent(message);
                 return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
             } else
                 return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NEIGHBOUR_SIZE_VAL_FAIL);
@@ -110,7 +116,8 @@ public class Territory extends Observable{
                 this.getTerritoryOwner().setAvailableArmyCount(this.getTerritoryOwner().getAvailableArmyCount() - addedArmyCount);
             else
                 this.getTerritoryOwner().setAvailableCardTerrCount(this.getTerritoryOwner().getAvailableCardTerrCount() - addedArmyCount);
-
+            String message=addedArmyCount+" armies added to "+this.getTerritoryName();
+            PhaseViewModel.getInstance().addPhaseViewContent(message);
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ARMY_ADDED_SUCCESS);
         } else
             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ARMY_ADDED_FAILURE);
@@ -135,6 +142,8 @@ public class Territory extends Observable{
                 }
             }
             if (neighbourFlag == true) {
+                String message=this.getTerritoryName()+" has been fortified with "+countOfArmy+" armies.";
+                PhaseViewModel.getInstance().addPhaseViewContent(message);
                 return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.FORTIFICATION_SUCCESS);
             } else
                 return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_NEIGHBOUR_FAILURE);

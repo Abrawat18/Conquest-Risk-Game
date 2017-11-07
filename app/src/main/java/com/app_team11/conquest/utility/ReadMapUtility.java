@@ -120,6 +120,7 @@ public class ReadMapUtility {
 
         } catch (Exception e) {
             System.out.println("Exception" + e);
+            e.printStackTrace();
             return null;
         }
         gm = new GameMap();
