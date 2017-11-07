@@ -21,7 +21,8 @@
         <LinearLayout
             android:id="@+id/linear_continent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -55,12 +56,15 @@
                 android:textSize="18sp"
                 android:textStyle="bold|italic"
                 android:typeface="sans" />
+
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linear_territory"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:visibility="gone">
 
@@ -89,12 +93,14 @@
                 android:textSize="18sp"
                 android:textStyle="bold|italic"
                 android:typeface="sans" />
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linear_add_continent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:visibility="gone">
 
@@ -128,8 +134,10 @@
         <LinearLayout
             android:id="@+id/linear_add_territory"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical"
+
             android:visibility="gone">
 
             <TextView
@@ -159,5 +167,16 @@
                 android:typeface="sans" />
         </LinearLayout>
 
+        <Button
+            android:id="@+id/btn_show_log"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:text="Show Log"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold|italic"
+            android:typeface="sans" />
     </LinearLayout>
 </LinearLayout>

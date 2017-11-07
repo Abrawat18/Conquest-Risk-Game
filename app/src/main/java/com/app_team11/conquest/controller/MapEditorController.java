@@ -32,6 +32,7 @@ import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.utility.MapManager;
 import com.app_team11.conquest.utility.MathUtility;
 import com.app_team11.conquest.utility.ReadMapUtility;
+import com.app_team11.conquest.view.GameLogActivity;
 import com.app_team11.conquest.view.MainDashboardActivity;
 import com.app_team11.conquest.view.MapEditorActivity;
 
@@ -400,6 +401,11 @@ public class MapEditorController {
                 });
 
         sweetAlertDialog.show();
+    }
+
+    public void openGameLog() {
+        Intent intent = new Intent(getActivity(), GameLogActivity.class);
+        getActivity().startActivity(intent);
     }
 
     public boolean onTouch(View v, MotionEvent event) {

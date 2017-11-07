@@ -84,6 +84,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         btnAddCustomContinent = (Button) findViewById(R.id.btn_add_custom_continent);
         btnAddTerritory = (Button) findViewById(R.id.btn_add_territory);
         btnAddCustomTerritory = (Button) findViewById(R.id.btn_add_custom_territory);
+        findViewById(R.id.btn_show_log).setOnClickListener(this);
         listContinent = (ListView) findViewById(R.id.list_continent);
         listTerritory = (ListView) findViewById(R.id.list_territory);
         listSuggestContinent = (ListView) findViewById(R.id.list_continent_suggest);
@@ -216,6 +217,9 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
                 FileManager.getInstance().writeLog("Adding custom territory...");
                 MapEditorController.getInstance().addCustomTerritory();
                 FileManager.getInstance().writeLog("Custom territory added.");
+                break;
+            case R.id.btn_show_log:
+                MapEditorController.getInstance().openGameLog();
                 break;
         }
     }
