@@ -1,6 +1,7 @@
 package com.app_team11.conquest.utility;
 
-/**Configurable Message is the utility class which sends messages when required
+/**
+ * Configurable Message is the utility class which sends messages when required
  * Created by Vasu on 06-10-2017.
  */
 public class ConfigurableMessage {
@@ -10,7 +11,7 @@ public class ConfigurableMessage {
     private String msgText;
 
     /**
-     *
+     *Passes the message code and message text
      * @param msgCode
      * @param msgText
      * 
