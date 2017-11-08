@@ -12,8 +12,8 @@ package com.app_team11.conquest;
 
 @Suite.SuiteClasses({
         StartupPhaseTestSuite.class,
-        AttackPhaseTestSuite.class,
         ReinforcementPhaseTestSuite.class,
+        AttackPhaseTestSuite.class,
         FortificationPhaseTestSuite.class
 })
     public class MainTestSuite {
