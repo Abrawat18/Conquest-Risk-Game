@@ -297,7 +297,11 @@ public class GameMap {
             if (armyTypeIndex == 3)
                 armyTypeIndex = 0;
         }
-
+        try {
+            FileManager.getInstance().writeLog("Cards Initialized !!");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public Cards getRandomCardFromDeck(){
