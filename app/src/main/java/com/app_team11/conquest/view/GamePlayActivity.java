@@ -141,7 +141,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     public void onStartupPhaseFinished() {
         Toast.makeText(this, "Reinforcement Phase Started !!", Toast.LENGTH_SHORT).show();
-        FileManager.getInstance().writeLog("Reinforcement Phase Started !!");
         if (getMap().getPlayerList().size() > 0) {
             setPlayerTurn(getMap().getPlayerList().get(0));
             getPlayerTurn().addObserver(this);
@@ -153,8 +152,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * event on Completing Reinforcement Phase
      */
     public void onReInforcementPhaseCompleted() {
-        changeGamePhase();
         FileManager.getInstance().writeLog("Reinforcement Phase Completed");
+        changeGamePhase();
     }
 
 
