@@ -20,6 +20,7 @@ import java.io.IOException;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
+ * Main Dash board activity view
  * Created by Jaydeep9101 on 06-Oct-17.
  * @version 1.0.0
  */

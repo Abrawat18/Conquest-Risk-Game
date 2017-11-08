@@ -12,6 +12,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
+ * Main screen activity which shows logo fo the game
  * Created by Jaydeep9101 on 06-Oct-17.
  */
 
