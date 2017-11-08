@@ -17,6 +17,7 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 /**
+ * Binds the card list view with its content
  * Created by Vasu on 01-11-2017.
  */
 
@@ -25,20 +26,38 @@ public class CardListAdapter extends BaseAdapter{
     private List<Cards> cardsList;
     private LayoutInflater inflater;
 
+    /**
+     * Set the list of cards
+     * @param cardsList
+     */
     public void setCardsList(List<Cards> cardsList) {
         this.cardsList = cardsList;
     }
 
+    /**
+     * Constructor initialization
+     * @param context
+     * @param cardsList
+     */
     public CardListAdapter(Context context, List<Cards> cardsList){
         this.cardsList=cardsList;
         inflater= (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
     }
 
+    /**
+     * Returns the size of card list
+     * @return integer
+     */
     @Override
     public int getCount() {
         return cardsList.size();
     }
 
+    /**
+     * Returns the position of card list
+     * @param position
+     * @return
+     */
     @Override
     public Cards getItem(int position) {
         return cardsList.get(position);

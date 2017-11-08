@@ -44,8 +44,8 @@ import java.util.List;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
+ * For editing and making new maps this controller class is called
  * Created by Abhishek on 31-Oct-17.
- *
  * @version 1.0.0
  */
 
@@ -83,7 +83,10 @@ public class MapEditorController {
     private MapEditorController() {
 
     }
-
+    /**
+     * Getting the instance of MapEditorController
+     * @return MapEditorController
+     */
     public static MapEditorController getInstance() {
         if (mapEditorController == null) {
             mapEditorController = new MapEditorController();
@@ -125,6 +128,10 @@ public class MapEditorController {
         getSuggestedTerritoryList();
     }
 
+    /**
+     * Setting continent for the map
+     * @param position
+     */
     public void onClickContinent(int position) {
         selectedContinent = map.getContinentList().get(position);
         MapEditorController.getInstance().setTerritoryAdapterForSelectedContinent();
@@ -132,6 +139,10 @@ public class MapEditorController {
         getActivity().linearTerritory.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Placing territory in continent
+     * @param position
+     */
     public void onLongClickTerritory(final int position) {
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
         sweetAlertDialog.setTitleText("Are you sure you want to remove " + map.getTerritoryList().get(position).getTerritoryName() + "?")
@@ -148,6 +159,10 @@ public class MapEditorController {
                 .show();
     }
 
+    /**
+     * Confirmation of placement of territory
+     * @param position
+     */
     public void onClickSuggestTerritory(final int position) {
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
         sweetAlertDialog.setTitleText("Are you sure you want to add " + MapEditorController.getInstance().territorySuggestList.get(position).getTerritoryName() + "?")
@@ -164,6 +179,10 @@ public class MapEditorController {
                 .show();
     }
 
+    /**
+     * Confirmation to remove the continent
+     * @param position
+     */
     public void onLongClickContinent(final int position) {
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
         sweetAlertDialog.setTitleText("Are you sure you want to remove " + map.getContinentList().get(position).getContName() + "?")
@@ -180,6 +199,10 @@ public class MapEditorController {
                 .show();
     }
 
+    /**
+     * Confirmation to add continent
+     * @param position
+     */
     public void onClickSuggestContinent(final int position) {
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
         sweetAlertDialog.setTitleText("Are you sure you want to add " + MapEditorController.getInstance().continentSuggestList.get(position).getContName() + "?")
@@ -239,6 +262,37 @@ public class MapEditorController {
 
     }
 
+    /**
+     * Surface initialization for the map
+     */
+    private SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
+        @Override
+        public void surfaceCreated(SurfaceHolder holder) {
+            showMap();
+        }
+
+        @Override
+        public void surfaceDestroyed(SurfaceHolder holder) {
+
+            holder.removeCallback(surfaceCallback);
+        }
+
+        /**
+         * Changes the surface dimensions
+         * @param holder
+         * @param format
+         * @param width
+         * @param height
+         */
+        @Override
+        public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        }
+    };
+
+    /**
+     * Showing the message
+     * @param msg
+     */
     private void showToast(String msg) {
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
@@ -265,15 +319,24 @@ public class MapEditorController {
         }
     }
 
+    /**
+     * Set the map on the screen
+     * @param map
+     */
     private void setMap(GameMap map) {
         this.map = map;
     }
 
-
+    /**
+     * Loads the map on the screen
+     */
     private void loadMap() {
 
     }
 
+    /**
+     * Addition of territory on the map
+     */
     public void addTerritory() {
         getActivity().hideAllLinearLayouts();
 
@@ -303,6 +366,9 @@ public class MapEditorController {
                 .show();
     }
 
+    /**
+     * Addition of continent
+     */
     public void addContinent() {
         getActivity().hideAllLinearLayouts();
         getActivity().linearAddContinent.setVisibility(View.VISIBLE);

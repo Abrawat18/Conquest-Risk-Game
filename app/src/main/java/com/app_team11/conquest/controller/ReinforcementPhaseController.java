@@ -182,7 +182,10 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
         }
     }
 
-
+    /**
+     * Returns GamePlayActivity
+     * @return GamePlayActivity
+     */
     public GamePlayActivity getActivity() {
         return (GamePlayActivity) context;
     }
