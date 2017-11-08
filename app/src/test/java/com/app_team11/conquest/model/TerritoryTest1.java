@@ -19,7 +19,7 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by Nigel on 19-Oct-17.
- * Valid Fortify Phase Test
+ * invalid Fortify Phase Test
  */
 
 public class TerritoryTest1 {
@@ -68,7 +68,6 @@ public class TerritoryTest1 {
     @Test
     public void invalidFortifyPhase()
     {
-        //since they are not neighbouring territories, fortification phase cannot proceed.
        assertEquals(0,playerList.get(0).fortifyTerritory(territoryList.get(0), territoryList.get(1), 10).getMsgCode());
     }
 }

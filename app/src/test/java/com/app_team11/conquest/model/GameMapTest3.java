@@ -13,7 +13,7 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by Nigel on 07-Nov-17.
- * Checks for invalid eliminated player condition
+ * Checks for scenario when player not eliminated
  */
 
 
@@ -72,6 +72,7 @@ public class GameMapTest3 {
             {
                 territory3.setTerritoryOwner(territoryList.get(1).getTerritoryOwner());
                 cm=map.eliminatedPlayer(territoryList.get(1),territory3);
+                //Player has not been eliminated yet
                 assertEquals(Constants.MSG_FAIL_CODE,cm.getMsgCode());
             }
 

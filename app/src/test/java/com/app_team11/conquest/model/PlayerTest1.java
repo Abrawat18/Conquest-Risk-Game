@@ -12,7 +12,7 @@ import java.util.List;
 import static junit.framework.Assert.assertEquals;
 
 /**
- * This file tests the attack phase validations for invalid and valid adjacent territory
+ * This file is for checking pre-attack validations to check for adjacent territory
  * Created by Nigel on 06-Nov-17.
  */
 
