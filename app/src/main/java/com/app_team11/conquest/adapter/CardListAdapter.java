@@ -63,11 +63,23 @@ public class CardListAdapter extends BaseAdapter{
         return cardsList.get(position);
     }
 
+    /**
+     * Returns the Id of item
+     * @param position
+     * @return
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Returns view
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder=null;
@@ -90,6 +102,9 @@ public class CardListAdapter extends BaseAdapter{
         return convertView;
     }
 
+    /**
+     * Holds the view
+     */
     class ViewHolder{
         private TextView textCardTerritoryName;
         private TextView textCardMilitary;
