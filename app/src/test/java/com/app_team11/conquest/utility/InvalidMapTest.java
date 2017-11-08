@@ -1,11 +1,14 @@
 package com.app_team11.conquest.utility;
 
+import com.app_team11.conquest.model.GameMap;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 
+import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -16,18 +19,20 @@ public class InvalidMapTest {
 
     private String filePath;
     private boolean failed;
+    GameMap map;
 
     @Before
     public void setUp() {
         filePath="app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\Invalid test file.map";
         failed=false;
+        map=new GameMap();
     }
     @Test
     public void invalidMapTest() throws Exception
     {
         ReadMapUtility readTest=new ReadMapUtility();
-        System.out.println(System.getProperty("user.dir") + File.separator + filePath);
-        assertEquals(null,readTest.readFile(System.getProperty("user.dir") + File.separator + filePath));
+        map=readTest.readFile(System.getProperty("user.dir") + File.separator + filePath);
+        assertFalse(map.isGraphConnected());
 
     }
 

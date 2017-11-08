@@ -476,5 +476,61 @@ public class GameMap {
         this.getCardList().remove(card);
     }
 
+    /**
+     * This method checks for whether the Graph is connected or not.
+     * @return true or false
+     */
+    public Boolean isGraphConnected()
+    {
+        checkForConnectedGraph(this.getTerritoryList().get(0));
+        return isConnected(this.getTerritoryList());
+    }
+    /**
+     * This method checks whether a territories are accessible from any other territory.
+     * Depending on the connections, a path can be traced and the
+     * territory's isVisited property is set to true.
+     * @param territory
+     */
+    public void checkForConnectedGraph(Territory territory)
+    {
+        List<Territory> neighbours=territory.getNeighbourList();
+
+        if(neighbours!=null)
+            for(int i=0;i<neighbours.size();i++)
+            {
+                Territory terr=neighbours.get(i);
+                if(terr!=null && !terr.isVisited)
+                {
+                    terr.isVisited=true;
+                    checkForConnectedGraph(terr);
+                }
+            }
+    }
+
+    /**
+     * This method is for checking whether the graph is connected
+     * @param territoryList
+     * @return
+     */
+
+    public Boolean isConnected(List<Territory> territoryList)
+    {
+        for(Territory territory : territoryList)
+        {
+            if(!getIsVisited(territory))
+                return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks whether the territory is visited in the path
+     * @return
+     */
+    public Boolean getIsVisited(Territory territory) {
+        return territory.isVisited;
+    }
+
+
 }
 
