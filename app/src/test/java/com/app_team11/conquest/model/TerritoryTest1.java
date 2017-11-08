@@ -1,4 +1,4 @@
-package com.app_team11.conquest.utility;
+package com.app_team11.conquest.model;
 
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.model.Cards;
@@ -7,6 +7,7 @@ import com.app_team11.conquest.model.GameMap;
 import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.ReinforcementType;
 import com.app_team11.conquest.model.Territory;
+import com.app_team11.conquest.utility.ConfigurableMessage;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,9 +19,10 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by Nigel on 19-Oct-17.
+ * Valid Fortify Phase Test
  */
 
-public class FortifyPhaseTest {
+public class TerritoryTest1 {
     private List<Territory> territoryList;
     private List<Player> playerList;
     private List<Continent> continentList;
@@ -64,7 +66,7 @@ public class FortifyPhaseTest {
     }
 
     @Test
-    public void testFortifyPhase()
+    public void invalidFortifyPhase()
     {
         //since they are not neighbouring territories, fortification phase cannot proceed.
        assertEquals(0,territoryList.get(0).fortifyTerritory(territoryList.get(1), playerList.get(0), 10).getMsgCode());

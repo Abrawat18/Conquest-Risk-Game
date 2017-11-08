@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  * Created by Nigel on 19-Oct-17.
  */
 
-public class GameMapTest {
+public class GameMapTest1 {
     private String filePath;
     private boolean failed;
     private File f;
