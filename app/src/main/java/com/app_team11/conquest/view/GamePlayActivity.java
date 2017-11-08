@@ -220,6 +220,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     public void initializeDominationView(int playerCount) {
 
+        FileManager.getInstance().writeLog("Initializing world Domination view...");
         for (int i = 1; i <= playerCount; i++) {
             TextView tv = new TextView(this);
             tv.setText("P" + i);
@@ -229,6 +230,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             textViewPlayerDominationList.add(tv);
 
         }
+        FileManager.getInstance().writeLog("World Domination view Initialized!!");
     }
 
     /**
@@ -237,12 +239,14 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     public void updateDominationView() {
         int totalTerr = getMap().getTerritoryList().size();
         int[] playerColor = getResources().getIntArray(R.array.continentColor);
+        FileManager.getInstance().writeLog("Updating world domination view...");
         for (Player player : getMap().getPlayerList()) {
             int totalPlayerTerrCount = getMap().getTerrForPlayer(player).size();
             int percDomination = (totalPlayerTerrCount * 100 / totalTerr);
             textViewPlayerDominationList.get(player.getPlayerId() - 1).setLayoutParams(setLayoutParamsForPlayer(percDomination));
             textViewPlayerDominationList.get(player.getPlayerId() - 1).setBackgroundColor(playerColor[playerColor.length - player.getPlayerId()]);
         }
+        FileManager.getInstance().writeLog("Updated world domination view!!");
     }
 
 
@@ -300,7 +304,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     public void setPlayerTurn(Player player) {
         playerTurn = player;
         getMap().changeCurrentPlayerTurn(player);
-        FileManager.getInstance().writeLog("Player turn - " + playerTurn.getPlayerId());
+        FileManager.getInstance().writeLog("Player turn ->" + playerTurn.getPlayerId());
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

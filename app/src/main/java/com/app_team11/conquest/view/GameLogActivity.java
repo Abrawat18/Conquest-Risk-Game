@@ -17,6 +17,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
+ * Logging of the message is achieved
  * Created by Abhishek on 03-Nov-17.
  */
 

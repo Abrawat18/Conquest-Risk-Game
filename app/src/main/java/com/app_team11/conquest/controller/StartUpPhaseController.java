@@ -135,6 +135,10 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isArmyLeftToAssignForAnyPlayers() {
         for (final Player player : getActivity().getMap().getPlayerList()) {
             if (player.getAvailableArmyCount() > 0) {
@@ -145,6 +149,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
     }
 
     /**
+     *
      * {@inheritDoc}
      *
      * @param v
@@ -171,7 +176,10 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
 
     }
 
-
+    /**
+     * GamePlay Activity Method
+     * @return GamePlayActivity
+     */
     public GamePlayActivity getActivity() {
         return (GamePlayActivity) context;
     }
