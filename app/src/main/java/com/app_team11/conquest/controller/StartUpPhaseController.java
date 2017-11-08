@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
+import com.app_team11.conquest.model.PhaseViewModel;
 import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.FileManager;
@@ -162,6 +163,8 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
         if (waitForSelectTerritory) {
             selectedTerritory = getActivity().getTerritoryAtSelectedPoint((int) x, (int) y);
             if (selectedTerritory != null && selectedTerritory.getTerritoryOwner().equals(getActivity().getPlayerTurn())) {
+                PhaseViewModel.getInstance().clearString();
+                PhaseViewModel.getInstance().addPhaseViewContent("StartUp Phase Player :"+getActivity().getPlayerTurn().getPlayerId());
                 selectedTerritory.addArmyToTerr(1, false);
                 getActivity().setNextPlayerTurn();
                 getActivity().showMap();
