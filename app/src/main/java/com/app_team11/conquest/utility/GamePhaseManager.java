@@ -1,6 +1,7 @@
 package com.app_team11.conquest.utility;
 
 /**
+ * This class manages all the 4 phases of game
  * Created by Jaydeep9101 on 05-Nov-17.
  */
 
@@ -13,10 +14,17 @@ public class GamePhaseManager {
     public static final int PHASE_FORTIFICATION = 4;
     public int currentPhase = 0;
 
+    /**
+     * Contructor Initialization
+     */
     private GamePhaseManager() {
 
     }
 
+    /**
+     * Singleton Method creation for GamePhaseManager
+     * @return instace
+     */
     public static GamePhaseManager getInstance() {
         if (instace == null) {
             instace = new GamePhaseManager();
@@ -24,17 +32,32 @@ public class GamePhaseManager {
         return instace;
     }
 
+    /**
+     * Method which resets the current active phase
+     */
     public void resetCurrentPhase(){
         currentPhase=0;
     }
+
+    /**
+     * Returns the current phase
+     * @return currentPhase
+     */
     public int getCurrentPhase() {
         return currentPhase;
     }
 
+    /**
+     * Sets the current phase
+     * @param currentPhase
+     */
     public void setCurrentPhase(int currentPhase) {
         currentPhase = currentPhase;
     }
 
+    /**
+     * Method which changes the phase in sequence
+     */
     public void changePhase() {
         if(currentPhase == 0){
             currentPhase = PHASE_STARTUP;
