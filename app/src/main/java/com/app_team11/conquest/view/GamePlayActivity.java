@@ -34,6 +34,7 @@ import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
 import com.app_team11.conquest.model.Cards;
 import com.app_team11.conquest.model.GameMap;
+import com.app_team11.conquest.model.ObserverType;
 import com.app_team11.conquest.model.PhaseViewModel;
 import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.Territory;
@@ -469,6 +470,20 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     @Override
     public void update(Observable o, Object arg) {
+        try {
+            if (arg != null) {
+                ObserverType observerType = (ObserverType) arg;
+                if(observerType!=null){
+                    if(observerType.getObserverType()==ObserverType.WORLD_DOMINATION_TYPE){
+                        updateDominationView();
+                        return;
+                    }
+                }
+            }
+        }catch (Exception ex){
+
+        }
+
         notifyCardListAdapter();
         updateCreatePhaseView();
     }

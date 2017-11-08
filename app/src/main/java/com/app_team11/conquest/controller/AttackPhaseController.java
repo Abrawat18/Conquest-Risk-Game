@@ -210,7 +210,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
                                 getActivity().toastMessageFromBackground(configurableMessage.getMsgText());
                                 if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
                                     getActivity().showMap();
-                                    getActivity().updateDominationView();
+//                                    getActivity().updateDominationView();
                                     sweetAlertDialog.dismiss();
                                 } else {
                                     editNoOfArmy.setError("Invalid Input!!");
