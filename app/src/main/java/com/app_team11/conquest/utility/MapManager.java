@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Management of map
  * Created by Jaydeep9101 on 08-Oct-17.
  */
 
@@ -23,6 +24,10 @@ public class MapManager {
 
     }
 
+    /**
+     * Singleton creation for MapManager
+     * @return mapManager
+     */
     public static MapManager getInstance() {
         if (mapManager == null) {
             mapManager = new MapManager();
@@ -31,9 +36,9 @@ public class MapManager {
     }
 
     /**
-     *
+     * List of continent from file
      * @param context
-     * @return
+     * @return list of continent
      * @throws JSONException
      */
     public List<Continent> getContinentListFromFile(Context context) throws JSONException {
@@ -46,9 +51,9 @@ public class MapManager {
     }
 
     /**
-     *
+     * List of territory from file
      * @param context
-     * @return
+     * @return list of territory
      * @throws JSONException
      */
     public List<Territory> getTerritoryListFromFile(Context context) throws JSONException {

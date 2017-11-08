@@ -9,7 +9,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**JSON Class is used for loading the preset values from JSON
+/**
+ * JSON Class is used for loading the preset values from JSON
  * Created by Jaydeep9101 on 08-Oct-17.
  */
 
@@ -20,7 +21,10 @@ public class JsonLoader {
 
     }
 
-
+    /**
+     * Singleton creation for JSONLoader
+     * @return jsonLoader
+     */
     public static JsonLoader getInstance() {
         if (jsonLoader == null) {
             jsonLoader = new JsonLoader();
@@ -29,7 +33,7 @@ public class JsonLoader {
     }
 
     /**
-     *
+     * JSONArray for the loading of data from JSON file
      * @param context
      * @param fileName
      * @return
