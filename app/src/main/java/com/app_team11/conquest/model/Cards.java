@@ -11,14 +11,27 @@ public class Cards {
     private String armyType;
     private boolean isSelected;
 
+    /**
+     * If the card is selected or not
+     * @return is selected or not
+     */
     public boolean isSelected() {
         return isSelected;
     }
 
+    /**
+     * Sets the selected card
+     * @param selected
+     */
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
 
+    /**
+     * Card paramters declaration
+     * @param cardTerritory
+     * @param armyType
+     */
     public Cards(Territory cardTerritory, String armyType) {
         this.cardTerritory=cardTerritory;
         this.armyType=armyType;

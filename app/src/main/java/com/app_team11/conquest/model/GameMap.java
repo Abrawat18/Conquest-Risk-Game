@@ -304,6 +304,10 @@ public class GameMap {
         }
     }
 
+    /**
+     * Returns random card from deck
+     * @return random card list
+     */
     public Cards getRandomCardFromDeck(){
         if(null!=getCardList()) {
             Collections.shuffle(getCardList());
@@ -465,6 +469,10 @@ public class GameMap {
         this.warnFlag = warnFlag;
     }
 
+    /**
+     * Returns the card list
+     * @return list of card
+     */
     public List<Cards> getCardList() {
         return cardList;
     }
@@ -485,6 +493,10 @@ public class GameMap {
         this.cardList.add(card);
     }
 
+    /**
+     * Removed the card from deck
+     * @param card
+     */
     public void removeCardFromDeck(Cards card){
         this.getCardList().remove(card);
     }
