@@ -25,7 +25,7 @@ public class Territory extends Observable{
     private List<Territory> neighbourList;
     private Player territoryOwner;
     private int armyCount;
-    private Boolean isVisited=false;
+    public Boolean isVisited=false;
 
     public Territory(String territoryName) {
         this.territoryName = territoryName;
@@ -258,51 +258,6 @@ public class Territory extends Observable{
     }
 
 
-    /**
-     * This method checks whether a territories are accessible from any other territory.
-     * Depending on the connections, a path can be traced and the
-     * territory's isVisited property is set to true.
-     * @param territory
-     */
-    public void checkForConnectedGraph(Territory territory)
-    {
-        List<Territory> neighbours=territory.getNeighbourList();
-
-        if(neighbours!=null)
-            for(int i=0;i<neighbours.size();i++)
-            {
-                Territory terr=neighbours.get(i);
-                 if(terr!=null && !terr.isVisited)
-                {
-                    terr.isVisited=true;
-                    checkForConnectedGraph(terr);
-                }
-            }
-    }
-
-    /**
-     * This method is for checking whether the graph is connected
-     * @param territoryList
-     * @return
-     */
-
-    public Boolean isConnected(List<Territory> territoryList)
-    {
-        for(Territory territory : territoryList)
-        {
-            if(!territory.getIsVisited())
-                return false;
-        }
-        return true;
-    }
-
-    /**
-     * Checks whether the territory is visited in the path
-     * @return
-     */
-    public Boolean getIsVisited() {
-        return isVisited;
-    }
 
 
 }
