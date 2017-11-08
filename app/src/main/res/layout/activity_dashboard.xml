@@ -76,7 +76,13 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:id="@+id/btn_show_log"
+        android:textAlignment="center"
+        android:fontFamily="serif"
+        android:textSize="30dp"
+        android:textStyle="bold"
         android:text="Show Log" />
 
 </LinearLayout>
