@@ -273,6 +273,7 @@ public class GameMap {
 
     /**
      * This method checks whether player won the game
+     *
      * @param player
      * @return
      */
@@ -306,10 +307,11 @@ public class GameMap {
 
     /**
      * Returns random card from deck
+     *
      * @return random card list
      */
-    public Cards getRandomCardFromDeck(){
-        if(null!=getCardList()) {
+    public Cards getRandomCardFromDeck() {
+        if (null != getCardList()) {
             Collections.shuffle(getCardList());
             return getCardList().get(0);
         }
@@ -471,6 +473,7 @@ public class GameMap {
 
     /**
      * Returns the card list
+     *
      * @return list of card
      */
     public List<Cards> getCardList() {
@@ -495,38 +498,41 @@ public class GameMap {
 
     /**
      * Removed the card from deck
+     *
      * @param card
      */
-    public void removeCardFromDeck(Cards card){
+    public void removeCardFromDeck(Cards card) {
         this.getCardList().remove(card);
     }
 
     /**
      * This method checks for whether the Graph is connected or not.
+     *
      * @return true or false
      */
-    public Boolean isGraphConnected()
-    {
-        checkForConnectedGraph(this.getTerritoryList().get(0));
-        return isConnected(this.getTerritoryList());
+    public Boolean isGraphConnected() {
+        if (this.getTerritoryList().size() > 0) {
+            checkForConnectedGraph(this.getTerritoryList().get(0));
+            return isConnected(this.getTerritoryList());
+        }
+        return true;
     }
+
     /**
      * This method checks whether a territories are accessible from any other territory.
      * Depending on the connections, a path can be traced and the
      * territory's isVisited property is set to true.
+     *
      * @param territory
      */
-    public void checkForConnectedGraph(Territory territory)
-    {
-        List<Territory> neighbours=territory.getNeighbourList();
+    public void checkForConnectedGraph(Territory territory) {
+        List<Territory> neighbours = territory.getNeighbourList();
 
-        if(neighbours!=null)
-            for(int i=0;i<neighbours.size();i++)
-            {
-                Territory terr=neighbours.get(i);
-                if(terr!=null && !terr.isVisited)
-                {
-                    terr.isVisited=true;
+        if (neighbours != null)
+            for (int i = 0; i < neighbours.size(); i++) {
+                Territory terr = neighbours.get(i);
+                if (terr != null && !terr.isVisited) {
+                    terr.isVisited = true;
                     checkForConnectedGraph(terr);
                 }
             }
@@ -534,15 +540,14 @@ public class GameMap {
 
     /**
      * This method is for checking whether the graph is connected
+     *
      * @param territoryList
      * @return
      */
 
-    public Boolean isConnected(List<Territory> territoryList)
-    {
-        for(Territory territory : territoryList)
-        {
-            if(!getIsVisited(territory))
+    public Boolean isConnected(List<Territory> territoryList) {
+        for (Territory territory : territoryList) {
+            if (!getIsVisited(territory))
                 return false;
         }
         return true;
@@ -550,6 +555,7 @@ public class GameMap {
 
     /**
      * Checks whether the territory is visited in the path
+     *
      * @return
      */
     public Boolean getIsVisited(Territory territory) {

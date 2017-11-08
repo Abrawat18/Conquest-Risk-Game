@@ -78,6 +78,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * {@inheritDoc}
+     *
      * @param savedInstanceState
      */
     @Override
@@ -192,8 +193,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 GamePhaseManager.getInstance().setCurrentPhase(GamePhaseManager.PHASE_STARTUP);
                 FileManager.getInstance().writeLog("Game Startup phase starting...");
                 StartUpPhaseController.getInstance().setContext(this).startStartUpPhase();
-                //TODO ::: REMOVE BELOW CODE
-                cardList.addAll(getMap().getCardList());
                 break;
             case GamePhaseManager.PHASE_REINFORCEMENT:
                 btnStopAttack.setVisibility(View.GONE);
@@ -257,6 +256,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * Layout parameters for players
+     *
      * @param playerDominationPercent
      * @return lp
      */
@@ -278,6 +278,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * Action to be performed when touch on surface
+     *
      * @param surfaceOnTouchListner
      */
     public void setSurfaceOnTouchListner(SurfaceOnTouchListner surfaceOnTouchListner) {
@@ -286,14 +287,20 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * Sets the map for view
+     *
      * @param map
      */
     public void setMap(GameMap map) {
         this.map = map;
+        if (map == null || !map.isGraphConnected()) {
+            toastMessageFromBackground(Constants.TOAST_ERROR_GRAPH_NOT_CONNECTED);
+            finish();
+        }
     }
 
     /**
      * Returns the map view
+     *
      * @return map
      */
     public GameMap getMap() {
@@ -354,6 +361,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * Returns the turm of player
+     *
      * @return playerTurn
      */
     public Player getPlayerTurn() {
@@ -410,6 +418,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 }
                 surface.getHolder().unlockCanvasAndPost(canvas);
             }
+
         }
     }
 
@@ -508,6 +517,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * Update the view
+     *
      * @param o
      * @param arg
      */
@@ -516,14 +526,14 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         try {
             if (arg != null) {
                 ObserverType observerType = (ObserverType) arg;
-                if(observerType!=null){
-                    if(observerType.getObserverType()==ObserverType.WORLD_DOMINATION_TYPE){
+                if (observerType != null) {
+                    if (observerType.getObserverType() == ObserverType.WORLD_DOMINATION_TYPE) {
                         updateDominationView();
                         return;
                     }
                 }
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
 
         }
 

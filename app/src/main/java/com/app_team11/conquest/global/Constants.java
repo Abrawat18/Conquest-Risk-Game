@@ -57,5 +57,5 @@ public class Constants {
     public static final String ATTACKER_WON = "Attacker won";
     public static final String ATTACKER_LOST = "Attacker lost";
     public static final String PLAYER_WON="Congratulations! You won the game!";
-
+    public static final String TOAST_ERROR_GRAPH_NOT_CONNECTED = "The map is not connected.";
 }

@@ -46,12 +46,12 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 /**
  * For editing and making new maps this controller class is called
  * Created by Abhishek on 31-Oct-17.
+ *
  * @version 1.0.0
  */
 
 //Todo : editor menu : 1. add continent 2. add territory 3. on terrirtory  selection : show continent or select continent , neighbour
 
-    
 
 public class MapEditorController {
 
@@ -83,8 +83,10 @@ public class MapEditorController {
     private MapEditorController() {
 
     }
+
     /**
      * Getting the instance of MapEditorController
+     *
      * @return MapEditorController
      */
     public static MapEditorController getInstance() {
@@ -116,9 +118,8 @@ public class MapEditorController {
             Bundle bundle = intent.getExtras();
             if (bundle != null) {
                 filePathToLoad = bundle.getString(Constants.KEY_FILE_PATH);
-            }
-            else{
-                filePathToLoad="";
+            } else {
+                filePathToLoad = "";
             }
 
         }
@@ -133,6 +134,7 @@ public class MapEditorController {
 
     /**
      * Setting continent for the map
+     *
      * @param position
      */
     public void onClickContinent(int position) {
@@ -144,6 +146,7 @@ public class MapEditorController {
 
     /**
      * Placing territory in continent
+     *
      * @param position
      */
     public void onLongClickTerritory(final int position) {
@@ -164,6 +167,7 @@ public class MapEditorController {
 
     /**
      * Confirmation of placement of territory
+     *
      * @param position
      */
     public void onClickSuggestTerritory(final int position) {
@@ -184,6 +188,7 @@ public class MapEditorController {
 
     /**
      * Confirmation to remove the continent
+     *
      * @param position
      */
     public void onLongClickContinent(final int position) {
@@ -204,6 +209,7 @@ public class MapEditorController {
 
     /**
      * Confirmation to add continent
+     *
      * @param position
      */
     public void onClickSuggestContinent(final int position) {
@@ -294,6 +300,7 @@ public class MapEditorController {
 
     /**
      * Showing the message
+     *
      * @param msg
      */
     private void showToast(String msg) {
@@ -304,7 +311,6 @@ public class MapEditorController {
      * method is creating and drawing the map object on the screen
      */
     public void showMap() {
-
         Paint linePaint = new Paint();
         linePaint.setColor(Color.WHITE);
         linePaint.setStrokeWidth(15);
@@ -320,14 +326,20 @@ public class MapEditorController {
             }
             getActivity().surface.getHolder().unlockCanvasAndPost(getActivity().canvas);
         }
+
     }
 
     /**
      * Set the map on the screen
+     *
      * @param map
      */
     private void setMap(GameMap map) {
         this.map = map;
+        if (map == null || !map.isGraphConnected()) {
+            showToast(Constants.TOAST_ERROR_GRAPH_NOT_CONNECTED);
+            getActivity().finish();
+        }
     }
 
     /**
@@ -419,40 +431,45 @@ public class MapEditorController {
      * method is used to save all the information taken from input and write to the file
      */
     public void saveToMap() {
-        final EditText editMapName = new EditText(getActivity());
-        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
-        if (TextUtils.isEmpty(filePathToLoad)) {
-            sweetAlertDialog.setCustomView(editMapName);
-        }
-        sweetAlertDialog.setTitleText("Do you want to save Map ?")
-                .setConfirmText("Yes")
-                .setCancelText("No")
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
-                        File mapFile = null;
-                        if (!TextUtils.isEmpty(editMapName.getText())) {
-                            mapFile = FileManager.getInstance().getMapFilePath(editMapName.getText().toString() + ".map");
-                        } else if (!TextUtils.isEmpty(filePathToLoad)) {
-                            mapFile = new File(filePathToLoad);
+
+        if (map.isGraphConnected()) {
+            final EditText editMapName = new EditText(getActivity());
+            SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
+            if (TextUtils.isEmpty(filePathToLoad)) {
+                sweetAlertDialog.setCustomView(editMapName);
+            }
+            sweetAlertDialog.setTitleText("Do you want to save Map ?")
+                    .setConfirmText("Yes")
+                    .setCancelText("No")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            sweetAlertDialog.dismiss();
+                            File mapFile = null;
+                            if (!TextUtils.isEmpty(editMapName.getText())) {
+                                mapFile = FileManager.getInstance().getMapFilePath(editMapName.getText().toString() + ".map");
+                            } else if (!TextUtils.isEmpty(filePathToLoad)) {
+                                mapFile = new File(filePathToLoad);
+                            }
+                            if (mapFile != null) {
+                                map.writeDataToFile(mapFile);
+                                getActivity().finish();
+                            }
                         }
-                        if (mapFile != null) {
-                            map.writeDataToFile(mapFile);
+                    })
+                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            sweetAlertDialog.dismiss();
                             getActivity().finish();
+
                         }
-                    }
-                })
-                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
-                        getActivity().finish();
+                    });
 
-                    }
-                });
-
-        sweetAlertDialog.show();
+            sweetAlertDialog.show();
+        } else {
+            showToast(Constants.TOAST_ERROR_GRAPH_NOT_CONNECTED);
+        }
     }
 
     /**
@@ -465,6 +482,7 @@ public class MapEditorController {
 
     /**
      * Motion event capture
+     *
      * @param v
      * @param event
      * @return
@@ -518,6 +536,7 @@ public class MapEditorController {
 
     /**
      * Returns the MapEditorActivity
+     *
      * @return MapEditorActivity
      */
     public MapEditorActivity getActivity() {
