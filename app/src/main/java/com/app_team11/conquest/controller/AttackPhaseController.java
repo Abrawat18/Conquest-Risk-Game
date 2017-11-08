@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
+import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.utility.FileManager;
@@ -148,6 +149,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
         linearInput.addView(editDefenderDice);
 
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
+        sweetAlertDialog.setCancelable(false);
         sweetAlertDialog.setTitleText("Please Enter Number of Dice")
                 .setConfirmText("Ok")
                 .setCustomView(linearInput)
@@ -199,6 +201,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
         final EditText editNoOfArmy = new EditText(getActivity());
         editNoOfArmy.setInputType(InputType.TYPE_CLASS_NUMBER);
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
+        sweetAlertDialog.setCancelable(false);
         sweetAlertDialog.setTitleText("Enter no of Army to move")
                 .setConfirmText("Ok")
                 .setCustomView(editNoOfArmy)
@@ -215,6 +218,8 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
                                     ConfigurableMessage configurableMessage1 = getActivity().getMap().playerWonTheGame(getActivity().getPlayerTurn());
                                     if(configurableMessage1.getMsgCode()==Constants.MSG_SUCC_CODE){
                                         getActivity().toastMessageFromBackground(configurableMessage1.getMsgText());
+                                        endGame(getActivity().getPlayerTurn());
+                                        //code to end game
                                     }
                                     sweetAlertDialog.dismiss();
                                 } else {
@@ -238,4 +243,18 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
         return (GamePlayActivity) context;
     }
 
+    public void endGame(Player playerWon){
+
+        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
+        sweetAlertDialog.setCancelable(false);
+        sweetAlertDialog.setTitleText("Game Ends! Player"+playerWon.getPlayerId()+" Won the game!!")
+                .setConfirmText("Ok")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                    getActivity().finish();
+                    }
+                })
+                .show();
+    }
 }
