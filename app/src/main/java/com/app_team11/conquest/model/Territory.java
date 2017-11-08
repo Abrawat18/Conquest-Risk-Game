@@ -27,11 +27,22 @@ public class Territory extends Observable{
     private int armyCount;
     public Boolean isVisited=false;
 
+    /**
+     * Territory declaration
+     * @param territoryName
+     */
     public Territory(String territoryName) {
         this.territoryName = territoryName;
         this.neighbourList = new ArrayList();
     }
 
+    /**
+     * variables declaration for territory
+     * @param territoryName
+     * @param centerX
+     * @param centerY
+     * @param continent
+     */
     public Territory(String territoryName, int centerX, int centerY, Continent continent) {
         this.territoryName = territoryName;
         this.centerPoint = new Point(centerX, centerY);
@@ -39,6 +50,9 @@ public class Territory extends Observable{
         this.neighbourList = new ArrayList();
     }
 
+    /**
+     * territory array declaration
+     */
     public Territory() {
         this.neighbourList = new ArrayList();
     }

@@ -31,6 +31,10 @@ public class Player extends Observable {
     private Boolean cardTradeIn = false;
     private boolean isMyTurn;
 
+    /**
+     * Returns the available card territory count
+     * @return availableCardTerrCount
+     */
     public int getAvailableCardTerrCount() {
         return availableCardTerrCount;
     }
@@ -41,7 +45,6 @@ public class Player extends Observable {
 
     /**
      * Method to check if the player has got his turn
-     *
      * @return
      */
     public boolean isMyTurn() {
@@ -50,7 +53,6 @@ public class Player extends Observable {
 
     /**
      * Gives turn to the player
-     *
      * @param myTurn
      */
     public void setMyTurn(boolean myTurn) {
@@ -59,7 +61,6 @@ public class Player extends Observable {
 
     /**
      * Returns the player ID
-     *
      * @return playerID
      */
     public int getPlayerId() {
@@ -68,7 +69,6 @@ public class Player extends Observable {
 
     /**
      * Sets the ID of the player
-     *
      * @param playerId
      */
     public void setPlayerId(int playerId) {
@@ -77,7 +77,6 @@ public class Player extends Observable {
 
     /**
      * Returns the available army count
-     *
      * @return availableArmyCount
      */
     public int getAvailableArmyCount() {
@@ -86,7 +85,6 @@ public class Player extends Observable {
 
     /**
      * Sets the available army count
-     *
      * @param availableArmyCount
      */
     public void setAvailableArmyCount(int availableArmyCount) {
@@ -95,7 +93,6 @@ public class Player extends Observable {
 
     /**
      * Returns the Owned cards
-     *
      * @return ownedCards
      */
     public List<Cards> getOwnedCards() {
@@ -104,20 +101,22 @@ public class Player extends Observable {
 
     /**
      * Sets the owned cards
-     *
      * @param ownedCards
      */
     public void setOwnedCards(List<Cards> ownedCards) {
         this.ownedCards = ownedCards;
     }
 
+    /**
+     * Add owned cards
+     * @param addCards
+     */
     public void addOwnedCards(List<Cards> addCards) {
         this.getOwnedCards().addAll(addCards);
     }
 
     /**
      * Returns the trade in cards
-     *
      * @return cardTradeIn
      */
     public Boolean getCardTradeIn() {
@@ -126,7 +125,6 @@ public class Player extends Observable {
 
     /**
      * Sets the trade in cards
-     *
      * @param cardTradeIn
      */
     public void setCardTradeIn(Boolean cardTradeIn) {
@@ -158,7 +156,6 @@ public class Player extends Observable {
 
     /**
      * This method is used to calculate the total number of reinforcement armies
-     *
      * @param gameMap
      * @param cardTradeCount
      * @param tradeInCards
@@ -400,10 +397,18 @@ public class Player extends Observable {
 
     private int numberOfDiceRolled;
 
+    /**
+     * Returns number of dice rolled
+     * @return
+     */
     public int getNumberOfDiceRolled() {
         return numberOfDiceRolled;
     }
 
+    /**
+     * Set the number of dice rolled
+     * @param numberOfDiceRolled
+     */
     public void setNumberOfDiceRolled(int numberOfDiceRolled) {
         this.numberOfDiceRolled = numberOfDiceRolled;
     }
