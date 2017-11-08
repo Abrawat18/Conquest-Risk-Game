@@ -117,6 +117,9 @@ public class MapEditorController {
             if (bundle != null) {
                 filePathToLoad = bundle.getString(Constants.KEY_FILE_PATH);
             }
+            else{
+                filePathToLoad="";
+            }
 
         }
         if (!TextUtils.isEmpty(filePathToLoad)) {
