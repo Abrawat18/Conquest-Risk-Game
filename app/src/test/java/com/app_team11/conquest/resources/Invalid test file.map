@@ -1,1 +1,16 @@
-This is an invalid file
+[Map]
+image=3D.bmp
+wrap=no
+scroll=none
+author=NR
+warn=yes
+
+[Continents]
+Polygon=5
+
+[Territories]
+1c,186,160,Polygon,2c
+2c,173,81,Polygon,3c,1c
+3c,95,154,Polygon,2c
+4c,110,216,Polygon,5c
+5c,196,228,Polygon,4c
