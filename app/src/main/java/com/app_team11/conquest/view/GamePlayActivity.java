@@ -61,6 +61,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private Player playerTurn;
     private ListView listPlayer;
     private Button btnStopAttack;
+    private Button btnStopFortification;
     private Button btnNewAttack;
     private PlayerListAdapter playerListAdapter;
     private Button btnTradeInCards;
@@ -97,6 +98,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         listPlayer = (ListView) findViewById(R.id.list_player);
         listPhaseView = (ListView) findViewById(R.id.list_phase_view);
         btnStopAttack = (Button) findViewById(R.id.btn_stop_attack);
+        btnStopFortification = (Button) findViewById(R.id.btn_stop_fortification);
         btnNewAttack = (Button) findViewById(R.id.btn_new_attack);
         btnTradeInCards = (Button) findViewById(R.id.btn_tradeIn_cards);
         findViewById(R.id.btn_show_log).setOnClickListener(this);
@@ -105,6 +107,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         surface.setOnTouchListener(this);
         surface.getHolder().addCallback(surfaceCallback);
         btnStopAttack.setOnClickListener(this);
+        btnStopFortification.setOnClickListener(this);
         btnNewAttack.setOnClickListener(this);
         btnTradeInCards.setOnClickListener(this);
         FileManager.getInstance().writeLog("Game Play View Initialized !!");
@@ -179,6 +182,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             case GamePhaseManager.PHASE_STARTUP:
                 btnStopAttack.setVisibility(View.GONE);
                 btnNewAttack.setVisibility(View.GONE);
+                btnStopFortification.setVisibility(View.GONE);
                 GamePhaseManager.getInstance().setCurrentPhase(GamePhaseManager.PHASE_STARTUP);
                 FileManager.getInstance().writeLog("Game Startup phase starting...");
                 StartUpPhaseController.getInstance().setContext(this).startStartUpPhase();
@@ -188,12 +192,14 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             case GamePhaseManager.PHASE_REINFORCEMENT:
                 btnStopAttack.setVisibility(View.GONE);
                 btnNewAttack.setVisibility(View.GONE);
+                btnStopFortification.setVisibility(View.GONE);
                 FileManager.getInstance().writeLog("Reinforcement phase starting...");
                 ReinforcementPhaseController.getInstance().setContext(this).startReInforceMentPhase();
                 break;
             case GamePhaseManager.PHASE_ATTACK:
                 btnStopAttack.setVisibility(View.VISIBLE);
                 btnNewAttack.setVisibility(View.VISIBLE);
+                btnStopFortification.setVisibility(View.GONE);
                 Toast.makeText(this, "Attack Phase Started !!", Toast.LENGTH_SHORT).show();
                 FileManager.getInstance().writeLog("Attack phase starting...");
                 AttackPhaseController.getInstance().setContext(this).startAttackPhase();
@@ -201,6 +207,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             case GamePhaseManager.PHASE_FORTIFICATION:
                 btnStopAttack.setVisibility(View.GONE);
                 btnNewAttack.setVisibility(View.GONE);
+                btnStopFortification.setVisibility(View.VISIBLE);
                 Toast.makeText(this, "Fortification Phase Started !!", Toast.LENGTH_SHORT).show();
                 FileManager.getInstance().writeLog("Fortification Phase starting...");
                 FortificationPhaseController.getInstance().setContext(this).startFortificationPhase();
@@ -417,6 +424,9 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         switch (v.getId()) {
             case R.id.btn_stop_attack:
                 onAttackPhaseStopped();
+                break;
+            case R.id.btn_stop_fortification:
+                onFortificationPhaseStopped();
                 break;
             case R.id.btn_new_attack:
                 AttackPhaseController.getInstance().startAttackPhase();
