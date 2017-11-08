@@ -27,6 +27,13 @@ public class PhaseViewModel extends Observable {
         return phaseViewModel;
     }
 
+    public void clearString()
+    {
+        if(null!=listPhaseViewContent) {
+            listPhaseViewContent.clear();
+        }
+    }
+
     public void addPhaseViewContent(String content) {
         listPhaseViewContent.add(content);
         setChanged();

@@ -9,6 +9,8 @@ import com.app_team11.conquest.utility.FileManager;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -289,6 +291,14 @@ public class GameMap {
 
     }
 
+    public Cards getRandomCardFromDeck(){
+        if(null!=getCardList()) {
+            Collections.shuffle(getCardList());
+            return getCardList().get(0);
+        }
+        return null;
+    }
+
     /**
      * Method to increase the number of card traded count
      */
@@ -462,6 +472,9 @@ public class GameMap {
         this.cardList.add(card);
     }
 
+    public void removeCardFromDeck(Cards card){
+        this.getCardList().remove(card);
+    }
 
 }
 

@@ -34,6 +34,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
     private Territory selectedTerritory;
     private int attackerDice;
     private int defenderDice;
+    private boolean phaseWonFlag;
 
     private AttackPhaseController() {
 
@@ -49,6 +50,14 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
             instance = new AttackPhaseController();
         }
         return instance;
+    }
+
+    public boolean isPhaseWonFlag() {
+        return phaseWonFlag;
+    }
+
+    public void setPhaseWonFlag(boolean phaseWonFlag) {
+        this.phaseWonFlag = phaseWonFlag;
     }
 
     /**
@@ -68,6 +77,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
      * Initializing attack phase
      */
     public void startAttackPhase() {
+        phaseWonFlag=false;
         initializationAttackPhase();
         FileManager.getInstance().writeLog("Attack phase initialized.");
         FileManager.getInstance().writeLog("Game Attack phase started.");
@@ -155,6 +165,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
                                 getActivity().toastMessageFromBackground(resultAttackPhase.getMsgText());
                                 getActivity().showMap();
                                 if (resultAttackPhase.getMsgCode() == Constants.MSG_SUCC_CODE) {
+                                    phaseWonFlag = true;
                                     if (toTerritory.getArmyCount() == 0) {
                                         //army movement selection
                                         captureWonTerritoryAndSendArmy();

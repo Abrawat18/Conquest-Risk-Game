@@ -95,7 +95,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     private void initializeView() {
         listPlayer = (ListView) findViewById(R.id.list_player);
-        listPhaseView = (ListView)findViewById(R.id.list_phase_view);
+        listPhaseView = (ListView) findViewById(R.id.list_phase_view);
         btnStopAttack = (Button) findViewById(R.id.btn_stop_attack);
         btnNewAttack = (Button) findViewById(R.id.btn_new_attack);
         btnTradeInCards = (Button) findViewById(R.id.btn_tradeIn_cards);
@@ -114,6 +114,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * method to disable the fortification button during the game play phase
      */
     private void initialization() {
+        PhaseViewModel.getInstance().clearString();
         GamePhaseManager.getInstance().resetCurrentPhase();
         phaseViewAdapter = new GameLogAdapter(this, phaseViewList);
         listPhaseView.setAdapter(phaseViewAdapter);
@@ -155,6 +156,11 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     public void onAttackPhaseStopped() {
         FileManager.getInstance().writeLog("Attack phase started !!");
+        if (AttackPhaseController.getInstance().isPhaseWonFlag()) {
+            Cards randomCard = getMap().getRandomCardFromDeck();
+            getPlayerTurn().getOwnedCards().add(randomCard); //adding the card to the player
+            getMap().removeCardFromDeck(randomCard); //removing from the deck of cards
+        }
         changeGamePhase();
     }
 
@@ -416,7 +422,10 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 AttackPhaseController.getInstance().startAttackPhase();
                 break;
             case R.id.btn_tradeIn_cards:
-                showCardTradePopUp();
+                if (getPlayerTurn().getOwnedCards().size() > 0)
+                    showCardTradePopUp();
+                else
+                    Toast.makeText(this, "You have no cards yet", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_show_log:
                 Intent intent = new Intent(this, GameLogActivity.class);
@@ -463,8 +472,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     public void showCardTradePopUp() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.activity_player_cards);
-        //TODO :: remove below line
-        getPlayerTurn().setOwnedCards(cardList);
         cardListAdapter = new CardListAdapter(this, getPlayerTurn().getOwnedCards());
         dialog.setTitle("Trade-In Cards");
         GridView cardGrid = (GridView) dialog.findViewById(R.id.grid_card);
