@@ -72,7 +72,7 @@ public class Territory extends Observable{
                     this.neighbourList.add(terrObj);
                     terrObj.neighbourList.add(this);
                     try{
-                        FileManager.getInstance().writeLog("Data added in the list successfully !!");
+                        FileManager.getInstance().writeLog("Neighbour added between -> " + this.getTerritoryName() + " and " + terrObj.getTerritoryName());
                     }catch (Exception ex){
 
                     }
