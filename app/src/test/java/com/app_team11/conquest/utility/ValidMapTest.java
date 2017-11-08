@@ -10,6 +10,7 @@ import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Nigel on 19-Oct-17.
@@ -18,11 +19,13 @@ import static org.junit.Assert.assertFalse;
 public class ValidMapTest {
     private String filePath;
     private boolean failed;
+    GameMap gameMap;
 
     @Before
     public void setUp() {
         filePath="app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\3D.map";
         failed=false;
+        gameMap=new GameMap();
     }
     @Test
     public void validMapTest()
@@ -31,10 +34,9 @@ public class ValidMapTest {
         try {
             System.out.println(System.getProperty("user.dir") + File.separator + filePath);
 
-            GameMap gameMap = readTest.readFile(System.getProperty("user.dir") + File.separator + filePath);
+            gameMap = readTest.readFile(System.getProperty("user.dir") + File.separator + filePath);
 
-            if (gameMap.getContinentList() != null && gameMap.getTerritoryList() != null && gameMap.getPlayerList() != null)
-                assertFalse(failed);
+           assertTrue(gameMap.isGraphConnected());
         }
         catch(Exception e)
         {
