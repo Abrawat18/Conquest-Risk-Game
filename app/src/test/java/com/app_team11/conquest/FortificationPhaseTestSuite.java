@@ -1,6 +1,8 @@
 package com.app_team11.conquest;
 
+import com.app_team11.conquest.model.TerritoryTest;
 import com.app_team11.conquest.model.TerritoryTest1;
+import com.app_team11.conquest.model.TerritoryTest2;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -12,7 +14,9 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
+        TerritoryTest.class,
         TerritoryTest1.class,
+        TerritoryTest2.class
 
 
 })

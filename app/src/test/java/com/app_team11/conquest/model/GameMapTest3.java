@@ -20,7 +20,6 @@ import static junit.framework.Assert.assertEquals;
 public class GameMapTest3 {
 
 
-    public class GameMapTest2 {
         List<Territory> territoryList;
         Player player,player1,p;
         Territory territory,territory3;
@@ -79,4 +78,4 @@ public class GameMapTest3 {
         }
     }
 
-}
+
