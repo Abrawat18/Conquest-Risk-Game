@@ -68,7 +68,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private PlayerListAdapter playerListAdapter;
     private Button btnTradeInCards;
     private Toast commonToast;
-    private List<Cards> cardList = new ArrayList<>();
     private List<String> phaseViewList = new ArrayList<>();
     private CardListAdapter cardListAdapter;
     private GameLogAdapter phaseViewAdapter;
@@ -573,7 +572,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             @Override
             public void onClick(View v) {
                 List<Cards> selectedCardList = new ArrayList<Cards>();
-                for (Cards card : cardList) {
+                for (Cards card : getPlayerTurn().getOwnedCards()) {
                     if (card.isSelected()) {
                         selectedCardList.add(card);
                     }
@@ -592,8 +591,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int noOfSelectedCards = 0;
-                if (!cardList.get(position).isSelected()) {
-                    for (Cards card : cardList) {
+                if (!getPlayerTurn().getOwnedCards().get(position).isSelected()) {
+                    for (Cards card : getPlayerTurn().getOwnedCards()) {
                         if (noOfSelectedCards >= 3) {
                             toastMessageFromBackground(Constants.TOAST_MSG_MAX_CARDS_SELECTION_ERROR);
                             break;
@@ -603,8 +602,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                         }
                     }
                 }
-                if (noOfSelectedCards < 3 || cardList.get(position).isSelected()) {
-                    cardList.get(position).setSelected(!cardList.get(position).isSelected());
+                if (noOfSelectedCards < 3 || getPlayerTurn().getOwnedCards().get(position).isSelected()) {
+                    getPlayerTurn().getOwnedCards().get(position).setSelected(!getPlayerTurn().getOwnedCards().get(position).isSelected());
                 }
                 cardListAdapter.notifyDataSetChanged();
             }
