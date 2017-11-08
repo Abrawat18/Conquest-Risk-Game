@@ -69,6 +69,6 @@ public class TerritoryTest1 {
     public void invalidFortifyPhase()
     {
         //since they are not neighbouring territories, fortification phase cannot proceed.
-       assertEquals(0,territoryList.get(0).fortifyTerritory(territoryList.get(1), playerList.get(0), 10).getMsgCode());
+       assertEquals(0,playerList.get(0).fortifyTerritory(territoryList.get(0), territoryList.get(1), 10).getMsgCode());
     }
 }

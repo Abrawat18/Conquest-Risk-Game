@@ -70,6 +70,6 @@ public class TerritoryTest2 {
         cm=territoryList.get(0).fortifyTerritory(territory, playerList.get(0), 11);
         System.out.println(cm.getMsgText());
 
-        assertEquals(0,territoryList.get(0).fortifyTerritory(territory, playerList.get(0), 10).getMsgCode());
+        assertEquals(0,playerList.get(0).fortifyTerritory(territoryList.get(0), territoryList.get(1), 10).getMsgCode());
     }
 }
