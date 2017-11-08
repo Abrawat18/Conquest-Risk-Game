@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.ConfigurableMessage;
+import com.app_team11.conquest.utility.FileManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,6 +59,7 @@ public class Player extends Observable {
 
     /**
      * Returns the player ID
+     *
      * @return playerID
      */
     public int getPlayerId() {
@@ -66,6 +68,7 @@ public class Player extends Observable {
 
     /**
      * Sets the ID of the player
+     *
      * @param playerId
      */
     public void setPlayerId(int playerId) {
@@ -74,6 +77,7 @@ public class Player extends Observable {
 
     /**
      * Returns the available army count
+     *
      * @return availableArmyCount
      */
     public int getAvailableArmyCount() {
@@ -82,6 +86,7 @@ public class Player extends Observable {
 
     /**
      * Sets the available army count
+     *
      * @param availableArmyCount
      */
     public void setAvailableArmyCount(int availableArmyCount) {
@@ -90,6 +95,7 @@ public class Player extends Observable {
 
     /**
      * Returns the Owned cards
+     *
      * @return ownedCards
      */
     public List<Cards> getOwnedCards() {
@@ -98,6 +104,7 @@ public class Player extends Observable {
 
     /**
      * Sets the owned cards
+     *
      * @param ownedCards
      */
     public void setOwnedCards(List<Cards> ownedCards) {
@@ -110,6 +117,7 @@ public class Player extends Observable {
 
     /**
      * Returns the trade in cards
+     *
      * @return cardTradeIn
      */
     public Boolean getCardTradeIn() {
@@ -118,6 +126,7 @@ public class Player extends Observable {
 
     /**
      * Sets the trade in cards
+     *
      * @param cardTradeIn
      */
     public void setCardTradeIn(Boolean cardTradeIn) {
@@ -221,10 +230,20 @@ public class Player extends Observable {
         }
         reinforcementCount.setOtherTotalReinforcement(territoryArmy + continentArmy + cardArmy);
         String message = "Armies reinforced: " + reinforcementCount.getOtherTotalReinforcement();
+        try {
+            FileManager.getInstance().writeLog(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         PhaseViewModel.getInstance().clearString();
         PhaseViewModel.getInstance().addPhaseViewContent(message);
-        if(reinforcementCount.getMatchedTerrCardReinforcement()!=0) {
+        if (reinforcementCount.getMatchedTerrCardReinforcement() != 0) {
             String message2 = "Matched Territory Armies: " + reinforcementCount.getMatchedTerrCardReinforcement();
+            try {
+                FileManager.getInstance().writeLog(message2);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             PhaseViewModel.getInstance().addPhaseViewContent(message2);
         }
         return reinforcementCount;
@@ -233,6 +252,7 @@ public class Player extends Observable {
 
     /**
      * Checks whether player is attacking an already owned territory
+     *
      * @param attackerTerritory
      * @param defenderTerritory
      * @return whether adjacent or not
@@ -247,6 +267,7 @@ public class Player extends Observable {
 
     /**
      * Check for sufficient armies
+     *
      * @param attackerTerritory
      * @return
      */
@@ -258,6 +279,7 @@ public class Player extends Observable {
 
     /**
      * Checks whether attack can be continued
+     *
      * @param defenderTerritory
      * @return
      */
@@ -269,6 +291,7 @@ public class Player extends Observable {
 
     /**
      * Validate the attack
+     *
      * @param attackerTerritory
      * @param defenderTerritory
      * @return
@@ -291,7 +314,8 @@ public class Player extends Observable {
 
 
     /**
-     *  The attack phase method
+     * The attack phase method
+     *
      * @param attackerTerritory
      * @param defenderTerritory
      * @param attackerDice
@@ -305,9 +329,9 @@ public class Player extends Observable {
             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.CHOOSE_LESS_NUMBER_DICE);
         }
         PhaseViewModel.getInstance().clearString();
-        String messageAttack = "Attacking City "+attackerTerritory.getTerritoryName();
+        String messageAttack = "Attacking City " + attackerTerritory.getTerritoryName();
         PhaseViewModel.getInstance().addPhaseViewContent(messageAttack);
-        String messageDefender = "Attacked City "+defenderTerritory.getTerritoryName();
+        String messageDefender = "Attacked City " + defenderTerritory.getTerritoryName();
         PhaseViewModel.getInstance().addPhaseViewContent(messageDefender);
 
         //Validations are true for attacking and hence proceeding with logic
@@ -318,9 +342,7 @@ public class Player extends Observable {
         try {
             Log.e(TAG, "Attacker Dice:" + attackerDiceValues.toString());
             Log.e(TAG, "Defender Dice:" + defenderDiceValues.toString());
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
 
         }
         int attackerDiceValue = 0, defenderDiceValue = 0;
@@ -329,11 +351,18 @@ public class Player extends Observable {
         Collections.sort(attackerDiceValues, Collections.reverseOrder());
         Collections.sort(defenderDiceValues, Collections.reverseOrder());
 
-        String messageAttackDice = "Attacker Dice "+Arrays.toString(attackerDiceValues.toArray());
+        String messageAttackDice = "Attacker Dice " + Arrays.toString(attackerDiceValues.toArray());
         PhaseViewModel.getInstance().addPhaseViewContent(messageAttackDice);
-        String messageDefenderDice = "Defender Dice "+Arrays.toString(defenderDiceValues.toArray());
+        String messageDefenderDice = "Defender Dice " + Arrays.toString(defenderDiceValues.toArray());
         PhaseViewModel.getInstance().addPhaseViewContent(messageDefenderDice);
-
+        try {
+            FileManager.getInstance().writeLog(messageAttack);
+            FileManager.getInstance().writeLog(messageDefender);
+            FileManager.getInstance().writeLog(messageAttackDice);
+            FileManager.getInstance().writeLog(messageDefenderDice);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         while (defenderDiceValues.size() > 0) {
             attackerDiceValue = attackerDiceValues.get(0);
             defenderDiceValue = defenderDiceValues.get(0);
@@ -350,12 +379,22 @@ public class Player extends Observable {
             defenderDiceValues.remove(0);
         }
         if (attackerWonCounter > 0) {
-            String message = "Player"+attackerTerritory.getTerritoryOwner().getPlayerId()+" won";
+            String message = "Player" + attackerTerritory.getTerritoryOwner().getPlayerId() + " won";
             PhaseViewModel.getInstance().addPhaseViewContent(message);
+            try {
+                FileManager.getInstance().writeLog(message);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ATTACKER_WON);
         } else {
-            String message = "Player"+defenderTerritory.getTerritoryOwner().getPlayerId()+" won";
+            String message = "Player" + defenderTerritory.getTerritoryOwner().getPlayerId() + " won";
             PhaseViewModel.getInstance().addPhaseViewContent(message);
+            try {
+                FileManager.getInstance().writeLog(message);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ATTACKER_LOST);
 
         }
@@ -373,6 +412,7 @@ public class Player extends Observable {
 
     /**
      * This method is for conditions related to capturing a territory
+     *
      * @param attackerTerritory
      * @param defenderTerritory
      * @param moveArmiesToCapturedTerritory
@@ -390,6 +430,11 @@ public class Player extends Observable {
         }
         String message = "Player " + attackerTerritory.getTerritoryOwner().getPlayerId() + " has captured " + defenderTerritory.getTerritoryName();
         PhaseViewModel.getInstance().addPhaseViewContent(message);
+        try {
+            FileManager.getInstance().writeLog(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         ObserverType observerType = new ObserverType();
         observerType.setObserverType(ObserverType.WORLD_DOMINATION_TYPE);
         setChanged();
@@ -400,6 +445,7 @@ public class Player extends Observable {
 
     /**
      * This method returns the highest value from a given list.
+     *
      * @param diceArray
      * @return Maximum element from the list
      */
@@ -410,6 +456,7 @@ public class Player extends Observable {
 
     /**
      * This method deletes the element from the list.
+     *
      * @param diceArray
      * @param element
      * @return the modified list
@@ -429,6 +476,7 @@ public class Player extends Observable {
 
     /**
      * Generates random dice values depending on number of attacker/defender dice
+     *
      * @param arraySize
      * @return randomly generated dice array
      */
@@ -442,11 +490,12 @@ public class Player extends Observable {
 
     /**
      * Method is used to implement the fortification functionality
+     *
      * @param destTerritory the destination territory for fortification
-     * @param countOfArmy number of armies to be moved
+     * @param countOfArmy   number of armies to be moved
      * @return response message
      */
-    public ConfigurableMessage fortifyTerritory(Territory fromTerritory,Territory destTerritory, int countOfArmy) {
+    public ConfigurableMessage fortifyTerritory(Territory fromTerritory, Territory destTerritory, int countOfArmy) {
         if (fromTerritory.getArmyCount() > countOfArmy && fromTerritory.getTerritoryOwner().getPlayerId() == this.getPlayerId()) {
             Boolean neighbourFlag = false;
             for (Territory obj : fromTerritory.getNeighbourList()) {
@@ -458,7 +507,12 @@ public class Player extends Observable {
                 }
             }
             if (neighbourFlag == true) {
-                String message=fromTerritory.getTerritoryName()+" has been fortified with "+countOfArmy+" armies.";
+                String message = fromTerritory.getTerritoryName() + " has been fortified with " + countOfArmy + " armies.";
+                try {
+                    FileManager.getInstance().writeLog(fromTerritory.getTerritoryName() + " has been fortified with " + countOfArmy + " armies.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 PhaseViewModel.getInstance().clearString();
                 PhaseViewModel.getInstance().addPhaseViewContent(message);
                 return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.FORTIFICATION_SUCCESS);

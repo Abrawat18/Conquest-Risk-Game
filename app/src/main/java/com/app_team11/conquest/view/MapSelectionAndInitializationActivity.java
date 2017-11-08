@@ -21,8 +21,8 @@ import java.io.File;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
+ * Map Selection and initialization
  * Created by RADHEY on 10/15/2017.
- *
  * @version 1.0.0
  */
 
@@ -34,6 +34,7 @@ public class MapSelectionAndInitializationActivity extends Activity {
     private Intent intent = null;
 
     /**
+     * On create method for map selection
      * {@inheritDoc}
      */
     @Override
@@ -119,12 +120,20 @@ public class MapSelectionAndInitializationActivity extends Activity {
         });
     }
 
+    /**
+     * Instance saving option
+     * @param savedInstanceState
+     */
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putString(Constants.KEY_FROM, fromWhichActivity);
     }
 
+    /**
+     * Instance state restore
+     * @param savedInstanceState
+     */
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);

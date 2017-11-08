@@ -29,13 +29,10 @@ import org.json.JSONException;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
+ * Map Editor activity view
  * Created by Jaydeep9101 on 06-Oct-17.
- *
  * @version 1.0.0
  */
-
-//Todo : editor menu : 1. add continent 2. add territory 3. on terrirtory  selection : show continent or select continent , neighbour
-
 
 public class MapEditorActivity extends Activity implements View.OnTouchListener, View.OnClickListener {
 
@@ -142,19 +139,32 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
         });
     }
 
-
+    /**
+     * Surface call back for map editor
+     */
     private SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
             MapEditorController.getInstance().showMap();
         }
 
+        /**
+         * Surface destroyed surface holder
+         * @param holder
+         */
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {
 
             holder.removeCallback(surfaceCallback);
         }
 
+        /**
+         * View for change surface
+         * @param holder
+         * @param format
+         * @param width
+         * @param height
+         */
         @Override
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         }
@@ -162,7 +172,6 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     /**
      * OnTouch motion event Listener
-     *
      * @param v     : view
      * @param event : MotionEvent
      * @return : Boolean
@@ -175,6 +184,10 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     }
 
+    /**
+     * Shows the toast message
+     * @param msg
+     */
     private void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
@@ -191,7 +204,6 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     /**
      * {@inheritDoc}
-     *
      * @param v
      */
     @Override
