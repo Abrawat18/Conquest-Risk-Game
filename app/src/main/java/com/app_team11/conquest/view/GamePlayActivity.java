@@ -24,16 +24,17 @@ import android.widget.Toast;
 
 import com.app_team11.conquest.R;
 import com.app_team11.conquest.adapter.CardListAdapter;
+import com.app_team11.conquest.adapter.GameLogAdapter;
 import com.app_team11.conquest.adapter.PlayerListAdapter;
 import com.app_team11.conquest.controller.AttackPhaseController;
 import com.app_team11.conquest.controller.FortificationPhaseController;
-import com.app_team11.conquest.controller.MainDashboardController;
 import com.app_team11.conquest.controller.ReinforcementPhaseController;
 import com.app_team11.conquest.controller.StartUpPhaseController;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
 import com.app_team11.conquest.model.Cards;
 import com.app_team11.conquest.model.GameMap;
+import com.app_team11.conquest.model.PhaseViewModel;
 import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.FileManager;
@@ -65,9 +66,12 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private Button btnTradeInCards;
     private Toast commonToast;
     private List<Cards> cardList = new ArrayList<>();
+    private List<String> phaseViewList = new ArrayList<>();
     private CardListAdapter cardListAdapter;
+    private GameLogAdapter phaseViewAdapter;
     private LinearLayout linearWorldDominationView;
     private List<TextView> textViewPlayerDominationList = new ArrayList<>();
+    private ListView listPhaseView;
 
     /**
      * {@inheritDoc}
@@ -91,6 +95,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     private void initializeView() {
         listPlayer = (ListView) findViewById(R.id.list_player);
+        listPhaseView = (ListView)findViewById(R.id.list_phase_view);
         btnStopAttack = (Button) findViewById(R.id.btn_stop_attack);
         btnNewAttack = (Button) findViewById(R.id.btn_new_attack);
         btnTradeInCards = (Button) findViewById(R.id.btn_tradeIn_cards);
@@ -110,8 +115,17 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     private void initialization() {
         GamePhaseManager.getInstance().resetCurrentPhase();
+        phaseViewAdapter = new GameLogAdapter(this, phaseViewList);
+        listPhaseView.setAdapter(phaseViewAdapter);
+        PhaseViewModel.getInstance().addObserver(this);
         commonToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         changeGamePhase();
+    }
+
+    private void updateCreatePhaseView() {
+        phaseViewList = PhaseViewModel.getInstance().getListPhaseViewContent();
+        phaseViewAdapter.setGameLogList(phaseViewList);
+        notifyPhaseViewAdapter();
     }
 
     /**
@@ -431,11 +445,18 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     @Override
     public void update(Observable o, Object arg) {
         notifyCardListAdapter();
+        updateCreatePhaseView();
     }
 
     public void notifyCardListAdapter() {
         if (cardListAdapter != null) {
             cardListAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void notifyPhaseViewAdapter() {
+        if (phaseViewAdapter != null) {
+            phaseViewAdapter.notifyDataSetChanged();
         }
     }
 

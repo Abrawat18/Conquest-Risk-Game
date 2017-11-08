@@ -16,6 +16,10 @@ public class PhaseViewModel extends Observable {
     private PhaseViewModel() {
     }
 
+    public List<String> getListPhaseViewContent() {
+        return listPhaseViewContent;
+    }
+
     public static PhaseViewModel getInstance() {
         if (phaseViewModel == null) {
             phaseViewModel = new PhaseViewModel();

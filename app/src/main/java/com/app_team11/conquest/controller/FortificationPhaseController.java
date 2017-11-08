@@ -119,7 +119,8 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
                         if (!TextUtils.isEmpty(editNoOfArmy.getText().toString())) {
                             int requestedToPlaceArmy = Integer.parseInt(editNoOfArmy.getText().toString());
                             FileManager.getInstance().writeLog("Requested number of armies to be moved - " + requestedToPlaceArmy);
-                            ConfigurableMessage configurableMessage = fortificationFromTerritory.fortifyTerritory(fortificationToTerritory,getActivity().getPlayerTurn(),requestedToPlaceArmy);
+                            //ConfigurableMessage configurableMessage = fortificationFromTerritory.fortifyTerritory(fortificationToTerritory,getActivity().getPlayerTurn(),requestedToPlaceArmy);
+                            ConfigurableMessage configurableMessage = getActivity().getPlayerTurn().fortifyTerritory(fortificationFromTerritory,fortificationToTerritory,requestedToPlaceArmy);
                             if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
                                 getActivity().showMap();
                                 stopFortificationPhase();

@@ -55,6 +55,14 @@ public class GameLogAdapter extends BaseAdapter {
         return convertView;
     }
 
+    /**
+     * setter method for game list
+     * @param gameLogList
+     */
+    public void setGameLogList(List<String> gameLogList) {
+        this.gameLogList = gameLogList;
+    }
+
     class ViewHolder {
         private TextView textGameLog;
     }
