@@ -14,6 +14,7 @@ import static org.junit.Assert.*;
 
 /**
  * Created by Nigel on 10/19/2017.
+ * Scenarios for valid and invalid fortification phases
  */
 public class TerritoryTest {
     private List<Territory> territoryList;
@@ -68,9 +69,11 @@ public class TerritoryTest {
     @Test
     public void fortificationTestCases()
     {
-        assertEquals(1,territoryList.get(0).fortifyTerritory(territoryList.get(1), player, 10).getMsgCode());
+        //Valid scenario
+        assertEquals(Constants.MSG_SUCC_CODE,territoryList.get(0).fortifyTerritory(territoryList.get(1), player, 10).getMsgCode());
 
-        assertEquals(0,territoryList.get(2).fortifyTerritory(territoryList.get(1), player, 10).getMsgCode());
+        //Exceeded number of armies, Hence should fail
+        assertEquals(Constants.MSG_FAIL_CODE,territoryList.get(2).fortifyTerritory(territoryList.get(1), player, 10).getMsgCode());
     }
 
 }

@@ -15,6 +15,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import com.app_team11.conquest.model.GameMap;
+import com.app_team11.conquest.model.PhaseViewModel;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.model.Continent;
 import com.app_team11.conquest.model.Player;
@@ -126,6 +127,9 @@ public class ReadMapUtility {
         gm = new GameMap();
         gm.setContinentList(continentList);
         gm.setTerritoryList(territoryList);
+        String message="Map formed correctly";
+        PhaseViewModel.getInstance().addPhaseViewContent(message);
+
         return gm;
 
     }
