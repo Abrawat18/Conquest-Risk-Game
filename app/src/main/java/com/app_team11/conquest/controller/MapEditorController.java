@@ -239,24 +239,6 @@ public class MapEditorController {
 
     }
 
-    private SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
-        @Override
-        public void surfaceCreated(SurfaceHolder holder) {
-            showMap();
-        }
-
-        @Override
-        public void surfaceDestroyed(SurfaceHolder holder) {
-
-            holder.removeCallback(surfaceCallback);
-        }
-
-        @Override
-        public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        }
-    };
-
-
     private void showToast(String msg) {
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
@@ -270,16 +252,17 @@ public class MapEditorController {
         linePaint.setColor(Color.WHITE);
         linePaint.setStrokeWidth(15);
         getActivity().canvas = getActivity().surface.getHolder().lockCanvas();
-        for (Territory territory : map.getTerritoryList()) {
-            Paint paint = new Paint();
-            paint.setColor(territory.getContinent().getContColor());
-            getActivity().canvas.drawCircle(territory.getCenterPoint().x, territory.getCenterPoint().y, Constants.TERRITORY_RADIUS, paint);
-            for (Territory territoryNeighbour : territory.getNeighbourList()) {
-                getActivity().canvas.drawLine(territory.getCenterPoint().x, territory.getCenterPoint().y, territoryNeighbour.getCenterPoint().x, territoryNeighbour.getCenterPoint().y, linePaint);
+        if (getActivity().canvas != null) {
+            for (Territory territory : map.getTerritoryList()) {
+                Paint paint = new Paint();
+                paint.setColor(territory.getContinent().getContColor());
+                getActivity().canvas.drawCircle(territory.getCenterPoint().x, territory.getCenterPoint().y, Constants.TERRITORY_RADIUS, paint);
+                for (Territory territoryNeighbour : territory.getNeighbourList()) {
+                    getActivity().canvas.drawLine(territory.getCenterPoint().x, territory.getCenterPoint().y, territoryNeighbour.getCenterPoint().x, territoryNeighbour.getCenterPoint().y, linePaint);
+                }
             }
+            getActivity().surface.getHolder().unlockCanvasAndPost(getActivity().canvas);
         }
-        getActivity().surface.getHolder().unlockCanvasAndPost(getActivity().canvas);
-
     }
 
     private void setMap(GameMap map) {
@@ -422,7 +405,7 @@ public class MapEditorController {
             if (config.getMsgCode() == 0) {
                 Toast.makeText(getActivity(), config.getMsgText(), Toast.LENGTH_SHORT).show();
             } else {
-                MapEditorController.getInstance().showMap();
+                showMap();
             }
         } else {
             for (Territory territory : map.getTerritoryList()) {
@@ -438,7 +421,7 @@ public class MapEditorController {
                         if (neighbourTerritoryTo != neighbourTerritoryFrom) {
                             ConfigurableMessage msg = neighbourTerritoryFrom.addRemoveNeighbourToTerr(neighbourTerritoryTo, 'A');
                             if (msg.getMsgCode() == Constants.MSG_SUCC_CODE) {
-                                MapEditorController.getInstance().showMap();
+                                showMap();
                             } else
                                 showToast(msg.getMsgText());
 

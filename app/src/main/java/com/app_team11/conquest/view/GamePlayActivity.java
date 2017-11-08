@@ -448,6 +448,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     @Override
     protected void onResume() {
         super.onResume();
+        surface.setOnTouchListener(this);
+        surface.getHolder().addCallback(surfaceCallback);
         showMap();
     }
 
