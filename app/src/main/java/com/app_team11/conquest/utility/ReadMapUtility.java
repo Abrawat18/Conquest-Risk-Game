@@ -46,6 +46,10 @@ public class ReadMapUtility {
      */
     public ReadMapUtility() {   }
 
+    /**
+     * List territory
+     * @return list of territory
+     */
     public List<Territory> currentTerritories() {
         return territoryList;
     }

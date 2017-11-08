@@ -13,6 +13,7 @@ import com.app_team11.conquest.model.Continent;
 import java.util.List;
 
 /**
+ * Adapter for setting the data in GameLogAdapter
  * Created by Abhishek on 04-Nov-17.
  */
 
@@ -26,21 +27,42 @@ public class GameLogAdapter extends BaseAdapter {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    /**
+     * Returns the count for game log lost
+     * @return game log list
+     */
     @Override
     public int getCount() {
         return gameLogList.size();
     }
 
+    /**
+     * returns the item position
+     * @param position
+     * @return item position
+     */
     @Override
     public String getItem(int position) {
         return gameLogList.get(position);
     }
 
+    /**
+     * Returns the item position
+     * @param position
+     * @return item position
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Returns the view
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return view
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
@@ -63,6 +85,9 @@ public class GameLogAdapter extends BaseAdapter {
         this.gameLogList = gameLogList;
     }
 
+    /**
+     * View Holder
+     */
     class ViewHolder {
         private TextView textGameLog;
     }

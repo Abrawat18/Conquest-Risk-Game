@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
+import com.app_team11.conquest.model.PhaseViewModel;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.utility.FileManager;
@@ -109,6 +110,7 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
         final EditText editNoOfArmy = new EditText(getActivity());
         editNoOfArmy.setInputType(InputType.TYPE_CLASS_NUMBER);
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
+        sweetAlertDialog.setCancelable(false);
         sweetAlertDialog.setTitleText("Enter no of Army to move")
                 .setConfirmText("Ok")
                 .setCustomView(editNoOfArmy)
@@ -141,6 +143,8 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
         fortificationFromTerritory  =null;
         fortificationToTerritory = null;
         getActivity().toastMessageFromBackground("Select from territory");
+        PhaseViewModel.getInstance().clearString();
+        PhaseViewModel.getInstance().addPhaseViewContent("Fortification Phase Player :"+getActivity().getPlayerTurn().getPlayerId());
     }
 
     /**

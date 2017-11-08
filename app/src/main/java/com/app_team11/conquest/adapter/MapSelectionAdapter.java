@@ -13,6 +13,7 @@ import java.io.File;
 import java.util.List;
 
 /**
+ * Adapter for setting the data in MapSelectionAdapter
  * Created by Jaydeep9101 on 17-Oct-17.
  */
 
@@ -28,21 +29,34 @@ public class MapSelectionAdapter extends BaseAdapter {
         inflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    /**
+     * Returns count for the map file list
+     * @return map file list length
+     */
     @Override
     public int getCount() {
         return mapFileList.length;
     }
-
+    /**
+     * Returns count for the map file position
+     * @return map file list position
+     */
     @Override
     public File getItem(int position) {
         return mapFileList[position];
     }
-
+    /**
+     * Returns count for the map file item
+     * @return map file list item
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
-
+    /**
+     * Returns view for the map file
+     * @return view for map file
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -59,6 +73,9 @@ public class MapSelectionAdapter extends BaseAdapter {
         return convertView;
     }
 
+    /**
+     * View Holder
+     */
     class ViewHolder{
         TextView  textMapName;
     }

@@ -4,6 +4,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
+ * On touch listner
  * Created by Jaydeep9101 on 19-Oct-17.
  */
 
