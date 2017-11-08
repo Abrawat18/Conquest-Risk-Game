@@ -21,8 +21,8 @@ import com.app_team11.conquest.view.GamePlayActivity;
 import java.util.Collections;
 
 /**
+ * Startup phase implementation
  * Created by Jaydeep9101 on 19-Oct-17.
- *
  * @version 1.0.0
  */
 
@@ -36,10 +36,17 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
     private boolean waitForSelectTerritory;
     private boolean needToStop = false;
 
+    /**
+     * Default Constructor
+     */
     private StartUpPhaseController() {
 
     }
 
+    /**
+     * Singleton for StartUp Phase
+     * @return startUpPhaseController
+     */
     public static StartUpPhaseController getInstance() {
         if (startUpPhaseController == null) {
             startUpPhaseController = new StartUpPhaseController();
@@ -47,12 +54,19 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
         return startUpPhaseController;
     }
 
+    /**
+     * Context setting for StartUp Phase
+     * @param context
+     */
     public StartUpPhaseController setContext(Context context) {
         this.context = context;
         getActivity().setSurfaceOnTouchListner(this);
         return getInstance();
     }
 
+    /**
+     * Stop start up phase method
+     */
     public void stopStartupPhase() {
         getActivity().onStartupPhaseFinished();
     }
@@ -83,6 +97,9 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
         }
     }
 
+    /**
+     * StartUp Phase initialization
+     */
     public void startStartUpPhase() {
         initializationStartupPhase();
         FileManager.getInstance().writeLog("Game Startup phase started.");
@@ -101,6 +118,9 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
 
     }
 
+    /**
+     * World domination view implementation
+     */
     public void worldDominationViewSet(){
         int playerCount=getActivity().getMap().getPlayerList().size();
         getActivity().initializeDominationView(playerCount);
@@ -138,8 +158,8 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
     }
 
     /**
-     *
-     * @return
+     *Method to check if army is left to assign for any players
+     * @return true or false
      */
     public boolean isArmyLeftToAssignForAnyPlayers() {
         for (final Player player : getActivity().getMap().getPlayerList()) {

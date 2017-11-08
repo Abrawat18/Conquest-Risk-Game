@@ -38,21 +38,31 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
     private int defenderDice;
     private boolean phaseWonFlag;
 
+    /**
+     * Default Constructor
+     */
     private AttackPhaseController() {
 
     }
 
+    /**
+     * Flag set for won phase
+     * @param phaseWonFlag
+     */
     public void setPhaseWonFlag(boolean phaseWonFlag) {
         this.phaseWonFlag = phaseWonFlag;
     }
 
+    /**
+     * Flag checking for won phase
+     * @return phaseWonFlag
+     */
     public boolean isPhaseWonFlag() {
         return phaseWonFlag;
     }
 
     /**
      * Getting the instance of AtackPhaseController
-     *
      * @return mainDashboardController
      */
     public static AttackPhaseController getInstance() {
@@ -65,7 +75,6 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     /**
      * setting the context variable for reinforcement phase
-     *
      * @param context
      * @return getInstance()
      */
@@ -96,7 +105,6 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Method to check if attack is possible
-     *
      * @return
      */
     private boolean isAttackPossible() {
@@ -127,7 +135,6 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
     /**
      * Getting the X and Y coordinate for the touch
      * {@inheritDoc}
-     *
      * @param v
      * @param event
      */
@@ -162,6 +169,9 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     }
 
+    /**
+     * Attack Phase Configuration
+     */
     private void configureAttackPhase() {
         //Dice selection...
         LinearLayout linearInput = new LinearLayout(getActivity());
@@ -222,6 +232,9 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     }
 
+    /**
+     * Method which capture the won territory and moves army
+     */
     private void captureWonTerritoryAndSendArmy() {
         final EditText editNoOfArmy = new EditText(getActivity());
         editNoOfArmy.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -268,6 +281,10 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
         return (GamePlayActivity) context;
     }
 
+    /**
+     * Method for ending the game when the player wins
+     * @param playerWon
+     */
     public void endGame(Player playerWon) {
 
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);

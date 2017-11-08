@@ -455,11 +455,20 @@ public class MapEditorController {
         sweetAlertDialog.show();
     }
 
+    /**
+     * Game log method
+     */
     public void openGameLog() {
         Intent intent = new Intent(getActivity(), GameLogActivity.class);
         getActivity().startActivity(intent);
     }
 
+    /**
+     * Motion event capture
+     * @param v
+     * @param event
+     * @return
+     */
     public boolean onTouch(View v, MotionEvent event) {
 
         float x = event.getX();
@@ -507,6 +516,10 @@ public class MapEditorController {
 
     }
 
+    /**
+     * Returns the MapEditorActivity
+     * @return MapEditorActivity
+     */
     public MapEditorActivity getActivity() {
         return (MapEditorActivity) context;
     }
