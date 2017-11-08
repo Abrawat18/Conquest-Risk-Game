@@ -18,6 +18,7 @@ import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.view.GamePlayActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -176,6 +177,7 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
 
             getActivity().getPlayerTurn().setAvailableArmyCount(needToPlaceArmy);
             getActivity().toastMessageFromBackground("Place Army:" + needToPlaceArmy);
+            FileManager.getInstance().writeLog("Place Army-> " + needToPlaceArmy);
             getActivity().notifyPlayerListAdapter();
         }
         else if(tradeInCardList == null){
