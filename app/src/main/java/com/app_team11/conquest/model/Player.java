@@ -161,7 +161,7 @@ public class Player extends Observable {
      * @param tradeInCards
      * @return Reinforcement Army Count
      */
-    public ReinforcementType calcReinforcementArmy(GameMap gameMap, int cardTradeCount, List<Cards> tradeInCards) {
+    public ReinforcementType    calcReinforcementArmy(GameMap gameMap, int cardTradeCount, List<Cards> tradeInCards) {
         int ownedTerritoryCount = 0;
         int territoryArmy = 3;
         int continentArmy = 0;
@@ -230,7 +230,7 @@ public class Player extends Observable {
         try {
             FileManager.getInstance().writeLog(message);
         } catch (Exception e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
         PhaseViewModel.getInstance().addPhaseViewContent(message);
         if (reinforcementCount.getMatchedTerrCardReinforcement() != 0) {
@@ -238,7 +238,7 @@ public class Player extends Observable {
             try {
                 FileManager.getInstance().writeLog(message2);
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             PhaseViewModel.getInstance().addPhaseViewContent(message2);
         }
@@ -356,7 +356,7 @@ public class Player extends Observable {
             FileManager.getInstance().writeLog(messageAttackDice);
             FileManager.getInstance().writeLog(messageDefenderDice);
         } catch (Exception e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
         while (defenderDiceValues.size() > 0) {
             attackerDiceValue = attackerDiceValues.get(0);
@@ -379,7 +379,7 @@ public class Player extends Observable {
             try {
                 FileManager.getInstance().writeLog(message);
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ATTACKER_WON);
         } else {
@@ -388,7 +388,7 @@ public class Player extends Observable {
             try {
                 FileManager.getInstance().writeLog(message);
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ATTACKER_LOST);
 
@@ -436,7 +436,7 @@ public class Player extends Observable {
         try {
             FileManager.getInstance().writeLog(message);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         ObserverType observerType = new ObserverType();
         observerType.setObserverType(ObserverType.WORLD_DOMINATION_TYPE);

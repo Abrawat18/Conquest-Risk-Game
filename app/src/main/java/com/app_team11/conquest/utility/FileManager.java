@@ -103,12 +103,19 @@ public class FileManager {
      * @return file
      */
     public File getLogPath(String finalName) {
-        String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + File.separator + Constants.ROOT_LOG_DIR);
-        if (!myDir.exists()) {
-            myDir.mkdirs();
+        File file=null;
+        try {
+            String root = Environment.getExternalStorageDirectory().toString();
+            File myDir = new File(root + File.separator + Constants.ROOT_LOG_DIR);
+            if (!myDir.exists()) {
+                myDir.mkdirs();
+            }
+             file= new File(myDir, finalName);
         }
-        File file = new File(myDir, finalName);
+        catch(Exception e)
+        {
+
+        }
         return file;
     }
 
@@ -144,13 +151,13 @@ public class FileManager {
             output.write(text);
             output.newLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         } finally {
             if (output != null) {
                 try {
                     output.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
             }
         }
