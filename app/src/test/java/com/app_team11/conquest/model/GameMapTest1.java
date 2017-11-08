@@ -35,7 +35,7 @@ public class GameMapTest1 {
     public void gameMapFunctionalityTest() {
         ReadMapUtility readTest = new ReadMapUtility();
         GameMap gameMap = readTest.readFile(System.getProperty("user.dir") + File.separator + filePath);
-        System.out.println("map is" + gameMap);
+        //System.out.println("map is" + gameMap);
         gameMap.setAuthorName("Tester");
         gameMap.setImageName("Test Image");
         gameMap.setScrollLine("yes");
