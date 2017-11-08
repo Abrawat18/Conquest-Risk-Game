@@ -127,6 +127,7 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
         final EditText editNoOfArmy = new EditText(getActivity());
         editNoOfArmy.setInputType(InputType.TYPE_CLASS_NUMBER);
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
+        sweetAlertDialog.setCancelable(false);
         sweetAlertDialog.setTitleText("Enter no of army")
                 .setConfirmText("Ok")
                 .setCustomView(editNoOfArmy)
