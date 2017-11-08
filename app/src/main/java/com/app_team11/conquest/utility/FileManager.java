@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**File Manager Class is used for reading , writing of files and performing relevant operations
+/**
+ * File Manager Class is used for reading , writing of files and performing relevant operations
  * Created by Vasu on 06-10-2017.
  */
 public class FileManager {
@@ -21,8 +22,8 @@ public class FileManager {
     }
 
     /**
-     *
-     * @return
+     * Method to implement singleton pattern
+     * @return fileManager
      */
     public static FileManager getInstance() {
         if (fileManager == null) {
@@ -32,7 +33,7 @@ public class FileManager {
     }
 
     /**
-     *
+     * Method to create BufferWriter object to enable writing
      * @param filePath
      * @return
      */
@@ -52,9 +53,9 @@ public class FileManager {
     }
 
     /**
-     *
+     * Method to create BufferWriter object to enable writing
      * @param file
-     * @return
+     * @return writer
      */
     public BufferedWriter createWriter(File file) {
 
@@ -72,6 +73,10 @@ public class FileManager {
 
     }
 
+    /**
+     * Returns file from room map directory
+     * @return myDir.listFiles()
+     */
     public File[] getFileFromRootMapDir(){
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + File.separator+ Constants.ROOT_MAP_DIR);
@@ -79,9 +84,9 @@ public class FileManager {
     }
 
     /**
-     *
+     * Returns map file path
      * @param finalName
-     * @return
+     * @return file
      */
     public File getMapFilePath(String finalName) {
         String root = Environment.getExternalStorageDirectory().toString();
@@ -93,9 +98,9 @@ public class FileManager {
         return file;
     }
     /**
-     *
+     * Returns the file log path
      * @param finalName
-     * @return
+     * @return file
      */
     public File getLogPath(String finalName) {
         String root = Environment.getExternalStorageDirectory().toString();
@@ -108,7 +113,8 @@ public class FileManager {
     }
 
     /**
-     * @return
+     * Returns map file directory
+     * @return myDir
      */
     public File getMapFileDirectory() {
         String root = Environment.getExternalStorageDirectory().toString();
@@ -117,9 +123,9 @@ public class FileManager {
     }
 
     /**
-     *
+     * Returns all files from directory
      * @param dir
-     * @return
+     * @return dir.listFiles()
      */
     public File[] getAllFileFromDir(File dir) {
         return dir.listFiles();
@@ -127,8 +133,8 @@ public class FileManager {
 
 
     /**
+     * Method to write the input text in the log file
      * @param text
-     * @return
      */
     public void writeLog(String text) {
         BufferedWriter output = null;
@@ -151,7 +157,8 @@ public class FileManager {
     }
 
     /**
-     * @return
+     * Method to read the logs from the file
+     * @return list of string read from the file
      */
     public List<String> readLog() {
         Scanner scanner = null;
@@ -170,7 +177,7 @@ public class FileManager {
     }
 
     /**
-     * @return
+     * Method to delete log
      */
     public void deleteLog() {
         File filePath = getLogPath(Constants.GAME_LOG);

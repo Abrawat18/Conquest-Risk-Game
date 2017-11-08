@@ -14,9 +14,9 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-        TerritoryTest.class,
-        TerritoryTest1.class,
-        TerritoryTest2.class
+        TerritoryTest.class, //Fortify phase
+        TerritoryTest1.class, //invalid Fortify Phase Test
+        TerritoryTest2.class  //Checks for valid fortification phase(adjacent territories)
 
 
 })

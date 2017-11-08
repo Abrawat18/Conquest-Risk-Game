@@ -146,8 +146,9 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
                                 }
                                 if (needToPlaceArmy == 0 && getActivity().getPlayerTurn().getAvailableCardTerrCount() == 0) {
                                     getActivity().onReInforcementPhaseCompleted();
+                                }else{
+                                    getActivity().toastMessageFromBackground("Select territory to place Army :" + needToPlaceArmy);
                                 }
-                                getActivity().toastMessageFromBackground("Select territory to place Army :" + needToPlaceArmy);
                             } else {
                                 getActivity().toastMessageFromBackground("Invalid army place count");
                             }

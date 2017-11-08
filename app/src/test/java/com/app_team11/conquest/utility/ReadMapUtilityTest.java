@@ -12,7 +12,7 @@ import java.io.File;
 
 /**
  * Created by Nigel on 19-Oct-17.
- * Check for Startup phase
+ * Check for army count initially
  */
 
 public class ReadMapUtilityTest {
@@ -47,6 +47,8 @@ public class ReadMapUtilityTest {
             System.out.println("Owner: " + gameMap.getTerritoryList().get(i).getTerritoryOwner().getPlayerId() +
                     "\tTerritory name: " + gameMap.getTerritoryList().get(i).getTerritoryName());
         assertEquals(33, gameMap.getPlayerList().get(0).getAvailableArmyCount());
+
+
 
     }
 

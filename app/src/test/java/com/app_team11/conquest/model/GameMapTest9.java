@@ -1,6 +1,7 @@
-package com.app_team11.conquest.utility;
+package com.app_team11.conquest.model;
 
 import com.app_team11.conquest.model.GameMap;
+import com.app_team11.conquest.utility.ReadMapUtility;
 
 import org.junit.After;
 import org.junit.Before;
@@ -13,9 +14,10 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Nigel on 19-Oct-17.
+ * Checks whether the graph formed is connected
  */
 
-public class InvalidMapTest {
+public class GameMapTest9 {
 
     private String filePath;
     private boolean failed;
