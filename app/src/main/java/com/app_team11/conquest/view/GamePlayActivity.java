@@ -48,6 +48,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
+ * Game Play Activity view
  * Created by RADHEY on 10/15/2017
  * version 1.0.0
  */
@@ -77,7 +78,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * {@inheritDoc}
-     *
      * @param savedInstanceState
      */
     @Override
@@ -127,6 +127,9 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         changeGamePhase();
     }
 
+    /**
+     * Update phase view
+     */
     private void updateCreatePhaseView() {
         phaseViewList = PhaseViewModel.getInstance().getListPhaseViewContent();
         phaseViewAdapter.setGameLogList(phaseViewList);
@@ -177,6 +180,9 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         changeGamePhase();
     }
 
+    /**
+     * Changing game phase
+     */
     public void changeGamePhase() {
         GamePhaseManager.getInstance().changePhase();
         switch (GamePhaseManager.getInstance().getCurrentPhase()) {
@@ -250,7 +256,11 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         FileManager.getInstance().writeLog("Updated world domination view!!");
     }
 
-
+    /**
+     * Layout parameters for players
+     * @param playerDominationPercent
+     * @return lp
+     */
     private LinearLayout.LayoutParams setLayoutParamsForPlayer(int playerDominationPercent) {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
         lp.weight = playerDominationPercent;
@@ -267,15 +277,26 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         }
     }
 
-
+    /**
+     * Action to be performed when touch on surface
+     * @param surfaceOnTouchListner
+     */
     public void setSurfaceOnTouchListner(SurfaceOnTouchListner surfaceOnTouchListner) {
         this.surfaceOnTouchListner = surfaceOnTouchListner;
     }
 
+    /**
+     * Sets the map for view
+     * @param map
+     */
     public void setMap(GameMap map) {
         this.map = map;
     }
 
+    /**
+     * Returns the map view
+     * @return map
+     */
     public GameMap getMap() {
         return map;
     }
@@ -332,6 +353,10 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         playerListAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Returns the turm of player
+     * @return playerTurn
+     */
     public Player getPlayerTurn() {
         return playerTurn;
     }
@@ -389,18 +414,32 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         }
     }
 
+    /**
+     * Initializing surface Call back
+     */
     private SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
             showMap();
         }
 
+        /**
+         * Initializing the surface destroy
+         * @param holder
+         */
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {
 
             holder.removeCallback(surfaceCallback);
         }
 
+        /**
+         * Initializing the change in surface
+         * @param holder
+         * @param format
+         * @param width
+         * @param height
+         */
         @Override
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         }
@@ -468,6 +507,11 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         showMap();
     }
 
+    /**
+     * Update the view
+     * @param o
+     * @param arg
+     */
     @Override
     public void update(Observable o, Object arg) {
         try {
@@ -488,18 +532,27 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         updateCreatePhaseView();
     }
 
+    /**
+     * Notify the card list
+     */
     public void notifyCardListAdapter() {
         if (cardListAdapter != null) {
             cardListAdapter.notifyDataSetChanged();
         }
     }
 
+    /**
+     * Notify the phase view adapater
+     */
     public void notifyPhaseViewAdapter() {
         if (phaseViewAdapter != null) {
             phaseViewAdapter.notifyDataSetChanged();
         }
     }
 
+    /**
+     * Show card trade
+     */
     public void showCardTradePopUp() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.activity_player_cards);
@@ -523,7 +576,9 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 }
             }
         });
-
+/**
+ * On click listner for cards
+ */
         cardGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -545,7 +600,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 cardListAdapter.notifyDataSetChanged();
             }
         });
-//        cardGrid.setAdapter(new CardListAdapter(getActivity(), getActivity().getPlayerTurn().getOwnedCards()));
         cardGrid.setAdapter(cardListAdapter);
         dialog.show();
 

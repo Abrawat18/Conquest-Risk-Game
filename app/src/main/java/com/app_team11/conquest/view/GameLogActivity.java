@@ -25,6 +25,10 @@ public class GameLogActivity extends Activity {
 
     public ListView listGameLog;
 
+    /**
+     * Creating view of Game Log
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
