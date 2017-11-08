@@ -12,6 +12,7 @@ import com.app_team11.conquest.adapter.CardListAdapter;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
 import com.app_team11.conquest.model.Cards;
+import com.app_team11.conquest.model.PhaseViewModel;
 import com.app_team11.conquest.model.ReinforcementType;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.ConfigurableMessage;
@@ -75,6 +76,8 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
         waitForSelectTerritory = true;
         calculateReinforcementArmyForPlayer(null);
         FileManager.getInstance().writeLog("Reinforcement phase started.");
+        PhaseViewModel.getInstance().clearString();
+        PhaseViewModel.getInstance().addPhaseViewContent("ReInforcement Phase Player :"+getActivity().getPlayerTurn().getPlayerId());
     }
 
     /**

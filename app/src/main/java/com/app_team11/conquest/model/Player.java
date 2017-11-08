@@ -235,7 +235,6 @@ public class Player extends Observable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        PhaseViewModel.getInstance().clearString();
         PhaseViewModel.getInstance().addPhaseViewContent(message);
         if (reinforcementCount.getMatchedTerrCardReinforcement() != 0) {
             String message2 = "Matched Territory Armies: " + reinforcementCount.getMatchedTerrCardReinforcement();
@@ -328,7 +327,6 @@ public class Player extends Observable {
         } else if (defenderTerritory.getArmyCount() < defenderDice) {
             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.CHOOSE_LESS_NUMBER_DICE);
         }
-        PhaseViewModel.getInstance().clearString();
         String messageAttack = "Attacking City " + attackerTerritory.getTerritoryName();
         PhaseViewModel.getInstance().addPhaseViewContent(messageAttack);
         String messageDefender = "Attacked City " + defenderTerritory.getTerritoryName();
@@ -513,7 +511,6 @@ public class Player extends Observable {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                PhaseViewModel.getInstance().clearString();
                 PhaseViewModel.getInstance().addPhaseViewContent(message);
                 return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.FORTIFICATION_SUCCESS);
             } else

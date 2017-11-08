@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
+import com.app_team11.conquest.model.PhaseViewModel;
 import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.ConfigurableMessage;
@@ -62,7 +63,6 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
     }
 
 
-
     /**
      * setting the context variable for reinforcement phase
      *
@@ -80,12 +80,14 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
      * Initializing attack phase
      */
     public void startAttackPhase() {
-        phaseWonFlag=false;
-        if(!isAttackPossible()){
+        phaseWonFlag = false;
+        if (!isAttackPossible()) {
             getActivity().toastMessageFromBackground("Attack not Possible. Changing to Fortification Phase.");
             getActivity().onAttackPhaseStopped();
             return;
         }
+        PhaseViewModel.getInstance().clearString();
+        PhaseViewModel.getInstance().addPhaseViewContent("Attack Phase Player :"+getActivity().getPlayerTurn().getPlayerId());
         initializationAttackPhase();
         FileManager.getInstance().writeLog("Attack phase initialized.");
         FileManager.getInstance().writeLog("Game Attack phase started.");
@@ -94,14 +96,15 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Method to check if attack is possible
+     *
      * @return
      */
     private boolean isAttackPossible() {
-        for(Territory territory : getActivity().getMap().getTerrForPlayer(getActivity().getPlayerTurn())){
-            if(territory.getArmyCount()>1){
-                for(Territory neighbourTerr : territory.getNeighbourList()){
-                    if(neighbourTerr.getTerritoryOwner().getPlayerId()!=getActivity().getPlayerTurn().getPlayerId()){
-                    return true;
+        for (Territory territory : getActivity().getMap().getTerrForPlayer(getActivity().getPlayerTurn())) {
+            if (territory.getArmyCount() > 1) {
+                for (Territory neighbourTerr : territory.getNeighbourList()) {
+                    if (neighbourTerr.getTerritoryOwner().getPlayerId() != getActivity().getPlayerTurn().getPlayerId()) {
+                        return true;
                     }
                 }
             }
@@ -238,7 +241,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
                                 if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
                                     getActivity().showMap();
                                     ConfigurableMessage configurableMessage1 = getActivity().getMap().playerWonTheGame(getActivity().getPlayerTurn());
-                                    if(configurableMessage1.getMsgCode()==Constants.MSG_SUCC_CODE){
+                                    if (configurableMessage1.getMsgCode() == Constants.MSG_SUCC_CODE) {
                                         getActivity().toastMessageFromBackground(configurableMessage1.getMsgText());
                                         endGame(getActivity().getPlayerTurn());
                                         //code to end game
@@ -265,16 +268,16 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
         return (GamePlayActivity) context;
     }
 
-    public void endGame(Player playerWon){
+    public void endGame(Player playerWon) {
 
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
         sweetAlertDialog.setCancelable(false);
-        sweetAlertDialog.setTitleText("Game Ends! Player"+playerWon.getPlayerId()+" Won the game!!")
+        sweetAlertDialog.setTitleText("Game Ends! Player" + playerWon.getPlayerId() + " Won the game!!")
                 .setConfirmText("Ok")
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                    getActivity().finish();
+                        getActivity().finish();
                     }
                 })
                 .show();
