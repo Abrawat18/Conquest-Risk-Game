@@ -221,6 +221,7 @@ public class Player extends Observable {
         }
         reinforcementCount.setOtherTotalReinforcement(territoryArmy + continentArmy + cardArmy);
         String message = "Armies reinforced: " + reinforcementCount.getOtherTotalReinforcement();
+        PhaseViewModel.getInstance().clearString();
         PhaseViewModel.getInstance().addPhaseViewContent(message);
         if(reinforcementCount.getMatchedTerrCardReinforcement()!=0) {
             String message2 = "Matched Territory Armies: " + reinforcementCount.getMatchedTerrCardReinforcement();
@@ -303,6 +304,7 @@ public class Player extends Observable {
         } else if (defenderTerritory.getArmyCount() < defenderDice) {
             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.CHOOSE_LESS_NUMBER_DICE);
         }
+        PhaseViewModel.getInstance().clearString();
         String messageAttack = "Attacking City "+attackerTerritory.getTerritoryName();
         PhaseViewModel.getInstance().addPhaseViewContent(messageAttack);
         String messageDefender = "Attacked City "+defenderTerritory.getTerritoryName();
@@ -348,11 +350,11 @@ public class Player extends Observable {
             defenderDiceValues.remove(0);
         }
         if (attackerWonCounter > 0) {
-            String message = "Attacker won";
+            String message = "Player"+attackerTerritory.getTerritoryOwner().getPlayerId()+" won";
             PhaseViewModel.getInstance().addPhaseViewContent(message);
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ATTACKER_WON);
         } else {
-            String message = "Defender won";
+            String message = "Player"+defenderTerritory.getTerritoryOwner().getPlayerId()+" won";
             PhaseViewModel.getInstance().addPhaseViewContent(message);
             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ATTACKER_LOST);
 
@@ -453,6 +455,7 @@ public class Player extends Observable {
             }
             if (neighbourFlag == true) {
                 String message=fromTerritory.getTerritoryName()+" has been fortified with "+countOfArmy+" armies.";
+                PhaseViewModel.getInstance().clearString();
                 PhaseViewModel.getInstance().addPhaseViewContent(message);
                 return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.FORTIFICATION_SUCCESS);
             } else

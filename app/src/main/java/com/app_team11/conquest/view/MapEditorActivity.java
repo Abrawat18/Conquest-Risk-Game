@@ -230,7 +230,9 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     @Override
     protected void onResume() {
         super.onResume();
-        initializeView();
+        surface.setOnTouchListener(this);
+        surface.getHolder().addCallback(surfaceCallback);
+        MapEditorController.getInstance().showMap();
     }
 
     /**

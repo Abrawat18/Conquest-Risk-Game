@@ -86,6 +86,7 @@ public class Territory extends Observable{
                 this.neighbourList.remove(terrObj);
                 terrObj.neighbourList.remove(this);
                 String message=terrObj.getTerritoryName()+" added.";
+                PhaseViewModel.getInstance().clearString();
                 PhaseViewModel.getInstance().addPhaseViewContent(message);
                 return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
             } else
@@ -118,6 +119,7 @@ public class Territory extends Observable{
             else
                 this.getTerritoryOwner().setAvailableCardTerrCount(this.getTerritoryOwner().getAvailableCardTerrCount() - addedArmyCount);
             String message=addedArmyCount+" armies added to "+this.getTerritoryName();
+            PhaseViewModel.getInstance().clearString();
             PhaseViewModel.getInstance().addPhaseViewContent(message);
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ARMY_ADDED_SUCCESS);
         } else
@@ -144,6 +146,7 @@ public class Territory extends Observable{
             }
             if (neighbourFlag == true) {
                 String message=this.getTerritoryName()+" has been fortified with "+countOfArmy+" armies.";
+                PhaseViewModel.getInstance().clearString();
                 PhaseViewModel.getInstance().addPhaseViewContent(message);
                 return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.FORTIFICATION_SUCCESS);
             } else

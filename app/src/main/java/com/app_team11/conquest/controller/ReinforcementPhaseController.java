@@ -176,6 +176,10 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
             getActivity().toastMessageFromBackground("Place Army:" + needToPlaceArmy);
             getActivity().notifyPlayerListAdapter();
         }
+        else if(tradeInCardList == null){
+            getActivity().toastMessageFromBackground("Please select cards for Trade-In to start Reinforcement");
+
+        }
     }
 
 

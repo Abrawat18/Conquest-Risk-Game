@@ -6,21 +6,22 @@
     android:weightSum="4">
 
     <RelativeLayout
-        android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3">
-    <SurfaceView
-        android:id="@+id/surface"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-         />
+        android:layout_weight="3"
+        android:orientation="vertical">
+
+        <SurfaceView
+            android:id="@+id/surface"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
         <LinearLayout
-            android:orientation="horizontal"
+            android:id="@+id/linear_world_domination_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:id="@+id/linear_world_domination_view"
+            android:orientation="horizontal"
             android:weightSum="100"></LinearLayout>
     </RelativeLayout>
 
@@ -35,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"></ListView>
+
         <ListView
             android:id="@+id/list_phase_view"
             android:layout_width="match_parent"
@@ -42,29 +44,54 @@
             android:layout_weight="1"></ListView>
 
 
-        <Button
-            android:id="@+id/btn_new_attack"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Attack" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_stop_attack"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Stop Attack" />
+            <Button
+                android:id="@+id/btn_new_attack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="New Attack" />
 
-        <Button
-            android:id="@+id/btn_tradeIn_cards"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Trade-In Cards" />
+            <Button
+                android:id="@+id/btn_stop_attack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Stop Attack" />
 
-        <Button
-            android:id="@+id/btn_show_log"
+            <Button
+                android:id="@+id/btn_stop_fortification"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Stop Fortification" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Show Log" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_tradeIn_cards"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Trade-In Cards"
+                />
+
+            <Button
+                android:id="@+id/btn_show_log"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Show Log" />
+        </LinearLayout>
 
     </LinearLayout>
 
