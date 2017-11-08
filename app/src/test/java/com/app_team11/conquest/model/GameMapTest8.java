@@ -1,6 +1,7 @@
-package com.app_team11.conquest.utility;
+package com.app_team11.conquest.model;
 
 import com.app_team11.conquest.model.GameMap;
+import com.app_team11.conquest.utility.ReadMapUtility;
 
 import org.junit.After;
 import org.junit.Before;
@@ -14,9 +15,10 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Nigel on 19-Oct-17.
+ * Check for connected graph
  */
 
-public class ValidMapTest {
+public class GameMapTest8 {
     private String filePath;
     private boolean failed;
     GameMap gameMap;
@@ -31,17 +33,13 @@ public class ValidMapTest {
     public void validMapTest()
     {
         ReadMapUtility readTest=new ReadMapUtility();
-        try {
-            System.out.println(System.getProperty("user.dir") + File.separator + filePath);
 
-            gameMap = readTest.readFile(System.getProperty("user.dir") + File.separator + filePath);
+        System.out.println(System.getProperty("user.dir") + File.separator + filePath);
 
-           assertTrue(gameMap.isGraphConnected());
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
+        gameMap = readTest.readFile(System.getProperty("user.dir") + File.separator + filePath);
+
+        assertTrue(gameMap.isGraphConnected());
+
     }
     @After
     public void clean()

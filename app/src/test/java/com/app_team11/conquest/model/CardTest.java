@@ -2,6 +2,7 @@ package com.app_team11.conquest.model;
 
 /**
  * Created by Nigel on 19-Oct-17.
+ * checks whether cards can be traded
  */
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.ReadMapUtility;

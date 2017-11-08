@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 
 /**
  * Created by Nigel on 19-Oct-17.
+ * Check for file read
  */
 
 public class GameMapTest1 {
@@ -23,9 +24,8 @@ public class GameMapTest1 {
 
     @Before
     public void setUp() {
-        filePath="D:\\3D.map";
+        filePath="app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\3D.map";
         failed=false;
-        f=new File("D:\\WriteFile.map");
         continent=new Continent("Test Continent",5);
         territory=new Territory("Test Territory",0,1,continent);
         currentSize=0;
@@ -34,7 +34,7 @@ public class GameMapTest1 {
     @Test
     public void gameMapFunctionalityTest() {
         ReadMapUtility readTest = new ReadMapUtility();
-        GameMap gameMap = readTest.readFile(filePath);
+        GameMap gameMap = readTest.readFile(System.getProperty("user.dir") + File.separator + filePath);
         System.out.println("map is" + gameMap);
         gameMap.setAuthorName("Tester");
         gameMap.setImageName("Test Image");
@@ -63,6 +63,8 @@ public class GameMapTest1 {
         gameMap.getTerritoryList().get(0).addRemoveNeighbourToTerr(territory, 'A');
         System.out.println("Territory 1 neighbours list size after adding territory: " + gameMap.getTerritoryList().get(0).getNeighbourList().size());
         assertEquals(currentSize + 1, gameMap.getTerritoryList().get(0).getNeighbourList().size());
+
+
 
     }
 
