@@ -273,7 +273,6 @@ public class GameMap {
 
     /**
      * This method checks whether player won the game
-     *
      * @param player
      * @return
      */
