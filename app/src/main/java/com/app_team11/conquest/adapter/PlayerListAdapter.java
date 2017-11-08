@@ -15,6 +15,7 @@ import com.app_team11.conquest.model.Player;
 import java.util.List;
 
 /**
+ * Adapter for setting the data in PlayerListAdapter
  * Created by Jaydeep9101 on 19-Oct-17.
  */
 
@@ -22,26 +23,52 @@ public class PlayerListAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
     private List<Player> playerList;
 
+    /**
+     * Adapter for setting the data in PlayerListAdapter
+     * @param context
+     * @param playerList
+     */
     public PlayerListAdapter(Context context, List<Player> playerList) {
         this.playerList = playerList;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    /**
+     * Returns count for the player list
+     * @return size of player list
+     */
     @Override
     public int getCount() {
         return playerList.size();
     }
 
+    /**
+     * Returns the player list position
+     * @param position
+     * @return player list position
+     */
     @Override
     public Player getItem(int position) {
         return playerList.get(position);
     }
 
+    /**
+     * Returns the item position
+     * @param position
+     * @return player position
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Returns view for player list
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return view for player list
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -67,6 +94,9 @@ public class PlayerListAdapter extends BaseAdapter {
         return convertView;
     }
 
+    /**
+     * View Holder for Player List
+     */
     class ViewHolder{
         private TextView textPlayerName;
         private TextView textPlayerUnAssignedArmy;
