@@ -198,25 +198,16 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_add_continent:
-                FileManager.getInstance().writeLog("Adding continent...");
                 MapEditorController.getInstance().addContinent();
-                FileManager.getInstance().writeLog("Continent added.");
-
                 break;
             case R.id.btn_add_territory:
-                FileManager.getInstance().writeLog("Adding territory...");
                 MapEditorController.getInstance().addTerritory();
-                FileManager.getInstance().writeLog("Territory added.");
                 break;
             case R.id.btn_add_custom_continent:
-                FileManager.getInstance().writeLog("Adding custom continent...");
                 MapEditorController.getInstance().addCustomContinent();
-                FileManager.getInstance().writeLog("Custom continent added.");
                 break;
             case R.id.btn_add_custom_territory:
-                FileManager.getInstance().writeLog("Adding custom territory...");
                 MapEditorController.getInstance().addCustomTerritory();
-                FileManager.getInstance().writeLog("Custom territory added.");
                 break;
             case R.id.btn_show_log:
                 MapEditorController.getInstance().openGameLog();

@@ -127,6 +127,11 @@ public class GameMap {
                 }
                 if (addFlag == true) {
                     this.continentList.add(contObj);
+                    try {
+                        FileManager.getInstance().writeLog("Continent Added ->" + contObj.getContName());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
                 } else
                     return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.DUPLICATE_CONTINENT);
@@ -161,6 +166,11 @@ public class GameMap {
                 }
                 if (addFlag == true) {
                     this.territoryList.add(terrObj);
+                    try {
+                        FileManager.getInstance().writeLog("Territory Added ->" + terrObj.getTerritoryName() + " in " + terrObj.getContinent().getContName());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
                 } else
                     return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.DUPLICATE_TERRITORY);
@@ -263,7 +273,6 @@ public class GameMap {
 
     /**
      * This method checks whether player won the game
-     *
      * @param player
      * @return
      */

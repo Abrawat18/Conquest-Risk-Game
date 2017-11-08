@@ -390,6 +390,10 @@ public class Player extends Observable {
         }
         String message = "Player " + attackerTerritory.getTerritoryOwner().getPlayerId() + " has captured " + defenderTerritory.getTerritoryName();
         PhaseViewModel.getInstance().addPhaseViewContent(message);
+        ObserverType observerType = new ObserverType();
+        observerType.setObserverType(ObserverType.WORLD_DOMINATION_TYPE);
+        setChanged();
+        notifyObservers(observerType);
         return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
     }
 

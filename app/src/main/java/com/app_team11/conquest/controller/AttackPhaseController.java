@@ -40,6 +40,14 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     }
 
+    public void setPhaseWonFlag(boolean phaseWonFlag) {
+        this.phaseWonFlag = phaseWonFlag;
+    }
+
+    public boolean isPhaseWonFlag() {
+        return phaseWonFlag;
+    }
+
     /**
      * Getting the instance of AtackPhaseController
      *
@@ -52,13 +60,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
         return instance;
     }
 
-    public boolean isPhaseWonFlag() {
-        return phaseWonFlag;
-    }
 
-    public void setPhaseWonFlag(boolean phaseWonFlag) {
-        this.phaseWonFlag = phaseWonFlag;
-    }
 
     /**
      * setting the context variable for reinforcement phase
@@ -210,7 +212,10 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
                                 getActivity().toastMessageFromBackground(configurableMessage.getMsgText());
                                 if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
                                     getActivity().showMap();
-                                    getActivity().updateDominationView();
+                                    ConfigurableMessage configurableMessage1 = getActivity().getMap().playerWonTheGame(getActivity().getPlayerTurn());
+                                    if(configurableMessage1.getMsgCode()==Constants.MSG_SUCC_CODE){
+                                        getActivity().toastMessageFromBackground(configurableMessage1.getMsgText());
+                                    }
                                     sweetAlertDialog.dismiss();
                                 } else {
                                     editNoOfArmy.setError("Invalid Input!!");
