@@ -13,6 +13,7 @@ import com.app_team11.conquest.model.Continent;
 import java.util.List;
 
 /**
+ * Adapter for setting the data in ContinentAdapter
  * Created by Jaydeep9101 on 08-Oct-17.
  */
 
@@ -26,21 +27,42 @@ public class ContinentAdapter extends BaseAdapter {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    /**
+     * Returns the count of continent size
+     * @return size of continent list
+     */
     @Override
     public int getCount() {
         return continentList.size();
     }
 
+    /**
+     * Returns the position of continent in continent list
+     * @param position
+     * @return position of selected continent
+     */
     @Override
     public Continent getItem(int position) {
         return continentList.get(position);
     }
 
+    /**
+     * Returns the position of item
+     * @param position
+     * @return item id
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Returns the view
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return convertView
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
@@ -55,6 +77,9 @@ public class ContinentAdapter extends BaseAdapter {
         return convertView;
     }
 
+    /**
+     * Continent view holder
+     */
     class ViewHolder{
         private TextView textContinentName;
     }

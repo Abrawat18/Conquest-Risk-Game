@@ -117,6 +117,11 @@ public class Territory extends Observable{
                 this.getTerritoryOwner().setAvailableCardTerrCount(this.getTerritoryOwner().getAvailableCardTerrCount() - addedArmyCount);
             String message=addedArmyCount+" armies added to "+this.getTerritoryName();
             PhaseViewModel.getInstance().addPhaseViewContent(message);
+            try {
+                FileManager.getInstance().writeLog(message);
+            } catch (Exception ex) {
+
+            }
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ARMY_ADDED_SUCCESS);
         } else
             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ARMY_ADDED_FAILURE);
