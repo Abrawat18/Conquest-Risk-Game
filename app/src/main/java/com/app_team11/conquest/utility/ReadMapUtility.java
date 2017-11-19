@@ -89,7 +89,7 @@ public class ReadMapUtility {
                         break;
 
                     case "territory":
-                        line = sc.nextLine();
+                        line=sc.nextLine();
                         while (!line.contains("[") && !line.isEmpty()) {
                             //for neighbours
                             params = line.trim().split("\\,");
@@ -111,11 +111,14 @@ public class ReadMapUtility {
                             connectedTerritories.clear();
 
                             if (sc.hasNext()) {
-                                line = sc.nextLine();
+                                line=sc.nextLine();
+                                if(line.isEmpty())
+                                    line=sc.nextLine();
 
                             } else {
                                 break;
                             }
+
 
                         }
                         break;
