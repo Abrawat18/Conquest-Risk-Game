@@ -505,17 +505,65 @@ public class GameMap {
         this.getCardList().remove(card);
     }
 
+    Boolean connectedTerritories=false;
+    Boolean connectedContinentTerritories=true;
+
     /**
-     * This method checks for whether the Graph is connected or not.
-     *
-     * @return true or false
+     * Checks with graph is connected
+     * connectedTerritories stores the boolean result for check of connected territories
+     * connectedContinentTerritories stores the boolean result for check of connected territories in the continents
+     * @return logical AND of connectedTerritories and connectedContinentTerritories
      */
     public Boolean isGraphConnected() {
-        if (this.getTerritoryList().size() > 0) {
-            checkForConnectedGraph(this.getTerritoryList().get(0));
-            return isConnected(this.getTerritoryList());
+        printTerritories();
+        Boolean connected=false;
+        if (this.getTerritoryList().size() > 0)
+        {
+            for(int i=0;i<this.getTerritoryList().size();i++)
+            {
+                checkForConnectedGraph(this.getTerritoryList().get(i));
+                if(isConnected(this.getTerritoryList()))
+                {
+                    connectedTerritories= true;
+                    break;
+                }
+                else
+                {
+                    for(Territory territory:this.getTerritoryList())
+                        territory.isVisited=false;
+                }
+            }
         }
-        return true;
+        for(Territory territory:this.getTerritoryList())
+            territory.isVisited=false;
+        if(this.getContinentList().size()>0)
+        {
+            List<Territory> continentTerritories=new ArrayList<Territory>();
+            //Get list of all territories in a continent
+            for(Continent continent :this.getContinentList()) {
+                for (Territory territory : this.getTerritoryList()) {
+                    if (territory.getContinent().getContName() == continent.getContName())
+                        continentTerritories.add(territory);
+                }
+
+                if (continentTerritories.size() > 0) {
+                    for (int i = 0; i < continentTerritories.size(); i++) {
+                        checkForConnectedContinents(continent,continentTerritories.get(i));
+                        if (!isConnected(continentTerritories)) {
+                            connectedContinentTerritories = false;
+                            break;
+
+                        } else {
+                            for (Territory territory : continentTerritories)
+                                territory.isVisited = false;
+                        }
+                    }
+                }
+                continentTerritories.clear();
+            }
+
+        }
+        return connectedTerritories && connectedContinentTerritories;
     }
 
     /**
@@ -525,13 +573,34 @@ public class GameMap {
      *
      * @param territory
      */
-    public void checkForConnectedGraph(Territory territory) {
+    public void checkForConnectedGraph(Territory territory)
+    {
         List<Territory> neighbours = territory.getNeighbourList();
-
         if (neighbours != null)
-            for (int i = 0; i < neighbours.size(); i++) {
+            for (int i = 0; i < neighbours.size(); i++)
+            {
                 Territory terr = neighbours.get(i);
                 if (terr != null && !terr.isVisited) {
+                    terr.isVisited = true;
+                    checkForConnectedGraph(terr);
+                }
+            }
+    }
+
+    /**
+     * Check whether territories in a continent are connected
+     * @param continent
+     * @param territory
+     */
+    public void checkForConnectedContinents(Continent continent,Territory territory)
+    {
+        List<Territory> neighbours = territory.getNeighbourList();
+        if (neighbours != null)
+            for (int i = 0; i < neighbours.size(); i++)
+            {
+                Territory terr = neighbours.get(i);
+                if (terr != null && !terr.isVisited && terr.getContinent().getContName()==continent.getContName())
+                {
                     terr.isVisited = true;
                     checkForConnectedGraph(terr);
                 }
@@ -548,7 +617,9 @@ public class GameMap {
     public Boolean isConnected(List<Territory> territoryList) {
         for (Territory territory : territoryList) {
             if (!getIsVisited(territory))
+            {
                 return false;
+            }
         }
         return true;
     }
@@ -562,6 +633,17 @@ public class GameMap {
         return territory.isVisited;
     }
 
+    public void printTerritories()
+    {
+        System.out.println(">>>>>>>>>>>>>Printing territory list: \n");
+        for(int i=0;i<this.getTerritoryList().size();i++)
+        {
+            System.out.println("=====Territory: "+this.getTerritoryList().get(i).getTerritoryName());
+            for(Territory t:this.getTerritoryList().get(i).getNeighbourList())
+                System.out.println("Neighbour is: "+t.getTerritoryName());
+        }
+        System.out.println(">>>>>>>>>>>>>>");
+    }
 
 }
 
