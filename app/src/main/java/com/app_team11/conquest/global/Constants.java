@@ -13,6 +13,7 @@ public class Constants {
     public static final String ASSETS_TERRITORY_FILE_NAME = "territory.json";
     public static final String ROOT_MAP_DIR = "AllMaps";
     public static final String ROOT_LOG_DIR = "MapLog";
+    public static final String ROOT_SER_DIR = "SerObject";
     public static final String KEY_FILE_PATH = "FilePath";
     public static final String KEY_FROM = "FromWhichActivity";
     public static final String VALUE_FROM_EDIT_MAP = "FromEditMap";
@@ -24,6 +25,7 @@ public class Constants {
     public static final String ADD_REM_TO_LIST_SUCCESS = "Data added/removed in the list successfully";
     public static final String MAP_FILE_PATH = "C:\\Users\\Vasu\\Desktop\\Conquest_Game\\";
     public static final String GAME_LOG = "log.txt";
+    public static final String OBJECT_STATE = "serializable.ser";
     public static final String INCORRECT_FLAG = "Flag is incorrect";
     public static final int MSG_FAIL_CODE =0;
     public static final int MSG_SUCC_CODE =1;
