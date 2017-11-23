@@ -284,7 +284,10 @@ public class AggressivePlayer extends Observable
         }
         for(Territory neighbourTerr:strongestTerritory.getNeighbourList())
         {
+            if(!ownedNeighbourTerritories(strongestTerritory))
+            {
 
+            }
 
         }
         return strongestTerritory;
@@ -307,21 +310,21 @@ public class AggressivePlayer extends Observable
      * @param countOfArmy
      * @return fortification status
      */
-    public ConfigurableMessage fortifyTerritory(Territory destTerritory, int countOfArmy) {
-        if (this.strongestTerritory.getArmyCount() > countOfArmy && this.strongestTerritory.getTerritoryOwner().getPlayerId() == this.getPlayerId()) {
+    public ConfigurableMessage fortifyTerritory(Territory fromTerritory, Territory destTerritory, int countOfArmy) {
+        if (fromTerritory.getArmyCount() > countOfArmy && fromTerritory.getTerritoryOwner().getPlayerId() == this.getPlayerId()) {
             Boolean neighbourFlag = false;
-            for (Territory obj : this.strongestTerritory.getNeighbourList()) {
+            for (Territory obj : fromTerritory.getNeighbourList()) {
                 if (obj.getTerritoryName().equalsIgnoreCase(destTerritory.getTerritoryName())) {
-                    this.strongestTerritory.setArmyCount(this.strongestTerritory.getArmyCount() - countOfArmy);
+                    fromTerritory.setArmyCount(fromTerritory.getArmyCount() - countOfArmy);
                     destTerritory.setArmyCount(destTerritory.getArmyCount() + countOfArmy);
                     neighbourFlag = true;
                     break;
                 }
             }
             if (neighbourFlag == true) {
-                String message = this.strongestTerritory.getTerritoryName() + " has been fortified with " + countOfArmy + " armies.";
+                String message = fromTerritory.getTerritoryName() + " has been fortified with " + countOfArmy + " armies.";
                 try {
-                    FileManager.getInstance().writeLog(this.strongestTerritory.getTerritoryName() + " has been fortified with " + countOfArmy + " armies.");
+                    FileManager.getInstance().writeLog(fromTerritory.getTerritoryName() + " has been fortified with " + countOfArmy + " armies.");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -332,7 +335,6 @@ public class AggressivePlayer extends Observable
         } else
             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE);
     }
-
     /**
      * Checks whether player is attacking an already owned territory
      * @param defenderTerritory
