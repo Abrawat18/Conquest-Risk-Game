@@ -1,6 +1,7 @@
 package com.app_team11.conquest.model;
 
 import com.app_team11.conquest.global.Constants;
+import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.utility.FileManager;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class AggressivePlayer extends Observable
     private List<Cards> ownedCards = new ArrayList<Cards>();
     private Boolean cardTradeIn = false;
     private boolean isMyTurn;
+    private Territory strongestTerritory=null;
 
     /**
      * Returns the available card territory count
@@ -48,6 +50,11 @@ public class AggressivePlayer extends Observable
      */
     public void setMyTurn(boolean myTurn) {
         isMyTurn = myTurn;
+    }
+
+    public void setStrongestTerritory(Territory territory)
+    {
+        this.strongestTerritory=territory;
     }
 
     /**
@@ -249,6 +256,11 @@ public class AggressivePlayer extends Observable
         return playerTerritories;
     }
 
+    /**
+     * Method to return the strongest territory
+     * @param playerTerritoryList
+     * @return the strongest territory
+     */
     public Territory getStrongestTerritory(List<Territory> playerTerritoryList)
     {
         Territory strongestTerritory=null;
@@ -268,6 +280,37 @@ public class AggressivePlayer extends Observable
         return strongestTerritory;
     }
 
+    /**
+     * Method to fortify the strongest territory
+     * @param destTerritory
+     * @param countOfArmy
+     * @return fortification status
+     */
+    public ConfigurableMessage fortifyTerritory(Territory destTerritory, int countOfArmy) {
+        if (this.strongestTerritory.getArmyCount() > countOfArmy && this.strongestTerritory.getTerritoryOwner().getPlayerId() == this.getPlayerId()) {
+            Boolean neighbourFlag = false;
+            for (Territory obj : this.strongestTerritory.getNeighbourList()) {
+                if (obj.getTerritoryName().equalsIgnoreCase(destTerritory.getTerritoryName())) {
+                    this.strongestTerritory.setArmyCount(this.strongestTerritory.getArmyCount() - countOfArmy);
+                    destTerritory.setArmyCount(destTerritory.getArmyCount() + countOfArmy);
+                    neighbourFlag = true;
+                    break;
+                }
+            }
+            if (neighbourFlag == true) {
+                String message = this.strongestTerritory.getTerritoryName() + " has been fortified with " + countOfArmy + " armies.";
+                try {
+                    FileManager.getInstance().writeLog(this.strongestTerritory.getTerritoryName() + " has been fortified with " + countOfArmy + " armies.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                PhaseViewModel.getInstance().addPhaseViewContent(message);
+                return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.FORTIFICATION_SUCCESS);
+            } else
+                return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_NEIGHBOUR_FAILURE);
+        } else
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE);
+    }
 
 
 
