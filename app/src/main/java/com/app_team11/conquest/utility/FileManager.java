@@ -215,7 +215,7 @@ public class FileManager {
     }
 
     /**
-     * @param
+     * @param gamemap
      */
     public void writeObjectIntoFile(GameMap gamemap) {
         File file = getSerializableFilePath(Constants.OBJECT_STATE);
