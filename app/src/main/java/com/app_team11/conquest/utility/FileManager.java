@@ -3,6 +3,7 @@ package com.app_team11.conquest.utility;
 import android.os.Environment;
 
 import com.app_team11.conquest.global.Constants;
+import com.app_team11.conquest.model.GameMap;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class FileManager {
 
     /**
      * Method to implement singleton pattern
+     *
      * @return fileManager
      */
     public static FileManager getInstance() {
@@ -34,6 +36,7 @@ public class FileManager {
 
     /**
      * Method to create BufferWriter object to enable writing
+     *
      * @param filePath
      * @return
      */
@@ -54,6 +57,7 @@ public class FileManager {
 
     /**
      * Method to create BufferWriter object to enable writing
+     *
      * @param file
      * @return writer
      */
@@ -75,45 +79,47 @@ public class FileManager {
 
     /**
      * Returns file from room map directory
+     *
      * @return myDir.listFiles()
      */
-    public File[] getFileFromRootMapDir(){
+    public File[] getFileFromRootMapDir() {
         String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + File.separator+ Constants.ROOT_MAP_DIR);
+        File myDir = new File(root + File.separator + Constants.ROOT_MAP_DIR);
         return myDir.listFiles();
     }
 
     /**
      * Returns map file path
+     *
      * @param finalName
      * @return file
      */
     public File getMapFilePath(String finalName) {
         String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + File.separator+ Constants.ROOT_MAP_DIR);
+        File myDir = new File(root + File.separator + Constants.ROOT_MAP_DIR);
         if (!myDir.exists()) {
             myDir.mkdirs();
         }
         File file = new File(myDir, finalName);
         return file;
     }
+
     /**
      * Returns the file log path
+     *
      * @param finalName
      * @return file
      */
     public File getLogPath(String finalName) {
-        File file=null;
+        File file = null;
         try {
             String root = Environment.getExternalStorageDirectory().toString();
             File myDir = new File(root + File.separator + Constants.ROOT_LOG_DIR);
             if (!myDir.exists()) {
                 myDir.mkdirs();
             }
-             file= new File(myDir, finalName);
-        }
-        catch(Exception e)
-        {
+            file = new File(myDir, finalName);
+        } catch (Exception e) {
 
         }
         return file;
@@ -121,6 +127,7 @@ public class FileManager {
 
     /**
      * Returns map file directory
+     *
      * @return myDir
      */
     public File getMapFileDirectory() {
@@ -131,6 +138,7 @@ public class FileManager {
 
     /**
      * Returns all files from directory
+     *
      * @param dir
      * @return dir.listFiles()
      */
@@ -141,6 +149,7 @@ public class FileManager {
 
     /**
      * Method to write the input text in the log file
+     *
      * @param text
      */
     public void writeLog(String text) {
@@ -165,6 +174,7 @@ public class FileManager {
 
     /**
      * Method to read the logs from the file
+     *
      * @return list of string read from the file
      */
     public List<String> readLog() {
@@ -183,6 +193,42 @@ public class FileManager {
         return list;
     }
 
+    /**
+     * Returns the file log path
+     *
+     * @param finalName
+     * @return file
+     */
+    public File getSerializableFilePath(String finalName) {
+        File file = null;
+        try {
+            String root = Environment.getExternalStorageDirectory().toString();
+            File myDir = new File(root + File.separator + Constants.ROOT_SER_DIR);
+            if (!myDir.exists()) {
+                myDir.mkdirs();
+            }
+            file = new File(myDir, finalName);
+        } catch (Exception e) {
+
+        }
+        return file;
+    }
+
+    /**
+     * @param
+     */
+    public void writeObjectIntoFile(GameMap gamemap) {
+        File file = getSerializableFilePath(Constants.OBJECT_STATE);
+        try {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
+            objectOutputStream.writeObject(gamemap);
+            objectOutputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Method to delete log
      */
