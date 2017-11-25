@@ -11,4 +11,15 @@ import com.app_team11.conquest.utility.FileManager;
  */
 
 public class GamePlayModeActivity{
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_single_mode:
+                MainDashboardController.getInstance().playGame();
+                FileManager.getInstance().writeLog("Launching game play activity...");
+                break;
+            case R.id.btn_map_editor:
+                MainDashboardController.getInstance().openMapEditor();
+                FileManager.getInstance().writeLog("Launching Map editor activity...");
+                break;
+        }
     }
