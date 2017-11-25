@@ -125,6 +125,10 @@ public class MapEditorController {
         }
         if (!TextUtils.isEmpty(filePathToLoad)) {
             setMap(new ReadMapUtility(getActivity()).readFile(filePathToLoad));
+            if (map == null || !map.isGraphConnected()) {
+                showToast(Constants.TOAST_ERROR_GRAPH_NOT_CONNECTED);
+                getActivity().finish();
+            }
         } else {
             setMap(new GameMap());
         }
@@ -337,10 +341,7 @@ public class MapEditorController {
      */
     private void setMap(GameMap map) {
         this.map = map;
-        if (map == null || !map.isGraphConnected()) {
-            showToast(Constants.TOAST_ERROR_GRAPH_NOT_CONNECTED);
-            getActivity().finish();
-        }
+
     }
 
     /**
