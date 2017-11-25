@@ -332,6 +332,7 @@ public class MapEditorController {
     /**
      * Set the map on the screen
      *
+     *
      * @param map
      */
     private void setMap(GameMap map) {
