@@ -8,21 +8,20 @@ android:orientation="vertical"
 android:weightSum="1">
 
 
-<ImageButton
-    android:id="@+id/btn_single_mode"
-    style="@style/Widget.AppCompat.ImageButton"
-    android:layout_width="102dp"
-    android:layout_height="93dp"
-    android:layout_gravity="center"
-    android:background="@color/colorPrimary"
-    android:backgroundTint="@color/float_transparent"
-    android:scaleType="fitXY"
-    android:src="@mipmap/singlemode"
-    android:text="Single Mode"
-    android:visibility="visible"
-    android:layout_weight="0.05" />
+    <ImageButton
+        android:id="@+id/btn_single_mode"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary"
+        android:backgroundTint="@color/float_transparent"
+        android:scaleType="fitXY"
+        android:src="@mipmap/single"
+        android:text="Single Mode"
+        android:visibility="visible" />
 
-<TextView
+    <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fontFamily="serif"
@@ -51,17 +50,5 @@ android:weightSum="1">
     android:textStyle="bold" />
 
 
-<Button
-    android:layout_marginTop="20dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:id="@+id/btn_show_log"
-    android:textAlignment="center"
-    android:fontFamily="serif"
-    android:textSize="30dp"
-    android:textStyle="bold"
-    android:text="Show Log" />
 
 </LinearLayout>
