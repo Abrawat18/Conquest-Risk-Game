@@ -396,7 +396,6 @@ public class AggressivePlayer extends Observable
     /**
      * The attack phase method
      *
-     * @param attackerTerritory
      * @param defenderTerritory
      * @param attackerDice
      * @param defenderDice
