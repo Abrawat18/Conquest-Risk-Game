@@ -492,7 +492,7 @@ public class Player extends Observable {
     }
 
     /**
-     * Method is used to implement the fortification functionality
+     * Method is used to implement the `fication functionality
      *
      * @param destTerritory the destination territory for fortification
      * @param countOfArmy   number of armies to be moved
