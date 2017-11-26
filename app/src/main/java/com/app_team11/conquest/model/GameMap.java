@@ -509,14 +509,16 @@ public class GameMap {
     Boolean connectedContinentTerritories=true;
 
     /**
-     * Checks with graph is connected
+     * Checks whether graph is connected
      * connectedTerritories stores the boolean result for check of connected territories
      * connectedContinentTerritories stores the boolean result for check of connected territories in the continents
      * @return logical AND of connectedTerritories and connectedContinentTerritories
      */
-    public Boolean isGraphConnected() {
+    public Boolean isGraphConnected()
+    {
+        connectedContinentTerritories=true;
+        connectedTerritories=false;
         printTerritories();
-        Boolean connected=false;
         if (this.getTerritoryList().size() > 0)
         {
             for(int i=0;i<this.getTerritoryList().size();i++)
@@ -561,6 +563,8 @@ public class GameMap {
                 }
                 continentTerritories.clear();
             }
+            for(Territory territory:this.getTerritoryList())
+                territory.isVisited=false;
 
         }
         return connectedTerritories && connectedContinentTerritories;
@@ -640,7 +644,10 @@ public class GameMap {
         {
             System.out.println("=====Territory: "+this.getTerritoryList().get(i).getTerritoryName());
             for(Territory t:this.getTerritoryList().get(i).getNeighbourList())
+            {
                 System.out.println("Neighbour is: "+t.getTerritoryName());
+
+            }
         }
         System.out.println(">>>>>>>>>>>>>>");
     }
