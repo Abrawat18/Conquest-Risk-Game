@@ -3,14 +3,11 @@
     <string name="app_name">RISK</string>
 
     <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+        <item>Random</item>
+        <item>Cheater</item>
+        <item>Benevolent</item>
+        <item>Aggresive</item>
+        <item>Human</item>
     </string-array>
 
 </resources>

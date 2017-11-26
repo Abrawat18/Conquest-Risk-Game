@@ -16,6 +16,7 @@ import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.view.GameLogActivity;
 import com.app_team11.conquest.view.GamePlayActivity;
+import com.app_team11.conquest.view.GamePlayModeActivity;
 import com.app_team11.conquest.view.MainDashboardActivity;
 import com.app_team11.conquest.view.MapEditorActivity;
 import com.app_team11.conquest.view.MapSelectionAndInitializationActivity;
@@ -75,15 +76,23 @@ public class MainDashboardController {
     /**
      * method called on click of play game
      */
-    public void playGame() {
+//    public void playGame() {
+//        Bundle bundle = new Bundle();
+//        bundle.putString(Constants.KEY_FROM, Constants.VALUE_FROM_PLAY_GAME);
+//        Intent intent = new Intent(getActivity(), MapSelectionAndInitializationActivity.class);
+//        intent.putExtras(bundle);
+//        getActivity().startActivity(intent);
+//        FileManager.getInstance().writeLog("Game Play started !!");
+//    }
+
+    public void playGame(){
         Bundle bundle = new Bundle();
         bundle.putString(Constants.KEY_FROM, Constants.VALUE_FROM_PLAY_GAME);
-        Intent intent = new Intent(getActivity(), MapSelectionAndInitializationActivity.class);
+        Intent intent = new Intent(getActivity(), GamePlayModeActivity.class);
         intent.putExtras(bundle);
         getActivity().startActivity(intent);
-        FileManager.getInstance().writeLog("Game Play started !!");
+        FileManager.getInstance().writeLog("Single Game Mode Started !!");
     }
-
     /**
      * Opens the game log window
      */

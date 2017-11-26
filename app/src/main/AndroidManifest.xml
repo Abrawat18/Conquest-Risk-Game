@@ -27,6 +27,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.MainDashboardActivity" />
+        <activity android:name=".view.GamePlayModeActivity" />
+        <activity android:name=".view.GamePlayerTypeActivity" />
         <activity
             android:name=".view.MapEditorActivity"
             android:screenOrientation="landscape" />

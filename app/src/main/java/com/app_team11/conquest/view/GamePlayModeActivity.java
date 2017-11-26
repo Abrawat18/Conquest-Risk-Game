@@ -19,8 +19,6 @@ import com.app_team11.conquest.utility.FileManager;
 
 public class GamePlayModeActivity extends Activity implements View.OnClickListener {
 
-    private ImageButton btnSingleMode;
-    private ImageButton btnTournamentMode;
 
     /**
      * {@inheritDoc}
@@ -31,15 +29,12 @@ public class GamePlayModeActivity extends Activity implements View.OnClickListen
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_mode);
-        if (savedInstanceState == null) {
             initializeView();
-        }
-
     }
 
     private void initializeView() {
-        btnSingleMode = (ImageButton) findViewById(R.id.btn_single_mode);
-        btnTournamentMode = (ImageButton) findViewById(R.id.btn_tournament_mode);
+        findViewById(R.id.btn_single_mode).setOnClickListener(this);
+        findViewById(R.id.btn_tournament_mode).setOnClickListener(this);
 
     }
     /**
