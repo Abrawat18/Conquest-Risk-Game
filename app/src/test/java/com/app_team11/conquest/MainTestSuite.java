@@ -1,6 +1,7 @@
 package com.app_team11.conquest;
 
 /**
+ * Suite of all the game phases.
  * Created by Nigel on 20-Oct-17.
  */
 
