@@ -1,6 +1,7 @@
 package com.app_team11.conquest.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -34,6 +35,7 @@ public class GamePlayerTypeActivity extends Activity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_type);
         findViewById(R.id.btn_add_player_type).setOnClickListener(this);
+        findViewById(R.id.btn_next_mapselection).setOnClickListener(this);
         lv = (ListView) findViewById(R.id.list_playertype);
         Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -61,6 +63,8 @@ public class GamePlayerTypeActivity extends Activity implements View.OnClickList
                 Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
                 playerTypeList.add(text);
                 arrayAdapter.notifyDataSetChanged();
+            case R.id.btn_next_mapselection:
+                Intent intent = new Intent(this, MapSelectionAndInitializationActivity.class);
 
         }
     }
