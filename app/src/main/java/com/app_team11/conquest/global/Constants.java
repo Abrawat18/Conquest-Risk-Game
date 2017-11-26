@@ -64,4 +64,6 @@ public class Constants {
     public static final String FROM_SINGLE_MODE_VALUE = "SingleGameMode";
     public static final String FROM_TOURNAMENT_MODE_VALUE = "TournamentGameMode";
     public static final String KEY_PLAYER_LIST = "PlayerList";
+    public static final String KEY_NUMBER_GAMES = "numberOfGames";
+    public static final String KEY_NUMBER_DRAWS = "numberOfDraws";
 }

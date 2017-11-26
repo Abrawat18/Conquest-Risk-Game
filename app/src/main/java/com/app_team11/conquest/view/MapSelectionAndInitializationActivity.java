@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 /**
  * Map Selection and initialization
  * Created by RADHEY on 10/15/2017.
+ *
  * @version 1.0.0
  */
 
@@ -32,6 +34,7 @@ public class MapSelectionAndInitializationActivity extends Activity {
     private File[] mapFiles;
     private String fromWhichActivity;
     private Intent intent = null;
+    private Bundle bundle;
 
     /**
      * On create method for map selection
@@ -40,6 +43,7 @@ public class MapSelectionAndInitializationActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        bundle = getIntent().getExtras();
         setContentView(R.layout.activity_map_selection);
         initializeView();
         initialization();
@@ -51,12 +55,8 @@ public class MapSelectionAndInitializationActivity extends Activity {
      * method used to redirect the request if map as from map editor or game play
      */
     private void initialization() {
-        Intent intent = getIntent();
-        if (intent != null) {
-            Bundle bundle = intent.getExtras();
-            if (bundle != null) {
-                fromWhichActivity = bundle.getString(Constants.KEY_FROM);
-            }
+        if (bundle != null) {
+            fromWhichActivity = bundle.getString(Constants.KEY_FROM);
         }
         mapFiles = FileManager.getInstance().getFileFromRootMapDir();
         MapSelectionAdapter mapSelectionAdapter = new MapSelectionAdapter(mapFiles, this);
@@ -71,57 +71,74 @@ public class MapSelectionAndInitializationActivity extends Activity {
         listMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                final Bundle bundle = new Bundle();
                 bundle.putString(Constants.KEY_FILE_PATH, mapFiles[position].getPath());
-
-
                 if (fromWhichActivity.equals(Constants.VALUE_FROM_EDIT_MAP)) {
                     intent = new Intent(MapSelectionAndInitializationActivity.this, MapEditorActivity.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
 
-                } else if (fromWhichActivity.equals(Constants.VALUE_FROM_PLAY_GAME)) {
+                } else if (fromWhichActivity.equals(Constants.VALUE_FROM_PLAY_GAME) && (bundle.getString(Constants.KEY_FROM_GAME_MODE).equals(Constants.FROM_SINGLE_MODE_VALUE))) {
                     intent = new Intent(MapSelectionAndInitializationActivity.this, GamePlayActivity.class);
-                    final EditText editNoOfPlayer = new EditText(MapSelectionAndInitializationActivity.this);
-                    SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MapSelectionAndInitializationActivity.this, SweetAlertDialog.NORMAL_TYPE);
-                    sweetAlertDialog.setTitleText(" Please Enter No of Player")
-                            .setConfirmText("Ok")
-                            .setCustomView(editNoOfPlayer)
-                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    if (!TextUtils.isEmpty(editNoOfPlayer.getText().toString())) {
-                                        if ((Integer.parseInt(editNoOfPlayer.getText().toString()) <= 6) && (Integer.parseInt(editNoOfPlayer.getText().toString()) > 1)) {
-                                            bundle.putInt(Constants.KEY_NO_OF_PLAYER, Integer.parseInt(editNoOfPlayer.getText().toString()));
-                                            intent.putExtras(bundle);
-                                            startActivity(intent);
-                                            sweetAlertDialog.dismiss();
-                                        }else{
-                                            Toast.makeText(MapSelectionAndInitializationActivity.this,"Invalid No of players!!",Toast.LENGTH_SHORT).show();
-                                        }
-                                    } else {
-                                        editNoOfPlayer.setError("Please enter no of players");
-                                    }
-
-                                }
-                            }).setCancelText("Cancel")
-                            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    sweetAlertDialog.dismiss();
-                                }
-                            })
-                            .show();
-
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
-
+            }
+        });
+        findViewById(R.id.btn_play_game).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                configureTournamentMode();
             }
         });
     }
 
+    public void configureTournamentMode(){
+        intent = new Intent(MapSelectionAndInitializationActivity.this, GamePlayActivity.class);
+        LinearLayout linearInput = new LinearLayout(this);
+        linearInput.setOrientation(LinearLayout.VERTICAL);
+        final EditText editNumberOfGames = new EditText(this);
+        final EditText editNumberOfDraws = new EditText(this);
+        editNumberOfGames.setHint("number of games");
+        editNumberOfDraws.setHint("number of draws");
+        linearInput.addView(editNumberOfGames);
+        linearInput.addView(editNumberOfDraws);
+        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MapSelectionAndInitializationActivity.this, SweetAlertDialog.NORMAL_TYPE);
+        sweetAlertDialog.setTitleText("Tournament Configuration")
+                .setConfirmText("Ok")
+                .setCustomView(linearInput)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        if (!TextUtils.isEmpty(editNumberOfDraws.getText().toString()) && !TextUtils.isEmpty(editNumberOfGames.getText().toString())) {
+                            if ((Integer.parseInt(editNumberOfGames.getText().toString()) <= 5) && (Integer.parseInt(editNumberOfGames.getText().toString()) > 2) && (Integer.parseInt(editNumberOfDraws.getText().toString())>=10) && (Integer.parseInt(editNumberOfDraws.getText().toString())<=50)) {
+                                bundle.putInt(Constants.KEY_NUMBER_GAMES, Integer.parseInt(editNumberOfGames.getText().toString()));
+                                bundle.putInt(Constants.KEY_NUMBER_DRAWS, Integer.parseInt(editNumberOfDraws.getText().toString()));
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                                sweetAlertDialog.dismiss();
+                            } else {
+                                Toast.makeText(MapSelectionAndInitializationActivity.this, "Invalid No of Draws or Games!!", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(MapSelectionAndInitializationActivity.this, "Please enter Draws and Games", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                }).setCancelText("Cancel")
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+
+
     /**
      * Instance saving option
+     *
      * @param savedInstanceState
      */
     @Override
@@ -132,6 +149,7 @@ public class MapSelectionAndInitializationActivity extends Activity {
 
     /**
      * Instance state restore
+     *
      * @param savedInstanceState
      */
     @Override
