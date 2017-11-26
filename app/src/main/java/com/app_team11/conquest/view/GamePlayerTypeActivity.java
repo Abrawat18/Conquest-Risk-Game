@@ -67,9 +67,14 @@ public class GamePlayerTypeActivity extends Activity implements View.OnClickList
                 Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
                 playerTypeList.add(text);
                 arrayAdapter.notifyDataSetChanged();
+                break;
             case R.id.btn_next_mapselection:
                 Intent intent = new Intent(this, MapSelectionAndInitializationActivity.class);
                 bundle.putStringArrayList(Constants.KEY_PLAYER_LIST,playerTypeList);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                FileManager.getInstance().writeLog("Map Selection Started");
+                break;
         }
     }
 }
