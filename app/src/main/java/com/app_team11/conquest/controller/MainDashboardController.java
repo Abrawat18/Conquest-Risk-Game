@@ -72,19 +72,9 @@ public class MainDashboardController {
         }
     }
 
-
     /**
      * method called on click of play game
      */
-//    public void playGame() {
-//        Bundle bundle = new Bundle();
-//        bundle.putString(Constants.KEY_FROM, Constants.VALUE_FROM_PLAY_GAME);
-//        Intent intent = new Intent(getActivity(), MapSelectionAndInitializationActivity.class);
-//        intent.putExtras(bundle);
-//        getActivity().startActivity(intent);
-//        FileManager.getInstance().writeLog("Game Play started !!");
-//    }
-
     public void playGame(){
         Bundle bundle = new Bundle();
         bundle.putString(Constants.KEY_FROM, Constants.VALUE_FROM_PLAY_GAME);

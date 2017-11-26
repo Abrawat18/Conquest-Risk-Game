@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.app_team11.conquest.R;
+import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.FileManager;
 
 import java.util.ArrayList;
@@ -21,8 +22,10 @@ import java.util.List;
  */
 
 public class GamePlayerTypeActivity extends Activity implements View.OnClickListener {
-    List<String> playerTypeList = new ArrayList<String>();
+    ArrayList<String> playerTypeList = new ArrayList<String>();
     private ArrayAdapter<String> arrayAdapter;
+
+    private Bundle bundle;
 
     /**
      * {@inheritDoc}
@@ -33,6 +36,7 @@ public class GamePlayerTypeActivity extends Activity implements View.OnClickList
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         ListView lv;
         super.onCreate(savedInstanceState);
+        bundle = getIntent().getExtras();
         setContentView(R.layout.activity_player_type);
         findViewById(R.id.btn_add_player_type).setOnClickListener(this);
         findViewById(R.id.btn_next_mapselection).setOnClickListener(this);
@@ -65,7 +69,7 @@ public class GamePlayerTypeActivity extends Activity implements View.OnClickList
                 arrayAdapter.notifyDataSetChanged();
             case R.id.btn_next_mapselection:
                 Intent intent = new Intent(this, MapSelectionAndInitializationActivity.class);
-
+                bundle.putStringArrayList(Constants.KEY_PLAYER_LIST,playerTypeList);
         }
     }
 }

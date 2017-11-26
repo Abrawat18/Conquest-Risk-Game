@@ -20,6 +20,8 @@ import com.app_team11.conquest.utility.FileManager;
 public class GamePlayModeActivity extends Activity implements View.OnClickListener {
 
 
+    private Bundle bundle;
+
     /**
      * {@inheritDoc}
      *
@@ -28,6 +30,7 @@ public class GamePlayModeActivity extends Activity implements View.OnClickListen
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        bundle = getIntent().getExtras();
         setContentView(R.layout.activity_game_mode);
             initializeView();
     }
@@ -49,20 +52,26 @@ public class GamePlayModeActivity extends Activity implements View.OnClickListen
                 playSingleGame();
                 FileManager.getInstance().writeLog("Launching Single Game Play");
             case R.id.btn_tournament_mode:
-                playTournamentGame();
+                playTournamentMode();
                 FileManager.getInstance().writeLog("Launching Tournament Game Play");
         }
 
 
     }
 
-    private void playTournamentGame() {
-
-    }
-
     public void playSingleGame() {
         Intent intent = new Intent(this, GamePlayerTypeActivity.class);
+        bundle.putString(Constants.KEY_FROM_GAME_MODE, Constants.FROM_SINGLE_MODE_VALUE);
+        intent.putExtras(bundle);
         startActivity(intent);
         FileManager.getInstance().writeLog("Single Game Mode Started");
+    }
+
+    public void playTournamentMode() {
+        Intent intent = new Intent(this, GamePlayerTypeActivity.class);
+        bundle.putString(Constants.KEY_FROM_GAME_MODE, Constants.FROM_TOURNAMENT_MODE_VALUE);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        FileManager.getInstance().writeLog("Tournament Game Mode Started");
     }
 }
