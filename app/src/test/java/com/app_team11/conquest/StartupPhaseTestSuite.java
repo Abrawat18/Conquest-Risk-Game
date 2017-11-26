@@ -4,6 +4,7 @@ package com.app_team11.conquest;
  * Created by Nigel on 20-Oct-17.
  */
 import com.app_team11.conquest.model.GameMapTest1;
+import com.app_team11.conquest.model.GameMapTest10;
 import com.app_team11.conquest.model.GameMapTest6;
 import com.app_team11.conquest.model.GameMapTest7;
 import com.app_team11.conquest.model.GameMapTest9;
@@ -23,6 +24,7 @@ import org.junit.runners.Suite;
             GameMapTest7.class, // Test for remove territory
             ReadMapUtilityTest.class, //Checks army count
             GameMapTest8.class, //Check for connected graph
+            GameMapTest10.class //Check for unconnected graph
     })
 
     public class StartupPhaseTestSuite {
