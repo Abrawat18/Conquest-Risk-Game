@@ -21,8 +21,13 @@ public class AggressivePlayerStrategy implements PlayerStrategyListener {
     @Override
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
 
+        sortList(gameMap.getTerrForPlayer(player));
+        gameMap.getTerrForPlayer(player).get(0).setArmyCount(gameMap.getTerrForPlayer(player).get(0).getArmyCount()+(reinforcementType.getOtherTotalReinforcement()));
 
-        return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE_STRATEGY);
+        if(reinforcementType.getMatchedTerritoryList()!=null) {
+            reinforcementType.getMatchedTerritoryList().get(0).setArmyCount(reinforcementType.getMatchedTerritoryList().get(0).getArmyCount()+reinforcementType.getMatchedTerrCardReinforcement());
+        }
+        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.REINFORCEMENT_SUCCESS_STRATEGY);
     }
 
 

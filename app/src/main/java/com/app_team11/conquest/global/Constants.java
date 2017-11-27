@@ -68,4 +68,5 @@ public class Constants {
     public static final String KEY_NUMBER_DRAWS = "numberOfDraws";
     public static final String KEY_SELECTED_MAP_LIST = "SelectedMapList";
     public static final String FORTIFICATION_FAILURE_STRATEGY = "Fortification could not happen as not able to find any match for fortifying territories";
+    public static final String REINFORCEMENT_SUCCESS_STRATEGY = "Reinforcement successful";
 }
