@@ -1,6 +1,7 @@
 package com.app_team11.conquest.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.app_team11.conquest.R;
+import com.app_team11.conquest.model.MapFile;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Adapter for setting the data in MapSelectionAdapter
@@ -19,11 +22,11 @@ import java.util.List;
 
 public class MapSelectionAdapter extends BaseAdapter {
 
-    private File[] mapFileList;
+    private List<MapFile> mapFileList;
     private Context context;
     private LayoutInflater inflater;
 
-    public MapSelectionAdapter(File[] mapFileList, Context context) {
+    public MapSelectionAdapter(List<MapFile> mapFileList, Context context) {
         this.mapFileList = mapFileList;
         this.context = context;
         inflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -35,15 +38,15 @@ public class MapSelectionAdapter extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return mapFileList.length;
+        return mapFileList.size();
     }
     /**
      * Returns count for the map file position
      * @return map file list position
      */
     @Override
-    public File getItem(int position) {
-        return mapFileList[position];
+    public MapFile getItem(int position) {
+        return mapFileList.get(position);
     }
     /**
      * Returns count for the map file item
@@ -69,7 +72,12 @@ public class MapSelectionAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         }
         viewHolder = (ViewHolder) convertView.getTag();
-        viewHolder.textMapName.setText(getItem(position).getName());
+        viewHolder.textMapName.setText(getItem(position).getMapFiles().getName());
+        if(getItem(position).isSelected()){
+            viewHolder.textMapName.setBackgroundColor(Color.YELLOW);
+        }
+        else
+            viewHolder.textMapName.setBackgroundColor(Color.BLACK);
         return convertView;
     }
 

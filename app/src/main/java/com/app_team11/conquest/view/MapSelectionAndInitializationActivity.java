@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -15,9 +16,12 @@ import android.widget.Toast;
 import com.app_team11.conquest.R;
 import com.app_team11.conquest.adapter.MapSelectionAdapter;
 import com.app_team11.conquest.global.Constants;
+import com.app_team11.conquest.model.MapFile;
 import com.app_team11.conquest.utility.FileManager;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -31,10 +35,13 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class MapSelectionAndInitializationActivity extends Activity {
 
     private ListView listMenu;
-    private File[] mapFiles;
+    private List<MapFile> mapFiles;
+    Button btnPlayGame;
     private String fromWhichActivity;
+    private String gameMode;
     private Intent intent = null;
     private Bundle bundle;
+    private MapSelectionAdapter mapSelectionAdapter;
 
     /**
      * On create method for map selection
@@ -57,9 +64,13 @@ public class MapSelectionAndInitializationActivity extends Activity {
     private void initialization() {
         if (bundle != null) {
             fromWhichActivity = bundle.getString(Constants.KEY_FROM);
+            gameMode=bundle.getString(Constants.KEY_FROM_GAME_MODE);
+        }
+        if(gameMode.equals(Constants.FROM_SINGLE_MODE_VALUE)){
+            btnPlayGame.setVisibility(View.GONE);
         }
         mapFiles = FileManager.getInstance().getFileFromRootMapDir();
-        MapSelectionAdapter mapSelectionAdapter = new MapSelectionAdapter(mapFiles, this);
+        mapSelectionAdapter = new MapSelectionAdapter(mapFiles, this);
         listMenu.setAdapter(mapSelectionAdapter);
     }
 
@@ -71,20 +82,26 @@ public class MapSelectionAndInitializationActivity extends Activity {
         listMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                bundle.putString(Constants.KEY_FILE_PATH, mapFiles[position].getPath());
                 if (fromWhichActivity.equals(Constants.VALUE_FROM_EDIT_MAP)) {
+                    bundle.putString(Constants.KEY_FILE_PATH, mapFiles.get(position).getMapFiles().getPath());
                     intent = new Intent(MapSelectionAndInitializationActivity.this, MapEditorActivity.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
 
                 } else if (fromWhichActivity.equals(Constants.VALUE_FROM_PLAY_GAME) && (bundle.getString(Constants.KEY_FROM_GAME_MODE).equals(Constants.FROM_SINGLE_MODE_VALUE))) {
+                    bundle.putString(Constants.KEY_FILE_PATH, mapFiles.get(position).getMapFiles().getPath());
                     intent = new Intent(MapSelectionAndInitializationActivity.this, GamePlayActivity.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
+                else if(fromWhichActivity.equals(Constants.VALUE_FROM_PLAY_GAME) && (bundle.getString(Constants.KEY_FROM_GAME_MODE).equals(Constants.FROM_TOURNAMENT_MODE_VALUE))){
+                    mapFiles.get(position).setSelected(!mapFiles.get(position).isSelected());
+                    mapSelectionAdapter.notifyDataSetChanged();
+                }
             }
         });
-        findViewById(R.id.btn_play_game).setOnClickListener(new View.OnClickListener() {
+        btnPlayGame = (Button) findViewById(R.id.btn_play_game);
+        btnPlayGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 configureTournamentMode();
@@ -93,7 +110,6 @@ public class MapSelectionAndInitializationActivity extends Activity {
     }
 
     public void configureTournamentMode(){
-        intent = new Intent(MapSelectionAndInitializationActivity.this, GamePlayActivity.class);
         LinearLayout linearInput = new LinearLayout(this);
         linearInput.setOrientation(LinearLayout.VERTICAL);
         final EditText editNumberOfGames = new EditText(this);
@@ -111,11 +127,17 @@ public class MapSelectionAndInitializationActivity extends Activity {
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         if (!TextUtils.isEmpty(editNumberOfDraws.getText().toString()) && !TextUtils.isEmpty(editNumberOfGames.getText().toString())) {
                             if ((Integer.parseInt(editNumberOfGames.getText().toString()) <= 5) && (Integer.parseInt(editNumberOfGames.getText().toString()) > 2) && (Integer.parseInt(editNumberOfDraws.getText().toString())>=10) && (Integer.parseInt(editNumberOfDraws.getText().toString())<=50)) {
+                                sweetAlertDialog.dismiss();
                                 bundle.putInt(Constants.KEY_NUMBER_GAMES, Integer.parseInt(editNumberOfGames.getText().toString()));
                                 bundle.putInt(Constants.KEY_NUMBER_DRAWS, Integer.parseInt(editNumberOfDraws.getText().toString()));
+                                ArrayList<String> mapFilePathList = new ArrayList<String>();
+                                for(MapFile mapFile : mapFiles){
+                                    mapFilePathList.add(mapFile.getMapFiles().getPath());
+                                }
+                                bundle.putStringArrayList(Constants.KEY_SELECTED_MAP_LIST,mapFilePathList);
+                                intent = new Intent(MapSelectionAndInitializationActivity.this, GamePlayActivity.class);
                                 intent.putExtras(bundle);
-                                startActivity(intent);
-                                sweetAlertDialog.dismiss();
+                                //startActivity(intent);
                             } else {
                                 Toast.makeText(MapSelectionAndInitializationActivity.this, "Invalid No of Draws or Games!!", Toast.LENGTH_SHORT).show();
                             }

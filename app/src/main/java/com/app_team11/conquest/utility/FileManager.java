@@ -4,6 +4,7 @@ import android.os.Environment;
 
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.model.GameMap;
+import com.app_team11.conquest.model.MapFile;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -82,10 +83,15 @@ public class FileManager {
      *
      * @return myDir.listFiles()
      */
-    public File[] getFileFromRootMapDir() {
+    public List<MapFile> getFileFromRootMapDir() {
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + File.separator + Constants.ROOT_MAP_DIR);
-        return myDir.listFiles();
+        File[] mapArray= myDir.listFiles();
+        List<MapFile> mapFileList = new ArrayList<>();
+        for(File file : mapArray){
+            mapFileList.add(new MapFile(file));
+        }
+        return mapFileList;
     }
 
     /**

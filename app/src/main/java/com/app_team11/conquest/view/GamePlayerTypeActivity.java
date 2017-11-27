@@ -70,7 +70,9 @@ public class GamePlayerTypeActivity extends Activity implements View.OnClickList
                 break;
             case R.id.btn_next_mapselection:
                 Intent intent = new Intent(this, MapSelectionAndInitializationActivity.class);
+                int playerSize= playerTypeList.size();
                 bundle.putStringArrayList(Constants.KEY_PLAYER_LIST,playerTypeList);
+                bundle.putInt(Constants.KEY_NO_OF_PLAYER,playerSize);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 FileManager.getInstance().writeLog("Map Selection Started");

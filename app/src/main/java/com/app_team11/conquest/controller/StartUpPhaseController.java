@@ -85,7 +85,6 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
                 noOfPlayer = bundle.getInt(Constants.KEY_NO_OF_PLAYER);
                 FileManager.getInstance().writeLog("Number of players for game play - " + noOfPlayer);
             }
-
         }
         if (!TextUtils.isEmpty(filePathToLoad) && noOfPlayer > 0) {
             FileManager.getInstance().writeLog("Initializing map for game play...");

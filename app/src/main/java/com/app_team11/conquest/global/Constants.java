@@ -66,4 +66,5 @@ public class Constants {
     public static final String KEY_PLAYER_LIST = "PlayerList";
     public static final String KEY_NUMBER_GAMES = "numberOfGames";
     public static final String KEY_NUMBER_DRAWS = "numberOfDraws";
+    public static final String KEY_SELECTED_MAP_LIST = "SelectedMapList";
 }
