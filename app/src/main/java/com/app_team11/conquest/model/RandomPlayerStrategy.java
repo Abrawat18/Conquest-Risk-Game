@@ -23,10 +23,10 @@ public class RandomPlayerStrategy implements PlayerStrategyListener {
     @Override
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
         Collections.shuffle(gameMap.getTerrForPlayer(player));
-        gameMap.getTerrForPlayer(player).get(0).setArmyCount(gameMap.getTerrForPlayer(player).get(0).getArmyCount()+(reinforcementType.getOtherTotalReinforcement()));
+        gameMap.getTerrForPlayer(player).get(0).setArmyCount(gameMap.getTerrForPlayer(player).get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
 
-        if(reinforcementType.getMatchedTerritoryList()!=null) {
-            reinforcementType.getMatchedTerritoryList().get(0).setArmyCount(reinforcementType.getMatchedTerritoryList().get(0).getArmyCount()+reinforcementType.getMatchedTerrCardReinforcement());
+        if (reinforcementType.getMatchedTerritoryList() != null) {
+            reinforcementType.getMatchedTerritoryList().get(0).setArmyCount(reinforcementType.getMatchedTerritoryList().get(0).getArmyCount() + reinforcementType.getMatchedTerrCardReinforcement());
         }
         return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.REINFORCEMENT_SUCCESS_STRATEGY);
     }
@@ -35,6 +35,19 @@ public class RandomPlayerStrategy implements PlayerStrategyListener {
     @Override
     public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
 
+        int randomAttackTime = new Random().nextInt(5);
+        while (randomAttackTime > 0) {
+            Collections.shuffle(gameMap.getTerrForPlayer(player));
+            Collections.shuffle(gameMap.getTerrForPlayer(player).get(0).getNeighbourList());
+            for (Territory neighbourTerr : gameMap.getTerrForPlayer(player)) {
+                if (neighbourTerr.getTerritoryOwner().getPlayerId() == player.getPlayerId()) {
+
+                    break;
+                }
+            }
+
+            randomAttackTime--;
+        }
 
         return null;
     }
@@ -54,7 +67,7 @@ public class RandomPlayerStrategy implements PlayerStrategyListener {
                     break;
                 }
             }
-            if(fortificationFlag){
+            if (fortificationFlag) {
                 return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.FORTIFICATION_SUCCESS);
             }
         }

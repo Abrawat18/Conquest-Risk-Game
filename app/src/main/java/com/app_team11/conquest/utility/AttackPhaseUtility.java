@@ -57,6 +57,70 @@ public class AttackPhaseUtility {
 
 
     /**
+     * Checks whether attack can be continued
+     *
+     * @param defenderTerritory
+     * @return
+     */
+    public ConfigurableMessage canContinueAttackOnThisTerritory(Territory defenderTerritory) {
+        if (defenderTerritory.getArmyCount() == 0)
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NO_ARMIES);
+        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
+    }
+
+    /**
+     * Checks whether player is attacking an already owned territory
+     *
+     * @param attackerTerritory
+     * @param defenderTerritory
+     * @return whether adjacent or not
+     */
+
+    public ConfigurableMessage isAdjacentTerritory(Territory attackerTerritory, Territory defenderTerritory) {
+        if ((attackerTerritory.getNeighbourList().contains(defenderTerritory)) && (!attackerTerritory.getTerritoryOwner().equals(defenderTerritory.getTerritoryOwner()))) {
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
+        }
+        return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NOT_ADJACENT_TERRITORY);
+    }
+
+
+    /**
+     * Check for sufficient armies
+     *
+     * @param attackerTerritory
+     * @return
+     */
+    public ConfigurableMessage hasSufficientArmies(Territory attackerTerritory) {
+        if (attackerTerritory.getArmyCount() >= 2)
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
+        return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.INSUFFUCIENT_ARMIES);
+    }
+
+    /**
+     * Validate the attack
+     *
+     * @param attackerTerritory
+     * @param defenderTerritory
+     * @return
+     */
+    public ConfigurableMessage validateAttackBetweenTerritories(Territory attackerTerritory, Territory defenderTerritory) {
+        ConfigurableMessage isAdjacenTerritories = isAdjacentTerritory(attackerTerritory, defenderTerritory);
+        ConfigurableMessage hasSufficientArmiesForAttack = hasSufficientArmies(attackerTerritory);
+        ConfigurableMessage canContinueAttack = canContinueAttackOnThisTerritory(defenderTerritory);
+
+        if (isAdjacenTerritories.getMsgCode() == 0)
+            return isAdjacenTerritories;
+        else if (hasSufficientArmiesForAttack.getMsgCode() == 0) {
+            return hasSufficientArmiesForAttack;
+        } else if (canContinueAttack.getMsgCode() == 0) {
+            return canContinueAttack;
+        } else {
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
+        }
+    }
+
+
+    /**
      * The attack phase method
      *
      * @param attackerTerritory
