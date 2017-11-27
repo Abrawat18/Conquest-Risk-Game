@@ -2,17 +2,19 @@ package com.app_team11.conquest.model;
 
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.PlayerStrategyListener;
+import com.app_team11.conquest.utility.AttackPhaseUtility;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Observable;
 import java.util.Random;
 
 /**
  * Created by Jaydeep on 11/26/2017.
  */
 
-public class RandomPlayerStrategy implements PlayerStrategyListener {
+public class RandomPlayerStrategy extends Observable implements PlayerStrategyListener {
 
     @Override
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
@@ -34,19 +36,45 @@ public class RandomPlayerStrategy implements PlayerStrategyListener {
 
     @Override
     public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
+        int randomAttackTime = new Random().nextInt(Constants.RANDOM_NUMBER_ATTACK_TIMES);
+        Collections.shuffle(gameMap.getTerrForPlayer(player));
+        Collections.shuffle(gameMap.getTerrForPlayer(player).get(0).getNeighbourList());
+        boolean isAttackPhaseFinished = false;
+        for (Territory defenderTerr : gameMap.getTerrForPlayer(player).get(0).getNeighbourList()) {
+            if (AttackPhaseUtility.getInstance().validateAttackBetweenTerritories(gameMap.getTerrForPlayer(player).get(0), defenderTerr).getMsgCode() == Constants.MSG_SUCC_CODE) {
+                while (randomAttackTime > 0) {
+                    int attackerDice = 1;
+                    int defenderDice = 1;
+                    if (gameMap.getTerrForPlayer(player).get(0).getArmyCount() <= 3) {
+                        attackerDice = 1 + new Random().nextInt(2);
+                    } else {
+                        attackerDice = 1 + new Random().nextInt(3);
+                    }
+                    if (defenderTerr.getArmyCount() <= 1) {
+                        defenderDice = 1;
+                    } else {
+                        defenderDice = 1 + new Random().nextInt(2);
+                    }
 
-        int randomAttackTime = new Random().nextInt(5);
-        while (randomAttackTime > 0) {
-            Collections.shuffle(gameMap.getTerrForPlayer(player));
-            Collections.shuffle(gameMap.getTerrForPlayer(player).get(0).getNeighbourList());
-            for (Territory neighbourTerr : gameMap.getTerrForPlayer(player)) {
-                if (neighbourTerr.getTerritoryOwner().getPlayerId() == player.getPlayerId()) {
-
-                    break;
+                    ConfigurableMessage resultCode = AttackPhaseUtility.getInstance().attackPhase(gameMap.getTerrForPlayer(player).get(0), defenderTerr, attackerDice, defenderDice);
+                    if (resultCode.getMsgCode() == Constants.MSG_SUCC_CODE) {
+                        if (defenderTerr.getArmyCount() == 0) {
+                            AttackPhaseUtility.getInstance().captureTerritory(gameMap.getTerrForPlayer(player).get(0), defenderTerr, (attackerDice + new Random().nextInt(gameMap.getTerrForPlayer(player).get(0).getArmyCount() - attackerDice)));
+                            ObserverType observerType = new ObserverType();
+                            observerType.setObserverType(ObserverType.WORLD_DOMINATION_TYPE);
+                            setChanged();
+                            notifyObservers(observerType);
+                            break;
+                        }
+                    }
+                    randomAttackTime--;
                 }
+                isAttackPhaseFinished = true;
             }
 
-            randomAttackTime--;
+            if (isAttackPhaseFinished) {
+                break;
+            }
         }
 
         return null;
