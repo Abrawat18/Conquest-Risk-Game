@@ -1,6 +1,7 @@
 package com.app_team11.conquest.model;
 
 import com.app_team11.conquest.interfaces.PlayerStrategyListener;
+import com.app_team11.conquest.utility.ConfigurableMessage;
 
 /**
  * Created by Jaydeep on 11/26/2017.
@@ -9,28 +10,31 @@ import com.app_team11.conquest.interfaces.PlayerStrategyListener;
 public class CheaterPlayerStrategy implements PlayerStrategyListener {
 
     @Override
-    public void startupPhase(GameMap gameMap, Player player) {
+    public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
 
+        return null;
     }
 
     @Override
-    public void reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
+    public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
         for (Territory territory : gameMap.getTerrForPlayer(player)) {
             territory.setArmyCount(2 * territory.getArmyCount());
         }
+        return null;
     }
 
     @Override
-    public void attackPhase(GameMap gameMap, Player player) {
+    public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
         for (Territory territory : gameMap.getTerrForPlayer(player)) {
             for (Territory neighbourTerr : territory.getNeighbourList()) {
                 neighbourTerr.setTerritoryOwner(player);
             }
         }
+        return null;
     }
 
     @Override
-    public void fortificationPhase(GameMap gameMap, Player player) {
+    public ConfigurableMessage fortificationPhase(GameMap gameMap, Player player) {
         for (Territory territory : gameMap.getTerrForPlayer(player)) {
             boolean isNeighbourOtherOwner = false;
             for (Territory neighbourTerr : territory.getNeighbourList()) {
@@ -43,5 +47,6 @@ public class CheaterPlayerStrategy implements PlayerStrategyListener {
                 territory.setArmyCount(2 * territory.getArmyCount());
             }
         }
+        return null;
     }
 }
