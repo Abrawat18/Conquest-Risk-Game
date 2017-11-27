@@ -34,6 +34,15 @@ public class AggressivePlayerStrategy implements PlayerStrategyListener {
 
     @Override
     public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
+
+        sortList(gameMap.getTerrForPlayer(player));
+        Territory attackerTerr=gameMap.getTerrForPlayer(player).get(0);
+        for(Territory defenderTerr : attackerTerr.getNeighbourList()){
+            if(defenderTerr.getTerritoryOwner() != player){
+
+            }
+        }
+
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE_STRATEGY);
     }
 
