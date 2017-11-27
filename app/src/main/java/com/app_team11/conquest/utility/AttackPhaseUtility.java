@@ -20,7 +20,7 @@ import java.util.Random;
 public class AttackPhaseUtility {
 
     private static final String TAG = AttackPhaseUtility.class.getSimpleName();
-    private AttackPhaseUtility instance;
+    private static AttackPhaseUtility instance;
     //TODO : check for capture territory ...
     private int numberOfDiceRolled;
 
@@ -28,7 +28,7 @@ public class AttackPhaseUtility {
 
     }
 
-    public AttackPhaseUtility getInstance(){
+    public static AttackPhaseUtility getInstance(){
         if(instance==null){
             instance = new AttackPhaseUtility();
         }

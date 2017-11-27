@@ -35,6 +35,7 @@ public class RandomPlayerStrategy implements PlayerStrategyListener {
     @Override
     public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
 
+
         return null;
     }
 
