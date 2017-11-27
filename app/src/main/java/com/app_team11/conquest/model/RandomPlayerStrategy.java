@@ -1,29 +1,30 @@
 package com.app_team11.conquest.model;
 
-import com.app_team11.conquest.interfaces.gamePhaseListner;
+import com.app_team11.conquest.interfaces.GamePhaseListner;
 
 /**
  * Created by Jaydeep on 11/26/2017.
  */
 
-public class RandomPlayerStrategy implements gamePhaseListner {
+public class RandomPlayerStrategy implements GamePhaseListner {
+
     @Override
-    public void startupPhase() {
+    public void startupPhase(GameMap gameMap, Player player) {
 
     }
 
     @Override
-    public void reInforcementPhase() {
+    public void reInforcementPhase(GameMap gameMap, Player player) {
 
     }
 
     @Override
-    public void attackPhase() {
+    public void attackPhase(GameMap gameMap, Player player) {
 
     }
 
     @Override
-    public void fortificationPhase() {
+    public void fortificationPhase(GameMap gameMap, Player player) {
 
     }
 }
