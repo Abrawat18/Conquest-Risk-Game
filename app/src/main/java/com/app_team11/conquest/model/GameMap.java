@@ -234,6 +234,7 @@ public class GameMap {
                 playerObj.setPlayerId(i);
                 playerObj.setAvailableArmyCount(armyCount); //adding initial one army each to every territory from the player's count of army
                 if (playerListData != null && playerListData.size() > 0) {
+                    playerObj.setPlayerStrategyType(playerListData.get(i - 1));
                     switch (playerListData.get(i - 1)) {
                         case "Random":
                             playerObj.setPlayerStrategy(new RandomPlayerStrategy());

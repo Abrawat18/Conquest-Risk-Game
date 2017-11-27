@@ -32,6 +32,23 @@ public class Player extends Observable {
     private Boolean cardTradeIn = false;
     private boolean isMyTurn;
     private PlayerStrategyListener playerStrategy;
+    private String playerStrategyType;
+
+    /**
+     *
+     * @return player strategy type
+     */
+    public String getPlayerStrategyType() {
+        return playerStrategyType;
+    }
+
+    /**
+     *
+     * @param playerStrategyType :  set player strategy type
+     */
+    public void setPlayerStrategyType(String playerStrategyType) {
+        this.playerStrategyType = playerStrategyType;
+    }
 
     /**
      *
@@ -337,6 +354,32 @@ public class Player extends Observable {
         } else {
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
         }
+    }
+
+    public ConfigurableMessage reInforcementPhase(GameMap gameMap) {
+        if(getPlayerStrategyType()!=Constants.HUMAN_PLAYER_STRATEGY) {
+            List<Cards> tradInCardList=null;
+            if (this.getOwnedCards().size() >= 5) {
+                tradInCardList = new ArrayList<>();
+                Collections.shuffle(this.getOwnedCards());
+                tradInCardList.addAll(this.getOwnedCards().subList(0, 3));
+            }
+
+            ReinforcementType reinforcementType = calcReinforcementArmy(gameMap, gameMap.getNoOfCardTradedCount(), tradInCardList);
+            getPlayerStrategy().reInforcementPhase(reinforcementType,gameMap,this);
+        }
+        return null;
+    }
+
+
+    public ConfigurableMessage attackPhase(GameMap gameMap) {
+        getPlayerStrategy().attackPhase(gameMap,this);
+        return null;
+    }
+
+    public ConfigurableMessage fortificationPhase(GameMap gameMap) {
+        getPlayerStrategy().fortificationPhase(gameMap,this);
+        return null;
     }
 
 

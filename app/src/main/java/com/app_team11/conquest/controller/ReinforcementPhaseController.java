@@ -12,6 +12,7 @@ import com.app_team11.conquest.adapter.CardListAdapter;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.SurfaceOnTouchListner;
 import com.app_team11.conquest.model.Cards;
+import com.app_team11.conquest.model.HumanPlayerStrategy;
 import com.app_team11.conquest.model.PhaseViewModel;
 import com.app_team11.conquest.model.ReinforcementType;
 import com.app_team11.conquest.model.Territory;
@@ -21,6 +22,7 @@ import com.app_team11.conquest.view.GamePlayActivity;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -75,10 +77,18 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
      */
     public void startReInforceMentPhase() {
         waitForSelectTerritory = true;
-        calculateReinforcementArmyForPlayer(null);
-        FileManager.getInstance().writeLog("Reinforcement phase started.");
+        List<Cards> tradInCardList = null;
+
+        FileManager.getInstance().writeLog("Reinforcement phase started for Player :" + getActivity().getPlayerTurn().getPlayerId());
+
+        // If not human player automatically select random tradIn cards from own card list
+        if ((getActivity().getPlayerTurn().getPlayerStrategyType()) != Constants.HUMAN_PLAYER_STRATEGY) {
+            getActivity().getPlayerTurn().reInforcementPhase(getActivity().getMap());
+        } else {
+            calculateReinforcementArmyForPlayer(tradInCardList);
+        }
         PhaseViewModel.getInstance().clearString();
-        PhaseViewModel.getInstance().addPhaseViewContent("ReInforcement Phase Player :"+getActivity().getPlayerTurn().getPlayerId());
+        PhaseViewModel.getInstance().addPhaseViewContent("ReInforcement Phase Player :" + getActivity().getPlayerTurn().getPlayerId());
     }
 
     /**
@@ -152,7 +162,7 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
                                 }
                                 if (needToPlaceArmy == 0 && getActivity().getPlayerTurn().getAvailableCardTerrCount() == 0) {
                                     getActivity().onReInforcementPhaseCompleted();
-                                }else{
+                                } else {
                                     getActivity().toastMessageFromBackground("Select territory to place Army :" + needToPlaceArmy);
                                 }
                             } else {
@@ -183,8 +193,7 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
             getActivity().toastMessageFromBackground("Place Army:" + needToPlaceArmy);
             FileManager.getInstance().writeLog("Place Army-> " + needToPlaceArmy);
             getActivity().notifyPlayerListAdapter();
-        }
-        else if(tradeInCardList == null){
+        } else if (tradeInCardList == null) {
             getActivity().toastMessageFromBackground("Please select cards for Trade-In to start Reinforcement");
 
         }
@@ -192,6 +201,7 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Returns GamePlayActivity
+     *
      * @return GamePlayActivity
      */
     public GamePlayActivity getActivity() {

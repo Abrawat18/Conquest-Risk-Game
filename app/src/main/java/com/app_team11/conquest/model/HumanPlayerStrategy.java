@@ -1,6 +1,7 @@
 package com.app_team11.conquest.model;
 
 import com.app_team11.conquest.interfaces.PlayerStrategyListener;
+import com.app_team11.conquest.utility.ConfigurableMessage;
 
 /**
  * Created by Jaydeep on 11/27/2017.
@@ -8,23 +9,27 @@ import com.app_team11.conquest.interfaces.PlayerStrategyListener;
 
 public class HumanPlayerStrategy implements PlayerStrategyListener {
     @Override
-    public void startupPhase(GameMap gameMap, Player player) {
+    public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
 
+        return null;
     }
 
     @Override
-    public void reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
+    public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
 
+        return null;
     }
 
 
     @Override
-    public void attackPhase(GameMap gameMap, Player player) {
+    public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
 
+        return null;
     }
 
     @Override
-    public void fortificationPhase(GameMap gameMap, Player player) {
+    public ConfigurableMessage fortificationPhase(GameMap gameMap, Player player) {
 
+        return null;
     }
 }

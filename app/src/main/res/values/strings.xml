@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">RISK</string>
+    <string name="random_strategy">Random</string>
+    <string name="cheater_strategy">Cheater</string>
+    <string name="benevolent_strategy">Benevolent</string>
+    <string name="aggressive_strategy">Aggressive</string>
+    <string name="human_strategy">Human</string>
 
     <string-array name="planets_array">
-        <item>Random</item>
-        <item>Cheater</item>
-        <item>Benevolent</item>
-        <item>Aggressive</item>
-        <item>Human</item>
+        <item>@string/random_strategy</item>
+        <item>@string/cheater_strategy</item>
+        <item>@string/benevolent_strategy</item>
+        <item>@string/aggressive_strategy</item>
+        <item>@string/human_strategy</item>
     </string-array>
 
 </resources>

@@ -71,4 +71,9 @@ public class Constants {
     public static final String REINFORCEMENT_SUCCESS_STRATEGY = "Reinforcement successful";
     public static final int RANDOM_NUMBER_ATTACK_TIMES = 5;
     public static final String ATTACK_SUCCESS_STRATEGY = "Attack successful";
+    public static final String HUMAN_PLAYER_STRATEGY="Human";
+    public static final String RANDOM_PLAYER_STRATEGY="Random";
+    public static final String CHEATER_PLAYER_STRATEGY="Cheater";
+    public static final String BENEVOLENT_PLAYER_STRATEGY="Benevolent";
+    public static final String AGGRESSIVE_PLAYER_STRATEGY="Aggressive";
 }
