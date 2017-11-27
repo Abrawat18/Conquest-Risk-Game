@@ -27,6 +27,7 @@ public class AggressivePlayer extends Observable
     private Boolean cardTradeIn = false;
     private boolean isMyTurn;
     private Territory strongestTerritory=null;
+    private Territory defenderTerritory=null;
 
     /**
      * Returns the available card territory count
@@ -282,15 +283,19 @@ public class AggressivePlayer extends Observable
                 break;
             }
         }
-        for(Territory neighbourTerr:strongestTerritory.getNeighbourList())
-        {
-            if(!ownedNeighbourTerritories(strongestTerritory))
-            {
-
-            }
-
-        }
         return strongestTerritory;
+    }
+
+    /**
+     * Method to get the defender territory based on strongest territory
+     * @return defender territory
+     */
+    public Territory getDefenderTerritory()
+    {
+        for(Territory terr : this.strongestTerritory.getNeighbourList())
+            if(terr.getTerritoryOwner().getPlayerId()!=this.strongestTerritory.getTerritoryOwner().getPlayerId())
+                this.defenderTerritory=terr;
+        return this.defenderTerritory;
     }
 
 
@@ -306,12 +311,22 @@ public class AggressivePlayer extends Observable
 
     /**
      * Method to fortify the strongest territory
-     * @param destTerritory
-     * @param countOfArmy
+     * for aggressive player strategy
      * @return fortification status
      */
-    public ConfigurableMessage fortifyTerritory(Territory fromTerritory, Territory destTerritory, int countOfArmy) {
-        if (fromTerritory.getArmyCount() > countOfArmy && fromTerritory.getTerritoryOwner().getPlayerId() == this.getPlayerId()) {
+    public ConfigurableMessage fortifyTerritory()
+    {
+        Territory fromTerritory=null;
+        Territory destTerritory=this.strongestTerritory;
+        int countOfArmy=new Random().nextInt(fromTerritory.getArmyCount()+1);
+        for(Territory terr:this.strongestTerritory.getNeighbourList())
+        {
+            if(terr.getTerritoryOwner().getPlayerId() == this.strongestTerritory.getTerritoryOwner().getPlayerId())
+            {
+                fromTerritory=terr;
+            }
+        }
+        if (fromTerritory.getArmyCount() > countOfArmy) {
             Boolean neighbourFlag = false;
             for (Territory obj : fromTerritory.getNeighbourList()) {
                 if (obj.getTerritoryName().equalsIgnoreCase(destTerritory.getTerritoryName())) {
@@ -337,12 +352,11 @@ public class AggressivePlayer extends Observable
     }
     /**
      * Checks whether player is attacking an already owned territory
-     * @param defenderTerritory
      * @return whether adjacent or not
      */
 
-    public ConfigurableMessage isAdjacentTerritory(Territory defenderTerritory) {
-        if ((this.strongestTerritory.getNeighbourList().contains(defenderTerritory)) && (!this.strongestTerritory.getTerritoryOwner().equals(defenderTerritory.getTerritoryOwner()))) {
+    public ConfigurableMessage isAdjacentTerritory() {
+        if ((this.strongestTerritory.getNeighbourList().contains(this.defenderTerritory)) && (!this.strongestTerritory.getTerritoryOwner().equals(defenderTerritory.getTerritoryOwner()))) {
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
         }
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NOT_ADJACENT_TERRITORY);
@@ -360,26 +374,25 @@ public class AggressivePlayer extends Observable
 
     /**
      * Checks whether attack can be continued
-     *
-     * @param defenderTerritory
      * @return
      */
-    public ConfigurableMessage canContinueAttackOnThisTerritory(Territory defenderTerritory) {
-        if (defenderTerritory.getArmyCount() == 0)
+    public ConfigurableMessage canContinueAttackOnThisTerritory() {
+        if (this.defenderTerritory.getArmyCount() == 0)
             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.NO_ARMIES);
         return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
     }
 
+
     /**
      * Validate the attack
-     *
-     * @param defenderTerritory
+     *for aggressive player
      * @return
      */
-    public ConfigurableMessage validateAttackBetweenTerritories(Territory defenderTerritory) {
-        ConfigurableMessage isAdjacenTerritories = isAdjacentTerritory(defenderTerritory);
+    public ConfigurableMessage validateAttackBetweenTerritories() {
+        Territory defender=getDefenderTerritory();
+        ConfigurableMessage isAdjacenTerritories = isAdjacentTerritory();
         ConfigurableMessage hasSufficientArmiesForAttack = hasSufficientArmies();
-        ConfigurableMessage canContinueAttack = canContinueAttackOnThisTerritory(defenderTerritory);
+        ConfigurableMessage canContinueAttack = canContinueAttackOnThisTerritory();
 
         if (isAdjacenTerritories.getMsgCode() == 0)
             return isAdjacenTerritories;
@@ -396,20 +409,19 @@ public class AggressivePlayer extends Observable
     /**
      * The attack phase method
      *
-     * @param defenderTerritory
-     * @param attackerDice
-     * @param defenderDice
      */
-    public ConfigurableMessage attackPhase(Territory defenderTerritory, int attackerDice, int defenderDice) {
+    public ConfigurableMessage attackPhase() {
+        int attackerDice=new Random().nextInt(4);
+        int defenderDice=new Random().nextInt(3);
         setNumberOfDiceRolled(attackerDice);
         if (this.strongestTerritory.getArmyCount() <= attackerDice) {
             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ATTACKER_DICE);
-        } else if (defenderTerritory.getArmyCount() < defenderDice) {
+        } else if (this.defenderTerritory.getArmyCount() < defenderDice) {
             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.CHOOSE_LESS_NUMBER_DICE);
         }
         String messageAttack = "Attacking City " + this.strongestTerritory.getTerritoryName();
         PhaseViewModel.getInstance().addPhaseViewContent(messageAttack);
-        String messageDefender = "Attacked City " + defenderTerritory.getTerritoryName();
+        String messageDefender = "Attacked City " + this.defenderTerritory.getTerritoryName();
         PhaseViewModel.getInstance().addPhaseViewContent(messageDefender);
 
         //Validations are true for attacking and hence proceeding with logic
@@ -447,7 +459,7 @@ public class AggressivePlayer extends Observable
 
             //if attacker wins
             if (attackerDiceValue > defenderDiceValue) {
-                defenderTerritory.setArmyCount(defenderTerritory.getArmyCount() - 1);
+                this.defenderTerritory.setArmyCount(this.defenderTerritory.getArmyCount() - 1);
                 attackerWonCounter++;
             } else {
                 this.strongestTerritory.setArmyCount(this.strongestTerritory.getArmyCount() - 1);
