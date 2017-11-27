@@ -3,6 +3,7 @@ package com.app_team11.conquest.model;
 import android.util.Log;
 
 import com.app_team11.conquest.global.Constants;
+import com.app_team11.conquest.interfaces.PlayerStrategyListener;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.utility.FileManager;
 
@@ -30,9 +31,27 @@ public class Player extends Observable {
     private List<Cards> ownedCards = new ArrayList<Cards>();
     private Boolean cardTradeIn = false;
     private boolean isMyTurn;
+    private PlayerStrategyListener playerStrategy;
+
+    /**
+     *
+     * @return
+     */
+    public PlayerStrategyListener getPlayerStrategy() {
+        return playerStrategy;
+    }
+
+    /**
+     *
+     * @param playerStrategy
+     */
+    public void setPlayerStrategy(PlayerStrategyListener playerStrategy) {
+        this.playerStrategy = playerStrategy;
+    }
 
     /**
      * Returns the available card territory count
+     *
      * @return availableCardTerrCount
      */
     public int getAvailableCardTerrCount() {
@@ -45,6 +64,7 @@ public class Player extends Observable {
 
     /**
      * Method to check if the player has got his turn
+     *
      * @return
      */
     public boolean isMyTurn() {
@@ -53,6 +73,7 @@ public class Player extends Observable {
 
     /**
      * Gives turn to the player
+     *
      * @param myTurn
      */
     public void setMyTurn(boolean myTurn) {
@@ -61,6 +82,7 @@ public class Player extends Observable {
 
     /**
      * Returns the player ID
+     *
      * @return playerID
      */
     public int getPlayerId() {
@@ -69,6 +91,7 @@ public class Player extends Observable {
 
     /**
      * Sets the ID of the player
+     *
      * @param playerId
      */
     public void setPlayerId(int playerId) {
@@ -77,6 +100,7 @@ public class Player extends Observable {
 
     /**
      * Returns the available army count
+     *
      * @return availableArmyCount
      */
     public int getAvailableArmyCount() {
@@ -85,6 +109,7 @@ public class Player extends Observable {
 
     /**
      * Sets the available army count
+     *
      * @param availableArmyCount
      */
     public void setAvailableArmyCount(int availableArmyCount) {
@@ -93,6 +118,7 @@ public class Player extends Observable {
 
     /**
      * Returns the Owned cards
+     *
      * @return ownedCards
      */
     public List<Cards> getOwnedCards() {
@@ -101,6 +127,7 @@ public class Player extends Observable {
 
     /**
      * Sets the owned cards
+     *
      * @param ownedCards
      */
     public void setOwnedCards(List<Cards> ownedCards) {
@@ -109,6 +136,7 @@ public class Player extends Observable {
 
     /**
      * Add owned cards
+     *
      * @param addCards
      */
     public void addOwnedCards(List<Cards> addCards) {
@@ -117,6 +145,7 @@ public class Player extends Observable {
 
     /**
      * Returns the trade in cards
+     *
      * @return cardTradeIn
      */
     public Boolean getCardTradeIn() {
@@ -125,6 +154,7 @@ public class Player extends Observable {
 
     /**
      * Sets the trade in cards
+     *
      * @param cardTradeIn
      */
     public void setCardTradeIn(Boolean cardTradeIn) {
@@ -156,12 +186,13 @@ public class Player extends Observable {
 
     /**
      * This method is used to calculate the total number of reinforcement armies
+     *
      * @param gameMap
      * @param cardTradeCount
      * @param tradeInCards
      * @return Reinforcement Army Count
      */
-    public ReinforcementType    calcReinforcementArmy(GameMap gameMap, int cardTradeCount, List<Cards> tradeInCards) {
+    public ReinforcementType calcReinforcementArmy(GameMap gameMap, int cardTradeCount, List<Cards> tradeInCards) {
         int ownedTerritoryCount = 0;
         int territoryArmy = 3;
         int continentArmy = 0;
@@ -230,7 +261,7 @@ public class Player extends Observable {
         try {
             FileManager.getInstance().writeLog(message);
         } catch (Exception e) {
-           // e.printStackTrace();
+            // e.printStackTrace();
         }
         PhaseViewModel.getInstance().addPhaseViewContent(message);
         if (reinforcementCount.getMatchedTerrCardReinforcement() != 0) {
@@ -356,7 +387,7 @@ public class Player extends Observable {
             FileManager.getInstance().writeLog(messageAttackDice);
             FileManager.getInstance().writeLog(messageDefenderDice);
         } catch (Exception e) {
-           // e.printStackTrace();
+            // e.printStackTrace();
         }
         while (defenderDiceValues.size() > 0) {
             attackerDiceValue = attackerDiceValues.get(0);
@@ -399,6 +430,7 @@ public class Player extends Observable {
 
     /**
      * Returns number of dice rolled
+     *
      * @return
      */
     public int getNumberOfDiceRolled() {
@@ -407,6 +439,7 @@ public class Player extends Observable {
 
     /**
      * Set the number of dice rolled
+     *
      * @param numberOfDiceRolled
      */
     public void setNumberOfDiceRolled(int numberOfDiceRolled) {

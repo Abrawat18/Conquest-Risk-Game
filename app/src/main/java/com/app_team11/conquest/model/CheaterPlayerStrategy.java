@@ -1,12 +1,12 @@
 package com.app_team11.conquest.model;
 
-import com.app_team11.conquest.interfaces.GamePhaseListner;
+import com.app_team11.conquest.interfaces.PlayerStrategyListener;
 
 /**
  * Created by Jaydeep on 11/26/2017.
  */
 
-public class CheaterPlayerStrategy implements GamePhaseListner {
+public class CheaterPlayerStrategy implements PlayerStrategyListener {
 
     @Override
     public void startupPhase(GameMap gameMap, Player player) {
@@ -14,7 +14,7 @@ public class CheaterPlayerStrategy implements GamePhaseListner {
     }
 
     @Override
-    public void reInforcementPhase(GameMap gameMap, Player player) {
+    public void reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
         for (Territory territory : gameMap.getTerrForPlayer(player)) {
             territory.setArmyCount(2 * territory.getArmyCount());
         }

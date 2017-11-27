@@ -1,19 +1,19 @@
 package com.app_team11.conquest.model;
 
-import com.app_team11.conquest.interfaces.GamePhaseListner;
+import com.app_team11.conquest.interfaces.PlayerStrategyListener;
 
 /**
  * Created by Jaydeep on 11/27/2017.
  */
 
-public class BenevolentPlayerStrategy implements GamePhaseListner{
+public class BenevolentPlayerStrategy implements PlayerStrategyListener {
     @Override
     public void startupPhase(GameMap gameMap, Player player) {
 
     }
 
     @Override
-    public void reInforcementPhase(GameMap gameMap, Player player) {
+    public void reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
 
     }
 
