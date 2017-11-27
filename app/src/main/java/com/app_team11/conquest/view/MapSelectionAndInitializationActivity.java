@@ -64,9 +64,9 @@ public class MapSelectionAndInitializationActivity extends Activity {
     private void initialization() {
         if (bundle != null) {
             fromWhichActivity = bundle.getString(Constants.KEY_FROM);
-            gameMode=bundle.getString(Constants.KEY_FROM_GAME_MODE);
+            gameMode = bundle.getString(Constants.KEY_FROM_GAME_MODE);
         }
-        if(gameMode.equals(Constants.FROM_SINGLE_MODE_VALUE)){
+        if (gameMode.equals(Constants.FROM_SINGLE_MODE_VALUE)) {
             btnPlayGame.setVisibility(View.GONE);
         }
         mapFiles = FileManager.getInstance().getFileFromRootMapDir();
@@ -93,8 +93,7 @@ public class MapSelectionAndInitializationActivity extends Activity {
                     intent = new Intent(MapSelectionAndInitializationActivity.this, GamePlayActivity.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                }
-                else if(fromWhichActivity.equals(Constants.VALUE_FROM_PLAY_GAME) && (bundle.getString(Constants.KEY_FROM_GAME_MODE).equals(Constants.FROM_TOURNAMENT_MODE_VALUE))){
+                } else if (fromWhichActivity.equals(Constants.VALUE_FROM_PLAY_GAME) && (bundle.getString(Constants.KEY_FROM_GAME_MODE).equals(Constants.FROM_TOURNAMENT_MODE_VALUE))) {
                     mapFiles.get(position).setSelected(!mapFiles.get(position).isSelected());
                     mapSelectionAdapter.notifyDataSetChanged();
                 }
@@ -109,7 +108,7 @@ public class MapSelectionAndInitializationActivity extends Activity {
         });
     }
 
-    public void configureTournamentMode(){
+    public void configureTournamentMode() {
         LinearLayout linearInput = new LinearLayout(this);
         linearInput.setOrientation(LinearLayout.VERTICAL);
         final EditText editNumberOfGames = new EditText(this);
@@ -126,18 +125,24 @@ public class MapSelectionAndInitializationActivity extends Activity {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         if (!TextUtils.isEmpty(editNumberOfDraws.getText().toString()) && !TextUtils.isEmpty(editNumberOfGames.getText().toString())) {
-                            if ((Integer.parseInt(editNumberOfGames.getText().toString()) <= 5) && (Integer.parseInt(editNumberOfGames.getText().toString()) > 2) && (Integer.parseInt(editNumberOfDraws.getText().toString())>=10) && (Integer.parseInt(editNumberOfDraws.getText().toString())<=50)) {
+                            if ((Integer.parseInt(editNumberOfGames.getText().toString()) <= 5) && (Integer.parseInt(editNumberOfGames.getText().toString()) > 2) && (Integer.parseInt(editNumberOfDraws.getText().toString()) >= 10) && (Integer.parseInt(editNumberOfDraws.getText().toString()) <= 50)) {
                                 sweetAlertDialog.dismiss();
                                 bundle.putInt(Constants.KEY_NUMBER_GAMES, Integer.parseInt(editNumberOfGames.getText().toString()));
                                 bundle.putInt(Constants.KEY_NUMBER_DRAWS, Integer.parseInt(editNumberOfDraws.getText().toString()));
                                 ArrayList<String> mapFilePathList = new ArrayList<String>();
-                                for(MapFile mapFile : mapFiles){
-                                    mapFilePathList.add(mapFile.getMapFiles().getPath());
+                                for (MapFile mapFile : mapFiles) {
+                                    if (mapFile.isSelected()) {
+                                        mapFilePathList.add(mapFile.getMapFiles().getPath());
+                                    }
                                 }
-                                bundle.putStringArrayList(Constants.KEY_SELECTED_MAP_LIST,mapFilePathList);
-                                intent = new Intent(MapSelectionAndInitializationActivity.this, GamePlayActivity.class);
-                                intent.putExtras(bundle);
-                                //startActivity(intent);
+                                if (mapFilePathList.size() >= 1 && mapFilePathList.size() <= 5) {
+                                    bundle.putStringArrayList(Constants.KEY_SELECTED_MAP_LIST, mapFilePathList);
+                                    intent = new Intent(MapSelectionAndInitializationActivity.this, GamePlayActivity.class);
+                                    intent.putExtras(bundle);
+                                    //startActivity(intent);
+                                } else {
+                                    Toast.makeText(MapSelectionAndInitializationActivity.this, "Number of maps should be between 1 to 5", Toast.LENGTH_SHORT).show();
+                                }
                             } else {
                                 Toast.makeText(MapSelectionAndInitializationActivity.this, "Invalid No of Draws or Games!!", Toast.LENGTH_SHORT).show();
                             }
@@ -155,7 +160,6 @@ public class MapSelectionAndInitializationActivity extends Activity {
                 })
                 .show();
     }
-
 
 
     /**

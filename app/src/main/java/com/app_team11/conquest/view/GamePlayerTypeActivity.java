@@ -52,7 +52,7 @@ public class GamePlayerTypeActivity extends Activity implements View.OnClickList
         arrayAdapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
-                playerTypeList );
+                playerTypeList);
 
         lv.setAdapter(arrayAdapter);
     }
@@ -64,18 +64,25 @@ public class GamePlayerTypeActivity extends Activity implements View.OnClickList
             case R.id.btn_add_player_type:
                 Spinner mySpinner = (Spinner) findViewById(R.id.planets_spinner);
                 String text = mySpinner.getSelectedItem().toString();
-                Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
                 playerTypeList.add(text);
                 arrayAdapter.notifyDataSetChanged();
                 break;
             case R.id.btn_next_mapselection:
+                int playerSize = playerTypeList.size();
                 Intent intent = new Intent(this, MapSelectionAndInitializationActivity.class);
-                int playerSize= playerTypeList.size();
-                bundle.putStringArrayList(Constants.KEY_PLAYER_LIST,playerTypeList);
-                bundle.putInt(Constants.KEY_NO_OF_PLAYER,playerSize);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                FileManager.getInstance().writeLog("Map Selection Started");
+                if (((playerSize >= 2 && playerSize <= 4) && (bundle.getString(Constants.KEY_FROM_GAME_MODE).equals(Constants.FROM_TOURNAMENT_MODE_VALUE))) || ((playerSize >= 2 && playerSize <= 6) && (bundle.getString(Constants.KEY_FROM_GAME_MODE).equals(Constants.FROM_SINGLE_MODE_VALUE)))) {
+                    bundle.putStringArrayList(Constants.KEY_PLAYER_LIST, playerTypeList);
+                    bundle.putInt(Constants.KEY_NO_OF_PLAYER, playerSize);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    FileManager.getInstance().writeLog("Map Selection Started");
+                } else {
+                    if (bundle.getString(Constants.KEY_FROM_GAME_MODE).equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
+                        Toast.makeText(this, "Players must be between 2 and 4 for tournament", Toast.LENGTH_SHORT).show();
+                    } else if (bundle.getString(Constants.KEY_FROM_GAME_MODE).equals(Constants.FROM_SINGLE_MODE_VALUE)) {
+                        Toast.makeText(this, "Players must be between 2 and 6 for Single Mode", Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
         }
     }
