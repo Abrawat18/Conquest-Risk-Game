@@ -2,6 +2,7 @@ package com.app_team11.conquest.model;
 
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.PlayerStrategyListener;
+import com.app_team11.conquest.utility.AttackPhaseUtility;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 
 import java.util.Collections;
@@ -9,6 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 /**
  * Created by Jaydeep on 11/27/2017.
@@ -38,19 +40,34 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
     public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
 
         sortList(gameMap.getTerrForPlayer(player));
-        Territory attackerTerr=gameMap.getTerrForPlayer(player).get(0);
-        for(Territory defenderTerr : attackerTerr.getNeighbourList()){
-            if(defenderTerr.getTerritoryOwner() != player){
-
+        Territory attackerTerr = gameMap.getTerrForPlayer(player).get(0);
+        for (Territory defenderTerr : attackerTerr.getNeighbourList()) {
+            if (defenderTerr.getTerritoryOwner() != player) {
+                boolean canContinueAttack=true;
+                while (canContinueAttack) {
+                    if (AttackPhaseUtility.getInstance().validateAttackBetweenTerritories(attackerTerr, defenderTerr).getMsgCode() == Constants.MSG_SUCC_CODE) {
+                        int attackerDice = 3;
+                        int defenderDice = 1 + (new Random().nextInt(2));
+                        ConfigurableMessage resultCode = AttackPhaseUtility.getInstance().attackPhase(attackerTerr, defenderTerr, attackerDice, defenderDice);
+                        if (resultCode.getMsgCode() == Constants.MSG_SUCC_CODE) {
+                            if(defenderTerr.getArmyCount()==0){
+                                AttackPhaseUtility.getInstance().captureTerritory(attackerTerr,defenderTerr,attackerDice);
+                                ObserverType observerType = new ObserverType();
+                                observerType.setObserverType(ObserverType.WORLD_DOMINATION_TYPE);
+                                setChanged();
+                                notifyObservers(observerType);
+                                canContinueAttack=false;
+                                break;
+                            }
+                        }
+                    }
+                    else{
+                        canContinueAttack=false;
+                        break;
+                    }
+                }
             }
         }
-
-        // IF Captured territory success::
-        ObserverType observerType = new ObserverType();
-        observerType.setObserverType(ObserverType.WORLD_DOMINATION_TYPE);
-        setChanged();
-        notifyObservers(observerType);
-
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE_STRATEGY);
     }
 
