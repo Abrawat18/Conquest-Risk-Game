@@ -51,9 +51,11 @@ public class GamePlayModeActivity extends Activity implements View.OnClickListen
             case R.id.btn_single_mode:
                 playSingleGame();
                 FileManager.getInstance().writeLog("Launching Single Game Play");
+                break;
             case R.id.btn_tournament_mode:
                 playTournamentMode();
                 FileManager.getInstance().writeLog("Launching Tournament Game Play");
+                break;
         }
 
 

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark">
 
     <TextView
         android:layout_width="match_parent"
@@ -11,14 +12,16 @@
         android:textColor="@android:color/black"
         android:textSize="32sp"
         android:textStyle="bold|italic"
-        android:background="@color/white"/>
+        android:background="@color/white"
+        android:layout_marginBottom="10dp"/>
     <ListView
-        android:layout_marginTop="10dp"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:id="@+id/list_map"></ListView>
     <Button
         android:id="@+id/btn_play_game"
-        android:layout_width="wrap_content"
+        android:text="Play Game"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>
