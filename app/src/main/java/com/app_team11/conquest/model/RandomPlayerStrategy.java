@@ -39,7 +39,6 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
         int randomAttackTime = new Random().nextInt(Constants.RANDOM_NUMBER_ATTACK_TIMES);
         Collections.shuffle(gameMap.getTerrForPlayer(player));
         Collections.shuffle(gameMap.getTerrForPlayer(player).get(0).getNeighbourList());
-        boolean isAttackPhaseFinished = false;
         for (Territory defenderTerr : gameMap.getTerrForPlayer(player).get(0).getNeighbourList()) {
             if (AttackPhaseUtility.getInstance().validateAttackBetweenTerritories(gameMap.getTerrForPlayer(player).get(0), defenderTerr).getMsgCode() == Constants.MSG_SUCC_CODE) {
                 while (randomAttackTime > 0) {
@@ -69,12 +68,10 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
                     }
                     randomAttackTime--;
                 }
-                isAttackPhaseFinished = true;
-            }
-
-            if (isAttackPhaseFinished) {
                 break;
             }
+
+
         }
 
         return null;

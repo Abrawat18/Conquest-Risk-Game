@@ -19,6 +19,7 @@ import com.app_team11.conquest.utility.ReadMapUtility;
 import com.app_team11.conquest.view.GamePlayActivity;
 
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Startup phase implementation
@@ -77,11 +78,13 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
     private void getDataFromBundleAndInitializeMap() {
         String filePathToLoad = null;
         Intent intent = getActivity().getIntent();
+        List<String> playerList = null;
         int noOfPlayer = 0;
         if (intent != null) {
             Bundle bundle = intent.getExtras();
             if (bundle != null) {
                 filePathToLoad = bundle.getString(Constants.KEY_FILE_PATH);
+                playerList = bundle.getStringArrayList(Constants.KEY_PLAYER_LIST);
                 noOfPlayer = bundle.getInt(Constants.KEY_NO_OF_PLAYER);
                 FileManager.getInstance().writeLog("Number of players for game play - " + noOfPlayer);
             }
@@ -89,7 +92,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
         if (!TextUtils.isEmpty(filePathToLoad) && noOfPlayer > 0) {
             FileManager.getInstance().writeLog("Initializing map for game play...");
             getActivity().setMap(new ReadMapUtility(getActivity()).readFile(filePathToLoad));
-            getActivity().getMap().addPlayerToGame(noOfPlayer);
+            getActivity().getMap().addPlayerToGame(noOfPlayer,playerList);
             getActivity().initializePlayerAdapter();
         } else {
             Toast.makeText(context, "Invalid input please try again later !!", Toast.LENGTH_SHORT).show();

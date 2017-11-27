@@ -9,6 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by Nigel on 19-Oct-17.
@@ -36,7 +37,7 @@ public class ReadMapUtilityTest {
         assertEquals(3, gameMap.getContinentList().size());
         assertEquals(6, gameMap.getTerritoryList().size());
 
-        gameMap.addPlayerToGame(3);
+        gameMap.addPlayerToGame(3, new ArrayList<String>());
         assertEquals(3, gameMap.getPlayerList().size());
         for (int i = 0; i < gameMap.getPlayerList().size(); i++)
             System.out.println("Player id: " + gameMap.getPlayerList().get(i).getPlayerId());

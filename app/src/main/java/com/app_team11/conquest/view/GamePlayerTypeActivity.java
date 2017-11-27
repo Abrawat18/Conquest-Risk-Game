@@ -42,12 +42,9 @@ public class GamePlayerTypeActivity extends Activity implements View.OnClickList
         findViewById(R.id.btn_next_mapselection).setOnClickListener(this);
         lv = (ListView) findViewById(R.id.list_playertype);
         Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.planets_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         arrayAdapter = new ArrayAdapter<String>(
                 this,

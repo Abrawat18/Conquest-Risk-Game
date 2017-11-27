@@ -3,13 +3,13 @@ package com.app_team11.conquest.model;
 
 import android.util.Log;
 
+import com.app_team11.conquest.R;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.FileManager;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -207,10 +207,14 @@ public class GameMap {
     /**
      * Method to add players to game and assign them intitial armies
      *
-     * @param playersCount number of players to be added for game
+     * @param playersCount   number of players to be added for game
+     * @param playerListData playerlist to add in gamemap with different strategy ...
      * @return Configurable Message
      */
-    public ConfigurableMessage addPlayerToGame(int playersCount) {
+    public ConfigurableMessage addPlayerToGame(int playersCount, List<String> playerListData) {
+        if (playerListData != null && playerListData.size() > 0) {
+            playersCount = playerListData.size();
+        }
         if (playersCount >= 2 && playersCount <= 6) {
             List<Player> playerList = new ArrayList<Player>();
             int armyCount = 0;
@@ -229,6 +233,28 @@ public class GameMap {
                 Player playerObj = new Player();
                 playerObj.setPlayerId(i);
                 playerObj.setAvailableArmyCount(armyCount); //adding initial one army each to every territory from the player's count of army
+                if (playerListData != null && playerListData.size() > 0) {
+                    switch (playerListData.get(i - 1)) {
+                        case "Random":
+                            playerObj.setPlayerStrategy(new RandomPlayerStrategy());
+                            break;
+                        case "Cheater":
+                            playerObj.setPlayerStrategy(new CheaterPlayerStrategy());
+                            break;
+                        case "Benevolent":
+                            playerObj.setPlayerStrategy(new BenevolentPlayerStrategy());
+                            break;
+                        case "Aggressive":
+                            playerObj.setPlayerStrategy(new AggressivePlayerStrategy());
+                            break;
+                        case "Human":
+                            playerObj.setPlayerStrategy(new HumanPlayerStrategy());
+                            break;
+                    }
+                } else {
+                    playerObj.setPlayerStrategy(new HumanPlayerStrategy());
+                }
+
                 playerList.add(playerObj);
             }
             this.setPlayerList(playerList);
@@ -505,44 +531,38 @@ public class GameMap {
         this.getCardList().remove(card);
     }
 
-    Boolean connectedTerritories=false;
-    Boolean connectedContinentTerritories=true;
+    Boolean connectedTerritories = false;
+    Boolean connectedContinentTerritories = true;
 
     /**
      * Checks whether graph is connected
      * connectedTerritories stores the boolean result for check of connected territories
      * connectedContinentTerritories stores the boolean result for check of connected territories in the continents
+     *
      * @return logical AND of connectedTerritories and connectedContinentTerritories
      */
-    public Boolean isGraphConnected()
-    {
-        connectedContinentTerritories=true;
-        connectedTerritories=false;
+    public Boolean isGraphConnected() {
+        connectedContinentTerritories = true;
+        connectedTerritories = false;
         printTerritories();
-        if (this.getTerritoryList().size() > 0)
-        {
-            for(int i=0;i<this.getTerritoryList().size();i++)
-            {
+        if (this.getTerritoryList().size() > 0) {
+            for (int i = 0; i < this.getTerritoryList().size(); i++) {
                 checkForConnectedGraph(this.getTerritoryList().get(i));
-                if(isConnected(this.getTerritoryList()))
-                {
-                    connectedTerritories= true;
+                if (isConnected(this.getTerritoryList())) {
+                    connectedTerritories = true;
                     break;
-                }
-                else
-                {
-                    for(Territory territory:this.getTerritoryList())
-                        territory.isVisited=false;
+                } else {
+                    for (Territory territory : this.getTerritoryList())
+                        territory.isVisited = false;
                 }
             }
         }
-        for(Territory territory:this.getTerritoryList())
-            territory.isVisited=false;
-        if(this.getContinentList().size()>0)
-        {
-            List<Territory> continentTerritories=new ArrayList<Territory>();
+        for (Territory territory : this.getTerritoryList())
+            territory.isVisited = false;
+        if (this.getContinentList().size() > 0) {
+            List<Territory> continentTerritories = new ArrayList<Territory>();
             //Get list of all territories in a continent
-            for(Continent continent :this.getContinentList()) {
+            for (Continent continent : this.getContinentList()) {
                 for (Territory territory : this.getTerritoryList()) {
                     if (territory.getContinent().getContName() == continent.getContName())
                         continentTerritories.add(territory);
@@ -550,7 +570,7 @@ public class GameMap {
 
                 if (continentTerritories.size() > 0) {
                     for (int i = 0; i < continentTerritories.size(); i++) {
-                        checkForConnectedContinents(continent,continentTerritories.get(i));
+                        checkForConnectedContinents(continent, continentTerritories.get(i));
                         if (!isConnected(continentTerritories)) {
                             connectedContinentTerritories = false;
                             break;
@@ -563,8 +583,8 @@ public class GameMap {
                 }
                 continentTerritories.clear();
             }
-            for(Territory territory:this.getTerritoryList())
-                territory.isVisited=false;
+            for (Territory territory : this.getTerritoryList())
+                territory.isVisited = false;
 
         }
         return connectedTerritories && connectedContinentTerritories;
@@ -577,12 +597,10 @@ public class GameMap {
      *
      * @param territory
      */
-    public void checkForConnectedGraph(Territory territory)
-    {
+    public void checkForConnectedGraph(Territory territory) {
         List<Territory> neighbours = territory.getNeighbourList();
         if (neighbours != null)
-            for (int i = 0; i < neighbours.size(); i++)
-            {
+            for (int i = 0; i < neighbours.size(); i++) {
                 Territory terr = neighbours.get(i);
                 if (terr != null && !terr.isVisited) {
                     terr.isVisited = true;
@@ -593,18 +611,16 @@ public class GameMap {
 
     /**
      * Check whether territories in a continent are connected
+     *
      * @param continent
      * @param territory
      */
-    public void checkForConnectedContinents(Continent continent,Territory territory)
-    {
+    public void checkForConnectedContinents(Continent continent, Territory territory) {
         List<Territory> neighbours = territory.getNeighbourList();
         if (neighbours != null)
-            for (int i = 0; i < neighbours.size(); i++)
-            {
+            for (int i = 0; i < neighbours.size(); i++) {
                 Territory terr = neighbours.get(i);
-                if (terr != null && !terr.isVisited && terr.getContinent().getContName()==continent.getContName())
-                {
+                if (terr != null && !terr.isVisited && terr.getContinent().getContName() == continent.getContName()) {
                     terr.isVisited = true;
                     checkForConnectedGraph(terr);
                 }
@@ -620,8 +636,7 @@ public class GameMap {
 
     public Boolean isConnected(List<Territory> territoryList) {
         for (Territory territory : territoryList) {
-            if (!getIsVisited(territory))
-            {
+            if (!getIsVisited(territory)) {
                 return false;
             }
         }
@@ -637,15 +652,12 @@ public class GameMap {
         return territory.isVisited;
     }
 
-    public void printTerritories()
-    {
+    public void printTerritories() {
         System.out.println(">>>>>>>>>>>>>Printing territory list: \n");
-        for(int i=0;i<this.getTerritoryList().size();i++)
-        {
-            System.out.println("=====Territory: "+this.getTerritoryList().get(i).getTerritoryName());
-            for(Territory t:this.getTerritoryList().get(i).getNeighbourList())
-            {
-                System.out.println("Neighbour is: "+t.getTerritoryName());
+        for (int i = 0; i < this.getTerritoryList().size(); i++) {
+            System.out.println("=====Territory: " + this.getTerritoryList().get(i).getTerritoryName());
+            for (Territory t : this.getTerritoryList().get(i).getNeighbourList()) {
+                System.out.println("Neighbour is: " + t.getTerritoryName());
 
             }
         }
