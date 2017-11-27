@@ -68,7 +68,7 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
                 }
             }
         }
-        return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE_STRATEGY);
+        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ATTACK_SUCCESS_STRATEGY);
     }
 
     @Override
