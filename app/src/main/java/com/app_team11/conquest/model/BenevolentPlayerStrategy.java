@@ -21,16 +21,15 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
 
     @Override
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
-        Collections.sort(gameMap.getTerrForPlayer(player), new Comparator<Territory>() {
-            @Override
-            public int compare(Territory t1, Territory t2) {
-                return t1.getArmyCount() - t2.getArmyCount();
-            }
-        });
-        for (Territory territory : gameMap.getTerrForPlayer(player)) {
+        sortList(gameMap.getTerrForPlayer(player), true);
+        gameMap.getTerrForPlayer(player).get(0).setArmyCount(gameMap.getTerrForPlayer(player).get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
+
+        if (reinforcementType.getMatchedTerritoryList() != null) {
+            sortList(reinforcementType.getMatchedTerritoryList(), true);
+            reinforcementType.getMatchedTerritoryList().get(0).setArmyCount(reinforcementType.getMatchedTerritoryList().get(0).getArmyCount() + reinforcementType.getMatchedTerrCardReinforcement());
 
         }
-        return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE_STRATEGY);
+        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.REINFORCEMENT_SUCCESS_STRATEGY);
     }
 
     @Override
@@ -41,19 +40,9 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
     @Override
     public ConfigurableMessage fortificationPhase(GameMap gameMap, Player player) {
         boolean fortificationFlag = false;
-        Collections.sort(gameMap.getTerrForPlayer(player), new Comparator<Territory>() {
-            @Override
-            public int compare(Territory t1, Territory t2) {
-                return t1.getArmyCount() - t2.getArmyCount();
-            }
-        });
+        sortList(gameMap.getTerrForPlayer(player), true);
         for (Territory territory : gameMap.getTerrForPlayer(player)) {
-            Collections.sort(territory.getNeighbourList(), new Comparator<Territory>() {
-                @Override
-                public int compare(Territory t1, Territory t2) {
-                    return t2.getArmyCount() - t1.getArmyCount();
-                }
-            });
+            sortList(territory.getNeighbourList(), false);
             for (Territory neighbourTerr : territory.getNeighbourList()) {
                 if (neighbourTerr.getTerritoryOwner().getPlayerId() == player.getPlayerId()) {
                     int diffAddTerrArmyCount = (neighbourTerr.getArmyCount() - territory.getArmyCount()) / 2;
@@ -68,5 +57,20 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
             }
         }
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE_STRATEGY);
+    }
+
+    public void sortList(List<Territory> terrList, final boolean isWeakestSorted) {
+
+        Collections.sort(terrList, new Comparator<Territory>() {
+            @Override
+            public int compare(Territory t1, Territory t2) {
+                if (isWeakestSorted) {
+                    return t1.getArmyCount() - t2.getArmyCount();
+                } else {
+                    return t2.getArmyCount() - t1.getArmyCount();
+
+                }
+            }
+        });
     }
 }
