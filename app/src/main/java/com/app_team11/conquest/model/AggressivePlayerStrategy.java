@@ -6,6 +6,7 @@ import com.app_team11.conquest.utility.ConfigurableMessage;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by Jaydeep on 11/27/2017.
@@ -19,6 +20,8 @@ public class AggressivePlayerStrategy implements PlayerStrategyListener {
 
     @Override
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
+
+
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE_STRATEGY);
     }
 
@@ -31,17 +34,9 @@ public class AggressivePlayerStrategy implements PlayerStrategyListener {
     @Override
     public ConfigurableMessage fortificationPhase(GameMap gameMap, Player player) {
         boolean fortificationFlag = false;
-        Collections.sort(gameMap.getTerrForPlayer(player), new Comparator<Territory>() {
-            @Override public int compare(Territory t1, Territory t2) {
-                return t2.getArmyCount()- t1.getArmyCount();
-            }
-        });
+        sortList(gameMap.getTerrForPlayer(player));
         for(Territory territory : gameMap.getTerrForPlayer(player)){
-            Collections.sort(territory.getNeighbourList(), new Comparator<Territory>() {
-                @Override public int compare(Territory t1, Territory t2) {
-                    return t2.getArmyCount()- t1.getArmyCount();
-                }
-            });
+            sortList(territory.getNeighbourList());
             for(Territory neighbourTerr : territory.getNeighbourList()) {
                 if (neighbourTerr.getTerritoryOwner() == player && neighbourTerr.getArmyCount()>1){
                     territory.setArmyCount(territory.getArmyCount()+(neighbourTerr.getArmyCount()-1));
@@ -55,5 +50,14 @@ public class AggressivePlayerStrategy implements PlayerStrategyListener {
             }
             }
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE_STRATEGY);
+    }
+
+    public void sortList(List<Territory> terrList){
+
+        Collections.sort(terrList, new Comparator<Territory>() {
+            @Override public int compare(Territory t1, Territory t2) {
+                return t2.getArmyCount()- t1.getArmyCount();
+            }
+        });
     }
 }
