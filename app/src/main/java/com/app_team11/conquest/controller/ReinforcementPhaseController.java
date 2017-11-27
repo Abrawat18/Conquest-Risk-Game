@@ -84,6 +84,7 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
         // If not human player automatically select random tradIn cards from own card list
         if ((getActivity().getPlayerTurn().getPlayerStrategyType()) != Constants.HUMAN_PLAYER_STRATEGY) {
             getActivity().getPlayerTurn().reInforcementPhase(getActivity().getMap());
+            getActivity().onReInforcementPhaseCompleted();
         } else {
             calculateReinforcementArmyForPlayer(tradInCardList);
         }
