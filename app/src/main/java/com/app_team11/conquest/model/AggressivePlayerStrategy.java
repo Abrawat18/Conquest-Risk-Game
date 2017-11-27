@@ -7,12 +7,14 @@ import com.app_team11.conquest.utility.ConfigurableMessage;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by Jaydeep on 11/27/2017.
  */
 
-public class AggressivePlayerStrategy implements PlayerStrategyListener {
+public class AggressivePlayerStrategy extends Observable implements PlayerStrategyListener {
     @Override
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE_STRATEGY);
@@ -42,6 +44,12 @@ public class AggressivePlayerStrategy implements PlayerStrategyListener {
 
             }
         }
+
+        // IF Captured territory success::
+        ObserverType observerType = new ObserverType();
+        observerType.setObserverType(ObserverType.WORLD_DOMINATION_TYPE);
+        setChanged();
+        notifyObservers(observerType);
 
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE_STRATEGY);
     }

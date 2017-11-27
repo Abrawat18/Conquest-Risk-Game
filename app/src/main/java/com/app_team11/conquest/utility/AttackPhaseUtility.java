@@ -3,6 +3,7 @@ package com.app_team11.conquest.utility;
 import android.util.Log;
 
 import com.app_team11.conquest.global.Constants;
+import com.app_team11.conquest.model.ObserverType;
 import com.app_team11.conquest.model.PhaseViewModel;
 import com.app_team11.conquest.model.Territory;
 
@@ -140,6 +141,37 @@ public class AttackPhaseUtility {
 
         }
     }
+
+
+    /**
+     * This method is for conditions related to capturing a territory
+     *
+     * @param attackerTerritory
+     * @param defenderTerritory
+     * @param moveArmiesToCapturedTerritory
+     * @return
+     */
+    public ConfigurableMessage captureTerritory(Territory attackerTerritory, Territory defenderTerritory, int moveArmiesToCapturedTerritory) {
+        if (attackerTerritory.getArmyCount() - moveArmiesToCapturedTerritory == 0) {
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.LEAVE_ONE_ARMY);
+        } else if (defenderTerritory.getArmyCount() == 0 && moveArmiesToCapturedTerritory < this.numberOfDiceRolled)
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.PLACE_MORE_ARMIES);
+        else {
+            attackerTerritory.setArmyCount(attackerTerritory.getArmyCount() - moveArmiesToCapturedTerritory);
+            defenderTerritory.setArmyCount(moveArmiesToCapturedTerritory);
+            defenderTerritory.setTerritoryOwner(attackerTerritory.getTerritoryOwner());
+        }
+        String message = "Player " + attackerTerritory.getTerritoryOwner().getPlayerId() + " has captured " + defenderTerritory.getTerritoryName();
+        PhaseViewModel.getInstance().addPhaseViewContent(message);
+        try {
+            FileManager.getInstance().writeLog(message);
+        } catch (Exception e) {
+            //e.printStackTrace();
+        }
+
+        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
+    }
+
 
     /**
      * Generates random dice values depending on number of attacker/defender dice
