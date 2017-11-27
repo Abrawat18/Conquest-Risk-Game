@@ -32,7 +32,7 @@ public class GamePlayModeActivity extends Activity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         bundle = getIntent().getExtras();
         setContentView(R.layout.activity_game_mode);
-            initializeView();
+        initializeView();
     }
 
     private void initializeView() {
@@ -40,6 +40,7 @@ public class GamePlayModeActivity extends Activity implements View.OnClickListen
         findViewById(R.id.btn_tournament_mode).setOnClickListener(this);
 
     }
+
     /**
      * {@inheritDoc}
      *
