@@ -85,9 +85,9 @@ public class FileManager {
      *
      * @return myDir.listFiles()
      */
-    public List<MapFile> getFileFromRootMapDir() {
+    public List<MapFile> getFileFromRootMapDir(String filePath) {
         String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + File.separator + Constants.ROOT_MAP_DIR);
+        File myDir = new File(root + File.separator + filePath);
         File[] mapArray= myDir.listFiles();
         List<MapFile> mapFileList = new ArrayList<>();
         for(File file : mapArray){

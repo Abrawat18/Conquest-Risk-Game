@@ -73,7 +73,7 @@ public class MapSelectionAndInitializationActivity extends Activity {
                 btnPlayGame.setVisibility(View.GONE);
             }
         }
-        mapFiles = FileManager.getInstance().getFileFromRootMapDir();
+        mapFiles = FileManager.getInstance().getFileFromRootMapDir(Constants.ROOT_MAP_DIR);
         mapSelectionAdapter = new MapSelectionAdapter(mapFiles, this);
         listMenu.setAdapter(mapSelectionAdapter);
     }
