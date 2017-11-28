@@ -200,7 +200,6 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         if (!TextUtils.isEmpty(editAttackDice.getText().toString()) && !TextUtils.isEmpty(editDefenderDice.getText().toString())) {
-                            sweetAlertDialog.dismiss();
                             attackerDice = Integer.parseInt(editAttackDice.getText().toString());
                             defenderDice = Integer.parseInt(editDefenderDice.getText().toString());
                             if (attackerDice > 3 || attackerDice <= 0) {
@@ -208,6 +207,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
                             } else if (defenderDice > 2 || defenderDice <= 0) {
                                 editDefenderDice.setError("Defender dice should not be more than 2 or less than 1");
                             } else {
+                                sweetAlertDialog.dismiss();
                                 ConfigurableMessage resultAttackPhase = getActivity().getPlayerTurn().attackPhase(fromTerritory, toTerritory, attackerDice, defenderDice);
                                 getActivity().toastMessageFromBackground(resultAttackPhase.getMsgText());
                                 getActivity().showMap();
@@ -226,6 +226,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
                             editAttackDice.setError("Please Enter Number of Attacker Dice");
                             editDefenderDice.setError("Please Enter Number of Defender Dice");
                         }
+
 
                     }
                 }).setCancelText("Cancel")

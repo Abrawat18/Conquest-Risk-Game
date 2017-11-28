@@ -1,8 +1,8 @@
 package com.app_team11.conquest.controller;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MotionEvent;
@@ -15,6 +15,7 @@ import com.app_team11.conquest.model.PhaseViewModel;
 import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.FileManager;
+import com.app_team11.conquest.utility.GamePhaseManager;
 import com.app_team11.conquest.utility.ReadMapUtility;
 import com.app_team11.conquest.view.GamePlayActivity;
 
@@ -24,6 +25,7 @@ import java.util.List;
 /**
  * Startup phase implementation
  * Created by Jaydeep9101 on 19-Oct-17.
+ *
  * @version 1.0.0
  */
 
@@ -46,6 +48,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Singleton for StartUp Phase
+     *
      * @return startUpPhaseController
      */
     public static StartUpPhaseController getInstance() {
@@ -57,6 +60,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Context setting for StartUp Phase
+     *
      * @param context
      */
     public StartUpPhaseController setContext(Context context) {
@@ -72,32 +76,6 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
         getActivity().onStartupPhaseFinished();
     }
 
-    /**
-     * method to initialize map for game play, set the number of players
-     */
-    private void getDataFromBundleAndInitializeMap() {
-        String filePathToLoad = null;
-        Intent intent = getActivity().getIntent();
-        List<String> playerList = null;
-        int noOfPlayer = 0;
-        if (intent != null) {
-            Bundle bundle = intent.getExtras();
-            if (bundle != null) {
-                filePathToLoad = bundle.getString(Constants.KEY_FILE_PATH);
-                playerList = bundle.getStringArrayList(Constants.KEY_PLAYER_LIST);
-                noOfPlayer = bundle.getInt(Constants.KEY_NO_OF_PLAYER);
-                FileManager.getInstance().writeLog("Number of players for game play - " + noOfPlayer);
-            }
-        }
-        if (!TextUtils.isEmpty(filePathToLoad) && noOfPlayer > 0) {
-            FileManager.getInstance().writeLog("Initializing map for game play...");
-            getActivity().setMap(new ReadMapUtility(getActivity()).readFile(filePathToLoad));
-            getActivity().getMap().addPlayerToGame(noOfPlayer,playerList);
-            getActivity().initializePlayerAdapter();
-        } else {
-            Toast.makeText(context, "Invalid input please try again later !!", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     /**
      * StartUp Phase initialization
@@ -111,20 +89,18 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
      * method to assign territories and armies to territories in the startup phase
      */
     public void initializationStartupPhase() {
-        getDataFromBundleAndInitializeMap();
         randomlyAssignCountries();
         assignInitialArmy();
         worldDominationViewSet();
         getActivity().updateDominationView();
         getActivity().getMap().assignCards();
-
     }
 
     /**
      * World domination view implementation
      */
-    public void worldDominationViewSet(){
-        int playerCount=getActivity().getMap().getPlayerList().size();
+    public void worldDominationViewSet() {
+        int playerCount = getActivity().getMap().getPlayerList().size();
         getActivity().initializeDominationView(playerCount);
     }
 
@@ -151,7 +127,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
      * method to assign initial armies to each territory on start up
      */
     public void assignInitialArmy() {
-        waitForSelectTerritory=true;
+        waitForSelectTerritory = true;
         if (getActivity().getMap().getPlayerList().size() > 0) {
             FileManager.getInstance().writeLog("Assigning initial armies to each territory on start up...");
             getActivity().setPlayerTurn(getActivity().getMap().getPlayerList().get(0));
@@ -160,7 +136,8 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
     }
 
     /**
-     *Method to check if army is left to assign for any players
+     * Method to check if army is left to assign for any players
+     *
      * @return true or false
      */
     public boolean isArmyLeftToAssignForAnyPlayers() {
@@ -173,7 +150,6 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
     }
 
     /**
-     *
      * {@inheritDoc}
      *
      * @param v
@@ -187,7 +163,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
             selectedTerritory = getActivity().getTerritoryAtSelectedPoint((int) x, (int) y);
             if (selectedTerritory != null && selectedTerritory.getTerritoryOwner().equals(getActivity().getPlayerTurn())) {
                 PhaseViewModel.getInstance().clearString();
-                PhaseViewModel.getInstance().addPhaseViewContent("StartUp Phase Player :"+getActivity().getPlayerTurn().getPlayerId());
+                PhaseViewModel.getInstance().addPhaseViewContent("StartUp Phase Player :" + getActivity().getPlayerTurn().getPlayerId());
                 selectedTerritory.addArmyToTerr(1, false);
                 getActivity().setNextPlayerTurn();
                 getActivity().showMap();
@@ -205,6 +181,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
 
     /**
      * GamePlay Activity Method
+     *
      * @return GamePlayActivity
      */
     public GamePlayActivity getActivity() {
