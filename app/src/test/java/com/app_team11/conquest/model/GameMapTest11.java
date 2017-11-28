@@ -19,7 +19,6 @@ import static junit.framework.Assert.assertTrue;
 public class GameMapTest11 {
 
     private String filePath;
-    private boolean failed;
     private GameMap map;
     private Territory Terr1c,TerrConnect=null;
     Continent continent;
@@ -27,7 +26,6 @@ public class GameMapTest11 {
     @Before
     public void setUp() {
         filePath="app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\3D.map";
-        failed=false;
         map=new GameMap();
         continent=new Continent();
         continent.setContName("Test Continent");

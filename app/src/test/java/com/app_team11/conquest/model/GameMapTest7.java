@@ -18,9 +18,6 @@ import static junit.framework.Assert.assertEquals;
 public class GameMapTest7 {
     private List<Continent> continentList;
     private List<Territory> territoryList;
-    private List<Player> playerList;
-    private List<Cards> cardListOwned;
-    private List<Cards> cardList;
     private GameMap gameMap;
     private ConfigurableMessage cm;
 
@@ -34,9 +31,6 @@ public class GameMapTest7 {
     public void setUp() {
         continentList=new ArrayList<Continent>();
         territoryList = new ArrayList<Territory>();
-        playerList = new ArrayList<Player>();
-        cardList = new ArrayList<Cards>();
-        cardListOwned = new ArrayList<Cards>();
         ReinforcementType reinforcementArmy;
         gameMap = new GameMap();
 
