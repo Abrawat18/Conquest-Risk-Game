@@ -26,12 +26,9 @@ public class TerritoryTest1 {
     private List<Territory> territoryList;
     private List<Player> playerList;
     private List<Continent> continentList;
-    private GameMap map;
-    private ConfigurableMessage cm;
     private Continent continent;
     private Territory territory;
     private Player player;
-    private Cards card;
     private int i;
 
     @Before
@@ -40,8 +37,6 @@ public class TerritoryTest1 {
         continentList=new ArrayList<Continent>();
         territoryList=new ArrayList<Territory>();
         playerList=new ArrayList<Player>();
-        map=new GameMap();
-        cm=new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.FORTIFICATION_SUCCESS);
         continent=new Continent("Test Continent 1",7);
         continentList.add(continent);
 

@@ -161,7 +161,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * event on stopping Attack Phase
      */
     public void onAttackPhaseStopped() {
-        FileManager.getInstance().writeLog("Attack phase started !!");
+        FileManager.getInstance().writeLog("Attack phase stopped !!");
         if (AttackPhaseController.getInstance().isPhaseWonFlag()) {
             Cards randomCard = getMap().getRandomCardFromDeck();
             getPlayerTurn().getOwnedCards().add(randomCard); //adding the card to the player

@@ -13,62 +13,62 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by Nigel on 07-Nov-17.
+ * Validate capture territory method
  */
 
 public class PlayerTest8 {
     List<Territory> territoryList;
-    List<Player> playerList;
-    Player player,player1,p;
-    Territory territory,territory3;
-    ConfigurableMessage cm;
+    Player player1,player2,player3;
+    Territory attackerTerritory,defenderTerritory;
+    ConfigurableMessage configurableMessage;
 
     @Before
     public void setUp()
     {
-        p=new Player();
+        player1=new Player();
+        player1.setAvailableArmyCount(10);
+        player1.setPlayerId(0);
+        player3=new Player();
         territoryList=new ArrayList<Territory>();
-        player=new Player();
-        player.setAvailableArmyCount(10);
-        player.setPlayerId(0);
 
         for(int i=0;i<2;i++)
         {
-            territory=new Territory("Territory"+(i+1));
-            territory.setTerritoryOwner(player);
-            territory.setArmyCount(6);
-            territoryList.add(territory);
+            attackerTerritory=new Territory("Territory"+(i+1));
+            attackerTerritory.setTerritoryOwner(player1);
+            attackerTerritory.setArmyCount(6);
+            territoryList.add(attackerTerritory);
         }
-        player1=new Player();
-        player1.setAvailableArmyCount(5);
-        player1.setPlayerId(5);
+        player2=new Player();
+        player2.setAvailableArmyCount(5);
+        player2.setPlayerId(5);
 
-        territory3=new Territory("3");
-        territory3.setArmyCount(5);
-        territory3.setTerritoryOwner(player1);
-        territory3.setNeighbourList(territoryList);
+        defenderTerritory=new Territory("3");
+        defenderTerritory.setArmyCount(5);
+        defenderTerritory.setTerritoryOwner(player2);
+        defenderTerritory.setNeighbourList(territoryList);
 
         List<Territory> testList=new ArrayList<Territory>();
-        testList.add(territory3);
-        territoryList.get(1).addRemoveNeighbourToTerr(territory3,'A');
+        testList.add(defenderTerritory);
+        territoryList.get(1).addRemoveNeighbourToTerr(defenderTerritory,'A');
 
     }
 
     @Test
     public void attackPhase()
     {
-        cm=p.validateAttackBetweenTerritories(territoryList.get(1),territory3);
-        assertEquals(Constants.SUCCESS,cm.getMsgText());
+        configurableMessage=player3.validateAttackBetweenTerritories(attackerTerritory,defenderTerritory);
+        assertEquals(Constants.SUCCESS,configurableMessage.getMsgText());
 
-        cm=p.attackPhase(territoryList.get(1),territory3,3,2);
-        System.out.println(cm.getMsgText());
+        configurableMessage=player3.attackPhase(attackerTerritory,defenderTerritory,3,2);
+        System.out.println(configurableMessage.getMsgText());
 
-        if(cm.getMsgCode()==1)
+        if(configurableMessage.getMsgCode()==1)
         {
-            cm=p.captureTerritory(territoryList.get(1),territory3,6);
-            assertEquals(Constants.LEAVE_ONE_ARMY,cm.getMsgText());
+            configurableMessage=player3.captureTerritory(attackerTerritory,defenderTerritory,6);
+            assertEquals(Constants.LEAVE_ONE_ARMY,configurableMessage.getMsgText());
 
-            cm=p.captureTerritory(territoryList.get(1),territory3,5);
-            assertEquals(Constants.SUCCESS,cm.getMsgText());
+            configurableMessage=player3.captureTerritory(attackerTerritory,defenderTerritory,5);
+            assertEquals(Constants.SUCCESS,configurableMessage.getMsgText());
 
         }
 

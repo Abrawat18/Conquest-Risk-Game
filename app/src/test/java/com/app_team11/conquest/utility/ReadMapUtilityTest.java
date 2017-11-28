@@ -18,11 +18,9 @@ import java.util.ArrayList;
 
 public class ReadMapUtilityTest {
     private String filePath;
-    int armyCount;
 
     @Before
     public void setUp() {
-        //filePath="D:\\Test Read Map File.map";
         filePath = "app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\Test Read Map File.map";
     }
 
@@ -48,9 +46,6 @@ public class ReadMapUtilityTest {
             System.out.println("Owner: " + gameMap.getTerritoryList().get(i).getTerritoryOwner().getPlayerId() +
                     "\tTerritory name: " + gameMap.getTerritoryList().get(i).getTerritoryName());
         assertEquals(33, gameMap.getPlayerList().get(0).getAvailableArmyCount());
-
-
-
     }
 
     @After
