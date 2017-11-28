@@ -19,12 +19,9 @@ import static org.junit.Assert.*;
 public class TerritoryTest {
     private List<Territory> territoryList;
     private List<Continent> continentList;
-    private GameMap map;
-    private ConfigurableMessage cm;
     private Continent continent;
     private Territory territory;
     private Player player;
-    private Cards card;
     private int i;
 
     @Before
@@ -32,8 +29,6 @@ public class TerritoryTest {
     {
         continentList=new ArrayList<Continent>();
         territoryList=new ArrayList<Territory>();
-        map=new GameMap();
-        cm=new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.FORTIFICATION_SUCCESS);
         continent=new Continent("Test Continent 1",7);
         continentList.add(continent);
 
