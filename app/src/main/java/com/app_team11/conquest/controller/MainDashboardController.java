@@ -77,7 +77,6 @@ public class MainDashboardController {
      * method called on click of play game
      */
     public void playGame(){
-        //code for sweet alert
 
         new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE)
                 .setTitleText("Play Game")
@@ -101,6 +100,7 @@ public class MainDashboardController {
                         Intent intent = new Intent(getActivity(), LoadGameActivity.class);
                         getActivity().startActivity(intent);
                         FileManager.getInstance().writeLog("Load game started !!");
+
                     }
                 })
                 .show();

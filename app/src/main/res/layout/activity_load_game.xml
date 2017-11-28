@@ -6,7 +6,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select Map"
+        android:text="Select Game"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="32sp"
@@ -19,9 +19,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
 
-    <Button
-        android:id="@+id/btn_load_game"
-        android:text="Load Game"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
 </LinearLayout>
