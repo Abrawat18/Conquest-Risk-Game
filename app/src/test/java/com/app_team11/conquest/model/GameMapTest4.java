@@ -18,8 +18,9 @@ import static junit.framework.Assert.assertEquals;
 
 public class GameMapTest4 {
     List<Territory> territoryList;
-    Player player,player1,p;
-    Territory territory,territory3;
+    //3 players in the game
+    Player player1,player2,player3;
+    Territory attackerTerritory,defenderTerritory;
     ConfigurableMessage cm;
     GameMap map;
 
@@ -27,47 +28,48 @@ public class GameMapTest4 {
     public void setUp()
     {
         map=new GameMap();
-        p=new Player();
+        player3=new Player();
         territoryList=new ArrayList<Territory>();
-        player=new Player();
-        player.setAvailableArmyCount(10);
-        player.setPlayerId(0);
+        player1=new Player();
+        player1.setAvailableArmyCount(10);
+        player1.setPlayerId(0);
 
         for(int i=0;i<2;i++)
         {
-            territory=new Territory("Territory"+(i+1));
-            territory.setTerritoryOwner(player);
-            territory.setArmyCount(6);
-            territoryList.add(territory);
+            attackerTerritory=new Territory("Territory"+(i+1));
+            attackerTerritory.setTerritoryOwner(player1);
+            attackerTerritory.setArmyCount(6);
+            territoryList.add(attackerTerritory);
         }
-        player1=new Player();
-        player1.setAvailableArmyCount(5);
-        player1.setPlayerId(5);
+        player2=new Player();
+        player2.setAvailableArmyCount(5);
+        player2.setPlayerId(5);
 
-        territory3=new Territory("3");
-        territory3.setArmyCount(5);
-        territory3.setTerritoryOwner(player1);
-        territory3.setNeighbourList(territoryList);
+        defenderTerritory=new Territory("3");
+        defenderTerritory.setArmyCount(5);
+        defenderTerritory.setTerritoryOwner(player2);
+        defenderTerritory.setNeighbourList(territoryList);
 
         List<Territory> testList=new ArrayList<Territory>();
-        testList.add(territory3);
-        territoryList.get(1).addRemoveNeighbourToTerr(territory3,'A');
-        territoryList.add(2,territory3);
+        testList.add(defenderTerritory);
+        territoryList.get(1).addRemoveNeighbourToTerr(defenderTerritory,'A');
+        territoryList.add(2,defenderTerritory);
         map.setTerritoryList(territoryList);
     }
 
     @Test
     public void validPlayerWon()
     {
-        cm=p.validateAttackBetweenTerritories(territoryList.get(1),territory3);
+        cm=player3.validateAttackBetweenTerritories(attackerTerritory,defenderTerritory);
+        //attack should be valid
         assertEquals(Constants.SUCCESS,cm.getMsgText());
 
-        cm=p.attackPhase(territoryList.get(1),territory3,3,2);
+        cm=player3.attackPhase(territoryList.get(1),defenderTerritory,3,2);
         System.out.println(cm.getMsgText());
 
         if(cm.getMsgCode()==1)
         {
-            territory3.setTerritoryOwner(territoryList.get(1).getTerritoryOwner());
+            defenderTerritory.setTerritoryOwner(territoryList.get(1).getTerritoryOwner());
             cm=map.playerWonTheGame(territoryList.get(1).getTerritoryOwner());
             System.out.println("=="+cm.getMsgText());
             assertEquals(Constants.MSG_SUCC_CODE,cm.getMsgCode());
