@@ -60,6 +60,7 @@ public class Constants {
     public static final String ATTACKER_LOST = "Attacker lost";
     public static final String PLAYER_WON="Congratulations! You won the game!";
     public static final String TOAST_ERROR_GRAPH_NOT_CONNECTED = "The map is not connected.";
+    public static final String KEY_LOAD_SAVED_MAP_PATH = "KeyLoadSavedMapPath";
     public static final String KEY_FROM_GAME_MODE = "FromGameMode";
     public static final String FROM_SINGLE_MODE_VALUE = "SingleGameMode";
     public static final String FROM_TOURNAMENT_MODE_VALUE = "TournamentGameMode";
