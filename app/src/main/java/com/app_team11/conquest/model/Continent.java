@@ -7,6 +7,7 @@ import android.graphics.Paint;
 
 import com.app_team11.conquest.R;
 
+import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -15,7 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @version 1.0.0
  */
-public class Continent {
+public class Continent implements Serializable{
 
     private String contName;
     private int score;

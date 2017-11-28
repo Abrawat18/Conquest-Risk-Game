@@ -35,13 +35,15 @@
             android:id="@+id/list_player"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></ListView>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="PHASE VIEW"
             android:layout_marginTop="5dp"
             android:background="@color/colorPrimary"
-            android:textColor="@android:color/white"/>
+            android:text="PHASE VIEW"
+            android:textColor="@android:color/white" />
+
         <ListView
             android:id="@+id/list_phase_view"
             android:layout_width="match_parent"
@@ -85,18 +87,24 @@
 
             <Button
                 android:id="@+id/btn_tradeIn_cards"
-                android:layout_height="wrap_content"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Cards"
-                />
+                android:text="Cards" />
 
             <Button
                 android:id="@+id/btn_show_log"
-                android:layout_height="wrap_content"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Show Log" />
+
+            <Button
+                android:id="@+id/btn_save_map"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Save" />
         </LinearLayout>
 
     </LinearLayout>

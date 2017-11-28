@@ -9,7 +9,7 @@ import com.app_team11.conquest.utility.ConfigurableMessage;
  * Created by Jaydeep on 11/26/2017.
  */
 
-public interface PlayerStrategyListener {
+public interface PlayerStrategyListener{
     ConfigurableMessage startupPhase(GameMap gameMap, Player player);
 
     ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player);

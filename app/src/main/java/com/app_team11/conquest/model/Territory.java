@@ -8,6 +8,7 @@ import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.FileManager;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -17,10 +18,10 @@ import java.util.Observable;
  * Created by Vasu on 06-10-2017.
  * @version 1.0.0
  */
-public class Territory extends Observable{
+public class Territory extends Observable implements Serializable{
 
     private String territoryName;
-    private Point centerPoint;
+    transient private Point centerPoint;
     private Continent continent;
     private List<Territory> neighbourList;
     private Player territoryOwner;

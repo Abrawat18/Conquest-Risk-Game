@@ -7,6 +7,7 @@ import com.app_team11.conquest.interfaces.PlayerStrategyListener;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.utility.FileManager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,7 +23,7 @@ import java.util.Random;
  * @version 1.0.0
  */
 
-public class Player extends Observable {
+public class Player extends Observable implements Serializable{
 
     private static final String TAG = Player.class.getSimpleName();
     private int playerId;
@@ -31,7 +32,7 @@ public class Player extends Observable {
     private List<Cards> ownedCards = new ArrayList<Cards>();
     private Boolean cardTradeIn = false;
     private boolean isMyTurn;
-    private PlayerStrategyListener playerStrategy;
+    transient private PlayerStrategyListener playerStrategy;
     private String playerStrategyType;
 
     /**

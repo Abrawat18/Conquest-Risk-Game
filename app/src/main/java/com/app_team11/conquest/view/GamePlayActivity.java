@@ -74,7 +74,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private LinearLayout linearWorldDominationView;
     private List<TextView> textViewPlayerDominationList = new ArrayList<>();
     private ListView listPhaseView;
-
+    private Button btnGameSave;
     /**
      * {@inheritDoc}
      *
@@ -99,6 +99,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         listPlayer = (ListView) findViewById(R.id.list_player);
         listPhaseView = (ListView) findViewById(R.id.list_phase_view);
         btnStopAttack = (Button) findViewById(R.id.btn_stop_attack);
+        btnGameSave = (Button) findViewById(R.id.btn_save_map);
         btnStopFortification = (Button) findViewById(R.id.btn_stop_fortification);
         btnNewAttack = (Button) findViewById(R.id.btn_new_attack);
         btnTradeInCards = (Button) findViewById(R.id.btn_tradeIn_cards);
@@ -110,6 +111,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         btnStopAttack.setOnClickListener(this);
         btnStopFortification.setOnClickListener(this);
         btnNewAttack.setOnClickListener(this);
+        btnGameSave.setOnClickListener(this);
         btnTradeInCards.setOnClickListener(this);
         FileManager.getInstance().writeLog("Game Play View Initialized !!");
     }
@@ -476,6 +478,9 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         switch (v.getId()) {
             case R.id.btn_stop_attack:
                 onAttackPhaseStopped();
+                break;
+            case R.id.btn_save_map:
+                FileManager.getInstance().writeObjectIntoFile(getMap());
                 break;
             case R.id.btn_stop_fortification:
                 onFortificationPhaseStopped();

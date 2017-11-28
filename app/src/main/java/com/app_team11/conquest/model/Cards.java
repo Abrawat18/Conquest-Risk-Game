@@ -1,12 +1,14 @@
 package com.app_team11.conquest.model;
 
+import java.io.Serializable;
+
 /**
  * Card model for defining the card object.
  * Created by Vasu on 08-10-2017.
  * @version 1.0.0
  */
 
-public class Cards {
+public class Cards implements Serializable{
     private Territory cardTerritory;
     private String armyType;
     private boolean isSelected;

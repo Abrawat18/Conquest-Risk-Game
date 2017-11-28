@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @version 1.0.0
  */
-public class GameMap {
+public class GameMap implements Serializable{
     private static final String TAG = GameMap.class.getSimpleName();
     private String imageName;
     private String wrapFlag;
