@@ -17,6 +17,7 @@ import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.view.GameLogActivity;
 import com.app_team11.conquest.view.GamePlayActivity;
 import com.app_team11.conquest.view.GamePlayModeActivity;
+import com.app_team11.conquest.view.LoadGameActivity;
 import com.app_team11.conquest.view.MainDashboardActivity;
 import com.app_team11.conquest.view.MapEditorActivity;
 import com.app_team11.conquest.view.MapSelectionAndInitializationActivity;
@@ -76,12 +77,37 @@ public class MainDashboardController {
      * method called on click of play game
      */
     public void playGame(){
-        Bundle bundle = new Bundle();
-        bundle.putString(Constants.KEY_FROM, Constants.VALUE_FROM_PLAY_GAME);
-        Intent intent = new Intent(getActivity(), GamePlayModeActivity.class);
-        intent.putExtras(bundle);
-        getActivity().startActivity(intent);
-        FileManager.getInstance().writeLog("Single Game Mode Started !!");
+        //code for sweet alert
+
+        new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE)
+                .setTitleText("Play Game")
+                .setContentText("Select Option")
+                .setConfirmText("New Game")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constants.KEY_FROM, Constants.VALUE_FROM_PLAY_GAME);
+                        Intent intent = new Intent(getActivity(), GamePlayModeActivity.class);
+                        intent.putExtras(bundle);
+                        getActivity().startActivity(intent);
+                        FileManager.getInstance().writeLog("New Game Mode Started !!");
+                    }
+                })
+                .setCancelText("Load Game")
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        Intent intent = new Intent(getActivity(), LoadGameActivity.class);
+                        getActivity().startActivity(intent);
+                        FileManager.getInstance().writeLog("Load game started !!");
+                    }
+                })
+                .show();
+
+
+
+
     }
     /**
      * Opens the game log window
