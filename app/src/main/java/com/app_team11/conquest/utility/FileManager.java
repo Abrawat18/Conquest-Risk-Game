@@ -1,10 +1,15 @@
 package com.app_team11.conquest.utility;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Environment;
 
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.model.GameMap;
 import com.app_team11.conquest.model.MapFile;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -18,6 +23,7 @@ import java.util.Scanner;
 public class FileManager {
 
     private static FileManager fileManager;
+    private SharedPreferences mPrefs;
 
     private FileManager() {
 
@@ -235,6 +241,33 @@ public class FileManager {
             e.printStackTrace();
         }
     }
+
+    /**
+     * @param fileName
+     */
+    public GameMap readObjectFromFile(String fileName) {
+        GameMap gameMap = null;
+        try {
+            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(getSerializableFilePath(fileName)));
+            try {
+                gameMap = (GameMap) objectInputStream.readObject();
+                //System.out.println("value->" + test.address +" "+ test.empId +" "+test.name +" "+ test.number);
+                objectInputStream.close();
+            } catch (ClassNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return gameMap;
+    }
+
+
     /**
      * Method to delete log
      */
