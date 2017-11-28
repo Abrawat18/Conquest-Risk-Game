@@ -21,6 +21,8 @@ public class GameMapTest10 {
     private String filePath;
     private boolean failed;
     private GameMap map;
+    //Territories T1 and T4 are in the UnconnectedContinent.map. Test method first asserts
+    //connected graph when they're disconnected and after they're connected.
     private Territory T1,T4=null;
 
     @Before

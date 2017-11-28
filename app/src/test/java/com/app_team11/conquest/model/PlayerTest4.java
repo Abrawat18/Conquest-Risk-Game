@@ -21,32 +21,31 @@ import static junit.framework.Assert.assertEquals;
 public class PlayerTest4 {
 
     List<Territory> territoryList;
-    List<Player> playerList;
-    Player player,player1;
-    Territory territory,territory3;
+    Player player1,player2;
+    Territory territory1,territory2;
     ConfigurableMessage cm;
 
     @Before
     public void setUp()
     {
         territoryList=new ArrayList<Territory>();
-        player=new Player();
-        player.setAvailableArmyCount(3);
-        player.setPlayerId(0);
+        player1=new Player();
+        player1.setAvailableArmyCount(3);
+        player1.setPlayerId(0);
 
         for(int i=0;i<2;i++)
         {
-            territory=new Territory("Territory"+(i+1));
-            territory.setTerritoryOwner(player);
-            territoryList.add(territory);
+            territory1=new Territory("Territory"+(i+1));
+            territory1.setTerritoryOwner(player1);
+            territoryList.add(territory1);
         }
-        player1=new Player();
-        player1.setAvailableArmyCount(5);
-        player1.setPlayerId(5);
+        player2=new Player();
+        player2.setAvailableArmyCount(5);
+        player2.setPlayerId(5);
 
-        territory3=new Territory("3");
-        territory3.setTerritoryOwner(player1);
-        territory3.setNeighbourList(territoryList);
+        territory2=new Territory("3");
+        territory2.setTerritoryOwner(player2);
+        territory2.setNeighbourList(territoryList);
 
     }
 

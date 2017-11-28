@@ -20,9 +20,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 /**
  * Fortification phase is implemented in this class. Selection of territory and movement of army to selected territory.
  * Created by Jaydeep9101 on 19-Oct-17.
- * @version 1.0.0
  *
- * */
+ * @version 1.0.0
+ */
 
 public class FortificationPhaseController implements SurfaceOnTouchListner {
 
@@ -39,6 +39,7 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
 
     /**
      * method to implement singleton architecture for class
+     *
      * @return FortificationController object
      */
     public static FortificationPhaseController getInstance() {
@@ -50,6 +51,7 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
 
     /**
      * method to set the context to controller
+     *
      * @param context
      * @return FortificationController Object
      */
@@ -63,9 +65,17 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
      * method to initiate the fortification phase
      */
     public void startFortificationPhase() {
+
+        FileManager.getInstance().writeLog("Fortification Phase started.");
+
+        // If not human player automatically select random tradIn cards from own card list
+        if (!(getActivity().getPlayerTurn().getPlayerStrategyType()).equals(Constants.HUMAN_PLAYER_STRATEGY)) {
+            getActivity().getPlayerTurn().fortificationPhase(getActivity().getMap());
+            stopFortificationPhase();
+            return;
+        }
         waitForSelectTerritory = true;
         initializeForPlayer();
-        FileManager.getInstance().writeLog("Fortification Phase started.");
     }
 
     /**
@@ -78,7 +88,8 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
 
     /**
      * {@inheritDoc}
-     * @param v view
+     *
+     * @param v     view
      * @param event event
      */
     @Override
@@ -122,7 +133,7 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
                             int requestedToPlaceArmy = Integer.parseInt(editNoOfArmy.getText().toString());
                             FileManager.getInstance().writeLog("Requested number of armies to be moved - " + requestedToPlaceArmy);
                             //ConfigurableMessage configurableMessage = fortificationFromTerritory.fortifyTerritory(fortificationToTerritory,getActivity().getPlayerTurn(),requestedToPlaceArmy);
-                            ConfigurableMessage configurableMessage = getActivity().getPlayerTurn().fortifyTerritory(fortificationFromTerritory,fortificationToTerritory,requestedToPlaceArmy);
+                            ConfigurableMessage configurableMessage = getActivity().getPlayerTurn().fortifyTerritory(fortificationFromTerritory, fortificationToTerritory, requestedToPlaceArmy);
                             if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
                                 getActivity().showMap();
                                 stopFortificationPhase();
@@ -140,15 +151,16 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
      * initialize the fortification phase for the next player
      */
     private void initializeForPlayer() {
-        fortificationFromTerritory  =null;
+        fortificationFromTerritory = null;
         fortificationToTerritory = null;
         getActivity().toastMessageFromBackground("Select from territory");
         PhaseViewModel.getInstance().clearString();
-        PhaseViewModel.getInstance().addPhaseViewContent("Fortification Phase Player :"+getActivity().getPlayerTurn().getPlayerId());
+        PhaseViewModel.getInstance().addPhaseViewContent("Fortification Phase Player :" + getActivity().getPlayerTurn().getPlayerId());
     }
 
     /**
      * GamePlay Activity Method
+     *
      * @return GamePlayActivity
      */
     private GamePlayActivity getActivity() {

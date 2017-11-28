@@ -25,18 +25,21 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
     @Override
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
         Collections.shuffle(gameMap.getTerrForPlayer(player));
-        gameMap.getTerrForPlayer(player).get(0).setArmyCount(gameMap.getTerrForPlayer(player).get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
+        if (gameMap.getTerrForPlayer(player) != null && gameMap.getTerrForPlayer(player).size() > 0) {
+            gameMap.getTerrForPlayer(player).get(0).setArmyCount(gameMap.getTerrForPlayer(player).get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
 
-        if (reinforcementType.getMatchedTerritoryList() != null) {
-            reinforcementType.getMatchedTerritoryList().get(0).setArmyCount(reinforcementType.getMatchedTerritoryList().get(0).getArmyCount() + reinforcementType.getMatchedTerrCardReinforcement());
+            if (reinforcementType.getMatchedTerritoryList() != null && reinforcementType.getMatchedTerritoryList().size()>0) {
+                reinforcementType.getMatchedTerritoryList().get(0).setArmyCount(reinforcementType.getMatchedTerritoryList().get(0).getArmyCount() + reinforcementType.getMatchedTerrCardReinforcement());
+            }
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.REINFORCEMENT_SUCCESS_STRATEGY);
         }
-        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.REINFORCEMENT_SUCCESS_STRATEGY);
+        return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.REINFORCEMENT_FAILED_STRATEGY);
     }
 
 
     @Override
     public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
-        int randomAttackTime = new Random().nextInt(Constants.RANDOM_NUMBER_ATTACK_TIMES);
+        int randomAttackTime = 1 + new Random().nextInt(Constants.RANDOM_NUMBER_ATTACK_TIMES);
         Collections.shuffle(gameMap.getTerrForPlayer(player));
         Collections.shuffle(gameMap.getTerrForPlayer(player).get(0).getNeighbourList());
         for (Territory defenderTerr : gameMap.getTerrForPlayer(player).get(0).getNeighbourList()) {

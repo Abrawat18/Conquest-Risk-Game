@@ -169,7 +169,7 @@ public class AttackPhaseUtility {
         } catch (Exception e) {
             // e.printStackTrace();
         }
-        while (defenderDiceValues.size() > 0) {
+        while (defenderDiceValues.size() > 0 && attackerDiceValues.size()>0) {
             attackerDiceValue = attackerDiceValues.get(0);
             defenderDiceValue = defenderDiceValues.get(0);
 
