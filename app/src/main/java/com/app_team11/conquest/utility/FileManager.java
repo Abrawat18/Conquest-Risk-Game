@@ -211,7 +211,7 @@ public class FileManager {
         File file = null;
         try {
             String root = Environment.getExternalStorageDirectory().toString();
-            File myDir = new File(root + File.separator + Constants.ROOT_SER_DIR);
+            File myDir = new File(root + File.separator + Constants.ROOT_GAME_DIR);
             if (!myDir.exists()) {
                 myDir.mkdirs();
             }

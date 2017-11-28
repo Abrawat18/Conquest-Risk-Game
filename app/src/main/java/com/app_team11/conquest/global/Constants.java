@@ -13,7 +13,7 @@ public class Constants {
     public static final String ASSETS_TERRITORY_FILE_NAME = "territory.json";
     public static final String ROOT_MAP_DIR = "AllMaps";
     public static final String ROOT_LOG_DIR = "MapLog";
-    public static final String ROOT_SER_DIR = "SerObject";
+    public static final String ROOT_GAME_DIR = "SerObject";
     public static final String KEY_FILE_PATH = "FilePath";
     public static final String KEY_FROM = "FromWhichActivity";
     public static final String VALUE_FROM_EDIT_MAP = "FromEditMap";
