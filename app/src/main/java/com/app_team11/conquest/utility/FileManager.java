@@ -239,12 +239,12 @@ public class FileManager {
     }
 
     /**
-     * @param fileName
+     * @param filePath
      */
-    public GameMap readObjectFromFile(String fileName) {
+    public GameMap readObjectFromFile(String filePath) {
         GameMap gameMap = null;
         try {
-            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(getSerializableFilePath(fileName)));
+            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(filePath));
             try {
                 gameMap = (GameMap) objectInputStream.readObject();
                 objectInputStream.close();

@@ -1,13 +1,14 @@
 package com.app_team11.conquest.utility;
 
+import java.io.Serializable;
+
 /**
  * This class manages all the 4 phases of game
  * Created by Jaydeep9101 on 05-Nov-17.
  */
 
-public class GamePhaseManager {
+public class GamePhaseManager implements Serializable {
 
-    private static GamePhaseManager instace;
     public static final int PHASE_STARTUP = 1;
     public static final int PHASE_REINFORCEMENT = 2;
     public static final int PHASE_ATTACK = 3;
@@ -15,23 +16,12 @@ public class GamePhaseManager {
     public int currentPhase = 0;
 
     /**
-     * Contructor Initialization
+     * Constructor for GamePhaseManager
+     * initialize currentPhase
      */
-    private GamePhaseManager() {
-
+    public GamePhaseManager() {
+        currentPhase = PHASE_STARTUP;
     }
-
-    /**
-     * Singleton Method creation for GamePhaseManager
-     * @return instace
-     */
-    public static GamePhaseManager getInstance() {
-        if (instace == null) {
-            instace = new GamePhaseManager();
-        }
-        return instace;
-    }
-
     /**
      * Method which resets the current active phase
      */
