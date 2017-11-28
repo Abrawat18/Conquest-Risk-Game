@@ -14,6 +14,7 @@ import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.FileManager;
 
 /**
+ * This class helps in navigating to the selected mode of
  * Created by RADHEY on 11/25/2017.
  */
 
@@ -24,8 +25,9 @@ public class GamePlayModeActivity extends Activity implements View.OnClickListen
 
     /**
      * {@inheritDoc}
+     *  This method is called on creation of the activity which allows user to choose the game play mode
+     * @param savedInstanceState When activity is reopened , this parameter is used for resuming to the resumed state
      *
-     * @param savedInstanceState
      */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +37,9 @@ public class GamePlayModeActivity extends Activity implements View.OnClickListen
         initializeView();
     }
 
+    /**
+     * Initialize the view based on the layout defined in XML
+     */
     private void initializeView() {
         findViewById(R.id.btn_single_mode).setOnClickListener(this);
         findViewById(R.id.btn_tournament_mode).setOnClickListener(this);
@@ -42,9 +47,8 @@ public class GamePlayModeActivity extends Activity implements View.OnClickListen
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @param v view
+     *  This method is called when click event is passed.
+     * @param v The view on which the click is done, that object of the view is called.
      */
     @Override
     public void onClick(View v) {
@@ -62,6 +66,9 @@ public class GamePlayModeActivity extends Activity implements View.OnClickListen
 
     }
 
+    /**
+     * Method is called when single mode for playing game is selected
+     */
     public void playSingleGame() {
         Intent intent = new Intent(this, GamePlayerTypeActivity.class);
         bundle.putString(Constants.KEY_FROM_GAME_MODE, Constants.FROM_SINGLE_MODE_VALUE);
@@ -70,6 +77,9 @@ public class GamePlayModeActivity extends Activity implements View.OnClickListen
         FileManager.getInstance().writeLog("Single Game Mode Started");
     }
 
+    /**
+     * Method is called when tournament mode for playing game is selected
+     */
     public void playTournamentMode() {
         Intent intent = new Intent(this, GamePlayerTypeActivity.class);
         bundle.putString(Constants.KEY_FROM_GAME_MODE, Constants.FROM_TOURNAMENT_MODE_VALUE);
