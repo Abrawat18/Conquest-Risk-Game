@@ -194,6 +194,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 StartUpPhaseController.getInstance().setContext(this).startStartUpPhase();
                 break;
             case GamePhaseManager.PHASE_REINFORCEMENT:
+                showMap();
                 btnStopAttack.setVisibility(View.GONE);
                 btnNewAttack.setVisibility(View.GONE);
                 btnStopFortification.setVisibility(View.GONE);

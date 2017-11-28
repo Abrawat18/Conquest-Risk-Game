@@ -89,6 +89,14 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
      * Initializing attack phase
      */
     public void startAttackPhase() {
+
+        // If not human player automatically select random tradIn cards from own card list
+        if (!(getActivity().getPlayerTurn().getPlayerStrategyType()).equals(Constants.HUMAN_PLAYER_STRATEGY)) {
+            getActivity().getPlayerTurn().attackPhase(getActivity().getMap());
+            getActivity().onAttackPhaseStopped();
+            return;
+        }
+
         phaseWonFlag = false;
         if (!isAttackPossible()) {
             getActivity().toastMessageFromBackground("Attack not Possible. Changing to Fortification Phase.");
