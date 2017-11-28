@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This activity gives option to select the type of strategy for players
  * Created by RADHEY on 11/25/2017.
  */
 
@@ -29,8 +30,9 @@ public class GamePlayerTypeActivity extends Activity implements View.OnClickList
 
     /**
      * {@inheritDoc}
+     *  This method is called on creation of the activity which allows user to choose the player type
+     * @param savedInstanceState When activity is reopened , this parameter is used for resuming to the resumed state
      *
-     * @param savedInstanceState
      */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +56,10 @@ public class GamePlayerTypeActivity extends Activity implements View.OnClickList
         lv.setAdapter(arrayAdapter);
     }
 
-
+    /**
+     *  This method is called when click event is passed.
+     * @param v The view on which the click is done, that object of the view is called.
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

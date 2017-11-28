@@ -64,7 +64,7 @@ public class Cards implements Serializable{
     }
 
     /**
-     *Sets tge type of army
+     *Sets the type of army
      * @param armyType
      */
     public void setArmyType(String armyType) {
