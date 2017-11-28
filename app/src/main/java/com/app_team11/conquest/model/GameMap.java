@@ -253,6 +253,7 @@ public class GameMap {
                             break;
                     }
                 } else {
+                    playerObj.setPlayerStrategyType(Constants.HUMAN_PLAYER_STRATEGY);
                     playerObj.setPlayerStrategy(new HumanPlayerStrategy());
                 }
 
