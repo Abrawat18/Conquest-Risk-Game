@@ -31,8 +31,8 @@ public class LoadGameActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle =getIntent().getExtras();
         setContentView(R.layout.activity_load_game);
+        bundle = getIntent().getExtras();
         initializeView();
         initialization();
         FileManager.getInstance().writeLog("Map selected.");
@@ -51,7 +51,10 @@ public class LoadGameActivity extends Activity {
         listSavedGames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                bundle.putString( Constants.KEY_LOAD_GAME_PATH, savedGames.get(position).getMapFiles().getPath());
+                if (bundle == null) {
+                    bundle = new Bundle();
+                }
+                bundle.putString(Constants.KEY_LOAD_SAVED_MAP_PATH, savedGames.get(position).getMapFiles().getPath());
                 intent = new Intent(LoadGameActivity.this, GamePlayActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
