@@ -1,7 +1,6 @@
 package com.app_team11.conquest.model;
 
 
-import android.graphics.Point;
 
 import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.global.Constants;
@@ -21,7 +20,7 @@ import java.util.Observable;
 public class Territory extends Observable implements Serializable{
 
     private String territoryName;
-    transient private Point centerPoint;
+    private Point centerPoint;
     private Continent continent;
     private List<Territory> neighbourList;
     private Player territoryOwner;

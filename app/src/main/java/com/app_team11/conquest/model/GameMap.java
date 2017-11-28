@@ -7,6 +7,8 @@ import com.app_team11.conquest.R;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.FileManager;
+import com.app_team11.conquest.utility.GamePhaseManager;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ import java.util.List;
  *
  * @version 1.0.0
  */
-public class GameMap implements Serializable{
+public class GameMap implements Serializable {
     private static final String TAG = GameMap.class.getSimpleName();
     private String imageName;
     private String wrapFlag;
@@ -31,6 +33,8 @@ public class GameMap implements Serializable{
     private List<Player> playerList;
     private List<Cards> cardList;
     private int noOfCardTradedCount = 1;
+    private GamePhaseManager gamePhaseManager;
+    private Player playerTurn;
 
     /**
      * Initialize the class members
@@ -38,6 +42,7 @@ public class GameMap implements Serializable{
     public GameMap() {
         this.continentList = new ArrayList<Continent>();
         this.territoryList = new ArrayList<Territory>();
+        this.gamePhaseManager = new GamePhaseManager();
     }
 
     /**
@@ -57,6 +62,23 @@ public class GameMap implements Serializable{
         this.warnFlag = warnFlag;
         this.continentList = new ArrayList<Continent>();
         this.territoryList = new ArrayList<Territory>();
+        this.gamePhaseManager = new GamePhaseManager();
+    }
+
+    public Player getPlayerTurn() {
+        return playerTurn;
+    }
+
+    public void setPlayerTurn(Player playerTurn) {
+        this.playerTurn = playerTurn;
+    }
+
+    public GamePhaseManager getGamePhaseManager() {
+        return gamePhaseManager;
+    }
+
+    public void setGamePhaseManager(GamePhaseManager gamePhaseManager) {
+        this.gamePhaseManager = gamePhaseManager;
     }
 
     /**
@@ -202,6 +224,28 @@ public class GameMap implements Serializable{
             }
         }
         return terrList;
+    }
+
+    public void loadPlayerStrategyToGame() {
+        for (Player player : getPlayerList()) {
+            switch (player.getPlayerStrategyType()) {
+                case "Random":
+                    player.setPlayerStrategy(new RandomPlayerStrategy());
+                    break;
+                case "Cheater":
+                    player.setPlayerStrategy(new CheaterPlayerStrategy());
+                    break;
+                case "Benevolent":
+                    player.setPlayerStrategy(new BenevolentPlayerStrategy());
+                    break;
+                case "Aggressive":
+                    player.setPlayerStrategy(new AggressivePlayerStrategy());
+                    break;
+                case "Human":
+                    player.setPlayerStrategy(new HumanPlayerStrategy());
+                    break;
+            }
+        }
     }
 
     /**
