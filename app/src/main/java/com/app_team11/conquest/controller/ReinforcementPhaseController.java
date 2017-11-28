@@ -80,16 +80,16 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
         List<Cards> tradInCardList = null;
 
         FileManager.getInstance().writeLog("Reinforcement phase started for Player :" + getActivity().getPlayerTurn().getPlayerId());
-
-        // If not human player automatically select random tradIn cards from own card list
-        if ((getActivity().getPlayerTurn().getPlayerStrategyType()) != Constants.HUMAN_PLAYER_STRATEGY) {
-            getActivity().getPlayerTurn().reInforcementPhase(getActivity().getMap());
-            getActivity().onReInforcementPhaseCompleted();
-        } else {
-            calculateReinforcementArmyForPlayer(tradInCardList);
-        }
         PhaseViewModel.getInstance().clearString();
         PhaseViewModel.getInstance().addPhaseViewContent("ReInforcement Phase Player :" + getActivity().getPlayerTurn().getPlayerId());
+
+        // If not human player automatically select random tradIn cards from own card list
+        if (!(getActivity().getPlayerTurn().getPlayerStrategyType()).equals(Constants.HUMAN_PLAYER_STRATEGY)) {
+            getActivity().getPlayerTurn().reInforcementPhase(getActivity().getMap());
+            getActivity().onReInforcementPhaseCompleted();
+            return;
+        }
+        calculateReinforcementArmyForPlayer(tradInCardList);
     }
 
     /**

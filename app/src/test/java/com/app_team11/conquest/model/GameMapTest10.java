@@ -12,7 +12,7 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 /**
- * Check for unconnected graph
+ * Check for unconnected continent
  * Created by Nigel on 25-Nov-17.
  */
 
@@ -21,6 +21,8 @@ public class GameMapTest10 {
     private String filePath;
     private boolean failed;
     private GameMap map;
+    //Territories T1 and T4 are in the UnconnectedContinent.map. Test method first asserts
+    //connected graph when they're disconnected and after they're connected.
     private Territory T1,T4=null;
 
     @Before
@@ -34,7 +36,7 @@ public class GameMapTest10 {
     {
         ReadMapUtility readTest=new ReadMapUtility();
         map=readTest.readFile(System.getProperty("user.dir") + File.separator + filePath);
-        //T1 and T4 are disconnected in same continent hence map not connected.
+        //T1 and T4 are disconnected in same continent hence map not connected and assertion false
         for(Territory terr : map.getTerritoryList())
         {
             System.out.println("Territory: "+terr.getTerritoryName());
@@ -60,7 +62,7 @@ public class GameMapTest10 {
                 System.out.println("Territory Neighbour: " + neighbourTerr.getTerritoryName());
             }
         }
-        //If connection made from T4 to T1 then map should be connected
+        //If connection made from T4 to T1 then map should be connected i.e. assertion should be true
         assertTrue(map.isGraphConnected());
 
     }

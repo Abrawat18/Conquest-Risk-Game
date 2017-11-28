@@ -1,0 +1,16 @@
+[Map]
+wrap=no
+scroll=none
+author=Ashley
+warn=yes
+
+[Continents]
+Cube=3
+Triangle=2
+
+[Territories]
+1c,186,160,Cube,2c,3c,5c,6c
+2c,173,81,Cube,3c,1c,7c
+3c,95,154,Cube,2c,1c,4c
+4c,110,216,Cube,3c,5c
+5c,196,228,C

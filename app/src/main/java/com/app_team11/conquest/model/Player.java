@@ -35,7 +35,6 @@ public class Player extends Observable {
     private String playerStrategyType;
 
     /**
-     *
      * @return player strategy type
      */
     public String getPlayerStrategyType() {
@@ -43,7 +42,6 @@ public class Player extends Observable {
     }
 
     /**
-     *
      * @param playerStrategyType :  set player strategy type
      */
     public void setPlayerStrategyType(String playerStrategyType) {
@@ -51,7 +49,6 @@ public class Player extends Observable {
     }
 
     /**
-     *
      * @return
      */
     public PlayerStrategyListener getPlayerStrategy() {
@@ -59,7 +56,6 @@ public class Player extends Observable {
     }
 
     /**
-     *
      * @param playerStrategy
      */
     public void setPlayerStrategy(PlayerStrategyListener playerStrategy) {
@@ -357,8 +353,8 @@ public class Player extends Observable {
     }
 
     public ConfigurableMessage reInforcementPhase(GameMap gameMap) {
-        if(getPlayerStrategyType()!=Constants.HUMAN_PLAYER_STRATEGY) {
-            List<Cards> tradInCardList=null;
+        if (getPlayerStrategyType() != Constants.HUMAN_PLAYER_STRATEGY) {
+            List<Cards> tradInCardList = null;
             if (this.getOwnedCards().size() >= 5) {
                 tradInCardList = new ArrayList<>();
                 Collections.shuffle(this.getOwnedCards());
@@ -366,19 +362,19 @@ public class Player extends Observable {
             }
 
             ReinforcementType reinforcementType = calcReinforcementArmy(gameMap, gameMap.getNoOfCardTradedCount(), tradInCardList);
-            getPlayerStrategy().reInforcementPhase(reinforcementType,gameMap,this);
+            getPlayerStrategy().reInforcementPhase(reinforcementType, gameMap, this);
         }
         return null;
     }
 
 
     public ConfigurableMessage attackPhase(GameMap gameMap) {
-        getPlayerStrategy().attackPhase(gameMap,this);
+        getPlayerStrategy().attackPhase(gameMap, this);
         return null;
     }
 
     public ConfigurableMessage fortificationPhase(GameMap gameMap) {
-        getPlayerStrategy().fortificationPhase(gameMap,this);
+        getPlayerStrategy().fortificationPhase(gameMap, this);
         return null;
     }
 
@@ -432,7 +428,7 @@ public class Player extends Observable {
         } catch (Exception e) {
             // e.printStackTrace();
         }
-        while (defenderDiceValues.size() > 0) {
+        while (defenderDiceValues.size() > 0 && attackerDiceValues.size() > 0) {
             attackerDiceValue = attackerDiceValues.get(0);
             defenderDiceValue = defenderDiceValues.get(0);
 

@@ -69,8 +69,10 @@ public class Constants {
     public static final String KEY_SELECTED_MAP_LIST = "SelectedMapList";
     public static final String FORTIFICATION_FAILURE_STRATEGY = "Fortification could not happen as not able to find any match for fortifying territories";
     public static final String REINFORCEMENT_SUCCESS_STRATEGY = "Reinforcement successful";
+    public static final String REINFORCEMENT_FAILED_STRATEGY = "Reinforcement Failed";
     public static final int RANDOM_NUMBER_ATTACK_TIMES = 5;
     public static final String ATTACK_SUCCESS_STRATEGY = "Attack successful";
+    public static final String ATTACK_FAIL_STRATEGY = "Attack could not succeed as their is no territory to attack";
     public static final String HUMAN_PLAYER_STRATEGY="Human";
     public static final String RANDOM_PLAYER_STRATEGY="Random";
     public static final String CHEATER_PLAYER_STRATEGY="Cheater";

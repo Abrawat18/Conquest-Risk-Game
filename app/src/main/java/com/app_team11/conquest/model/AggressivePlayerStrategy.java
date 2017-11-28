@@ -38,55 +38,74 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
 
     @Override
     public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
-
-        sortList(gameMap.getTerrForPlayer(player));
-        Territory attackerTerr = gameMap.getTerrForPlayer(player).get(0);
-        for (Territory defenderTerr : attackerTerr.getNeighbourList()) {
-            if (defenderTerr.getTerritoryOwner() != player) {
-                boolean canContinueAttack=true;
-                while (canContinueAttack) {
-                    if (AttackPhaseUtility.getInstance().validateAttackBetweenTerritories(attackerTerr, defenderTerr).getMsgCode() == Constants.MSG_SUCC_CODE) {
-                        int attackerDice = 3;
-                        int defenderDice = 1 + (new Random().nextInt(2));
-                        ConfigurableMessage resultCode = AttackPhaseUtility.getInstance().attackPhase(attackerTerr, defenderTerr, attackerDice, defenderDice);
-                        if (resultCode.getMsgCode() == Constants.MSG_SUCC_CODE) {
-                            if(defenderTerr.getArmyCount()==0){
-                                AttackPhaseUtility.getInstance().captureTerritory(attackerTerr,defenderTerr,attackerDice);
-                                ObserverType observerType = new ObserverType();
-                                observerType.setObserverType(ObserverType.WORLD_DOMINATION_TYPE);
-                                setChanged();
-                                notifyObservers(observerType);
-                                canContinueAttack=false;
-                                break;
+        boolean isPlayerWon=false;
+        if (null != gameMap.getTerrForPlayer(player)) {
+            sortList(gameMap.getTerrForPlayer(player));
+            boolean nextAttackerRequired = true;
+            for (Territory attackerTerr : gameMap.getTerrForPlayer(player)) {
+                if (null != attackerTerr.getNeighbourList()) {
+                    for (Territory defenderTerr : attackerTerr.getNeighbourList()) {
+                        if (defenderTerr.getTerritoryOwner() != player) {
+                            boolean canContinueAttack = true;
+                            while (canContinueAttack) {
+                                if (AttackPhaseUtility.getInstance().validateAttackBetweenTerritories(attackerTerr, defenderTerr).getMsgCode() == Constants.MSG_SUCC_CODE) {
+                                    nextAttackerRequired = false;
+                                    int attackerDice = 3;
+                                    int defenderDice = 1 + (new Random().nextInt(2));
+                                    ConfigurableMessage resultCode = AttackPhaseUtility.getInstance().attackPhase(attackerTerr, defenderTerr, attackerDice, defenderDice);
+                                    if (resultCode.getMsgCode() == Constants.MSG_SUCC_CODE) {
+                                        isPlayerWon=true;
+                                        if (defenderTerr.getArmyCount() == 0) {
+                                            AttackPhaseUtility.getInstance().captureTerritory(attackerTerr, defenderTerr, attackerDice);
+                                            ObserverType observerType = new ObserverType();
+                                            observerType.setObserverType(ObserverType.WORLD_DOMINATION_TYPE);
+                                            setChanged();
+                                            notifyObservers(observerType);
+                                            canContinueAttack = false;
+                                            break;
+                                        }
+                                    }
+                                } else {
+                                    canContinueAttack = false;
+                                    break;
+                                }
                             }
                         }
                     }
-                    else{
-                        canContinueAttack=false;
-                        break;
+                    if (!nextAttackerRequired) {
+                        if(isPlayerWon) {
+                            Cards randomCard = gameMap.getRandomCardFromDeck();
+                            player.getOwnedCards().add(randomCard); //adding the card to the player
+                            gameMap.removeCardFromDeck(randomCard); //removing from the deck of cards
+                        }
+                        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ATTACK_SUCCESS_STRATEGY);
                     }
                 }
             }
         }
-        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ATTACK_SUCCESS_STRATEGY);
+        return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ATTACK_FAIL_STRATEGY);
     }
 
     @Override
     public ConfigurableMessage fortificationPhase(GameMap gameMap, Player player) {
         boolean fortificationFlag = false;
-        sortList(gameMap.getTerrForPlayer(player));
-        for (Territory territory : gameMap.getTerrForPlayer(player)) {
-            sortList(territory.getNeighbourList());
-            for (Territory neighbourTerr : territory.getNeighbourList()) {
-                if (neighbourTerr.getTerritoryOwner() == player && neighbourTerr.getArmyCount() > 1) {
-                    territory.setArmyCount(territory.getArmyCount() + (neighbourTerr.getArmyCount() - 1));
-                    neighbourTerr.setArmyCount(1);
-                    fortificationFlag = true;
-                    break;
+        if (null != gameMap.getTerrForPlayer(player)) {
+            sortList(gameMap.getTerrForPlayer(player));
+            for (Territory territory : gameMap.getTerrForPlayer(player)) {
+                if (null != territory.getNeighbourList()) {
+                    sortList(territory.getNeighbourList());
+                    for (Territory neighbourTerr : territory.getNeighbourList()) {
+                        if (neighbourTerr.getTerritoryOwner() == player && neighbourTerr.getArmyCount() > 1) {
+                            territory.setArmyCount(territory.getArmyCount() + (neighbourTerr.getArmyCount() - 1));
+                            neighbourTerr.setArmyCount(1);
+                            fortificationFlag = true;
+                            break;
+                        }
+                    }
+                    if (fortificationFlag) {
+                        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.FORTIFICATION_SUCCESS);
+                    }
                 }
-            }
-            if (fortificationFlag) {
-                return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.FORTIFICATION_SUCCESS);
             }
         }
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE_STRATEGY);

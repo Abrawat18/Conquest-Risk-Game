@@ -22,6 +22,11 @@ public class ContinentAdapter extends BaseAdapter {
     private List<Continent> continentList;
     private LayoutInflater inflater;
 
+    /**
+     * Parameterized constructor which takes the context and continent list as input
+     * @param context
+     * @param continentList
+     */
     public ContinentAdapter(Context context, List<Continent> continentList) {
         this.continentList = continentList;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

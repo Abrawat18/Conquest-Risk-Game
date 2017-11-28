@@ -64,10 +64,14 @@ public class MapSelectionAndInitializationActivity extends Activity {
     private void initialization() {
         if (bundle != null) {
             fromWhichActivity = bundle.getString(Constants.KEY_FROM);
-            gameMode = bundle.getString(Constants.KEY_FROM_GAME_MODE);
+            if(bundle.getString(Constants.KEY_FROM_GAME_MODE)!=null) {
+                gameMode = bundle.getString(Constants.KEY_FROM_GAME_MODE);
+            }
         }
-        if (gameMode.equals(Constants.FROM_SINGLE_MODE_VALUE)) {
-            btnPlayGame.setVisibility(View.GONE);
+        if(fromWhichActivity.equals(Constants.VALUE_FROM_PLAY_GAME)) {
+            if (gameMode.equals(Constants.FROM_SINGLE_MODE_VALUE)) {
+                btnPlayGame.setVisibility(View.GONE);
+            }
         }
         mapFiles = FileManager.getInstance().getFileFromRootMapDir();
         mapSelectionAdapter = new MapSelectionAdapter(mapFiles, this);

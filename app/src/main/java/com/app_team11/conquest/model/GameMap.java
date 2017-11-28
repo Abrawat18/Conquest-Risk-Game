@@ -130,7 +130,7 @@ public class GameMap {
                     try {
                         FileManager.getInstance().writeLog("Continent Added ->" + contObj.getContName());
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        //e.printStackTrace();
                     }
                     return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ADD_REM_TO_LIST_SUCCESS);
                 } else
@@ -253,6 +253,7 @@ public class GameMap {
                             break;
                     }
                 } else {
+                    playerObj.setPlayerStrategyType(Constants.HUMAN_PLAYER_STRATEGY);
                     playerObj.setPlayerStrategy(new HumanPlayerStrategy());
                 }
 
