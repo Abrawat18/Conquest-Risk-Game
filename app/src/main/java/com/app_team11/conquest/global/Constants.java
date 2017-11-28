@@ -77,4 +77,5 @@ public class Constants {
     public static final String CHEATER_PLAYER_STRATEGY="Cheater";
     public static final String BENEVOLENT_PLAYER_STRATEGY="Benevolent";
     public static final String AGGRESSIVE_PLAYER_STRATEGY="Aggressive";
+    public static final String KEY_TOURNAMENT_GAMES_COUNT = "gamesCount";
 }
