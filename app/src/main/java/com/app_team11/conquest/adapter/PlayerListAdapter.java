@@ -82,7 +82,8 @@ public class PlayerListAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         }
         viewHolder = (ViewHolder) convertView.getTag();
-        viewHolder.textPlayerName.setText("Player: "+getItem(position).getPlayerId());
+        viewHolder.textPlayerName.setText("P"+getItem(position).getPlayerId()+": "+getItem(position).getPlayerStrategyType());
+        viewHolder.textPlayerName.setTextSize(12);
         viewHolder.textPlayerUnAssignedArmy.setText(getItem(position).getAvailableArmyCount()+"");
         viewHolder.textPlayerTerrArmy.setText(getItem(position).getAvailableCardTerrCount()+"");
         viewHolder.textPlayerName.setTypeface(null, Typeface.BOLD);
