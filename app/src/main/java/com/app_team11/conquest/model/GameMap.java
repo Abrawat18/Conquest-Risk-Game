@@ -7,6 +7,7 @@ import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.utility.GamePhaseManager;
+import com.app_team11.conquest.view.GamePlayActivity;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -251,9 +252,10 @@ public class GameMap implements Serializable {
      *
      * @param playersCount   number of players to be added for game
      * @param playerListData playerlist to add in gamemap with different strategy ...
+     * @param gamePlayActivity
      * @return Configurable Message
      */
-    public ConfigurableMessage addPlayerToGame(int playersCount, List<String> playerListData) {
+    public ConfigurableMessage addPlayerToGame(int playersCount, List<String> playerListData, GamePlayActivity gamePlayActivity) {
         if (playerListData != null && playerListData.size() > 0) {
             playersCount = playerListData.size();
         }
@@ -279,7 +281,9 @@ public class GameMap implements Serializable {
                     playerObj.setPlayerStrategyType(playerListData.get(i - 1));
                     switch (playerListData.get(i - 1)) {
                         case "Random":
-                            playerObj.setPlayerStrategy(new RandomPlayerStrategy());
+                            RandomPlayerStrategy randomPlayerStrategy =new RandomPlayerStrategy();
+                            randomPlayerStrategy.addObserver(gamePlayActivity);
+                            playerObj.setPlayerStrategy(randomPlayerStrategy);
                             break;
                         case "Cheater":
                             playerObj.setPlayerStrategy(new CheaterPlayerStrategy());
