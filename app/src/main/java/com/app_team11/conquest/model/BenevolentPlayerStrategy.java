@@ -16,7 +16,12 @@ import java.util.List;
 public class BenevolentPlayerStrategy implements PlayerStrategyListener {
     @Override
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
-        return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE_STRATEGY);
+        if (gameMap.getTerrForPlayer(player) != null && gameMap.getTerrForPlayer(player).size() > 0) {
+            sortList(gameMap.getTerrForPlayer(player),true);
+            gameMap.getTerrForPlayer(player).get(0).addArmyToTerr(1,false);
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
+        }
+        return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
     }
 
     @Override
