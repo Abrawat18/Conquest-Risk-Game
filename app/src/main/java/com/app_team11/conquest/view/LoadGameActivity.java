@@ -63,7 +63,4 @@ public class LoadGameActivity extends Activity {
 
     }
 
-
-
-
 }

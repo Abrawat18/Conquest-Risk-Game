@@ -17,8 +17,8 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
     @Override
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
         if (gameMap.getTerrForPlayer(player) != null && gameMap.getTerrForPlayer(player).size() > 0) {
-            sortList(gameMap.getTerrForPlayer(player),true);
-            gameMap.getTerrForPlayer(player).get(0).addArmyToTerr(1,false);
+            sortList(gameMap.getTerrForPlayer(player), true);
+            gameMap.getTerrForPlayer(player).get(0).addArmyToTerr(1, false);
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
         }
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
@@ -26,15 +26,16 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
 
     @Override
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
-        sortList(gameMap.getTerrForPlayer(player), true);
-        gameMap.getTerrForPlayer(player).get(0).setArmyCount(gameMap.getTerrForPlayer(player).get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
-
-        if (reinforcementType.getMatchedTerritoryList() != null) {
-            sortList(reinforcementType.getMatchedTerritoryList(), true);
-            reinforcementType.getMatchedTerritoryList().get(0).setArmyCount(reinforcementType.getMatchedTerritoryList().get(0).getArmyCount() + reinforcementType.getMatchedTerrCardReinforcement());
-
-        }
-        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.REINFORCEMENT_SUCCESS_STRATEGY);
+        if (gameMap.getTerrForPlayer(player) != null) {
+            sortList(gameMap.getTerrForPlayer(player), true);
+            gameMap.getTerrForPlayer(player).get(0).setArmyCount(gameMap.getTerrForPlayer(player).get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
+            if (reinforcementType.getMatchedTerritoryList() != null) {
+                sortList(reinforcementType.getMatchedTerritoryList(), true);
+                reinforcementType.getMatchedTerritoryList().get(0).setArmyCount(reinforcementType.getMatchedTerritoryList().get(0).getArmyCount() + reinforcementType.getMatchedTerrCardReinforcement());
+            }
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.REINFORCEMENT_SUCCESS_STRATEGY);
+        } else
+            return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.REINFORCEMENT_FAILED_STRATEGY);
     }
 
     @Override
@@ -45,20 +46,24 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
     @Override
     public ConfigurableMessage fortificationPhase(GameMap gameMap, Player player) {
         boolean fortificationFlag = false;
-        sortList(gameMap.getTerrForPlayer(player), true);
-        for (Territory territory : gameMap.getTerrForPlayer(player)) {
-            sortList(territory.getNeighbourList(), false);
-            for (Territory neighbourTerr : territory.getNeighbourList()) {
-                if (neighbourTerr.getTerritoryOwner().getPlayerId() == player.getPlayerId()) {
-                    int diffAddTerrArmyCount = (neighbourTerr.getArmyCount() - territory.getArmyCount()) / 2;
-                    territory.setArmyCount(territory.getArmyCount() + diffAddTerrArmyCount);
-                    neighbourTerr.setArmyCount(neighbourTerr.getArmyCount() - diffAddTerrArmyCount);
-                    fortificationFlag = true;
-                    break;
+        if (gameMap.getTerrForPlayer(player) != null) {
+            sortList(gameMap.getTerrForPlayer(player), true);
+            for (Territory territory : gameMap.getTerrForPlayer(player)) {
+                if (territory.getNeighbourList() != null) {
+                    sortList(territory.getNeighbourList(), false);
+                    for (Territory neighbourTerr : territory.getNeighbourList()) {
+                        if (neighbourTerr.getTerritoryOwner().getPlayerId() == player.getPlayerId()) {
+                            int diffAddTerrArmyCount = (neighbourTerr.getArmyCount() - territory.getArmyCount()) / 2;
+                            territory.setArmyCount(territory.getArmyCount() + diffAddTerrArmyCount);
+                            neighbourTerr.setArmyCount(neighbourTerr.getArmyCount() - diffAddTerrArmyCount);
+                            fortificationFlag = true;
+                            break;
+                        }
+                    }
+                    if (fortificationFlag) {
+                        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.FORTIFICATION_SUCCESS);
+                    }
                 }
-            }
-            if (fortificationFlag) {
-                return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.FORTIFICATION_SUCCESS);
             }
         }
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE_STRATEGY);
