@@ -75,7 +75,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     /**
      * setting the context variable for reinforcement phase
-     * @param context
+     * @param context sets the reference
      * @return getInstance()
      */
     public AttackPhaseController setContext(Context context) {

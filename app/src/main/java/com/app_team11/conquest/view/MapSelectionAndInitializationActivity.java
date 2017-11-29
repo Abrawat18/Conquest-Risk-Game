@@ -172,7 +172,7 @@ public class MapSelectionAndInitializationActivity extends Activity {
     /**
      * Instance saving option
      *
-     * @param savedInstanceState
+     * @param savedInstanceState saves the view in the form of instance
      */
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {

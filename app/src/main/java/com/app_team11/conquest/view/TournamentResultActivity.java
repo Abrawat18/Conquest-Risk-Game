@@ -21,6 +21,7 @@ package com.app_team11.conquest.view;
         import java.util.List;
 
 /**
+ * This activity gives the result of the tournament in the form of the table which is dynamic in nature.
  * Created by Vasu on 27-11-2017.
  */
 
@@ -34,7 +35,7 @@ public class TournamentResultActivity extends Activity {
     /**
      * {@inheritDoc}
      *
-     * @param savedInstanceState
+     * @param savedInstanceState saves the view in instance
      */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +48,9 @@ public class TournamentResultActivity extends Activity {
         initializeView();
     }
 
+    /**
+     * This class initializes the view
+     */
     private void initializeView() {
         List<TournamentResultModel> resultList = new ArrayList<TournamentResultModel>(); //this needs to be fetched
         resultAdapter = new TournamentResultAdapter(this,resultList);

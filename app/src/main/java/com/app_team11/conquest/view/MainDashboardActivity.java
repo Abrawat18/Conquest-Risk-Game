@@ -49,7 +49,7 @@ public class MainDashboardActivity extends Activity implements View.OnClickListe
 
     /**
      * {@inheritDoc}
-     * @param v
+     * @param v The view on which the click is done, that object of the view is called.
      */
     @Override
     public void onClick(View v) {
@@ -74,9 +74,9 @@ public class MainDashboardActivity extends Activity implements View.OnClickListe
 
     /**
      * {@inheritDoc}
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
+     * @param requestCode variable which stores the request code
+     * @param permissions definition of permissions in this parameter
+     * @param grantResults gives the results
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
