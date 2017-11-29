@@ -17,7 +17,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Logging of the message is achieved
+ * This class is responsible for logging game activity
  * Created by Abhishek on 03-Nov-17.
  */
 
@@ -27,7 +27,7 @@ public class GameLogActivity extends Activity {
 
     /**
      * Creating view of Game Log
-     * @param savedInstanceState
+     * @param savedInstanceState : When activity is reopened , this parameter is used for resuming to the resumed state
      */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
