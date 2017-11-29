@@ -23,8 +23,8 @@ public class TerritoryAdapter extends BaseAdapter {
 
     /**
      * Territory adapter
-     * @param context
-     * @param territoryList
+     * @param context pass the reference
+     * @param territoryList parameter for list of territory
      */
     public TerritoryAdapter(Context context, List<Territory> territoryList) {
         this.territoryList = territoryList;

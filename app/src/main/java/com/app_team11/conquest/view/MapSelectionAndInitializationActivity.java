@@ -112,6 +112,9 @@ public class MapSelectionAndInitializationActivity extends Activity {
         });
     }
 
+    /**
+     * Method to configure the tournament mode
+     */
     public void configureTournamentMode() {
         LinearLayout linearInput = new LinearLayout(this);
         linearInput.setOrientation(LinearLayout.VERTICAL);
@@ -180,7 +183,7 @@ public class MapSelectionAndInitializationActivity extends Activity {
     /**
      * Instance state restore
      *
-     * @param savedInstanceState
+     * @param savedInstanceState When activity is reopened , this parameter is used for resuming to the resumed state
      */
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {

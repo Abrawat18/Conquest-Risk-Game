@@ -28,7 +28,7 @@ public class CardListAdapter extends BaseAdapter{
 
     /**
      * Set the list of cards
-     * @param cardsList
+     * @param cardsList parameter defining the list of cards
      */
     public void setCardsList(List<Cards> cardsList) {
         this.cardsList = cardsList;
@@ -36,8 +36,8 @@ public class CardListAdapter extends BaseAdapter{
 
     /**
      * Constructor initialization
-     * @param context
-     * @param cardsList
+     * @param context parameter for context initialization
+     * @param cardsList parameter for defining list of cards
      */
     public CardListAdapter(Context context, List<Cards> cardsList){
         this.cardsList=cardsList;
@@ -55,8 +55,8 @@ public class CardListAdapter extends BaseAdapter{
 
     /**
      * Returns the position of card list
-     * @param position
-     * @return card position
+     * @param position defines the position of card
+     * @return card position returns the position of card
      */
     @Override
     public Cards getItem(int position) {

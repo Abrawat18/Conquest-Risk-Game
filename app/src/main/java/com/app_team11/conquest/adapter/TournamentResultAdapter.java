@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Adapter for passing data from view to XML for the result of tournament
  * Created by Vasu on 27-11-2017.
  */
 
@@ -27,21 +28,42 @@ public class TournamentResultAdapter extends BaseAdapter {
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
     }
 
+    /**
+     * Gives the count of the result list
+     * @return size of result list
+     */
     @Override
     public int getCount() {
         return resultList.size();
     }
 
+    /**
+     *
+     * @param position gives the position of the result list
+     * @return returnList gives the position of the return list
+     */
     @Override
     public TournamentResultModel getItem(int position) {
         return resultList.get(position);
     }
 
+    /**
+     *
+     * @param position gives the position of the item
+     * @return position place of item
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     *
+     * @param position place of view
+     * @param convertView view is displayed as per the null or already existing
+     * @param parent inherits the view from parent
+     * @return convertView dispays the view on that position
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder=null;
@@ -56,6 +78,9 @@ public class TournamentResultAdapter extends BaseAdapter {
         return convertView;
     }
 
+    /**
+     * This class holds the view
+     */
     class ViewHolder{
         private TextView winnerValue;
     }
