@@ -40,6 +40,7 @@ import com.app_team11.conquest.model.ObserverType;
 import com.app_team11.conquest.model.PhaseViewModel;
 import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.Territory;
+import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.utility.GamePhaseManager;
 import com.app_team11.conquest.utility.MathUtility;
@@ -324,8 +325,31 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             textViewPlayerDominationList.get(player.getPlayerId() - 1).setBackgroundColor(playerColor[playerColor.length - player.getPlayerId()]);
         }
         FileManager.getInstance().writeLog("Updated world domination view!!");
+        ConfigurableMessage configurableMessage = getMap().playerWonTheGame(getPlayerTurn());
+        if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
+            toastMessageFromBackground(configurableMessage.getMsgText());
+            endGame(getPlayerTurn());
+            //code to end game
+        }
     }
+    /**
+     * Method for ending the game when the player wins
+     * @param playerWon
+     */
+    public void endGame(Player playerWon) {
 
+        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
+        sweetAlertDialog.setCancelable(false);
+        sweetAlertDialog.setTitleText("Game Ends! Player" + playerWon.getPlayerId() + " Won the game!!")
+                .setConfirmText("Ok")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        finish();
+                    }
+                })
+                .show();
+    }
     /**
      * Layout parameters for players
      *
@@ -625,7 +649,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 }
             }
         } catch (Exception ex) {
-
+            FileManager.getInstance().writeLog(ex.getMessage());
         }
 
         notifyCardListAdapter();
