@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
+ * This class is utility class for attack phase
  * Created by Jaydeep on 11/27/2017.
  */
 
@@ -28,6 +29,10 @@ public class AttackPhaseUtility {
 
     }
 
+    /**
+     * Getter for the attack phase utility
+     * @return instance  reference for the attack phase utility
+     */
     public static AttackPhaseUtility getInstance(){
         if(instance==null){
             instance = new AttackPhaseUtility();
@@ -39,8 +44,7 @@ public class AttackPhaseUtility {
 
     /**
      * Returns number of dice rolled
-     *
-     * @return
+     * @return numberOfDiceRolled gives the number of dice which are rolled
      */
     public int getNumberOfDiceRolled() {
         return numberOfDiceRolled;
@@ -59,8 +63,8 @@ public class AttackPhaseUtility {
     /**
      * Checks whether attack can be continued
      *
-     * @param defenderTerritory
-     * @return
+     * @param defenderTerritory this is the parameter for defender of the territory
+     * @return ConfigurableMessage the message is returned as per the configuration
      */
     public ConfigurableMessage canContinueAttackOnThisTerritory(Territory defenderTerritory) {
         if (defenderTerritory.getArmyCount() == 0)
@@ -71,8 +75,8 @@ public class AttackPhaseUtility {
     /**
      * Checks whether player is attacking an already owned territory
      *
-     * @param attackerTerritory
-     * @param defenderTerritory
+     * @param attackerTerritory territory which attacks
+     * @param defenderTerritory territory which defends
      * @return whether adjacent or not
      */
 
@@ -87,8 +91,8 @@ public class AttackPhaseUtility {
     /**
      * Check for sufficient armies
      *
-     * @param attackerTerritory
-     * @return
+     * @param attackerTerritory territory which attacks
+     * @return ConfigurableMessage message is returned which is configurable
      */
     public ConfigurableMessage hasSufficientArmies(Territory attackerTerritory) {
         if (attackerTerritory.getArmyCount() >= 2)
@@ -99,9 +103,9 @@ public class AttackPhaseUtility {
     /**
      * Validate the attack
      *
-     * @param attackerTerritory
-     * @param defenderTerritory
-     * @return
+     * @param attackerTerritory parameter for the attacker territory
+     * @param defenderTerritory parameter for the defender territory
+     * @return canContinueAttack checks if attack can be continued
      */
     public ConfigurableMessage validateAttackBetweenTerritories(Territory attackerTerritory, Territory defenderTerritory) {
         ConfigurableMessage isAdjacenTerritories = isAdjacentTerritory(attackerTerritory, defenderTerritory);
@@ -123,10 +127,10 @@ public class AttackPhaseUtility {
     /**
      * The attack phase method
      *
-     * @param attackerTerritory
-     * @param defenderTerritory
-     * @param attackerDice
-     * @param defenderDice
+     * @param attackerTerritory parameter for the territory which attacks
+     * @param defenderTerritory parameter for the territory which defends
+     * @param attackerDice dice for attacking dice
+     * @param defenderDice dice for defender dice
      */
     public ConfigurableMessage attackPhase(Territory attackerTerritory, Territory defenderTerritory, int attackerDice, int defenderDice) {
         setNumberOfDiceRolled(attackerDice);
