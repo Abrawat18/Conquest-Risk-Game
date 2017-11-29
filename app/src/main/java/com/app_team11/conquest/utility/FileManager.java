@@ -225,17 +225,19 @@ public class FileManager {
     /**
      * @param gamemap
      */
-    public void writeObjectIntoFile(GameMap gamemap) {
-        File file = getSerializableFilePath(Constants.OBJECT_STATE);
+    public boolean writeObjectIntoFile(GameMap gamemap, File filename) {
+        //File file = getSerializableFilePath(Constants.OBJECT_STATE);
         try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(filename));
             objectOutputStream.writeObject(gamemap);
             objectOutputStream.close();
+            return true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     /**

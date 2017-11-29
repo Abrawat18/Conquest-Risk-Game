@@ -18,8 +18,12 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
 
     @Override
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
-
-        return null;
+        if (gameMap.getTerrForPlayer(player) != null && gameMap.getTerrForPlayer(player).size() > 0) {
+            Collections.shuffle(gameMap.getTerrForPlayer(player));
+            gameMap.getTerrForPlayer(player).get(0).addArmyToTerr(1,false);
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
+        }
+        return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
     }
 
     @Override
@@ -28,7 +32,7 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
         if (gameMap.getTerrForPlayer(player) != null && gameMap.getTerrForPlayer(player).size() > 0) {
             gameMap.getTerrForPlayer(player).get(0).setArmyCount(gameMap.getTerrForPlayer(player).get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
 
-            if (reinforcementType.getMatchedTerritoryList() != null && reinforcementType.getMatchedTerritoryList().size()>0) {
+            if (reinforcementType.getMatchedTerritoryList() != null && reinforcementType.getMatchedTerritoryList().size() > 0) {
                 reinforcementType.getMatchedTerritoryList().get(0).setArmyCount(reinforcementType.getMatchedTerritoryList().get(0).getArmyCount() + reinforcementType.getMatchedTerrCardReinforcement());
             }
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.REINFORCEMENT_SUCCESS_STRATEGY);

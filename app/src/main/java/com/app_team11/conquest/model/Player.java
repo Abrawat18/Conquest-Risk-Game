@@ -353,6 +353,10 @@ public class Player extends Observable implements Serializable{
         }
     }
 
+    public ConfigurableMessage startupPhase(GameMap gameMap){
+        getPlayerStrategy().startupPhase(gameMap, this);
+        return null;
+    }
     public ConfigurableMessage reInforcementPhase(GameMap gameMap) {
         if (getPlayerStrategyType() != Constants.HUMAN_PLAYER_STRATEGY) {
             List<Cards> tradInCardList = null;

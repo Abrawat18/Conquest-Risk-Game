@@ -17,6 +17,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -44,10 +45,13 @@ import com.app_team11.conquest.utility.GamePhaseManager;
 import com.app_team11.conquest.utility.MathUtility;
 import com.app_team11.conquest.utility.ReadMapUtility;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Game Play Activity view
@@ -76,6 +80,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private List<TextView> textViewPlayerDominationList = new ArrayList<>();
     private ListView listPhaseView;
     private Button btnGameSave;
+    private EditText editFileName;
+
 
     /**
      * {@inheritDoc}
@@ -528,7 +534,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 onAttackPhaseStopped();
                 break;
             case R.id.btn_save_map:
-                FileManager.getInstance().writeObjectIntoFile(getMap());
+                saveGame();
                 break;
             case R.id.btn_stop_fortification:
                 onFortificationPhaseStopped();
@@ -547,6 +553,29 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 this.startActivity(intent);
                 break;
         }
+    }
+
+    public void saveGame() {
+        editFileName = new EditText(this);
+        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
+        sweetAlertDialog.setTitleText("Please enter game name")
+                .setConfirmText("Ok")
+                .setCustomView(editFileName)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
+                        File objectFile = null;
+                        if (!TextUtils.isEmpty(editFileName.getText())) {
+                            objectFile = FileManager.getInstance().getSerializableFilePath(editFileName.getText().toString() + ".ser");
+                            boolean isGameSaved = FileManager.getInstance().writeObjectIntoFile(getMap(), objectFile);
+                            if (isGameSaved) {
+                                Toast.makeText(GamePlayActivity.this, Constants.GAME_SAVE_SUCCESS_MEG, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                })
+                .show();
     }
 
     /**

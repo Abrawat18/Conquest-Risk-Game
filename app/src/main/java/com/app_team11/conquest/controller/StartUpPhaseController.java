@@ -90,6 +90,10 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
      */
     public void initializationStartupPhase() {
         randomlyAssignCountries();
+        if (getActivity().getMap().getPlayerList().size() > 0) {
+            FileManager.getInstance().writeLog("Assigning initial armies to each territory on start up...");
+            getActivity().setPlayerTurn(getActivity().getMap().getPlayerList().get(0));
+        }
         assignInitialArmy();
         worldDominationViewSet();
         getActivity().updateDominationView();
@@ -127,12 +131,22 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
      * method to assign initial armies to each territory on start up
      */
     public void assignInitialArmy() {
-        waitForSelectTerritory = true;
-        if (getActivity().getMap().getPlayerList().size() > 0) {
-            FileManager.getInstance().writeLog("Assigning initial armies to each territory on start up...");
-            getActivity().setPlayerTurn(getActivity().getMap().getPlayerList().get(0));
+
+        if (!isArmyLeftToAssignForAnyPlayers()) {
+            waitForSelectTerritory = false;
+            stopStartupPhase();
+            return;
         }
 
+        getActivity().showMap();
+        if(!getActivity().getPlayerTurn().getPlayerStrategyType().equals(Constants.HUMAN_PLAYER_STRATEGY)){
+            waitForSelectTerritory=false;
+            getActivity().getPlayerTurn().startupPhase(getActivity().getMap());
+            getActivity().setNextPlayerTurn();
+            assignInitialArmy();
+        }else {
+            waitForSelectTerritory = true;
+        }
     }
 
     /**
@@ -166,11 +180,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
                 PhaseViewModel.getInstance().addPhaseViewContent("StartUp Phase Player :" + getActivity().getPlayerTurn().getPlayerId());
                 selectedTerritory.addArmyToTerr(1, false);
                 getActivity().setNextPlayerTurn();
-                getActivity().showMap();
-                if (!isArmyLeftToAssignForAnyPlayers()) {
-                    waitForSelectTerritory = false;
-                    stopStartupPhase();
-                }
+                assignInitialArmy();
             } else {
                 getActivity().toastMessageFromBackground("Place army on correct territory !!");
             }

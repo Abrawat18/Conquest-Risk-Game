@@ -3,12 +3,10 @@ package com.app_team11.conquest.model;
 
 import android.util.Log;
 
-import com.app_team11.conquest.R;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.utility.GamePhaseManager;
-import com.google.gson.annotations.SerializedName;
 
 import java.io.*;
 import java.util.ArrayList;
