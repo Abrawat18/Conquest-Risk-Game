@@ -54,7 +54,7 @@ import java.util.Observer;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
- * Game Play Activity view
+ * This class is responnsible for the game play activity
  * Created by RADHEY on 10/15/2017
  * version 1.0.0
  */
@@ -83,11 +83,14 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private EditText editFileName;
 
 
+
+
     /**
      * {@inheritDoc}
-     *
-     * @param savedInstanceState
+     *  This method is called on creation of the activity which allows user to play the game
+     * @param savedInstanceState When activity is reopened , this parameter is used for resuming to the resumed state
      */
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,7 +140,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     }
 
     /**
-     * Update phase view
+     * This method is responsible for updating the phase view
      */
     private void updateCreatePhaseView() {
         phaseViewList = PhaseViewModel.getInstance().getListPhaseViewContent();
@@ -186,7 +189,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     /**
      * Get player turn from game map
      *
-     * @return
+     * @return getMap : returns the map
+     * @return getPlayerTurn : returns the turn of the player
      */
     public Player getPlayerTurn() {
         return getMap().getPlayerTurn();
@@ -247,6 +251,9 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         }
     }
 
+    /**
+     * This method loads the relevant game phase
+     */
     public void loadGamePhase() {
         switch (getMap().getGamePhaseManager().getCurrentPhase()) {
             case GamePhaseManager.PHASE_STARTUP:
@@ -322,8 +329,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     /**
      * Layout parameters for players
      *
-     * @param playerDominationPercent
-     * @return lp
+     * @param playerDominationPercent : this parameter is responsible for showing the domination percentage of the player
+     * @return lp : configuration of linear layout parameter
      */
     private LinearLayout.LayoutParams setLayoutParamsForPlayer(int playerDominationPercent) {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -344,7 +351,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     /**
      * Action to be performed when touch on surface
      *
-     * @param surfaceOnTouchListner
+     * @param surfaceOnTouchListner : this is called when surface is touched
      */
     public void setSurfaceOnTouchListner(SurfaceOnTouchListner surfaceOnTouchListner) {
         this.surfaceOnTouchListner = surfaceOnTouchListner;
@@ -352,8 +359,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * Sets the map for view
-     *
-     * @param map
+     * @param map : parameter for defining the map
      */
     public void setMap(GameMap map) {
         this.map = map;
@@ -365,8 +371,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * Returns the map view
-     *
-     * @return map
+     * @return map : parameter for defining the map
      */
     public GameMap getMap() {
         return map;
@@ -377,7 +382,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      *
      * @param x x-coordinate for the selected location for territory on map
      * @param y y-coordinate for the selected location for territory on map
-     * @return territory object
+     * @return territory object : returns the territory object
      */
     public Territory getTerritoryAtSelectedPoint(int x, int y) {
         for (Territory territory : map.getTerritoryList()) {
@@ -489,7 +494,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
         /**
          * Initializing the surface destroy
-         * @param holder
+         * @param holder : this parameter holds the surface
          */
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {
@@ -499,10 +504,10 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
         /**
          * Initializing the change in surface
-         * @param holder
-         * @param format
-         * @param width
-         * @param height
+         * @param holder : parameter for holding the surface
+         * @param format : parameter for defining the format
+         * @param width : parameter for defining width of the surface
+         * @param height : parameter for defining the height of the surface
          */
         @Override
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
@@ -512,9 +517,9 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     /**
      * {@inheritDoc}
      *
-     * @param v     view
-     * @param event
-     * @return
+     * @param v view : The view on which the click is done, that object of the view is called
+     * @param event : parameter which defines the motion event
+     * @return boolean : whether it is true or false
      */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -525,7 +530,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     /**
      * {@inheritDoc}
      *
-     * @param v view
+     * @param v view : The view on which the click is done, that object of the view is called.
+
      */
     @Override
     public void onClick(View v) {
@@ -555,6 +561,9 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         }
     }
 
+    /**
+     * Method which enables the saving of the game using serialization
+     */
     public void saveGame() {
         editFileName = new EditText(this);
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
@@ -600,8 +609,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     /**
      * Update the view
      *
-     * @param o
-     * @param arg
+     * @param o : observable parameter for the update during the game play activity
+     * @param arg : object parameter for the update during the game play activity
      */
     @Override
     public void update(Observable o, Object arg) {
@@ -667,9 +676,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 }
             }
         });
-/**
- * On click listner for cards
- */
+
         cardGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
