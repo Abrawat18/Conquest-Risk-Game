@@ -226,7 +226,6 @@ public class FileManager {
      * @param gamemap
      */
     public boolean writeObjectIntoFile(GameMap gamemap, File filename) {
-        //File file = getSerializableFilePath(Constants.OBJECT_STATE);
         try {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(filename));
             objectOutputStream.writeObject(gamemap);

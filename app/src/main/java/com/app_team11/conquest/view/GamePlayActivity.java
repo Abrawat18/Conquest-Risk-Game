@@ -570,7 +570,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                             objectFile = FileManager.getInstance().getSerializableFilePath(editFileName.getText().toString() + ".ser");
                             boolean isGameSaved = FileManager.getInstance().writeObjectIntoFile(getMap(), objectFile);
                             if (isGameSaved) {
-                                Toast.makeText(GamePlayActivity.this, Constants.GAME_SAVE_SUCCESS_MEG, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(GamePlayActivity.this, Constants.GAME_SAVE_SUCCESS_MSG, Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
