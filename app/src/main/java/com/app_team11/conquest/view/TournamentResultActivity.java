@@ -34,7 +34,6 @@ public class TournamentResultActivity extends Activity {
 
     /**
      * {@inheritDoc}
-     *
      * @param savedInstanceState saves the view in instance
      */
     @Override

@@ -26,7 +26,7 @@ import java.util.List;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
- * Map Selection and initialization
+ * This class is responsible for the Map Selection and initialization
  * Created by RADHEY on 10/15/2017.
  *
  * @version 1.0.0
@@ -44,9 +44,12 @@ public class MapSelectionAndInitializationActivity extends Activity {
     private MapSelectionAdapter mapSelectionAdapter;
 
     /**
-     * On create method for map selection
      * {@inheritDoc}
+     *  This method is called on creation of the activity for map selection
+     * @param savedInstanceState When activity is reopened , this parameter is used for resuming to the resumed state
+     *
      */
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

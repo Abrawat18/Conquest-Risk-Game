@@ -29,7 +29,7 @@ import org.json.JSONException;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
- * Map Editor activity view
+ * This class is responsible for map editor activity view
  * Created by Jaydeep9101 on 06-Oct-17.
  * @version 1.0.0
  */
@@ -51,6 +51,12 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     public LinearLayout linearAddContinent;
     public SurfaceView surface;
 
+    /**
+     * {@inheritDoc}
+     *  This method is called on creation of the activity which allows user to edit the map
+     * @param savedInstanceState When activity is reopened , this parameter is used for resuming to the resumed state
+     *
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +156,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
         /**
          * Surface destroyed surface holder
-         * @param holder
+         * @param holder this parameter holds the view
          */
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {
@@ -160,10 +166,10 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
         /**
          * View for change surface
-         * @param holder
-         * @param format
-         * @param width
-         * @param height
+         * @param holder this parameter holds the view
+         * @param format this parameter defines the format
+         * @param width this parameter defines the width of the surface
+         * @param height this parameter defines the height of the surface
          */
         @Override
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
@@ -172,9 +178,9 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     /**
      * OnTouch motion event Listener
-     * @param v     : view
+     * @param v     : Initialize the view based on the layout defined in XML
      * @param event : MotionEvent
-     * @return : Boolean
+     * @return : Boolean - either true or false
      */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -186,7 +192,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     /**
      * Shows the toast message
-     * @param msg
+     * @param msg : message is displayed
      */
     private void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
@@ -203,9 +209,10 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
     }
 
     /**
-     * {@inheritDoc}
-     * @param v
+     *  This method is called when click event is passed.
+     * @param v The view on which the click is done, that object of the view is called.
      */
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -229,6 +236,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     /**
      * {@inheritDoc}
+     * When activity is paused or minimized this method is called to resume back
      */
     @Override
     protected void onResume() {
@@ -240,6 +248,7 @@ public class MapEditorActivity extends Activity implements View.OnTouchListener,
 
     /**
      * {@inheritDoc}
+     * This method is called when the back button is pressed and it navigates back to the previous screen
      */
     @Override
     public void onBackPressed() {

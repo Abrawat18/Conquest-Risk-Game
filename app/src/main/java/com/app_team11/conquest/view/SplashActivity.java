@@ -12,11 +12,17 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Main screen activity which shows logo fo the game
+ * Main screen activity which shows logo for the game
  * Created by Jaydeep9101 on 06-Oct-17.
  */
 
 public class SplashActivity extends Activity{
+    /**
+     * {@inheritDoc}
+     *  This method is called on creation of the activity which shows the welcome screen
+     * @param savedInstanceState When activity is reopened , this parameter is used for resuming to the resumed state
+     *
+     */
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

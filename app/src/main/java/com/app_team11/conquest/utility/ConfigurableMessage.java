@@ -12,8 +12,8 @@ public class ConfigurableMessage {
 
     /**
      *Passes the message code and message text
-     * @param msgCode
-     * @param msgText
+     * @param msgCode this code defines the type of message
+     * @param msgText depending on code the text of the message is passed
      * 
      */
     public ConfigurableMessage(int msgCode, String msgText) {
@@ -23,7 +23,7 @@ public class ConfigurableMessage {
 
     /**
      * Returns the message code
-     * @return msgcode
+     * @return msgcode this code defines the type of message
      */
     public int getMsgCode() {
         return msgCode;
@@ -31,7 +31,7 @@ public class ConfigurableMessage {
 
     /**
      * Sets the message code
-     * @param msgCode
+     * @param msgCode this code defines the type of message
      */
     public void setMsgCode(int msgCode) {
         this.msgCode = msgCode;
@@ -39,7 +39,7 @@ public class ConfigurableMessage {
 
     /**
      * Returns the message text
-     * @return msgText
+     * @return msgText depending on code the text of the message is passed
      */
     public String getMsgText() {
         return msgText;
@@ -47,7 +47,7 @@ public class ConfigurableMessage {
 
     /**
      * Sets the message text
-     * @param msgText
+     * @param msgText  depending on code the text of the message is passed
      */
     public void setMsgText(String msgText) {
         this.msgText = msgText;
