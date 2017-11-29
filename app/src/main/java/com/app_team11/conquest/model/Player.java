@@ -228,8 +228,6 @@ public class Player extends Observable implements Serializable{
         }
 
         if (tradeInCards != null && tradeInCards.size() == 3) {
-            //// TODO: 08-10-2017 need to add the selected cards back to the total cards list
-            //// TODO: 17-10-2017 what happens when the total cards in the inventory finishes and there is no card left to give to the player when he wins any territory
 
             if ((tradeInCards.get(0).getArmyType().equals(tradeInCards.get(1).getArmyType()) && tradeInCards.get(1).getArmyType().equals(tradeInCards.get(2).getArmyType())) || (!tradeInCards.get(0).getArmyType().equals(tradeInCards.get(1).getArmyType()) && !tradeInCards.get(1).getArmyType().equals(tradeInCards.get(2).getArmyType()) && !tradeInCards.get(2).getArmyType().equals(tradeInCards.get(1).getArmyType()))) {
                 switch (cardTradeCount) {

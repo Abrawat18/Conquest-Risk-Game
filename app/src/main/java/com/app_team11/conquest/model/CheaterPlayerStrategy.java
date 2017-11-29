@@ -5,12 +5,13 @@ import com.app_team11.conquest.interfaces.PlayerStrategyListener;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 
 import java.util.Collections;
+import java.util.Observable;
 
 /**
  * Created by Jaydeep on 11/26/2017.
  */
 
-public class CheaterPlayerStrategy implements PlayerStrategyListener {
+public class CheaterPlayerStrategy extends Observable implements PlayerStrategyListener {
 
     @Override
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
@@ -27,7 +28,7 @@ public class CheaterPlayerStrategy implements PlayerStrategyListener {
         for (Territory territory : gameMap.getTerrForPlayer(player)) {
             territory.setArmyCount(2 * territory.getArmyCount());
         }
-        return null;
+        return new ConfigurableMessage(Constants.MSG_SUCC_CODE,Constants.SUCCESS);
     }
 
     @Override
@@ -37,7 +38,11 @@ public class CheaterPlayerStrategy implements PlayerStrategyListener {
                 neighbourTerr.setTerritoryOwner(player);
             }
         }
-        return null;
+        ObserverType observerType = new ObserverType();
+        observerType.setObserverType(ObserverType.WORLD_DOMINATION_TYPE);
+        setChanged();
+        notifyObservers(observerType);
+        return new ConfigurableMessage(Constants.MSG_SUCC_CODE,Constants.SUCCESS);
     }
 
     @Override
@@ -54,6 +59,6 @@ public class CheaterPlayerStrategy implements PlayerStrategyListener {
                 territory.setArmyCount(2 * territory.getArmyCount());
             }
         }
-        return null;
+        return new ConfigurableMessage(Constants.MSG_SUCC_CODE,Constants.SUCCESS);
     }
 }

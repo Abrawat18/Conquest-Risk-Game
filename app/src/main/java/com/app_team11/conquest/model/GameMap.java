@@ -1,6 +1,7 @@
 package com.app_team11.conquest.model;
 
 
+import android.content.Context;
 import android.util.Log;
 
 import com.app_team11.conquest.utility.ConfigurableMessage;
@@ -225,23 +226,39 @@ public class GameMap implements Serializable {
         return terrList;
     }
 
-    public void loadPlayerStrategyToGame() {
+    public void loadPlayerStrategyToGame(GamePlayActivity gamePlayActivity) {
         for (Player player : getPlayerList()) {
             switch (player.getPlayerStrategyType()) {
                 case "Random":
-                    player.setPlayerStrategy(new RandomPlayerStrategy());
+                    RandomPlayerStrategy randomPlayerStrategy =new RandomPlayerStrategy();
+                    if(null!=gamePlayActivity) {
+                        randomPlayerStrategy.addObserver(gamePlayActivity);
+                    }
+                    player.setPlayerStrategy(randomPlayerStrategy);
                     break;
                 case "Cheater":
-                    player.setPlayerStrategy(new CheaterPlayerStrategy());
+                    CheaterPlayerStrategy cheaterPlayerStrategy = new CheaterPlayerStrategy();
+                    if(null!=gamePlayActivity) {
+                        cheaterPlayerStrategy.addObserver(gamePlayActivity);
+                    }
+                    player.setPlayerStrategy(cheaterPlayerStrategy);
                     break;
                 case "Benevolent":
                     player.setPlayerStrategy(new BenevolentPlayerStrategy());
                     break;
                 case "Aggressive":
-                    player.setPlayerStrategy(new AggressivePlayerStrategy());
+                    AggressivePlayerStrategy aggressivePlayer = new AggressivePlayerStrategy();
+                    if(null!=gamePlayActivity) {
+                        aggressivePlayer.addObserver(gamePlayActivity);
+                    }
+                    player.setPlayerStrategy(aggressivePlayer);
                     break;
                 case "Human":
-                    player.setPlayerStrategy(new HumanPlayerStrategy());
+                    HumanPlayerStrategy humanPlayerStrategy = new HumanPlayerStrategy();
+                    if(null!=gamePlayActivity) {
+                        humanPlayerStrategy.addObserver(gamePlayActivity);
+                    }
+                    player.setPlayerStrategy(humanPlayerStrategy);
                     break;
             }
         }
@@ -282,19 +299,33 @@ public class GameMap implements Serializable {
                     switch (playerListData.get(i - 1)) {
                         case "Random":
                             RandomPlayerStrategy randomPlayerStrategy =new RandomPlayerStrategy();
-                            randomPlayerStrategy.addObserver(gamePlayActivity);
+                            if(null!=gamePlayActivity) {
+                                randomPlayerStrategy.addObserver(gamePlayActivity);
+                            }
                             playerObj.setPlayerStrategy(randomPlayerStrategy);
                             break;
                         case "Cheater":
-                            playerObj.setPlayerStrategy(new CheaterPlayerStrategy());
+                            CheaterPlayerStrategy cheaterPlayerStrategy = new CheaterPlayerStrategy();
+                            if(null!=gamePlayActivity) {
+                                cheaterPlayerStrategy.addObserver(gamePlayActivity);
+                            }
+                            playerObj.setPlayerStrategy(cheaterPlayerStrategy);
                             break;
                         case "Benevolent":
                             playerObj.setPlayerStrategy(new BenevolentPlayerStrategy());
                             break;
                         case "Aggressive":
-                            playerObj.setPlayerStrategy(new AggressivePlayerStrategy());
+                            AggressivePlayerStrategy aggressivePlayerStrategy = new AggressivePlayerStrategy();
+                            if(null!=gamePlayActivity) {
+                                aggressivePlayerStrategy.addObserver(gamePlayActivity);
+                            }
+                            playerObj.setPlayerStrategy(aggressivePlayerStrategy);
                             break;
                         case "Human":
+                            HumanPlayerStrategy humanPlayerStrategy = new HumanPlayerStrategy();
+                            if(null!=gamePlayActivity) {
+                                humanPlayerStrategy.addObserver(gamePlayActivity);
+                            }
                             playerObj.setPlayerStrategy(new HumanPlayerStrategy());
                             break;
                     }
