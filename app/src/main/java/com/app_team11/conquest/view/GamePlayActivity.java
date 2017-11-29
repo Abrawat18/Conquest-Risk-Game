@@ -173,7 +173,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         } else if (!TextUtils.isEmpty(filePathToLoad) && noOfPlayer > 0) {
             FileManager.getInstance().writeLog("Initializing map for game play...");
             setMap(new ReadMapUtility(this).readFile(filePathToLoad));
-            getMap().addPlayerToGame(noOfPlayer, playerList);
+            getMap().addPlayerToGame(noOfPlayer, playerList,this);
         }
         if (getMap() != null) {
             initializePlayerAdapter();

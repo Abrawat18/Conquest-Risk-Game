@@ -35,7 +35,7 @@ public class ReadMapUtilityTest {
         assertEquals(3, gameMap.getContinentList().size());
         assertEquals(6, gameMap.getTerritoryList().size());
 
-        gameMap.addPlayerToGame(3, new ArrayList<String>());
+        gameMap.addPlayerToGame(3, new ArrayList<String>(), this);
         assertEquals(3, gameMap.getPlayerList().size());
         for (int i = 0; i < gameMap.getPlayerList().size(); i++)
             System.out.println("Player id: " + gameMap.getPlayerList().get(i).getPlayerId());
