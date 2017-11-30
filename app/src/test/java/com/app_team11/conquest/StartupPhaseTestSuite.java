@@ -2,6 +2,7 @@ package com.app_team11.conquest;
 
 /**
  * Created by Nigel on 20-Oct-17.
+ * Tests for map creation & startup phase methods
  */
 import com.app_team11.conquest.model.ReadFileTest;
 import com.app_team11.conquest.model.UnconnectedContinentTest;

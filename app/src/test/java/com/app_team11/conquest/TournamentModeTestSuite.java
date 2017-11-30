@@ -20,7 +20,7 @@ import org.junit.runners.Suite;
 
 /**
  * Created by Nigel on 30-Nov-17.
- * Tests to check the player strategies
+ * Tests to check the player strategies in tournament mode
  */
 
 
