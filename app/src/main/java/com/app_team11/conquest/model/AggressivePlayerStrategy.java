@@ -23,7 +23,7 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Aggressive player StartupPhase started !!");
         if (gameMap.getTerrForPlayer(player) != null && gameMap.getTerrForPlayer(player).size() > 0) {
-            sortList(gameMap.getTerrForPlayer(player)).get(0).addArmyToTerr(1,false);
+            sortList(gameMap.getTerrForPlayer(player)).get(0).addArmyToTerr(1, false);
             FileManager.getInstance().writeLog("Aggressive player StartupPhase ended !!");
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
         }
@@ -46,7 +46,7 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
     @Override
     public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Aggressive player attack phase started !! ");
-        boolean isPlayerWon=false;
+        boolean isPlayerWon = false;
         if (null != gameMap.getTerrForPlayer(player)) {
             boolean nextAttackerRequired = true;
             for (Territory attackerTerr : sortList(gameMap.getTerrForPlayer(player))) {
@@ -58,10 +58,13 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
                                 if (AttackPhaseUtility.getInstance().validateAttackBetweenTerritories(attackerTerr, defenderTerr).getMsgCode() == Constants.MSG_SUCC_CODE) {
                                     nextAttackerRequired = false;
                                     int attackerDice = 3;
+                                    if (attackerTerr.getArmyCount() <= 3) {
+                                        attackerDice = attackerTerr.getArmyCount() - 1;
+                                    }
                                     int defenderDice = 1 + (new Random().nextInt(2));
                                     ConfigurableMessage resultCode = AttackPhaseUtility.getInstance().attackPhase(attackerTerr, defenderTerr, attackerDice, defenderDice);
                                     if (resultCode.getMsgCode() == Constants.MSG_SUCC_CODE) {
-                                        isPlayerWon=true;
+                                        isPlayerWon = true;
                                         if (defenderTerr.getArmyCount() == 0) {
                                             AttackPhaseUtility.getInstance().captureTerritory(attackerTerr, defenderTerr, attackerDice);
                                             ObserverType observerType = new ObserverType();
@@ -80,7 +83,7 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
                         }
                     }
                     if (!nextAttackerRequired) {
-                        if(isPlayerWon) {
+                        if (isPlayerWon) {
                             Cards randomCard = gameMap.getRandomCardFromDeck();
                             player.getOwnedCards().add(randomCard); //adding the card to the player
                             gameMap.removeCardFromDeck(randomCard); //removing from the deck of cards
