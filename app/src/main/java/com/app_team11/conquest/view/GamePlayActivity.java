@@ -393,6 +393,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     public void endGame(final Player playerWon) {
         showMap();
+        FileManager.getInstance().writeLog("Game Ends! Player" + playerWon.getPlayerId() + " Won the game!!");
         if (!TextUtils.isEmpty(fromGameMode) && fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
             if (mapPlayed < selectedMapListForTournamentMode.size()) {
                 TournamentResultModel tournamentResultModel = new TournamentResultModel();
