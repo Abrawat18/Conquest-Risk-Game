@@ -16,7 +16,7 @@ import static junit.framework.Assert.assertEquals;
  * Test for benevolent player attack phase
  */
 
-public class PlayerTest11 {List<Territory> territoryList;
+public class BenevolentPlayerStrategyTest1 {List<Territory> territoryList;
     Player attacker,defender;
     Territory attackerTerritory,defenderTerritory;
     Continent continent1,continent2;

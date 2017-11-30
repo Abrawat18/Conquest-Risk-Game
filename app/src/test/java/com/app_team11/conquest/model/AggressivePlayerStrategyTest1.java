@@ -19,7 +19,7 @@ import static junit.framework.Assert.assertEquals;
  * Test for aggressive player attack method
  */
 
-public class PlayerTest10
+public class AggressivePlayerStrategyTest1
 {
     List<Territory> territoryList;
     Player attacker,defender;
