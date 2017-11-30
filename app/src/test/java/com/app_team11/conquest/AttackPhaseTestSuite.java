@@ -19,6 +19,7 @@ import org.junit.runners.Suite;
 
 /**
  * Created by Nigel on 07-Nov-17.
+ * Tests for attack phase
  */
 
 @RunWith(Suite.class)
