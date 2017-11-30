@@ -84,4 +84,5 @@ public class Constants {
     public static final String GAME_SAVE_SUCCESS_MSG = "Game saved successful";
 
 
+    public static final String KEY_TOURNAMENT_RESULT_LIST = "TournamentList";
 }

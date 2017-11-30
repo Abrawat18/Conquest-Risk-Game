@@ -48,6 +48,7 @@ import com.app_team11.conquest.utility.MathUtility;
 import com.app_team11.conquest.utility.ReadMapUtility;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -216,7 +217,14 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             // Tournament mode finished ...
             FileManager.getInstance().writeLog("Tournament mode finished!!");
             // Send result to tournament result
-
+            Intent intent = getIntent();
+            Bundle bundle = intent.getExtras();
+            if(bundle!=null){
+                bundle.putSerializable(Constants.KEY_TOURNAMENT_RESULT_LIST, (Serializable) tournamentResultList);
+            }
+            Intent tournamentIntent = new Intent(this,TournamentResultActivity.class);
+            tournamentIntent.putExtras(bundle);
+            startActivity(tournamentIntent);
             return;
         }
 

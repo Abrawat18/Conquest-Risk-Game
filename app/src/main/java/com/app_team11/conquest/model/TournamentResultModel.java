@@ -1,10 +1,12 @@
 package com.app_team11.conquest.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Vasu on 27-11-2017.
  */
 
-public class TournamentResultModel {
+public class TournamentResultModel implements Serializable{
 
     private String playMap;
     private Player playerWon;
