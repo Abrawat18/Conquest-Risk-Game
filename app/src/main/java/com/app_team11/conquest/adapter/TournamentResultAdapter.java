@@ -92,8 +92,9 @@ public class TournamentResultAdapter extends BaseAdapter {
             }
         }
         int distinctMapCount = distinctMap.size();
+        int noOfGames= resultList.size()/distinctMapCount;
         int rowCounter=0;
-        if((totalSize+1)%position!=0){
+        if(position==((rowCounter*noOfGames)+1)){
             viewHolder.winnerValue.setText(getItem(position).getPlayerWon().getPlayerStrategyType());
         }
         else{
