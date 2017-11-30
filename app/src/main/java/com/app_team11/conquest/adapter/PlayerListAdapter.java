@@ -25,8 +25,8 @@ public class PlayerListAdapter extends BaseAdapter {
 
     /**
      * Adapter for setting the data in PlayerListAdapter
-     * @param context
-     * @param playerList
+     * @param context the running activity instance
+     * @param playerList the list of players of the map
      */
     public PlayerListAdapter(Context context, List<Player> playerList) {
         this.playerList = playerList;
@@ -34,7 +34,6 @@ public class PlayerListAdapter extends BaseAdapter {
     }
 
     /**
-     * Returns count for the player list
      * @return size of player list
      */
     @Override
@@ -43,7 +42,6 @@ public class PlayerListAdapter extends BaseAdapter {
     }
 
     /**
-     * Returns the player list position
      * @param position
      * @return player list position
      */
@@ -53,7 +51,6 @@ public class PlayerListAdapter extends BaseAdapter {
     }
 
     /**
-     * Returns the item position
      * @param position
      * @return player position
      */
@@ -63,11 +60,10 @@ public class PlayerListAdapter extends BaseAdapter {
     }
 
     /**
-     * Returns view for player list
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return view for player list
+     * @param position view position
+     * @param convertView view to be loaded
+     * @param parent group parent
+     * @return converted view
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
