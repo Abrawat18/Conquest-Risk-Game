@@ -19,8 +19,7 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Benevolent player startup phase started !! ");
         if (gameMap.getTerrForPlayer(player) != null && gameMap.getTerrForPlayer(player).size() > 0) {
-            sortList(gameMap.getTerrForPlayer(player), true);
-            gameMap.getTerrForPlayer(player).get(0).addArmyToTerr(1, false);
+            sortList(gameMap.getTerrForPlayer(player), true).get(0).addArmyToTerr(1, false);
             FileManager.getInstance().writeLog("Benevolent player startup phase ended !! ");
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
         }
@@ -31,8 +30,7 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Benevolent player Reinforcement phase started !! ");
         if (gameMap.getTerrForPlayer(player) != null) {
-            sortList(gameMap.getTerrForPlayer(player), true);
-            gameMap.getTerrForPlayer(player).get(0).setArmyCount(gameMap.getTerrForPlayer(player).get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
+            sortList(gameMap.getTerrForPlayer(player), true).get(0).setArmyCount(sortList(gameMap.getTerrForPlayer(player), true).get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
             FileManager.getInstance().writeLog("Reinforcement phase started for Player :" + gameMap.getPlayerTurn().getPlayerId());
             if (reinforcementType.getMatchedTerritoryList() != null) {
                 sortList(reinforcementType.getMatchedTerritoryList(), true);
@@ -54,11 +52,9 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
         FileManager.getInstance().writeLog("Benevolent player Fortification phase started !! ");
         boolean fortificationFlag = false;
         if (gameMap.getTerrForPlayer(player) != null) {
-            sortList(gameMap.getTerrForPlayer(player), true);
-            for (Territory territory : gameMap.getTerrForPlayer(player)) {
+            for (Territory territory : sortList(gameMap.getTerrForPlayer(player), true)) {
                 if (territory.getNeighbourList() != null) {
-                    sortList(territory.getNeighbourList(), false);
-                    for (Territory neighbourTerr : territory.getNeighbourList()) {
+                    for (Territory neighbourTerr : sortList(territory.getNeighbourList(), false)) {
                         if (neighbourTerr.getTerritoryOwner().getPlayerId() == player.getPlayerId()) {
                             int diffAddTerrArmyCount = (neighbourTerr.getArmyCount() - territory.getArmyCount()) / 2;
                             territory.setArmyCount(territory.getArmyCount() + diffAddTerrArmyCount);
@@ -79,7 +75,7 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE_STRATEGY);
     }
 
-    public void sortList(List<Territory> terrList, final boolean isWeakestSorted) {
+    public List<Territory> sortList(List<Territory> terrList, final boolean isWeakestSorted) {
 
         Collections.sort(terrList, new Comparator<Territory>() {
             @Override
@@ -92,5 +88,6 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
                 }
             }
         });
+        return terrList;
     }
 }

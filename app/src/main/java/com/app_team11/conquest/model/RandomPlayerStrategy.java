@@ -26,9 +26,9 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Random player startup phase started !! ");
         if (gameMap.getTerrForPlayer(player) != null && gameMap.getTerrForPlayer(player).size() > 0) {
-            List<Territory> newList = gameMap.getTerrForPlayer(player);
-            Collections.shuffle(newList);
-            newList.get(0).addArmyToTerr(1,false);
+            List<Territory> terrPlayerList = gameMap.getTerrForPlayer(player);
+            Collections.shuffle(terrPlayerList);
+            terrPlayerList.get(0).addArmyToTerr(1,false);
             FileManager.getInstance().writeLog("Random player startup phase ended !! ");
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
         }
@@ -38,9 +38,10 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
     @Override
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Random player Reinforcement phase started !! ");
-        Collections.shuffle(gameMap.getTerrForPlayer(player));
+        List<Territory> terrPlayerList = gameMap.getTerrForPlayer(player);
+        Collections.shuffle(terrPlayerList);
         if (gameMap.getTerrForPlayer(player) != null && gameMap.getTerrForPlayer(player).size() > 0) {
-            gameMap.getTerrForPlayer(player).get(0).setArmyCount(gameMap.getTerrForPlayer(player).get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
+            terrPlayerList.get(0).setArmyCount(terrPlayerList.get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
 
             if (reinforcementType.getMatchedTerritoryList() != null && reinforcementType.getMatchedTerritoryList().size() > 0) {
                 reinforcementType.getMatchedTerritoryList().get(0).setArmyCount(reinforcementType.getMatchedTerritoryList().get(0).getArmyCount() + reinforcementType.getMatchedTerrCardReinforcement());
@@ -56,14 +57,16 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
     public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Random player attack phase started !! ");
         int randomAttackTime = 1 + new Random().nextInt(Constants.RANDOM_NUMBER_ATTACK_TIMES);
-        Collections.shuffle(gameMap.getTerrForPlayer(player));
-        Collections.shuffle(gameMap.getTerrForPlayer(player).get(0).getNeighbourList());
-        for (Territory defenderTerr : gameMap.getTerrForPlayer(player).get(0).getNeighbourList()) {
-            if (AttackPhaseUtility.getInstance().validateAttackBetweenTerritories(gameMap.getTerrForPlayer(player).get(0), defenderTerr).getMsgCode() == Constants.MSG_SUCC_CODE) {
+        List<Territory> terrPlayerList = gameMap.getTerrForPlayer(player);
+        Collections.shuffle(terrPlayerList);
+        List<Territory> neighbourTerrList = terrPlayerList.get(0).getNeighbourList();
+        Collections.shuffle(neighbourTerrList);
+        for (Territory defenderTerr : neighbourTerrList) {
+            if (AttackPhaseUtility.getInstance().validateAttackBetweenTerritories(terrPlayerList.get(0), defenderTerr).getMsgCode() == Constants.MSG_SUCC_CODE) {
                 while (randomAttackTime > 0) {
                     int attackerDice = 1;
                     int defenderDice = 1;
-                    if (gameMap.getTerrForPlayer(player).get(0).getArmyCount() <= 3) {
+                    if (terrPlayerList.get(0).getArmyCount() <= 3) {
                         attackerDice = 1 + new Random().nextInt(2);
                     } else {
                         attackerDice = 1 + new Random().nextInt(3);
@@ -74,10 +77,10 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
                         defenderDice = 1 + new Random().nextInt(2);
                     }
 
-                    ConfigurableMessage resultCode = AttackPhaseUtility.getInstance().attackPhase(gameMap.getTerrForPlayer(player).get(0), defenderTerr, attackerDice, defenderDice);
+                    ConfigurableMessage resultCode = AttackPhaseUtility.getInstance().attackPhase(terrPlayerList.get(0), defenderTerr, attackerDice, defenderDice);
                     if (resultCode.getMsgCode() == Constants.MSG_SUCC_CODE) {
                         if (defenderTerr.getArmyCount() == 0) {
-                            AttackPhaseUtility.getInstance().captureTerritory(gameMap.getTerrForPlayer(player).get(0), defenderTerr, (attackerDice + new Random().nextInt(gameMap.getTerrForPlayer(player).get(0).getArmyCount() - attackerDice)));
+                            AttackPhaseUtility.getInstance().captureTerritory(terrPlayerList.get(0), defenderTerr, (attackerDice + new Random().nextInt(terrPlayerList.get(0).getArmyCount() - attackerDice)));
                             ObserverType observerType = new ObserverType();
                             observerType.setObserverType(ObserverType.WORLD_DOMINATION_TYPE);
                             setChanged();
@@ -100,10 +103,12 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
     public ConfigurableMessage fortificationPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Random player fortification phase started !! ");
         boolean fortificationFlag = false;
-        Collections.shuffle(gameMap.getTerrForPlayer(player));
-        for (Territory territory : gameMap.getTerrForPlayer(player)) {
-            Collections.shuffle(territory.getNeighbourList());
-            for (Territory neighbourTerritory : territory.getNeighbourList()) {
+        List<Territory> terrPlayerList = gameMap.getTerrForPlayer(player);
+        Collections.shuffle(terrPlayerList);
+        for (Territory territory : terrPlayerList) {
+            List<Territory> neighbourTerrList = territory.getNeighbourList();
+            Collections.shuffle(neighbourTerrList);
+            for (Territory neighbourTerritory : neighbourTerrList) {
                 if (neighbourTerritory.getTerritoryOwner().getPlayerId() == player.getPlayerId()) {
                     int fortifyRandomArmy = new Random().nextInt(neighbourTerritory.getArmyCount());
                     neighbourTerritory.setArmyCount(neighbourTerritory.getArmyCount() - fortifyRandomArmy);

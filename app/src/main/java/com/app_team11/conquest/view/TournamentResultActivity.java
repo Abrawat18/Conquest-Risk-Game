@@ -31,7 +31,7 @@ public class TournamentResultActivity extends Activity {
     private TournamentResultAdapter resultAdapter;
     private Bundle bundle;
     private int numberOfGames;
-
+    List<TournamentResultModel> resultList;
     /**
      * {@inheritDoc}
      * @param savedInstanceState saves the view in instance
@@ -41,6 +41,7 @@ public class TournamentResultActivity extends Activity {
         super.onCreate(savedInstanceState);
         bundle = getIntent().getExtras();
         numberOfGames=bundle.getInt(Constants.KEY_NUMBER_GAMES);
+        resultList = (List<TournamentResultModel>) bundle.getSerializable(Constants.KEY_TOURNAMENT_RESULT_LIST);
         setContentView(R.layout.activity_tournament_result);
         gridResultTable = (GridView) findViewById(R.id.grid_result);
 
@@ -51,7 +52,7 @@ public class TournamentResultActivity extends Activity {
      * This class initializes the view
      */
     private void initializeView() {
-        List<TournamentResultModel> resultList = new ArrayList<TournamentResultModel>(); //this needs to be fetched
+
         resultAdapter = new TournamentResultAdapter(this,resultList);
         gridResultTable.setNumColumns(numberOfGames);
         gridResultTable.setAdapter(resultAdapter);
