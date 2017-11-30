@@ -24,6 +24,9 @@ public class ReadMapUtilityTest {
         filePath = "app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\Test Read Map File.map";
     }
 
+    /**
+     * Test to check army count initially
+     */
     @Test
     public void setUpPhaseTest() {
         ReadMapUtility read = new ReadMapUtility();

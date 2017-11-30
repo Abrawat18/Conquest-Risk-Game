@@ -113,12 +113,20 @@ public class SaveGameFunctionalityTest {
         assertEquals(Constants.ATTACK_SUCCESS_STRATEGY, configurableMessage.getMsgText());
         System.out.println("Attacker Armies: "+attackerTerritory.getArmyCount());
     }
+
+    /**
+     * test to save the game to a file
+     */
     @Test
     public void saveMapTest()
     {
         File file=new File(System.getProperty("user.dir") + File.separator + filePath);
         assertTrue(fileManager.writeObjectIntoFile(map,file));
     }
+
+    /**
+     * test to read the saved game file
+     */
     @Test
     public void readFileTest()
     {

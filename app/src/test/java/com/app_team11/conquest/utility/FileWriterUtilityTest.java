@@ -23,6 +23,10 @@ public class FileWriterUtilityTest {
         filePath="app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\Invalid test file.map";
         fileManager=FileManager.getInstance();
     }
+
+    /**
+     * test for file methods
+     */
     @Test
     public void validatefileMethods()
     {
