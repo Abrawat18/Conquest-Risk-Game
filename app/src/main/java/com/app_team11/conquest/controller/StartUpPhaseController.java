@@ -49,7 +49,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
     /**
      * Singleton for StartUp Phase
      *
-     * @return startUpPhaseController
+     * @return startUpPhaseController : This parameter returns the start up phase controller
      */
     public static StartUpPhaseController getInstance() {
         if (startUpPhaseController == null) {
@@ -61,7 +61,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
     /**
      * Context setting for StartUp Phase
      *
-     * @param context
+     * @param context : Context reference for the start up phase controller.
      */
     public StartUpPhaseController setContext(Context context) {
         this.context = context;
@@ -151,8 +151,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Method to check if army is left to assign for any players
-     *
-     * @return true or false
+     * @return boolean : true or false is returned based on the outcome of checks being done in the method
      */
     public boolean isArmyLeftToAssignForAnyPlayers() {
         for (final Player player : getActivity().getMap().getPlayerList()) {
@@ -166,8 +165,8 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
     /**
      * {@inheritDoc}
      *
-     * @param v
-     * @param event
+     * @param v : Initialize the view based on the layout defined in XML
+     * @param event : Defines the event for the on touch
      */
     @Override
     public void onTouch(View v, MotionEvent event) {
@@ -191,8 +190,7 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
 
     /**
      * GamePlay Activity Method
-     *
-     * @return GamePlayActivity
+     * @return GamePlayActivity : Returns the game play activity when this getter is called.
      */
     public GamePlayActivity getActivity() {
         return (GamePlayActivity) context;
