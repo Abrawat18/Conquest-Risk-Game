@@ -13,6 +13,7 @@ package com.app_team11.conquest.view;
 
         import com.app_team11.conquest.R;
         import com.app_team11.conquest.adapter.TournamentResultAdapter;
+        import com.app_team11.conquest.controller.MainDashboardController;
         import com.app_team11.conquest.global.Constants;
         import com.app_team11.conquest.model.TournamentResultModel;
         import com.app_team11.conquest.utility.FileManager;
@@ -44,7 +45,12 @@ public class TournamentResultActivity extends Activity {
         resultList = (List<TournamentResultModel>) bundle.getSerializable(Constants.KEY_TOURNAMENT_RESULT_LIST);
         setContentView(R.layout.activity_tournament_result);
         gridResultTable = (GridView) findViewById(R.id.grid_result);
-
+        findViewById(R.id.btn_show_log).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainDashboardController.getInstance().openGameLog();
+            }
+        });
         initializeView();
     }
 
