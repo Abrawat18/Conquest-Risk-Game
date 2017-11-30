@@ -16,7 +16,7 @@ import static junit.framework.Assert.assertEquals;
  * Checks for player won the game condition which is invalid
  */
 
-public class GameMapTest5 {
+public class WinConditionTest {
     List<Territory> territoryList;
     Player player1,player2,player3;
     Territory territory,territory3;

@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
  * Reinforcement phase with cards
  */
 
-public class PlayerTest9 {
+public class ReinforceWithCardsTest {
     private List<Territory> territoryList;
     private List<Player> playerList;
     private List<Cards> cardListOwned;

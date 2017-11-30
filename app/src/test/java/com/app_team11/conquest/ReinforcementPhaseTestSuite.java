@@ -1,7 +1,7 @@
 package com.app_team11.conquest;
 
 import com.app_team11.conquest.model.ReinforcementArmyTest;
-import com.app_team11.conquest.model.PlayerTest9;
+import com.app_team11.conquest.model.ReinforceWithCardsTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -14,7 +14,7 @@ import org.junit.runners.Suite;
 
 @Suite.SuiteClasses({
         ReinforcementArmyTest.class, //reinforcement phase
-        PlayerTest9.class //checks for reinforcement phase with different card scenario
+        ReinforceWithCardsTest.class //checks for reinforcement phase with different card scenario
 
 
 })

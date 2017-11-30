@@ -21,7 +21,7 @@ import static junit.framework.Assert.assertEquals;
  * Checks for valid fortification phase(adjacent territories)
  */
 
-public class TerritoryTest2 {
+public class ValidFortificationTest {
     private List<Territory> territoryList;
     private List<Player> playerList;
     private List<Continent> continentList;

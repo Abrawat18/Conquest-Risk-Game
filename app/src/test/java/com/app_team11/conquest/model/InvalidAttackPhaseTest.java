@@ -18,7 +18,7 @@ import static junit.framework.Assert.assertEquals;
  *
  */
 
-public class PlayerTest4 {
+public class InvalidAttackPhaseTest {
 
     List<Territory> territoryList;
     Player player1,player2;
