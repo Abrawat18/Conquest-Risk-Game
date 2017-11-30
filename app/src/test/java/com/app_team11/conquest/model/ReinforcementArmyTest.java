@@ -77,7 +77,7 @@ public class ReinforcementArmyTest {
         map.setContinentList(continentList);
         map.setTerritoryList(territoryList);
         map.setPlayerList(playerList);
-
+        map.setCardList(cardList);
    }
 
     /**
