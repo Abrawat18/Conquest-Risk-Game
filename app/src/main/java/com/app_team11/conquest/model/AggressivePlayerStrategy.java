@@ -38,7 +38,7 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
         if(playerTerrList!=null && playerTerrList.size()>0) {
             playerTerrList = sortList(playerTerrList);
             playerTerrList.get(0).setArmyCount(playerTerrList.get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
-            // FileManager.getInstance().writeLog("Reinforcement phase started for Player :" + gameMap.getPlayerTurn().getPlayerId());
+            FileManager.getInstance().writeLog("Number of armies reinforced on " + playerTerrList.get(0).getTerritoryName() + " is " + reinforcementType.getOtherTotalReinforcement());
             if (reinforcementType.getMatchedTerritoryList() != null && reinforcementType.getMatchedTerritoryList().size() > 0) {
                 List<Territory> matchedTerrList = sortList(reinforcementType.getMatchedTerritoryList());
                 matchedTerrList.get(0).setArmyCount(matchedTerrList.get(0).getArmyCount() + reinforcementType.getMatchedTerrCardReinforcement());

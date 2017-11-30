@@ -32,6 +32,8 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
         FileManager.getInstance().writeLog("Benevolent player Reinforcement phase started !! ");
         if (gameMap.getTerrForPlayer(player) != null) {
             List<Territory> playerterr = sortList(gameMap.getTerrForPlayer(player), true);
+            FileManager.getInstance().writeLog("Benevolent player reinforcing its weakest territories...");
+            FileManager.getInstance().writeLog("Number of armies reinforced on " + playerterr.get(0).getTerritoryName() + " is " + reinforcementType.getOtherTotalReinforcement());
             playerterr.get(0).setArmyCount(playerterr.get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
             if (reinforcementType.getMatchedTerritoryList() != null) {
                 List<Territory> reinforcementList = sortList(reinforcementType.getMatchedTerritoryList(), true);
@@ -59,6 +61,7 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
                         if (neighbourTerr.getTerritoryOwner().getPlayerId() == player.getPlayerId()) {
                             int diffAddTerrArmyCount = (neighbourTerr.getArmyCount() - territory.getArmyCount()) / 2;
                             territory.setArmyCount(territory.getArmyCount() + diffAddTerrArmyCount);
+                            FileManager.getInstance().writeLog("Benevolent player fortifying its weakest armies...");
                             FileManager.getInstance().writeLog("Territory fortified from --> " + neighbourTerr.getTerritoryName().toString() + " " +
                                     "to " + territory.getTerritoryName().toString());
                             neighbourTerr.setArmyCount(neighbourTerr.getArmyCount() - diffAddTerrArmyCount);
