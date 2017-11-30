@@ -8,6 +8,7 @@ import com.app_team11.conquest.utility.FileManager;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Observable;
 import java.util.Random;
 
@@ -21,8 +22,9 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Random player startup phase started !! ");
         if (gameMap.getTerrForPlayer(player) != null && gameMap.getTerrForPlayer(player).size() > 0) {
-            Collections.shuffle(gameMap.getTerrForPlayer(player));
-            gameMap.getTerrForPlayer(player).get(0).addArmyToTerr(1, false);
+            List<Territory> newList = gameMap.getTerrForPlayer(player);
+            Collections.shuffle(newList);
+            newList.get(0).addArmyToTerr(1,false);
             FileManager.getInstance().writeLog("Random player startup phase ended !! ");
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
         }
