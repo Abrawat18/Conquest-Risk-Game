@@ -60,6 +60,9 @@ public class FortifyPhaseTest {
         territoryList.get(1).setTerritoryOwner(playerList.get(0));
     }
 
+    /**
+     * test for invalid fortification phase scenario
+     */
     @Test
     public void invalidFortifyPhase()
     {

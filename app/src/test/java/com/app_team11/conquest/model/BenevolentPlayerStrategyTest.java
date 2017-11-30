@@ -90,24 +90,39 @@ public class BenevolentPlayerStrategyTest {
 
     }
 
+    /**
+     * test for benevolent player startup phase
+     */
     @Test
     public void benevolentStartupPhase() {
         //Startup Phase
         configurableMessage = attacker.startupPhase(map);
         assertEquals(Constants.SUCCESS, configurableMessage.getMsgText());
     }
+
+    /**
+     * test for benevolent player attack phase
+     */
     @Test
     public void benevolentAttackPhase() {
         configurableMessage = attacker.attackPhase(map);
         //Benevolent player never attacks therefore its army count should be same
         assertEquals(1, defenderTerritory.getArmyCount());
     }
+
+    /**
+     * test for benevolent player reinforcement phase
+     */
     @Test
     public void benevolentReinforcementPhase() {
         //Reinforcement phase
         configurableMessage = attacker.reInforcementPhase(map);
         assertEquals(Constants.REINFORCEMENT_SUCCESS_STRATEGY, configurableMessage.getMsgText());
     }
+
+    /**
+     * test for benevolent player fortification phase
+     */
     @Test
     public void benevolentFortificationPhase(){
         //Fortification Phase

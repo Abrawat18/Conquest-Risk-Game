@@ -31,6 +31,9 @@ public class DiceMethodsTest {
 
     }
 
+    /**
+     * test for dice methods
+     */
     @Test
     public void diceMethods()
     {

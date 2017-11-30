@@ -29,8 +29,12 @@ public class GraphTest {
         failed=false;
         gameMap=new GameMap();
     }
+
+    /**
+     * test for connected graph test
+     */
     @Test
-    public void validMapTest()
+    public void connectedGraphTest()
     {
         ReadMapUtility readTest=new ReadMapUtility();
 
