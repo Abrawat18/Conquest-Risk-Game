@@ -372,13 +372,13 @@ public class Player extends Observable implements Serializable{
 
 
     public ConfigurableMessage attackPhase(GameMap gameMap) {
-        getPlayerStrategy().attackPhase(gameMap, this);
-        return null;
+        return getPlayerStrategy().attackPhase(gameMap, this);
+
     }
 
     public ConfigurableMessage fortificationPhase(GameMap gameMap) {
-        getPlayerStrategy().fortificationPhase(gameMap, this);
-        return null;
+        return getPlayerStrategy().fortificationPhase(gameMap, this);
+
     }
 
 
