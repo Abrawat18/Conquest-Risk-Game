@@ -528,6 +528,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         getMap().setPlayerTurn(getMap().getPlayerList().get(nextPlayerTurnId));
         getMap().getPlayerTurn().addObserver(this);
         playerListAdapter.notifyDataSetChanged();
+        FileManager.getInstance().writeLog("************** P: " + getMap().getPlayerTurn().getPlayerId() + " : " + getMap().getPlayerTurn().getPlayerStrategyType() + " **************");
+
     }
 
     /**
