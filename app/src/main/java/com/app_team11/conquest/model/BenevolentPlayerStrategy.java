@@ -31,10 +31,11 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Benevolent player Reinforcement phase started !! ");
         if (gameMap.getTerrForPlayer(player) != null) {
-            sortList(gameMap.getTerrForPlayer(player), true).get(0).setArmyCount(sortList(gameMap.getTerrForPlayer(player), true).get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
+            List<Territory> playerterr = sortList(gameMap.getTerrForPlayer(player), true);
+            playerterr.get(0).setArmyCount(playerterr.get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
             if (reinforcementType.getMatchedTerritoryList() != null) {
-                sortList(reinforcementType.getMatchedTerritoryList(), true);
-                reinforcementType.getMatchedTerritoryList().get(0).setArmyCount(reinforcementType.getMatchedTerritoryList().get(0).getArmyCount() + reinforcementType.getMatchedTerrCardReinforcement());
+                List<Territory> reinforcementList = sortList(reinforcementType.getMatchedTerritoryList(), true);
+                reinforcementList.get(0).setArmyCount(reinforcementList.get(0).getArmyCount() + reinforcementType.getMatchedTerrCardReinforcement());
             }
             FileManager.getInstance().writeLog("Benevolent player Reinforcement phase ended !! ");
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.REINFORCEMENT_SUCCESS_STRATEGY);
