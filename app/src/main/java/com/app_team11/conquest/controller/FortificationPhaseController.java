@@ -20,7 +20,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 /**
  * Fortification phase is implemented in this class. Selection of territory and movement of army to selected territory.
  * Created by Jaydeep9101 on 19-Oct-17.
- *
  * @version 1.0.0
  */
 
@@ -33,6 +32,9 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
     private Territory fortificationFromTerritory;
     private Territory fortificationToTerritory;
 
+    /**
+     * Default Constructor for fortification phase controller
+     */
     private FortificationPhaseController() {
 
     }
@@ -89,8 +91,9 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
     /**
      * {@inheritDoc}
      *
-     * @param v     view
-     * @param event event
+     * @param v     view : Initialize the view based on the layout defined in XML
+
+     * @param event : This is an event object
      */
     @Override
     public void onTouch(View v, MotionEvent event) {

@@ -39,7 +39,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
     private boolean phaseWonFlag;
 
     /**
-     * Default Constructor
+     * Default Constructor for attack phase
      */
     private AttackPhaseController() {
 
@@ -47,7 +47,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Flag set for won phase
-     * @param phaseWonFlag
+     * @param phaseWonFlag : flag is set when the player wins the phase
      */
     public void setPhaseWonFlag(boolean phaseWonFlag) {
         this.phaseWonFlag = phaseWonFlag;
@@ -55,7 +55,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Flag checking for won phase
-     * @return phaseWonFlag
+     * @return phaseWonFlag : flag is set when the player wins the phase
      */
     public boolean isPhaseWonFlag() {
         return phaseWonFlag;
@@ -63,7 +63,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Getting the instance of AtackPhaseController
-     * @return mainDashboardController
+     * @return mainDashboardController : returns to the main dashboard controller
      */
     public static AttackPhaseController getInstance() {
         if (instance == null) {
@@ -146,8 +146,8 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
     /**
      * Getting the X and Y coordinate for the touch
      * {@inheritDoc}
-     * @param v
-     * @param event
+     * @param v The view on which the click is done, that object of the view is called.
+     * @param event This parameter sets the motion event
      */
     @Override
     public void onTouch(View v, MotionEvent event) {
@@ -285,8 +285,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Creation of context for the GamePlayActivity
-     *
-     * @return GamePlayActivity
+     * @return GamePlayActivity : returns to the game play activity
      */
     public GamePlayActivity getActivity() {
         return (GamePlayActivity) context;
@@ -294,3 +293,4 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
 
 }
+s
