@@ -54,7 +54,7 @@ public class TournamentResultActivity extends Activity {
     private void initializeView() {
 
         resultAdapter = new TournamentResultAdapter(this,resultList);
-        gridResultTable.setNumColumns(numberOfGames);
+        gridResultTable.setNumColumns(numberOfGames+1);
         gridResultTable.setAdapter(resultAdapter);
 
     }
