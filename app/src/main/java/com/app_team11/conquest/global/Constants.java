@@ -79,9 +79,9 @@ public class Constants {
     public static final String CHEATER_PLAYER_STRATEGY="Cheater";
     public static final String BENEVOLENT_PLAYER_STRATEGY="Benevolent";
     public static final String AGGRESSIVE_PLAYER_STRATEGY="Aggressive";
-    public static final String KEY_TOURNAMENT_GAMES_COUNT = "gamesCount";
     public static final String KEY_LOAD_GAME_PATH = "loadGameFilePath";
     public static final String GAME_SAVE_SUCCESS_MSG = "Game saved successful";
 
 
+    public static final String KEY_TOURNAMENT_RESULT_LIST = "TournamentList";
 }
