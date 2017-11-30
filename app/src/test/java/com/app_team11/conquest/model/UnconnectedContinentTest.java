@@ -70,6 +70,20 @@ public class UnconnectedContinentTest {
         //If connection made from T4 to T1 then map should be connected i.e. assertion should be true
         assertTrue(map.isGraphConnected());
 
+        //added a new continent with one territory on the map without connections to other territories.
+        Continent c=new Continent();
+        c.setContName("TestC");
+        c.setScore(50);
+
+        Territory terr=new Territory();
+        terr.setContinent(c);
+        terr.setArmyCount(50);
+
+        map.getTerritoryList().add(terr);
+        map.getContinentList().add(c);
+        //Hence, the map is not be connected i.e. assertion should be false
+        assertFalse(map.isGraphConnected());
+
     }
 
     @After

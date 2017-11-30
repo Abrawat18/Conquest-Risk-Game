@@ -670,7 +670,8 @@ public class GameMap implements Serializable {
         if (this.getContinentList().size() > 0) {
             List<Territory> continentTerritories = new ArrayList<Territory>();
             //Get list of all territories in a continent
-            for (Continent continent : this.getContinentList()) {
+            for (Continent continent : this.getContinentList())
+            {
                 for (Territory territory : this.getTerritoryList()) {
                     if (territory.getContinent().getContName() == continent.getContName())
                         continentTerritories.add(territory);
@@ -680,7 +681,7 @@ public class GameMap implements Serializable {
                     if(continentTerritories.size()==1)
                     {
                         continentTerritories.get(0).isVisited=true;
-                        connectedContinentTerritories=true;
+                        //connectedContinentTerritories=true;
 
                     }
                     else {

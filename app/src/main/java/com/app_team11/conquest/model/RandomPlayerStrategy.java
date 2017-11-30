@@ -49,8 +49,8 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
         List<Territory> terrPlayerList = gameMap.getTerrForPlayer(player);
         Collections.shuffle(terrPlayerList);
         if (gameMap.getTerrForPlayer(player) != null && gameMap.getTerrForPlayer(player).size() > 0) {
+            FileManager.getInstance().writeLog("Number of armies reinforced on " + terrPlayerList.get(0).getTerritoryName() + " is " + reinforcementType.getOtherTotalReinforcement());
             terrPlayerList.get(0).setArmyCount(terrPlayerList.get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
-
             if (reinforcementType.getMatchedTerritoryList() != null && reinforcementType.getMatchedTerritoryList().size() > 0) {
                 reinforcementType.getMatchedTerritoryList().get(0).setArmyCount(reinforcementType.getMatchedTerritoryList().get(0).getArmyCount() + reinforcementType.getMatchedTerrCardReinforcement());
             }
@@ -134,6 +134,8 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
                 if (neighbourTerritory.getTerritoryOwner().getPlayerId() == player.getPlayerId()) {
                     int fortifyRandomArmy = new Random().nextInt(neighbourTerritory.getArmyCount());
                     neighbourTerritory.setArmyCount(neighbourTerritory.getArmyCount() - fortifyRandomArmy);
+                    FileManager.getInstance().writeLog("Territory fortified from --> " + neighbourTerritory.getTerritoryName().toString() + "" +
+                            "to " + territory.getTerritoryName().toString());
                     territory.setArmyCount(territory.getArmyCount() + fortifyRandomArmy);
                     fortificationFlag = true;
                     break;

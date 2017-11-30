@@ -43,7 +43,7 @@ public class GameLogAdapter extends BaseAdapter {
      */
     @Override
     public String getItem(int position) {
-        return gameLogList.get(getCount() - 1 - position);
+        return gameLogList.get(position);
     }
 
     /**

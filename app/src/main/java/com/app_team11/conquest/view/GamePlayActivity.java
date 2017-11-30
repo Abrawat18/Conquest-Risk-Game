@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -67,6 +68,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class GamePlayActivity extends Activity implements View.OnTouchListener, View.OnClickListener, Observer {
 
+    private static final String TAG = GamePlayActivity.class.getSimpleName();
     private GameMap map;
     private SurfaceView surface;
     private Canvas canvas;
@@ -93,7 +95,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private int gamePlayed = 0;
     private int mapPlayed = 0;
     private String fromGameMode;
-    private List<String> tournamentResultList = new ArrayList<>();
+    private ArrayList<String> tournamentResultList = new ArrayList<>();
     private int gameTurnCount = 0;
 
     /**
@@ -197,7 +199,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             FileManager.getInstance().writeLog("Initializing tournament mode");
             tournamentResultList.add("");
             for (int gamePlayCount = 1; gamePlayCount <= totalGamesForTournamentMode; gamePlayCount++) {
-                tournamentResultList.add("Game:" + gamePlayCount);
+                tournamentResultList.add("Game" + gamePlayCount);
             }
             initializeTournamentMode();
         } else {
@@ -227,7 +229,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             Intent intent = getIntent();
             Bundle bundle = intent.getExtras();
             if (bundle != null) {
-                bundle.putSerializable(Constants.KEY_TOURNAMENT_RESULT_LIST, (Serializable) tournamentResultList);
+                bundle.putStringArrayList(Constants.KEY_TOURNAMENT_RESULT_LIST, tournamentResultList);
             }
             Intent tournamentIntent = new Intent(this, TournamentResultActivity.class);
             tournamentIntent.putExtras(bundle);
@@ -237,8 +239,14 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         }
 
         if (gamePlayed == 0) {
-            tournamentResultList.add(new File(selectedMapListForTournamentMode.get(mapPlayed)).getName());
+            String fileName = new File(selectedMapListForTournamentMode.get(mapPlayed)).getName();
+            int pos = fileName.lastIndexOf(".");
+            if (pos > 0) {
+                fileName = fileName.substring(0, pos);
+            }
+            tournamentResultList.add(fileName);
         }
+        Log.e(TAG,"Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
         FileManager.getInstance().writeLog("Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
         setMap(new ReadMapUtility(this).readFile(selectedMapListForTournamentMode.get(mapPlayed)));
         getMap().addPlayerToGame(playerList.size(), playerList, this);
@@ -298,6 +306,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     public void onFortificationPhaseStopped() {
         FileManager.getInstance().writeLog("Fortification Phase Completed");
+        showMap();
         setNextPlayerTurn();
         changeGamePhase();
     }
@@ -335,7 +344,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 break;
             case GamePhaseManager.PHASE_REINFORCEMENT:
                 FileManager.getInstance().writeLog("Game Turn Count=" + (++gameTurnCount));
-                if (gameTurnCount > maximumRoundsForTournamentMode) {
+                if (fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE) && gameTurnCount > maximumRoundsForTournamentMode) {
                     endGame(null);
                 }
                 btnStopAttack.setVisibility(View.GONE);
