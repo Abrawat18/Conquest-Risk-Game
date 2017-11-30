@@ -282,6 +282,7 @@ public class Player extends Observable implements Serializable{
                     reinforcementCount.setMatchedTerritoryList(matchedTerr);
                 }
                 this.getOwnedCards().removeAll(tradeInCards);
+                gameMap.getCardList().addAll(tradeInCards);
                 setChanged();
                 notifyObservers(this);
             }
