@@ -97,7 +97,7 @@ public class SaveGameFunctionalityTest {
         map.setTerritoryList(territoryList);
         map.setCardList(cardList);
         fileManager=FileManager.getInstance();
-        filePath="app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\saveFile.ser";
+        filePath="app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\testFile.ser";
     }
 
     @Test
@@ -128,8 +128,9 @@ public class SaveGameFunctionalityTest {
        map1=fileManager.readObjectFromFile(file);
 
        for(Territory territory : map1.getTerritoryList()) {
-           System.out.println(territory.getArmyCount());
-           System.out.println("Player: "+territory.getTerritoryOwner().getPlayerId());
+           System.out.println("\n======\nPlayer: "+territory.getTerritoryOwner().getPlayerId());
+           System.out.println("Territory: "+territory.getTerritoryName());
+           System.out.println("Armies: "+territory.getArmyCount());
            if (territory.getTerritoryName().equals("Territory1")) {
                assertEquals(2, territory.getArmyCount());
            }
