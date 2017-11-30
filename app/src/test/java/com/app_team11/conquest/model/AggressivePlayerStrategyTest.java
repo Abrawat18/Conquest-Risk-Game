@@ -95,20 +95,26 @@ public class AggressivePlayerStrategyTest
     }
 
     @Test
-    public void aggressivePlayerStrategyPhases()
-    {
+    public void aggressiveStartupPhase() {
         //Startup Phase
-        configurableMessage=attacker.startupPhase(map);
-        assertEquals(Constants.SUCCESS,configurableMessage.getMsgText());
-
+        configurableMessage = attacker.startupPhase(map);
+        assertEquals(Constants.SUCCESS, configurableMessage.getMsgText());
+    }
+    @Test
+    public void aggressiveAttackPhase() {
         //Attack Phase
-        configurableMessage=attacker.attackPhase(map);
-        assertEquals(Constants.ATTACK_SUCCESS_STRATEGY,configurableMessage.getMsgText());
-
+        configurableMessage = attacker.attackPhase(map);
+        assertEquals(Constants.ATTACK_SUCCESS_STRATEGY, configurableMessage.getMsgText());
+    }
+    @Test
+    public void aggressiveReinforcementPhase() {
         //Reinforcement phase
-        configurableMessage=attacker.reInforcementPhase(map);
-        assertEquals(Constants.REINFORCEMENT_SUCCESS_STRATEGY,configurableMessage.getMsgText());
-
+        configurableMessage = attacker.reInforcementPhase(map);
+        assertEquals(Constants.REINFORCEMENT_SUCCESS_STRATEGY, configurableMessage.getMsgText());
+    }
+    @Test
+    public void aggressiveFortificationPhase()
+    {
         //Fortification Phase
         configurableMessage=attacker.fortificationPhase(map);
         assertEquals(Constants.FORTIFICATION_SUCCESS,configurableMessage.getMsgText());
