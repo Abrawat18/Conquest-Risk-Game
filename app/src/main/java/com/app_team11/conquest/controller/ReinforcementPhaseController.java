@@ -78,6 +78,12 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
      * method used to start the reinforcement phase in the play game
      */
     public void startReInforceMentPhase() {
+        if(!getActivity().getPlayerTurn().isActive()){
+            FileManager.getInstance().writeLog("Game over for player:"+getActivity().getPlayerTurn().getPlayerId()+" - "+getActivity().getPlayerTurn().getPlayerStrategyType());
+            getActivity().onReInforcementPhaseCompleted();
+            return;
+        }
+
         waitForSelectTerritory = true;
         List<Cards> tradInCardList = null;
 
