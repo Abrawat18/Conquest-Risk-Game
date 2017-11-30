@@ -17,7 +17,11 @@ import java.util.Random;
  */
 
 public class RandomPlayerStrategy extends Observable implements PlayerStrategyListener {
-
+    /**
+     * @param gameMap
+     * @param player
+     * @return
+     */
     @Override
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Random player startup phase started !! ");
