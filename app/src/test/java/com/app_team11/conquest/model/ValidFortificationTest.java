@@ -61,6 +61,9 @@ public class ValidFortificationTest {
 
     }
 
+    /**
+     * test fortification phase
+     */
     @Test
     public void validFortifyPhase()
     {

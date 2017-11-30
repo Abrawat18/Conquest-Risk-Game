@@ -56,6 +56,9 @@ public class WinConditionTest {
         map.setTerritoryList(territoryList);
     }
 
+    /**
+     * test for a scenario where player has not won the game
+     */
     @Test
     public void invalidPlayerWonCondition()
     {
