@@ -65,18 +65,45 @@ public class GameMap implements Serializable {
         this.gamePhaseManager = new GamePhaseManager();
     }
 
+    /**
+     * Update player active status if player's game over
+     */
+    public void updatePlayerActiveStatus(){
+        for(Player player :getPlayerList()){
+            if(getTerrForPlayer(player).size()==0){
+                player.setActive(false);
+            }
+        }
+    }
+
+    /**
+     * Getting player turn
+     * @return player
+     */
     public Player getPlayerTurn() {
         return playerTurn;
     }
 
+    /**
+     * Setting player turn
+     * @param playerTurn
+     */
     public void setPlayerTurn(Player playerTurn) {
         this.playerTurn = playerTurn;
     }
 
+    /**
+     * Getting game phase manager
+     * @return GamePhaseManager
+     */
     public GamePhaseManager getGamePhaseManager() {
         return gamePhaseManager;
     }
 
+    /**
+     * Setting GamePhaseManager
+     * @param gamePhaseManager
+     */
     public void setGamePhaseManager(GamePhaseManager gamePhaseManager) {
         this.gamePhaseManager = gamePhaseManager;
     }

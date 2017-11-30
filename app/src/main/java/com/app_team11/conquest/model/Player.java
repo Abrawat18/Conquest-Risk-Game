@@ -34,6 +34,24 @@ public class Player extends Observable implements Serializable{
     private boolean isMyTurn;
     transient private PlayerStrategyListener playerStrategy;
     private String playerStrategyType;
+    private boolean isActive =true;
+
+    /**
+     * Check for player's active state
+     * @return true : is player still active in game
+     *         false : if game over for player
+     */
+    public boolean isActive() {
+        return isActive;
+    }
+
+    /**
+     * Setting player active state
+     * @param active : will set player active state
+     */
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 
     /**
      * @return player strategy type

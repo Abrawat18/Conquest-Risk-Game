@@ -713,6 +713,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 ObserverType observerType = (ObserverType) arg;
                 if (observerType != null) {
                     if (observerType.getObserverType() == ObserverType.WORLD_DOMINATION_TYPE) {
+                        getMap().updatePlayerActiveStatus();
                         updateDominationView();
                         return;
                     }

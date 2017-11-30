@@ -68,6 +68,12 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
      */
     public void startFortificationPhase() {
 
+        if(!getActivity().getPlayerTurn().isActive()){
+            FileManager.getInstance().writeLog("Game over for player:"+getActivity().getPlayerTurn().getPlayerId()+" - "+getActivity().getPlayerTurn().getPlayerStrategyType());
+            getActivity().onFortificationPhaseStopped();
+            return;
+        }
+
         FileManager.getInstance().writeLog("Fortification Phase started.");
 
         // If not human player automatically select random tradIn cards from own card list
