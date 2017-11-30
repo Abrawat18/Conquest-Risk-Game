@@ -29,7 +29,7 @@ public class Territory extends Observable implements Serializable{
 
     /**
      * Territory declaration
-     * @param territoryName
+     * @param territoryName : name of the territory is defined by the parameter
      */
     public Territory(String territoryName) {
         this.territoryName = territoryName;
@@ -38,10 +38,10 @@ public class Territory extends Observable implements Serializable{
 
     /**
      * variables declaration for territory
-     * @param territoryName
-     * @param centerX
-     * @param centerY
-     * @param continent
+     * @param territoryName : name of the territory is defined
+     * @param centerX : center coordinate X is available
+     * @param centerY : center coordinate Y is available
+     * @param continent : name of the continent is available
      */
     public Territory(String territoryName, int centerX, int centerY, Continent continent) {
         this.territoryName = territoryName;
@@ -77,7 +77,7 @@ public class Territory extends Observable implements Serializable{
      * validation1 before saving a map - Validation to check if the number of neighbours not greater than 10
      * @param terrObj territory which is required to be added or removed
      * @param addRemoveFlag flag to point out whether the method to be used to add or remove territories
-     * @return confirmationMessage
+     * @return confirmationMessage : confirmation message is available due to this parameter
      */
     public ConfigurableMessage addRemoveNeighbourToTerr(Territory terrObj, char addRemoveFlag) {
         if (addRemoveFlag == 'A') {
@@ -108,7 +108,7 @@ public class Territory extends Observable implements Serializable{
 
     /**
      * validation1 before saving a map - Validation to check if the number of neighbours not greater than 10
-     * @param terrList
+     * @param terrList : list of territory is defined using this parameter
      */
     public void addNeighbourToTerr(List<Territory> terrList) {
         for (Territory objTerr : terrList) {
@@ -118,9 +118,8 @@ public class Territory extends Observable implements Serializable{
 
     /**
      * Method to add armies in territory selected and remove the same count from player
-     *
      * @param addedArmyCount count of armies to be added
-     * @return custom message
+     * @return custom message : custom message is returned
      */
     public ConfigurableMessage addArmyToTerr(int addedArmyCount, boolean isMatchedCardTerrArmy) {
         if ((this.getTerritoryOwner().getAvailableArmyCount() >= addedArmyCount) || isMatchedCardTerrArmy) {
@@ -171,7 +170,7 @@ public class Territory extends Observable implements Serializable{
 
     /**
      * Returns the name of territory
-     * @return territory Name
+     * @return territoryName : name of the territory name is available
      */
     public String getTerritoryName() {
         return territoryName;
@@ -179,14 +178,14 @@ public class Territory extends Observable implements Serializable{
 
     /**
      * Sets the name of territory
-     * @param territoryName
+     * @param territoryName : name of the territory is defined using this parameter
      */
     public void setTerritoryName(String territoryName) {
         this.territoryName = territoryName;
     }
     /**
      * Gives the center point
-     * @return gives the center point
+     * @return centerPoint : gives the center point
      */
     public Point getCenterPoint() {
         return centerPoint;
@@ -194,8 +193,8 @@ public class Territory extends Observable implements Serializable{
 
     /**
      * Sets the center point
-     * @param centerX
-     * @param centerY
+     * @param centerX : this parameter is for the X coordinate of the point
+     * @param centerY : this parameter is for the Y coordinate of the point
      */
     public void setCenterPoint(int centerX, int centerY) {
         this.centerPoint = new Point(centerX, centerY);
@@ -203,21 +202,21 @@ public class Territory extends Observable implements Serializable{
 
     /**
      * Returns the name of continent
-     * @return returns the name of continent
+     * @return continent : returns the name of continent
      */
     public Continent getContinent() {
         return continent;
     }
     /**
-     * Returns the name of continent
-     * @return returns the name of continent
+     * Sets  the name of continent
+     * @return continentName : returns the name of continent
      */
     public void setContinent(Continent continent) {
         this.continent = continent;
     }
     /**
-     * Sets the list of neighbour
-     * @return neighbourList
+     * Returns the list of neighbour
+     * @return neighbourList : list of neighbour is available
      */
     public List<Territory> getNeighbourList() {
         return neighbourList;
@@ -225,7 +224,7 @@ public class Territory extends Observable implements Serializable{
 
     /**
      * Sets the neighbour list
-     * @param neighbourList
+     * @param neighbourList : list of neightbour is available
      */
     public void setNeighbourList(List<Territory> neighbourList) {
         this.neighbourList = neighbourList;
@@ -233,7 +232,7 @@ public class Territory extends Observable implements Serializable{
 
     /**
      * Returns the owner of territory
-     * @return territoryOwner
+     * @return territoryOwner : owner of the territory is returned
      */
     public Player getTerritoryOwner() {
         return territoryOwner;
@@ -241,7 +240,7 @@ public class Territory extends Observable implements Serializable{
 
     /**
      * Sets the owner of territory
-     * @param territoryOwner
+     * @param territoryOwner : owner of the territory is defined using this parameter
      */
     public void setTerritoryOwner(Player territoryOwner) {
         this.territoryOwner = territoryOwner;
@@ -249,7 +248,7 @@ public class Territory extends Observable implements Serializable{
 
     /**
      * Returns the count of army
-     * @return armyCount
+     * @return armyCount : number of army is returned
      */
     public int getArmyCount() {
         return armyCount;
@@ -257,7 +256,7 @@ public class Territory extends Observable implements Serializable{
 
     /**
      * Sets the count of army
-     * @param armyCount
+     * @param armyCount : number of army is set using this parameter
      */
     public void setArmyCount(int armyCount) {
         this.armyCount = armyCount;
@@ -265,13 +264,10 @@ public class Territory extends Observable implements Serializable{
 
     /**
      * Sets the center point
-     * @param centerPoint
+     * @param centerPoint : center point for the touch is defined
      */
     private void setCenterPoint(Point centerPoint) {
         this.centerPoint = centerPoint;
     }
-
-
-
 
 }
