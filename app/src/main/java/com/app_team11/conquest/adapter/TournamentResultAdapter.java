@@ -22,10 +22,15 @@ import java.util.List;
 
 public class TournamentResultAdapter extends BaseAdapter {
 
-    private List<TournamentResultModel> resultList;
+    private List<String> resultList;
     private LayoutInflater inflater;
 
-    public TournamentResultAdapter(Context context, List<TournamentResultModel> resultList) {
+    /**
+     * Constructor for tournament result adapter
+     * @param context
+     * @param resultList as List<String>
+     */
+    public TournamentResultAdapter(Context context, List<String> resultList) {
         this.resultList = resultList;
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
     }
@@ -45,7 +50,7 @@ public class TournamentResultAdapter extends BaseAdapter {
      * @return returnList gives the position of the return list
      */
     @Override
-    public TournamentResultModel getItem(int position) {
+    public String getItem(int position) {
         return resultList.get(position);
     }
 
@@ -74,7 +79,7 @@ public class TournamentResultAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         }
         viewHolder = (ViewHolder) convertView.getTag();
-        viewHolder.winnerValue.setText(getItem(position).getPlayerWon().getPlayerStrategyType());
+        viewHolder.winnerValue.setText(getItem(position));
         return convertView;
     }
 
