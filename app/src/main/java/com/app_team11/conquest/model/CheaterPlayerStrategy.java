@@ -64,7 +64,7 @@ public class CheaterPlayerStrategy extends Observable implements PlayerStrategyL
             for (Territory neighbourTerr : territory.getNeighbourList()) {
                 if (neighbourTerr.getTerritoryOwner().getPlayerId() != player.getPlayerId()) {
                     isNeighbourOtherOwner = true;
-                    FileManager.getInstance().writeLog("Territory fortified from --> " + neighbourTerr.getTerritoryName().toString() + "" +
+                    FileManager.getInstance().writeLog("Territory fortified from --> " + neighbourTerr.getTerritoryName().toString() + " " +
                             "to " + territory.getTerritoryName().toString());
                     break;
                 }

@@ -109,7 +109,7 @@ public class AttackPhaseUtility {
      * @return canContinueAttack checks if attack can be continued
      */
     public ConfigurableMessage validateAttackBetweenTerritories(Territory attackerTerritory, Territory defenderTerritory) {
-        FileManager.getInstance().writeLog("Validating attack between territories " + attackerTerritory + " and " + defenderTerritory);
+        FileManager.getInstance().writeLog("Validating attack between territories " + attackerTerritory.getTerritoryName().toString() + " and " + defenderTerritory.getTerritoryName().toString());
         ConfigurableMessage isAdjacenTerritories = isAdjacentTerritory(attackerTerritory, defenderTerritory);
         ConfigurableMessage hasSufficientArmiesForAttack = hasSufficientArmies(attackerTerritory);
         ConfigurableMessage canContinueAttack = canContinueAttackOnThisTerritory(defenderTerritory);
