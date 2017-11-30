@@ -31,7 +31,6 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
         FileManager.getInstance().writeLog("Benevolent player Reinforcement phase started !! ");
         if (gameMap.getTerrForPlayer(player) != null) {
             sortList(gameMap.getTerrForPlayer(player), true).get(0).setArmyCount(sortList(gameMap.getTerrForPlayer(player), true).get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
-            FileManager.getInstance().writeLog("Reinforcement phase started for Player :" + gameMap.getPlayerTurn().getPlayerId());
             if (reinforcementType.getMatchedTerritoryList() != null) {
                 sortList(reinforcementType.getMatchedTerritoryList(), true);
                 reinforcementType.getMatchedTerritoryList().get(0).setArmyCount(reinforcementType.getMatchedTerritoryList().get(0).getArmyCount() + reinforcementType.getMatchedTerrCardReinforcement());
