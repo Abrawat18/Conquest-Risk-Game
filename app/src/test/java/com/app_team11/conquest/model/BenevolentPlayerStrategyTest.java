@@ -16,7 +16,8 @@ import static junit.framework.Assert.assertEquals;
  * Test for benevolent player attack phase
  */
 
-public class BenevolentPlayerStrategyTest {List<Territory> territoryList;
+public class BenevolentPlayerStrategyTest {
+    List<Territory> territoryList;
     Player attacker,defender;
     Territory attackerTerritory,defenderTerritory;
     Continent continent1,continent2;
@@ -90,7 +91,7 @@ public class BenevolentPlayerStrategyTest {List<Territory> territoryList;
     }
 
     @Test
-    public void benevolentAtackPhase()
+    public void benevolentPhases()
     {
         //Startup Phase
         configurableMessage=attacker.startupPhase(map);
