@@ -51,8 +51,11 @@ public class PreAttackValidationTest {
 
     }
 
+    /**
+     * test for pre-validation attack
+     */
     @Test
-    public void validateForAttack()
+    public void preValidationForAttack()
     {
         cm=new Player().isAdjacentTerritory(territoryList.get(0),territoryList.get(1));
         assertEquals(Constants.MSG_FAIL_CODE,cm.getMsgCode());

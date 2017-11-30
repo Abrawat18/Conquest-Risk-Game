@@ -57,6 +57,9 @@ public class PlayerWonGameTest {
         map.setTerritoryList(territoryList);
     }
 
+    /**
+     * test to check whether player won
+     */
     @Test
     public void validPlayerWon()
     {

@@ -53,6 +53,9 @@ public class RemoveTerritoryTest {
     }
 
 
+    /**
+     * test to check whether territory is removed successfully
+     */
     @Test
     public void invalidTerritoryCondition()
     {

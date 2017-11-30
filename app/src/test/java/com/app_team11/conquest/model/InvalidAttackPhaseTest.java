@@ -49,6 +49,9 @@ public class InvalidAttackPhaseTest {
 
     }
 
+    /**
+     * test for invalid attack scenario
+     */
     @Test
     public void invalidAttack()
     {
