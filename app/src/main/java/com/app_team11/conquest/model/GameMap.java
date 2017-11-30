@@ -651,8 +651,10 @@ public class GameMap implements Serializable {
         connectedContinentTerritories = true;
         connectedTerritories = false;
         printTerritories();
-        if (this.getTerritoryList().size() > 0) {
-            for (int i = 0; i < this.getTerritoryList().size(); i++) {
+        if (this.getTerritoryList().size() > 0)
+        {
+            for (int i = 0; i < this.getTerritoryList().size(); i++)
+            {
                 checkForConnectedGraph(this.getTerritoryList().get(i));
                 if (isConnected(this.getTerritoryList())) {
                     connectedTerritories = true;
@@ -675,15 +677,23 @@ public class GameMap implements Serializable {
                 }
 
                 if (continentTerritories.size() > 0) {
-                    for (int i = 0; i < continentTerritories.size(); i++) {
-                        checkForConnectedContinents(continent, continentTerritories.get(i));
-                        if (!isConnected(continentTerritories)) {
-                            connectedContinentTerritories = false;
-                            break;
+                    if(continentTerritories.size()==1)
+                    {
+                        continentTerritories.get(0).isVisited=true;
+                        connectedContinentTerritories=true;
 
-                        } else {
-                            for (Territory territory : continentTerritories)
-                                territory.isVisited = false;
+                    }
+                    else {
+                        for (int i = 0; i < continentTerritories.size(); i++) {
+                            checkForConnectedContinents(continent, continentTerritories.get(i));
+                            if (!isConnected(continentTerritories)) {
+                                connectedContinentTerritories = false;
+                                break;
+
+                            } else {
+                                for (Territory territory : continentTerritories)
+                                    territory.isVisited = false;
+                            }
                         }
                     }
                 }
@@ -693,6 +703,8 @@ public class GameMap implements Serializable {
                 territory.isVisited = false;
 
         }
+        System.out.println("connectedTerritories: "+connectedTerritories);
+        System.out.println("connectedContinentTerritories: "+connectedContinentTerritories);
         return connectedTerritories && connectedContinentTerritories;
     }
 
@@ -723,7 +735,7 @@ public class GameMap implements Serializable {
      */
     public void checkForConnectedContinents(Continent continent, Territory territory) {
         List<Territory> neighbours = territory.getNeighbourList();
-        if (neighbours != null)
+        if (neighbours != null) {
             for (int i = 0; i < neighbours.size(); i++) {
                 Territory terr = neighbours.get(i);
                 if (terr != null && !terr.isVisited && terr.getContinent().getContName() == continent.getContName()) {
@@ -731,6 +743,7 @@ public class GameMap implements Serializable {
                     checkForConnectedGraph(terr);
                 }
             }
+        }
     }
 
     /**
