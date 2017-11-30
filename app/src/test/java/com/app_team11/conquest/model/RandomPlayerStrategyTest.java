@@ -1,10 +1,7 @@
 package com.app_team11.conquest.model;
 
 import com.app_team11.conquest.global.Constants;
-import com.app_team11.conquest.interfaces.PlayerStrategyListener;
 import com.app_team11.conquest.utility.ConfigurableMessage;
-
-import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,12 +12,11 @@ import java.util.List;
 import static junit.framework.Assert.assertEquals;
 
 /**
- * Created by Nigel on 27-Nov-17.
- * Test for aggressive player attack method
+ * Created by Nigel on 30-Nov-17.
+ * Test for Random strategy class
  */
 
-public class AggressivePlayerStrategyTest
-{
+public class RandomPlayerStrategyTest {
     List<Territory> territoryList;
     Player attacker,defender;
     Territory attackerTerritory,defenderTerritory;
@@ -40,14 +36,14 @@ public class AggressivePlayerStrategyTest
         cardList=new ArrayList<Cards>();
         attacker=new Player();
         defender=new Player();
-        infantry=new Cards(attackerTerritory,Constants.ARMY_INFANTRY);
+        infantry=new Cards(attackerTerritory, Constants.ARMY_INFANTRY);
         cavalry=new Cards(defenderTerritory,Constants.ARMY_CAVALRY);
         cardList.add(infantry);
         cardList.add(cavalry);
 
         attacker.setAvailableArmyCount(2);
-        attacker.setPlayerStrategy(new AggressivePlayerStrategy());
-        attacker.setPlayerStrategyType("Aggressive");
+        attacker.setPlayerStrategy(new RandomPlayerStrategy());
+        attacker.setPlayerStrategyType("Random");
         attacker.setPlayerId(0);
 
         continent1=new Continent();
@@ -95,25 +91,31 @@ public class AggressivePlayerStrategyTest
     }
 
     @Test
-    public void aggressiveStartupPhase() {
-        //Startup Phase
+    public void randomStrategyStartup() {
+               //Startup Phase
         configurableMessage = attacker.startupPhase(map);
         assertEquals(Constants.SUCCESS, configurableMessage.getMsgText());
     }
+
     @Test
-    public void aggressiveAttackPhase() {
-        //Attack Phase
+    public void randomStrategyAttack() {
+        System.out.println("attacker armies: " + attackerTerritory.getArmyCount());
+
         configurableMessage = attacker.attackPhase(map);
-        assertEquals(Constants.ATTACK_SUCCESS_STRATEGY, configurableMessage.getMsgText());
+        if(configurableMessage.getMsgCode()==Constants.MSG_SUCC_CODE)
+            assertEquals(Constants.ATTACKER_WON, configurableMessage.getMsgText());
     }
+
     @Test
-    public void aggressiveReinforcementPhase() {
-        //Reinforcement phase
+    public void randomStrategyReinforcement() {
+        //Reinforcement phase: all territory armies doubled
         configurableMessage = attacker.reInforcementPhase(map);
         assertEquals(Constants.REINFORCEMENT_SUCCESS_STRATEGY, configurableMessage.getMsgText());
+       // assertEquals(4, attackerTerritory.getArmyCount());
     }
+
     @Test
-    public void aggressiveFortificationPhase()
+    public void randomStrategyFortification()
     {
         //Fortification Phase
         configurableMessage=attacker.fortificationPhase(map);
@@ -121,3 +123,4 @@ public class AggressivePlayerStrategyTest
 
     }
 }
+
