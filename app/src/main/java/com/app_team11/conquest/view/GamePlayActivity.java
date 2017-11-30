@@ -397,7 +397,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     public void endGame(Player playerWon) {
         showMap();
-        if (fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
+        if (!TextUtils.isEmpty(fromGameMode) && fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
             TournamentResultModel tournamentResultModel = new TournamentResultModel();
             tournamentResultModel.setGameNumber(gamePlayed);
             tournamentResultModel.setPlayerWon(playerWon);
@@ -420,7 +420,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                         @Override
                         public void onClick(SweetAlertDialog sweetAlertDialog) {
-                            finish();
+                            sweetAlertDialog.dismiss();
                         }
                     })
                     .show();
