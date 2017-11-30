@@ -13,14 +13,15 @@ import java.util.Observable;
 import java.util.Random;
 
 /**
+ * This class is responsible for the strategy for the random player
  * Created by Jaydeep on 11/26/2017.
  */
 
 public class RandomPlayerStrategy extends Observable implements PlayerStrategyListener {
     /**
-     * @param gameMap
-     * @param player
-     * @return
+     * @param gameMap : parameter which defines the game map
+     * @param player : parameter which defines the player
+     * @return ConfigurableMessage : returns the configurable message
      */
     @Override
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
@@ -35,6 +36,13 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
     }
 
+    /**
+     * Class for the implementation of reinforcement phase in the random player strategy
+     * @param reinforcementType : defines the type of reinforcement
+     * @param gameMap : defines teh game map
+     * @param player : defines the player
+     * @return ConfigurableMessage  : returns the configurable message
+     */
     @Override
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Random player Reinforcement phase started !! ");
@@ -52,7 +60,12 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.REINFORCEMENT_FAILED_STRATEGY);
     }
 
-
+    /**
+     * Class for the implementation of attack phase in the random player strategy
+     * @param gameMap : defines the game map
+     * @param player : defines the player
+     * @return ConfigurableMessage : returns the configurable message
+     */
     @Override
     public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
         ConfigurableMessage resultCode=null;
@@ -102,6 +115,12 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
         return resultCode;
     }
 
+    /**
+     * Class defined the configurable message for fortification phase
+     * @param gameMap : defines the game map
+     * @param player : defines the player
+     * @return ConfigurableMessage : returns the configurable message
+     */
     @Override
     public ConfigurableMessage fortificationPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Random player fortification phase started !! ");

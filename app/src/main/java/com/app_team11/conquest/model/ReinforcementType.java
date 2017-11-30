@@ -16,7 +16,7 @@ public class ReinforcementType {
 
     /**
      * Returns the matched territory list
-     * @return MatchedTerritoryList
+     * @return MatchedTerritoryList : matched territory list is returned
      */
     public List<Territory> getMatchedTerritoryList() {
         return matchedTerritoryList;
@@ -24,7 +24,7 @@ public class ReinforcementType {
 
     /**
      * Sets the matched territory list
-     * @param matchedTerritoryList
+     * @param matchedTerritoryList : sets the matched territory list
      */
     public void setMatchedTerritoryList(List<Territory> matchedTerritoryList) {
         this.matchedTerritoryList = matchedTerritoryList;
@@ -32,7 +32,7 @@ public class ReinforcementType {
 
     /**
      * Returns the reinforcement matched territory card
-     * @return matchedTerrCardReinforcement
+     * @return matchedTerrCardReinforcement : returned the card which match the territory reinforcement
      */
     public int getMatchedTerrCardReinforcement() {
         return matchedTerrCardReinforcement;
@@ -40,7 +40,7 @@ public class ReinforcementType {
 
     /**
      * Sets the reinforcement matched territory card
-     * @param matchedTerrCardReinforcement
+     * @param matchedTerrCardReinforcement : sets the card which match the territory reinforcement
      */
     public void setMatchedTerrCardReinforcement(int matchedTerrCardReinforcement) {
         this.matchedTerrCardReinforcement = matchedTerrCardReinforcement;
@@ -48,7 +48,7 @@ public class ReinforcementType {
 
     /**
      * Returns the other total reinforcement
-     * @return otherTotalReinforcement
+     * @return otherTotalReinforcement : returns the total for other reinforcement
      */
     public int getOtherTotalReinforcement() {
         return otherTotalReinforcement;
@@ -56,7 +56,7 @@ public class ReinforcementType {
 
     /**
      * Sets other total reinforcement
-     * @param otherTotalReinforcement
+     * @param otherTotalReinforcement : sets the total for other reinforcement
      */
     public void setOtherTotalReinforcement(int otherTotalReinforcement) {
         this.otherTotalReinforcement = otherTotalReinforcement;

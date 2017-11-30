@@ -12,7 +12,7 @@ public class ObserverType {
 
     /**
      * Returns the observer type
-     * @return type of observer
+     * @return observerType : type of observer is returned
      */
     public int getObserverType() {
         return observerType;
@@ -20,7 +20,7 @@ public class ObserverType {
 
     /**
      * Sets the observer type
-     * @param observerType
+     * @param observerType : type of observer is defined
      */
     public void setObserverType(int observerType) {
         this.observerType = observerType;

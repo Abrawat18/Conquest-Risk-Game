@@ -22,7 +22,7 @@ public class PhaseViewModel extends Observable {
 
     /**
      * returns the phase view content
-     * @return getListPhaseViewContent
+     * @return getListPhaseViewContent : returns the list of phase view content
      */
     public List<String> getListPhaseViewContent() {
         return listPhaseViewContent;
@@ -30,7 +30,7 @@ public class PhaseViewModel extends Observable {
 
     /**
      * Singleton creation for PhaseViewModel
-     * @return PhaseViewModel
+     * @return PhaseViewModel : returns PhaseViewModel instance
      */
     public static PhaseViewModel getInstance() {
         if (phaseViewModel == null) {
@@ -51,7 +51,7 @@ public class PhaseViewModel extends Observable {
 
     /**
      * Addition of phase view content
-     * @param content
+     * @param content : parameter content to display the phase view
      */
     public void addPhaseViewContent(String content) {
         listPhaseViewContent.add(content);
