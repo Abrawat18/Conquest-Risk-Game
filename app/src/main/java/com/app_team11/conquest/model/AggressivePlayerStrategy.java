@@ -34,7 +34,7 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Aggressive player Reinforcement Phase started !!");
         sortList(gameMap.getTerrForPlayer(player)).get(0).setArmyCount(gameMap.getTerrForPlayer(player).get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
-        FileManager.getInstance().writeLog("Reinforcement phase started for Player :" + gameMap.getPlayerTurn().getPlayerId());
+       // FileManager.getInstance().writeLog("Reinforcement phase started for Player :" + gameMap.getPlayerTurn().getPlayerId());
         if (reinforcementType.getMatchedTerritoryList() != null) {
             sortList(reinforcementType.getMatchedTerritoryList()).get(0).setArmyCount(reinforcementType.getMatchedTerritoryList().get(0).getArmyCount() + reinforcementType.getMatchedTerrCardReinforcement());
         }
