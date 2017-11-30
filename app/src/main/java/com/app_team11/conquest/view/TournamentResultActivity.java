@@ -40,7 +40,7 @@ public class TournamentResultActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bundle = getIntent().getExtras();
-        numberOfGames=bundle.getInt(Constants.KEY_TOURNAMENT_GAMES_COUNT);
+        numberOfGames=bundle.getInt(Constants.KEY_NUMBER_GAMES);
         setContentView(R.layout.activity_tournament_result);
         gridResultTable = (GridView) findViewById(R.id.grid_result);
 

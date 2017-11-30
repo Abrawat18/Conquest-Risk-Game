@@ -37,6 +37,7 @@
             android:screenOrientation="landscape"/>
         <activity android:name=".view.GameLogActivity" />
         <activity android:name=".view.LoadGameActivity"/>
+        <activity android:name=".view.TournamentResultActivity"/>
     </application>
 
 </manifest>
