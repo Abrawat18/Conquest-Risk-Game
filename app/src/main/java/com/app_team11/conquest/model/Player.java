@@ -352,8 +352,8 @@ public class Player extends Observable implements Serializable{
     }
 
     public ConfigurableMessage startupPhase(GameMap gameMap){
-        getPlayerStrategy().startupPhase(gameMap, this);
-        return null;
+        return getPlayerStrategy().startupPhase(gameMap, this);
+
     }
     public ConfigurableMessage reInforcementPhase(GameMap gameMap) {
         if (getPlayerStrategyType() != Constants.HUMAN_PLAYER_STRATEGY) {
@@ -365,7 +365,7 @@ public class Player extends Observable implements Serializable{
             }
 
             ReinforcementType reinforcementType = calcReinforcementArmy(gameMap, gameMap.getNoOfCardTradedCount(), tradInCardList);
-            getPlayerStrategy().reInforcementPhase(reinforcementType, gameMap, this);
+            return getPlayerStrategy().reInforcementPhase(reinforcementType, gameMap, this);
         }
         return null;
     }
