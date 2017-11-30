@@ -16,7 +16,7 @@ import static junit.framework.Assert.assertEquals;
  * Test for benevolent player attack phase
  */
 
-public class BenevolentPlayerStrategyTest1 {List<Territory> territoryList;
+public class BenevolentPlayerStrategyTest {List<Territory> territoryList;
     Player attacker,defender;
     Territory attackerTerritory,defenderTerritory;
     Continent continent1,continent2;
@@ -92,9 +92,21 @@ public class BenevolentPlayerStrategyTest1 {List<Territory> territoryList;
     @Test
     public void benevolentAtackPhase()
     {
+        //Startup Phase
+        configurableMessage=attacker.startupPhase(map);
+        assertEquals(Constants.SUCCESS,configurableMessage.getMsgText());
+
         configurableMessage=attacker.attackPhase(map);
         //Benevolent player never attacks therefore its army count should be same
         assertEquals(1,defenderTerritory.getArmyCount());
+
+        //Reinforcement phase
+        configurableMessage=attacker.reInforcementPhase(map);
+        assertEquals(Constants.REINFORCEMENT_SUCCESS_STRATEGY,configurableMessage.getMsgText());
+
+        //Fortification Phase
+        configurableMessage=attacker.fortificationPhase(map);
+        assertEquals(Constants.FORTIFICATION_SUCCESS,configurableMessage.getMsgText());
 
     }
 

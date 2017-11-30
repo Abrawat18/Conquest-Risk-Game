@@ -19,7 +19,7 @@ import static junit.framework.Assert.assertEquals;
  * Test for aggressive player attack method
  */
 
-public class AggressivePlayerStrategyTest1
+public class AggressivePlayerStrategyTest
 {
     List<Territory> territoryList;
     Player attacker,defender;
@@ -95,19 +95,24 @@ public class AggressivePlayerStrategyTest1
     }
 
     @Test
-    public void attackPhase()
+    public void aggressivePlayerStrategyPhases()
     {
-        System.out.println("For "+attackerTerritory.getTerritoryName()+" neighbours: ");
-        for(Territory t:attackerTerritory.getNeighbourList()) {
-            System.out.println(t.getTerritoryName());
-        }
-        System.out.println("For"+defenderTerritory.getTerritoryName()+" neighbours: ");
-        for(Territory t:defenderTerritory.getNeighbourList())
-            System.out.println(t.getTerritoryName());
+        //Startup Phase
+        configurableMessage=attacker.startupPhase(map);
+        assertEquals(Constants.SUCCESS,configurableMessage.getMsgText());
+
+        //Attack Phase
         configurableMessage=attacker.attackPhase(map);
-        //Attack successful
-        System.out.println("cm"+configurableMessage.getMsgText());
         assertEquals(Constants.ATTACK_SUCCESS_STRATEGY,configurableMessage.getMsgText());
+
+        //Reinforcement phase
+        configurableMessage=attacker.reInforcementPhase(map);
+        assertEquals(Constants.REINFORCEMENT_SUCCESS_STRATEGY,configurableMessage.getMsgText());
+
+        //Fortification Phase
+        configurableMessage=attacker.fortificationPhase(map);
+        assertEquals(Constants.FORTIFICATION_SUCCESS,configurableMessage.getMsgText());
+
     }
 
 }
