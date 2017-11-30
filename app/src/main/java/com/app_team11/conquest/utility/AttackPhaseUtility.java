@@ -25,25 +25,26 @@ public class AttackPhaseUtility {
     //TODO : check for capture territory ...
     private int numberOfDiceRolled;
 
-    private AttackPhaseUtility(){
+    private AttackPhaseUtility() {
 
     }
 
     /**
      * Getter for the attack phase utility
+     *
      * @return instance  reference for the attack phase utility
      */
-    public static AttackPhaseUtility getInstance(){
-        if(instance==null){
+    public static AttackPhaseUtility getInstance() {
+        if (instance == null) {
             instance = new AttackPhaseUtility();
         }
         return instance;
     }
 
 
-
     /**
      * Returns number of dice rolled
+     *
      * @return numberOfDiceRolled gives the number of dice which are rolled
      */
     public int getNumberOfDiceRolled() {
@@ -108,6 +109,7 @@ public class AttackPhaseUtility {
      * @return canContinueAttack checks if attack can be continued
      */
     public ConfigurableMessage validateAttackBetweenTerritories(Territory attackerTerritory, Territory defenderTerritory) {
+        FileManager.getInstance().writeLog("Validating attack between territories " + attackerTerritory + " and " + defenderTerritory);
         ConfigurableMessage isAdjacenTerritories = isAdjacentTerritory(attackerTerritory, defenderTerritory);
         ConfigurableMessage hasSufficientArmiesForAttack = hasSufficientArmies(attackerTerritory);
         ConfigurableMessage canContinueAttack = canContinueAttackOnThisTerritory(defenderTerritory);
@@ -119,6 +121,7 @@ public class AttackPhaseUtility {
         } else if (canContinueAttack.getMsgCode() == 0) {
             return canContinueAttack;
         } else {
+            FileManager.getInstance().writeLog("Validation successful!! ");
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
         }
     }
@@ -129,8 +132,8 @@ public class AttackPhaseUtility {
      *
      * @param attackerTerritory parameter for the territory which attacks
      * @param defenderTerritory parameter for the territory which defends
-     * @param attackerDice dice for attacking dice
-     * @param defenderDice dice for defender dice
+     * @param attackerDice      dice for attacking dice
+     * @param defenderDice      dice for defender dice
      */
     public ConfigurableMessage attackPhase(Territory attackerTerritory, Territory defenderTerritory, int attackerDice, int defenderDice) {
         setNumberOfDiceRolled(attackerDice);
@@ -173,7 +176,7 @@ public class AttackPhaseUtility {
         } catch (Exception e) {
             // e.printStackTrace();
         }
-        while (defenderDiceValues.size() > 0 && attackerDiceValues.size()>0) {
+        while (defenderDiceValues.size() > 0 && attackerDiceValues.size() > 0) {
             attackerDiceValue = attackerDiceValues.get(0);
             defenderDiceValue = defenderDiceValues.get(0);
 

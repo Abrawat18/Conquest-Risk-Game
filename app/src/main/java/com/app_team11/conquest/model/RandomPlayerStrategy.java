@@ -4,6 +4,7 @@ import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.interfaces.PlayerStrategyListener;
 import com.app_team11.conquest.utility.AttackPhaseUtility;
 import com.app_team11.conquest.utility.ConfigurableMessage;
+import com.app_team11.conquest.utility.FileManager;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -18,9 +19,11 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
 
     @Override
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
+        FileManager.getInstance().writeLog("Random player startup phase started !! ");
         if (gameMap.getTerrForPlayer(player) != null && gameMap.getTerrForPlayer(player).size() > 0) {
             Collections.shuffle(gameMap.getTerrForPlayer(player));
-            gameMap.getTerrForPlayer(player).get(0).addArmyToTerr(1,false);
+            gameMap.getTerrForPlayer(player).get(0).addArmyToTerr(1, false);
+            FileManager.getInstance().writeLog("Random player startup phase ended !! ");
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
         }
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
@@ -28,6 +31,7 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
 
     @Override
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
+        FileManager.getInstance().writeLog("Random player Reinforcement phase started !! ");
         Collections.shuffle(gameMap.getTerrForPlayer(player));
         if (gameMap.getTerrForPlayer(player) != null && gameMap.getTerrForPlayer(player).size() > 0) {
             gameMap.getTerrForPlayer(player).get(0).setArmyCount(gameMap.getTerrForPlayer(player).get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
@@ -35,6 +39,7 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
             if (reinforcementType.getMatchedTerritoryList() != null && reinforcementType.getMatchedTerritoryList().size() > 0) {
                 reinforcementType.getMatchedTerritoryList().get(0).setArmyCount(reinforcementType.getMatchedTerritoryList().get(0).getArmyCount() + reinforcementType.getMatchedTerrCardReinforcement());
             }
+            FileManager.getInstance().writeLog("Random player Reinforcement phase ended !! ");
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.REINFORCEMENT_SUCCESS_STRATEGY);
         }
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.REINFORCEMENT_FAILED_STRATEGY);
@@ -43,6 +48,7 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
 
     @Override
     public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
+        FileManager.getInstance().writeLog("Random player attack phase started !! ");
         int randomAttackTime = 1 + new Random().nextInt(Constants.RANDOM_NUMBER_ATTACK_TIMES);
         Collections.shuffle(gameMap.getTerrForPlayer(player));
         Collections.shuffle(gameMap.getTerrForPlayer(player).get(0).getNeighbourList());
@@ -80,12 +86,13 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
 
 
         }
-
+        FileManager.getInstance().writeLog("Random player attack phase ended !! ");
         return null;
     }
 
     @Override
     public ConfigurableMessage fortificationPhase(GameMap gameMap, Player player) {
+        FileManager.getInstance().writeLog("Random player fortification phase started !! ");
         boolean fortificationFlag = false;
         Collections.shuffle(gameMap.getTerrForPlayer(player));
         for (Territory territory : gameMap.getTerrForPlayer(player)) {
@@ -100,6 +107,7 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
                 }
             }
             if (fortificationFlag) {
+                FileManager.getInstance().writeLog("Random player fortification phase ended !! ");
                 return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.FORTIFICATION_SUCCESS);
             }
         }
