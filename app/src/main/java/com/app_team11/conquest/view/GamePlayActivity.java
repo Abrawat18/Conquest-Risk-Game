@@ -40,6 +40,7 @@ import com.app_team11.conquest.model.ObserverType;
 import com.app_team11.conquest.model.PhaseViewModel;
 import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.Territory;
+import com.app_team11.conquest.model.TournamentResultModel;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.utility.GamePhaseManager;
@@ -82,13 +83,20 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private ListView listPhaseView;
     private Button btnGameSave;
     private EditText editFileName;
-
-
+    private ArrayList<String> selectedMapListForTournamentMode;
+    private int totalGamesForTournamentMode;
+    private int maximumRoundsForTournamentMode;
+    private ArrayList<String> playerList;
+    private int gamePlayed = 0;
+    private int mapPlayed = 0;
+    private String fromGameMode;
+    private ArrayList<TournamentResultModel> tournamentResultList = new ArrayList<>();
 
 
     /**
      * {@inheritDoc}
-     *  This method is called on creation of the activity which allows user to play the game
+     * This method is called on creation of the activity which allows user to play the game
+     *
      * @param savedInstanceState When activity is reopened , this parameter is used for resuming to the resumed state
      */
 
@@ -156,7 +164,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         String filePathToLoad = null;
         String loadSavedMapPath = null;
         Intent intent = getIntent();
-        List<String> playerList = null;
         int noOfPlayer = 0;
         if (intent != null) {
             Bundle bundle = intent.getExtras();
@@ -165,6 +172,10 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 playerList = bundle.getStringArrayList(Constants.KEY_PLAYER_LIST);
                 loadSavedMapPath = bundle.getString(Constants.KEY_LOAD_SAVED_MAP_PATH);
                 noOfPlayer = bundle.getInt(Constants.KEY_NO_OF_PLAYER);
+                fromGameMode = bundle.getString(Constants.KEY_FROM_GAME_MODE);
+                selectedMapListForTournamentMode = bundle.getStringArrayList(Constants.KEY_SELECTED_MAP_LIST);
+                totalGamesForTournamentMode = bundle.getInt(Constants.KEY_NUMBER_GAMES);
+                maximumRoundsForTournamentMode = bundle.getInt(Constants.KEY_NUMBER_DRAWS);
                 FileManager.getInstance().writeLog("Number of players for game play - " + noOfPlayer);
             }
         }
@@ -174,23 +185,53 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             if (getMap() != null) {
                 getMap().loadPlayerStrategyToGame(this);
             }
-        } else if (!TextUtils.isEmpty(filePathToLoad) && noOfPlayer > 0) {
+        } else if (fromGameMode.equals(Constants.FROM_SINGLE_MODE_VALUE) && !TextUtils.isEmpty(filePathToLoad) && noOfPlayer > 0) {
+            FileManager.getInstance().writeLog("Initializing single game mode");
             FileManager.getInstance().writeLog("Initializing map for game play...");
             setMap(new ReadMapUtility(this).readFile(filePathToLoad));
-            getMap().addPlayerToGame(noOfPlayer, playerList,this);
+            getMap().addPlayerToGame(noOfPlayer, playerList, this);
+        } else if (fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE) && selectedMapListForTournamentMode != null && selectedMapListForTournamentMode.size() > 0 && totalGamesForTournamentMode > 0 && maximumRoundsForTournamentMode > 0) {
+            FileManager.getInstance().writeLog("Initializing tournament mode");
+            initializeTournamentMode();
+        } else {
+            Toast.makeText(this, "Invalid input please try again later !!", Toast.LENGTH_SHORT).show();
+            finish();
         }
+
         if (getMap() != null) {
             initializePlayerAdapter();
             loadGamePhase();
         } else {
             Toast.makeText(this, "Invalid input please try again later !!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
+
+    /**
+     * Initialize tournament mode for game
+     */
+    private void initializeTournamentMode() {
+        if (mapPlayed >= selectedMapListForTournamentMode.size()) {
+            // Tournament mode finished ...
+            FileManager.getInstance().writeLog("Tournament mode finished!!");
+            // Send result to tournament result
+
+            return;
+        }
+
+        FileManager.getInstance().writeLog("Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
+        setMap(new ReadMapUtility(this).readFile(selectedMapListForTournamentMode.get(mapPlayed)));
+        getMap().addPlayerToGame(playerList.size(), playerList, this);
+        if (getMap() != null) {
+            initializePlayerAdapter();
+            loadGamePhase();
         }
     }
 
     /**
      * Get player turn from game map
      *
-     * @return getMap : returns the map
      * @return getPlayerTurn : returns the turn of the player
      */
     public Player getPlayerTurn() {
@@ -332,24 +373,44 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             //code to end game
         }
     }
+
     /**
      * Method for ending the game when the player wins
+     *
      * @param playerWon
      */
     public void endGame(Player playerWon) {
+        if (fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
 
-        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
-        sweetAlertDialog.setCancelable(false);
-        sweetAlertDialog.setTitleText("Game Ends! Player" + playerWon.getPlayerId() + " Won the game!!")
-                .setConfirmText("Ok")
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        finish();
-                    }
-                })
-                .show();
+            TournamentResultModel tournamentResultModel = new TournamentResultModel();
+            tournamentResultModel.setGameNumber(gamePlayed);
+            tournamentResultModel.setPlayerWon(playerWon);
+            tournamentResultModel.setPlayMap(selectedMapListForTournamentMode.get(mapPlayed));
+            tournamentResultList.add(tournamentResultModel);
+
+            gamePlayed++;
+            if (gamePlayed >= totalGamesForTournamentMode) {
+                gamePlayed = 0;
+                mapPlayed++;
+            }
+
+            initializeTournamentMode();
+            return;
+        }else {
+            SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
+            sweetAlertDialog.setCancelable(false);
+            sweetAlertDialog.setTitleText("Game Ends! Player" + playerWon.getPlayerId() + " Won the game!!")
+                    .setConfirmText("Ok")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            finish();
+                        }
+                    })
+                    .show();
+        }
     }
+
     /**
      * Layout parameters for players
      *
@@ -383,6 +444,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * Sets the map for view
+     *
      * @param map : parameter for defining the map
      */
     public void setMap(GameMap map) {
@@ -395,6 +457,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * Returns the map view
+     *
      * @return map : parameter for defining the map
      */
     public GameMap getMap() {
@@ -541,7 +604,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     /**
      * {@inheritDoc}
      *
-     * @param v view : The view on which the click is done, that object of the view is called
+     * @param v     view : The view on which the click is done, that object of the view is called
      * @param event : parameter which defines the motion event
      * @return boolean : whether it is true or false
      */
@@ -555,7 +618,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * {@inheritDoc}
      *
      * @param v view : The view on which the click is done, that object of the view is called.
-
      */
     @Override
     public void onClick(View v) {
@@ -633,7 +695,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     /**
      * Update the view
      *
-     * @param o : observable parameter for the update during the game play activity
+     * @param o   : observable parameter for the update during the game play activity
      * @param arg : object parameter for the update during the game play activity
      */
     @Override

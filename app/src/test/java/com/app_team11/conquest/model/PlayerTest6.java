@@ -18,7 +18,7 @@ import static junit.framework.Assert.assertEquals;
 
 public class PlayerTest6 {
     List<Territory> territoryList;
-    Player player1,player2;
+    Player attacker,defender;
     Territory attackerTerritory,defenderTerritory;
     ConfigurableMessage cm;
 
@@ -26,24 +26,24 @@ public class PlayerTest6 {
     public void setUp()
     {
         territoryList=new ArrayList<Territory>();
-        player1=new Player();
-        player1.setAvailableArmyCount(10);
-        player1.setPlayerId(0);
+        attacker=new Player();
+        attacker.setAvailableArmyCount(10);
+        attacker.setPlayerId(0);
 
         for(int i=0;i<2;i++)
         {
             attackerTerritory=new Territory("Territory"+(i+1));
-            attackerTerritory.setTerritoryOwner(player1);
+            attackerTerritory.setTerritoryOwner(attacker);
             attackerTerritory.setArmyCount(6);
             territoryList.add(attackerTerritory);
         }
-        player2=new Player();
-        player2.setAvailableArmyCount(5);
-        player2.setPlayerId(5);
+        defender=new Player();
+        defender.setAvailableArmyCount(5);
+        defender.setPlayerId(5);
 
         defenderTerritory=new Territory("3");
         defenderTerritory.setArmyCount(5);
-        defenderTerritory.setTerritoryOwner(player2);
+        defenderTerritory.setTerritoryOwner(defender);
         defenderTerritory.setNeighbourList(territoryList);
 
         List<Territory> testList=new ArrayList<Territory>();
