@@ -12,11 +12,10 @@ import java.util.List;
 import static junit.framework.Assert.assertEquals;
 
 /**
- * Created by Nigel on 29-Nov-17.
- * Test for benevolent player attack phase
+ * Created by Nigel on 30-Nov-17.
  */
 
-public class BenevolentPlayerStrategyTest {
+public class CheaterPlayerStrategyTest {
     List<Territory> territoryList;
     Player attacker,defender;
     Territory attackerTerritory,defenderTerritory;
@@ -42,8 +41,8 @@ public class BenevolentPlayerStrategyTest {
         cardList.add(cavalry);
 
         attacker.setAvailableArmyCount(2);
-        attacker.setPlayerStrategy(new BenevolentPlayerStrategy());
-        attacker.setPlayerStrategyType("Benevolent");
+        attacker.setPlayerStrategy(new CheaterPlayerStrategy());
+        attacker.setPlayerStrategyType("Cheater");
         attacker.setPlayerId(0);
 
         continent1=new Continent();
@@ -91,29 +90,38 @@ public class BenevolentPlayerStrategyTest {
     }
 
     @Test
-    public void benevolentStartupPhase() {
+    public void cheaterStrategyStartup() {
+        System.out.println("attacker armies: " + attackerTerritory.getArmyCount());
         //Startup Phase
         configurableMessage = attacker.startupPhase(map);
         assertEquals(Constants.SUCCESS, configurableMessage.getMsgText());
     }
+
     @Test
-    public void benevolentAttackPhase() {
+    public void cheaterStrategyAttack() {
         configurableMessage = attacker.attackPhase(map);
-        //Benevolent player never attacks therefore its army count should be same
-        assertEquals(1, defenderTerritory.getArmyCount());
+        //Cheater captures neighbouring territories and doubles armies
+        assertEquals(attackerTerritory.getTerritoryOwner(), defenderTerritory.getTerritoryOwner());
     }
+
     @Test
-    public void benevolentReinforcementPhase() {
-        //Reinforcement phase
+    public void cheaterStrategyReinforcement() {
+        System.out.println("2attacker armies: " + attackerTerritory.getArmyCount());
+
+        //Reinforcement phase: all territory armies doubled
         configurableMessage = attacker.reInforcementPhase(map);
-        assertEquals(Constants.REINFORCEMENT_SUCCESS_STRATEGY, configurableMessage.getMsgText());
+        assertEquals(Constants.SUCCESS, configurableMessage.getMsgText());
+        assertEquals(4, attackerTerritory.getArmyCount());
     }
+
     @Test
-    public void benevolentFortificationPhase(){
+    public void cheaterStrategyFortification()
+    {
         //Fortification Phase
         configurableMessage=attacker.fortificationPhase(map);
-        assertEquals(Constants.FORTIFICATION_SUCCESS,configurableMessage.getMsgText());
+        assertEquals(Constants.SUCCESS,configurableMessage.getMsgText());
 
     }
+
 
 }

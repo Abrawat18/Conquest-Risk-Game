@@ -296,8 +296,16 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     public void changeGamePhase() {
         if (getMap() != null) {
-            getMap().getGamePhaseManager().changePhase();
-            loadGamePhase();
+            ConfigurableMessage configurableMessage = getMap().playerWonTheGame(getPlayerTurn());
+            if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
+                toastMessageFromBackground(configurableMessage.getMsgText());
+                endGame(getPlayerTurn());
+                //code to end game
+            }
+            else {
+                getMap().getGamePhaseManager().changePhase();
+                loadGamePhase();
+            }
         }
     }
 
@@ -388,8 +396,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * @param playerWon
      */
     public void endGame(Player playerWon) {
+        showMap();
         if (fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
-
             TournamentResultModel tournamentResultModel = new TournamentResultModel();
             tournamentResultModel.setGameNumber(gamePlayed);
             tournamentResultModel.setPlayerWon(playerWon);
