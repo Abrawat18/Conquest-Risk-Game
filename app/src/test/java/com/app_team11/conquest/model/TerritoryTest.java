@@ -61,6 +61,9 @@ public class TerritoryTest {
 
     }
 
+    /**
+     * test to check fortification phase
+     */
     @Test
     public void fortificationTestCases()
     {

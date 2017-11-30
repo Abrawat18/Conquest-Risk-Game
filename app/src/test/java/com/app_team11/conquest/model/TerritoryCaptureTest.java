@@ -22,6 +22,10 @@ public class TerritoryCaptureTest {
         defenderTerritory=new Territory();
         defenderTerritory.setArmyCount(3);
     }
+
+    /**
+     * test to check whether a territory can be attacked
+     */
     @Test
     public void validateCanBeAttacked()
     {

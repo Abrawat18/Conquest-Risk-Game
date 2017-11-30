@@ -31,8 +31,12 @@ public class CardTest {
         cardList=new ArrayList<Cards>();
         tradeIn=false;
     }
+
+    /**
+     * test for card functionality
+     */
     @Test
-    public void validMapTest() {
+    public void cardTest() {
         ReadMapUtility readTest = new ReadMapUtility();
         GameMap gameMap = readTest.readFile(System.getProperty("user.dir") + File.separator + filePath);
         assertNotNull(gameMap);

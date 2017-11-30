@@ -13,6 +13,7 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by Nigel on 30-Nov-17.
+ * test class for cheater player strategies
  */
 
 public class CheaterPlayerStrategyTest {
@@ -89,6 +90,9 @@ public class CheaterPlayerStrategyTest {
 
     }
 
+    /**
+     * test for cheater player startup phase
+     */
     @Test
     public void cheaterStrategyStartup() {
         System.out.println("attacker armies: " + attackerTerritory.getArmyCount());
@@ -97,6 +101,9 @@ public class CheaterPlayerStrategyTest {
         assertEquals(Constants.SUCCESS, configurableMessage.getMsgText());
     }
 
+    /**
+     * test for cheater player attack phase
+     */
     @Test
     public void cheaterStrategyAttack() {
         configurableMessage = attacker.attackPhase(map);
@@ -104,6 +111,9 @@ public class CheaterPlayerStrategyTest {
         assertEquals(attackerTerritory.getTerritoryOwner(), defenderTerritory.getTerritoryOwner());
     }
 
+    /**
+     * test for cheater player reinforcement phase
+     */
     @Test
     public void cheaterStrategyReinforcement() {
         System.out.println("2attacker armies: " + attackerTerritory.getArmyCount());
@@ -114,6 +124,9 @@ public class CheaterPlayerStrategyTest {
         assertEquals(4, attackerTerritory.getArmyCount());
     }
 
+    /**
+     * test for cheater player fortification strategy
+     */
     @Test
     public void cheaterStrategyFortification()
     {

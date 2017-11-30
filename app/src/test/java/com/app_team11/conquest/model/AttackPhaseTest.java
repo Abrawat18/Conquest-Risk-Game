@@ -52,6 +52,9 @@ public class AttackPhaseTest {
 
     }
 
+    /**
+     * test for attack phase
+     */
     @Test
     public void attackPhase()
     {

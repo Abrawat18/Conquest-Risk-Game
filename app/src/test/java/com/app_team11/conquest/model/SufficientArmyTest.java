@@ -24,6 +24,10 @@ public class SufficientArmyTest {
         attackerTerritory=new Territory();
         attackerTerritory.setArmyCount(3);
     }
+
+    /**
+     * test to check for sufficient armies before attack
+     */
     @Test
     public void validateNumberOfArmies()
     {

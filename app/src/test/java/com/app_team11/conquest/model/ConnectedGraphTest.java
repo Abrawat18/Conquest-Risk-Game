@@ -32,6 +32,11 @@ public class ConnectedGraphTest {
         continent.setScore(5);
         TerrConnect=new Territory();
     }
+
+    /**
+     * test for connected territories
+     * @throws Exception
+     */
     @Test
     public void addUnconnectedContinentTest() throws Exception
     {

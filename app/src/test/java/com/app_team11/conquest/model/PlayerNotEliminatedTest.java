@@ -59,6 +59,9 @@ public class PlayerNotEliminatedTest {
         map.setTerritoryList(territoryList);
     }
 
+    /**
+     * test scenario to check when player is not eliminated
+     */
     @Test
     public void invalidEliminatedPlayer()
     {

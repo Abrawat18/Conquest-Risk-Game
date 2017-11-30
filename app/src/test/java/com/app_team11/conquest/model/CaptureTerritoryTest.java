@@ -53,8 +53,11 @@ public class CaptureTerritoryTest {
 
     }
 
+    /**
+     * test to capture territory
+     */
     @Test
-    public void attackPhase()
+    public void captureTerritoryTest()
     {
         configurableMessage=player3.validateAttackBetweenTerritories(attackerTerritory,defenderTerritory);
         assertEquals(Constants.SUCCESS,configurableMessage.getMsgText());

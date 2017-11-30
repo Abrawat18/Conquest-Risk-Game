@@ -31,8 +31,13 @@ public class UnconnectedContinentTest {
         failed=false;
         map=new GameMap();
     }
+
+    /**
+     * Test to check for unconnected continent
+     * @throws Exception in case file read error
+     */
     @Test
-    public void invalidMapTest() throws Exception
+    public void unconnectedContinentTest() throws Exception
     {
         ReadMapUtility readTest=new ReadMapUtility();
         map=readTest.readFile(System.getProperty("user.dir") + File.separator + filePath);

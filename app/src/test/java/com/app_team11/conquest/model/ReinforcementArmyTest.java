@@ -79,6 +79,11 @@ public class ReinforcementArmyTest {
         map.setPlayerList(playerList);
 
    }
+
+    /**
+     * test to check correct calculation of reinforcement armies
+     * @throws Exception
+     */
     @Test
     public void calcReinforcementArmy() throws Exception
     {

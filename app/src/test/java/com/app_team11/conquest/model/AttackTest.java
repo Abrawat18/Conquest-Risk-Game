@@ -52,6 +52,9 @@ public class AttackTest {
 
     }
 
+    /**
+     * test for valid attack
+     */
     @Test
     public void validAttack()
     {

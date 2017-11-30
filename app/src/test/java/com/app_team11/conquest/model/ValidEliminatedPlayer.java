@@ -56,6 +56,9 @@ public class ValidEliminatedPlayer {
         map.setTerritoryList(territoryList);
     }
 
+    /**
+     * test to check if player is eliminated
+     */
     @Test
     public void validEliminatedPlayer()
     {

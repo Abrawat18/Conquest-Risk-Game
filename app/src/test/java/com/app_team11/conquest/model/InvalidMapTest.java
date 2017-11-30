@@ -31,6 +31,11 @@ public class InvalidMapTest
         continent.setContName("Test Continent");
         continent.setScore(5);
     }
+
+    /**
+     * test for unconnected continent test
+     * @throws Exception
+     */
     @Test
     public void addUnconnectedContinentTest() throws Exception
     {

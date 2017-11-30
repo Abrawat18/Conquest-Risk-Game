@@ -31,8 +31,11 @@ public class ReadFileTest {
         currentSize=0;
     }
 
+    /**
+     * test for read functionality test
+     */
     @Test
-    public void gameMapFunctionalityTest() {
+    public void readFunctionalityTest() {
         ReadMapUtility readTest = new ReadMapUtility();
         GameMap gameMap = readTest.readFile(System.getProperty("user.dir") + File.separator + filePath);
         //System.out.println("map is" + gameMap);

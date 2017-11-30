@@ -90,6 +90,9 @@ public class RandomPlayerStrategyTest {
 
     }
 
+    /**
+     * test for random player startup phase
+     */
     @Test
     public void randomStrategyStartup() {
                //Startup Phase
@@ -97,6 +100,9 @@ public class RandomPlayerStrategyTest {
         assertEquals(Constants.SUCCESS, configurableMessage.getMsgText());
     }
 
+    /**
+     * test for random player strategy attack
+     */
     @Test
     public void randomStrategyAttack() {
         System.out.println("attacker armies: " + attackerTerritory.getArmyCount());
@@ -106,6 +112,9 @@ public class RandomPlayerStrategyTest {
             assertEquals(Constants.ATTACKER_WON, configurableMessage.getMsgText());
     }
 
+    /**
+     * test for random player reinforcement
+     */
     @Test
     public void randomStrategyReinforcement() {
         //Reinforcement phase: all territory armies doubled
@@ -114,6 +123,9 @@ public class RandomPlayerStrategyTest {
        // assertEquals(4, attackerTerritory.getArmyCount());
     }
 
+    /**
+     * test for random player fortification
+     */
     @Test
     public void randomStrategyFortification()
     {
