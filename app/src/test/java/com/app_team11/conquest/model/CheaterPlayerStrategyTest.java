@@ -90,24 +90,33 @@ public class CheaterPlayerStrategyTest {
     }
 
     @Test
-    public void cheaterStategyPhases()
-    {
-        System.out.println("attacker armies: "+attackerTerritory.getArmyCount());
+    public void cheaterStrategyStartup() {
+        System.out.println("attacker armies: " + attackerTerritory.getArmyCount());
         //Startup Phase
-        configurableMessage=attacker.startupPhase(map);
-        assertEquals(Constants.SUCCESS,configurableMessage.getMsgText());
+        configurableMessage = attacker.startupPhase(map);
+        assertEquals(Constants.SUCCESS, configurableMessage.getMsgText());
+    }
 
-        configurableMessage=attacker.attackPhase(map);
+    @Test
+    public void cheaterStrategyAttack() {
+        configurableMessage = attacker.attackPhase(map);
         //Cheater captures neighbouring territories and doubles armies
-        assertEquals(attackerTerritory.getTerritoryOwner(),defenderTerritory.getTerritoryOwner());
+        assertEquals(attackerTerritory.getTerritoryOwner(), defenderTerritory.getTerritoryOwner());
+    }
 
-        System.out.println("2attacker armies: "+attackerTerritory.getArmyCount());
+    @Test
+    public void cheaterStrategyReinforcement() {
+        System.out.println("2attacker armies: " + attackerTerritory.getArmyCount());
 
         //Reinforcement phase: all territory armies doubled
-        configurableMessage=attacker.reInforcementPhase(map);
-        assertEquals(Constants.SUCCESS,configurableMessage.getMsgText());
-        assertEquals(6,attackerTerritory.getArmyCount());
+        configurableMessage = attacker.reInforcementPhase(map);
+        assertEquals(Constants.SUCCESS, configurableMessage.getMsgText());
+        assertEquals(4, attackerTerritory.getArmyCount());
+    }
 
+    @Test
+    public void cheaterStrategyFortification()
+    {
         //Fortification Phase
         configurableMessage=attacker.fortificationPhase(map);
         assertEquals(Constants.SUCCESS,configurableMessage.getMsgText());
