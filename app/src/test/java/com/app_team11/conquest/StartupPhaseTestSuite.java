@@ -20,12 +20,12 @@ import org.junit.runners.Suite;
     @RunWith(Suite.class)
 
     @Suite.SuiteClasses({
-            UnconnectedGraphTest.class, //Checks whether the graph formed is connected
             ReadFileTest.class, //check for file contents
             AddTerritoryTest.class, // Tests the max territory limit
             RemoveTerritoryTest.class, // Test for remove territory
             ReadMapUtilityTest.class, //Checks army count
             GraphTest.class, //Check for connected graph
+            UnconnectedGraphTest.class, //Checks whether the graph formed is connected
             UnconnectedContinentTest.class, //Check for connected graph after adding continent
             ConnectedGraphTest.class, //Check for connected territories and continents
             InvalidMapTest.class //Check for invalid map file
