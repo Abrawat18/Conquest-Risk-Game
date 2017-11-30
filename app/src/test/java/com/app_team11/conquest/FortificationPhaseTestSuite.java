@@ -16,10 +16,10 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-        TerritoryTest.class, //Fortify phase
-        FortifyPhaseTest.class, //invalid Fortify Phase Test
+        TerritoryTest.class,           //Fortify phase
+        FortifyPhaseTest.class,        //invalid Fortify Phase Test
         ValidFortificationTest.class,  //Checks for valid fortification phase(adjacent territories)
-        FileWriterUtilityTest.class
+        FileWriterUtilityTest.class    //FileWriterUtility functionality test
 
 })
 public class FortificationPhaseTestSuite {

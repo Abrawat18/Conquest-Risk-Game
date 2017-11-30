@@ -21,15 +21,15 @@ import org.junit.runners.Suite;
     @RunWith(Suite.class)
 
     @Suite.SuiteClasses({
-            ReadFileTest.class, //check for file contents
-            AddTerritoryTest.class, // Tests the max territory limit
-            RemoveTerritoryTest.class, // Test for remove territory
-            ReadMapUtilityTest.class, //Checks for the inital army count
-            GraphTest.class, //Check for connected graph
-            UnconnectedGraphTest.class, //Checks whether the graph formed is connected
-            UnconnectedContinentTest.class, //Check for connected graph after adding continent
-            ConnectedGraphTest.class, //Check for connected territories and continents
-            InvalidMapTest.class //Check for invalid map file
+            ReadFileTest.class,           //check for file contents
+            AddTerritoryTest.class,       // Tests the max territory limit
+            RemoveTerritoryTest.class,    // Test for remove territory
+            ReadMapUtilityTest.class,     //Checks for the initial army count
+            GraphTest.class,              //Check for connected graph
+            UnconnectedGraphTest.class,   //Checks whether the graph formed is connected
+            UnconnectedContinentTest.class,//Check for connected graph after adding continent
+            ConnectedGraphTest.class,     //Check for connected territories and continents
+            InvalidMapTest.class          //Check for invalid map file
     })
 
     public class StartupPhaseTestSuite {
