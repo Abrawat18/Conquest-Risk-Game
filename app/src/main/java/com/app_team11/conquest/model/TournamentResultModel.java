@@ -6,7 +6,7 @@ package com.app_team11.conquest.model;
 
 public class TournamentResultModel {
 
-    private GameMap playMap;
+    private String playMap;
     private Player playerWon;
     private int gameNumber;
 
@@ -14,7 +14,7 @@ public class TournamentResultModel {
      * method to return map on which game played
      * @return map on which game played
      */
-    public GameMap getPlayMap() {
+    public String getPlayMap() {
         return playMap;
     }
 
@@ -22,7 +22,7 @@ public class TournamentResultModel {
      * method to set map on which game played
      * @param playMap map on which game played
      */
-    public void setPlayMap(GameMap playMap) {
+    public void setPlayMap(String playMap) {
         this.playMap = playMap;
     }
 

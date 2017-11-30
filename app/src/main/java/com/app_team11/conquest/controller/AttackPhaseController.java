@@ -265,11 +265,6 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
                                 getActivity().toastMessageFromBackground(configurableMessage.getMsgText());
                                 if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
                                     getActivity().showMap();
-                                    ConfigurableMessage configurableMessage1 = getActivity().getMap().playerWonTheGame(getActivity().getPlayerTurn());
-                                    if (configurableMessage1.getMsgCode() == Constants.MSG_SUCC_CODE) {
-                                        getActivity().toastMessageFromBackground(configurableMessage1.getMsgText());
-                                        getActivity().endGame(getActivity().getPlayerTurn());
-                                    }
                                     sweetAlertDialog.dismiss();
                                 } else {
                                     editNoOfArmy.setError("Invalid Input!!");
@@ -293,4 +288,3 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
 
 }
-s
