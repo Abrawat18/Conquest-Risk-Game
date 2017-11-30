@@ -19,6 +19,7 @@ import java.util.Random;
 
 public class RandomPlayerStrategy extends Observable implements PlayerStrategyListener {
     /**
+     * Random player strategy for the startup phase
      * @param gameMap : parameter which defines the game map
      * @param player : parameter which defines the player
      * @return ConfigurableMessage : returns the configurable message
