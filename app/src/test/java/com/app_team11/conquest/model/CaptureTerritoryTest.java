@@ -16,7 +16,7 @@ import static junit.framework.Assert.assertEquals;
  * Validate capture territory method
  */
 
-public class PlayerTest8 {
+public class CaptureTerritoryTest {
     List<Territory> territoryList;
     Player player1,player2,player3;
     Territory attackerTerritory,defenderTerritory;

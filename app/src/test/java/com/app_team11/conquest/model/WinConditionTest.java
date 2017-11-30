@@ -13,16 +13,13 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by Nigel on 07-Nov-17.
- * Checks for scenario when player not eliminated
+ * Checks for player won the game condition which is invalid
  */
 
-
-public class GameMapTest3 {
-
-
+public class WinConditionTest {
     List<Territory> territoryList;
     Player player1,player2,player3;
-    Territory attackerTerritory,defenderTerritory;
+    Territory territory,territory3;
     ConfigurableMessage cm;
     GameMap map;
 
@@ -38,45 +35,42 @@ public class GameMapTest3 {
 
         for(int i=0;i<2;i++)
         {
-            attackerTerritory=new Territory("Territory"+(i+1));
-            attackerTerritory.setTerritoryOwner(player1);
-            attackerTerritory.setArmyCount(6);
-            territoryList.add(attackerTerritory);
+            territory=new Territory("Territory"+(i+1));
+            territory.setTerritoryOwner(player1);
+            territory.setArmyCount(6);
+            territoryList.add(territory);
         }
         player2=new Player();
         player2.setAvailableArmyCount(5);
         player2.setPlayerId(5);
 
-        defenderTerritory=new Territory("3");
-        defenderTerritory.setArmyCount(5);
-        defenderTerritory.setTerritoryOwner(player2);
-        defenderTerritory.setNeighbourList(territoryList);
+        territory3=new Territory("3");
+        territory3.setArmyCount(5);
+        territory3.setTerritoryOwner(player2);
+        territory3.setNeighbourList(territoryList);
 
         List<Territory> testList=new ArrayList<Territory>();
-        testList.add(defenderTerritory);
-        attackerTerritory.addRemoveNeighbourToTerr(defenderTerritory,'A');
-        territoryList.add(2,defenderTerritory);
+        testList.add(territory3);
+        territoryList.get(1).addRemoveNeighbourToTerr(territory3,'A');
+        territoryList.add(2,territory3);
         map.setTerritoryList(territoryList);
     }
 
     @Test
-    public void invalidEliminatedPlayer()
+    public void invalidPlayerWonCondition()
     {
-        cm=player3.validateAttackBetweenTerritories(attackerTerritory,defenderTerritory);
+        cm=player3.validateAttackBetweenTerritories(territoryList.get(1),territory3);
         assertEquals(Constants.SUCCESS,cm.getMsgText());
 
-        cm=player3.attackPhase(attackerTerritory,defenderTerritory,3,2);
+        cm=player3.attackPhase(territoryList.get(1),territory3,3,2);
         System.out.println(cm.getMsgText());
 
         if(cm.getMsgCode()==1)
         {
-            defenderTerritory.setTerritoryOwner(attackerTerritory.getTerritoryOwner());
-            cm=map.eliminatedPlayer(attackerTerritory,defenderTerritory);
-            //Player has not been eliminated yet
+            cm=map.playerWonTheGame(territoryList.get(1).getTerritoryOwner());
             assertEquals(Constants.MSG_FAIL_CODE,cm.getMsgCode());
         }
 
     }
 }
-
 

@@ -1,7 +1,6 @@
 package com.app_team11.conquest.model;
 
 import com.app_team11.conquest.global.Constants;
-import com.app_team11.conquest.utility.ReadMapUtility;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,13 +8,14 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
- * Created by Nigel on 10/19/2017.
- * Check for calculation of reinforcement armies.
+ * Created by Nigel on 05-Nov-17.
+ * Reinforcement phase with cards
  */
-public class PlayerTest {
+
+public class ReinforceWithCardsTest {
     private List<Territory> territoryList;
     private List<Player> playerList;
     private List<Cards> cardListOwned;
@@ -50,6 +50,7 @@ public class PlayerTest {
             player = new Player();
             player.setPlayerId(i);
             player.setCardTradeIn(true);
+            player.setAvailableArmyCount(5);
             playerList.add(player);
         }
         continent.setContOwner(playerList.get(0));
@@ -60,32 +61,34 @@ public class PlayerTest {
             territory.setTerritoryOwner(playerList.get(0));
             territoryList.add(territory);
         }
-            for(int j=1;j<4;j++) {
-            card=new Cards(territoryList.get(j),Constants.ARMY_INFANTRY);
+        for(int j=1;j<4;j++) {
+            card=new Cards(territoryList.get(j), Constants.ARMY_ARTILLERY);
             cardListOwned.add(card);
 
         }
         for(i=0;i<3;i++)
         {
-            card=new Cards(territoryList.get(i+3),Constants.ARMY_INFANTRY);
+            card=new Cards(territoryList.get(i+3),Constants.ARMY_ARTILLERY);
             cardList.add(card);
         }
 
-        playerList.get(0).setOwnedCards(cardListOwned);
+        playerList.get(0).setOwnedCards(cardList);
 
         map=new GameMap();
         map.setContinentList(continentList);
         map.setTerritoryList(territoryList);
         map.setPlayerList(playerList);
 
-   }
+    }
     @Test
     public void calcReinforcementArmy() throws Exception
     {
-        reinforcementArmy=playerList.get(0).calcReinforcementArmy(map,1,cardList);
-        int totalCountReturned = reinforcementArmy.getOtherTotalReinforcement() + reinforcementArmy.getMatchedTerrCardReinforcement();
+        reinforcementArmy=playerList.get(0).calcReinforcementArmy(map,1,cardListOwned);
         System.out.println(reinforcementArmy.getOtherTotalReinforcement()+" "+reinforcementArmy.getMatchedTerrCardReinforcement());
-        assertEquals(16,totalCountReturned);
+        assertEquals(2,reinforcementArmy.getMatchedTerrCardReinforcement());
+        assertEquals(14,reinforcementArmy.getOtherTotalReinforcement());
     }
 
 }
+
+

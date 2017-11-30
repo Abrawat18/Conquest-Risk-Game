@@ -22,7 +22,7 @@ import static junit.framework.Assert.assertEquals;
  * invalid Fortify Phase Test
  */
 
-public class TerritoryTest1 {
+public class FortifyPhaseTest {
     private List<Territory> territoryList;
     private List<Player> playerList;
     private List<Continent> continentList;

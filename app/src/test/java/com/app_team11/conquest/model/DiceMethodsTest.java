@@ -13,7 +13,7 @@ import static junit.framework.Assert.assertEquals;
  * Check for dice methods
  */
 
-public class PlayerTest7 {
+public class DiceMethodsTest {
 
     List<Integer> diceList;
     Player player;
