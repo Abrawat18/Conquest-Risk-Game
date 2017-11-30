@@ -13,7 +13,7 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by Nigel on 07-Nov-17.
- * Checks for invalid player won the game condition
+ * Checks for player won the game condition which is invalid
  */
 
 public class GameMapTest5 {
@@ -57,7 +57,7 @@ public class GameMapTest5 {
     }
 
     @Test
-    public void invalidPlayerWon()
+    public void invalidPlayerWonCondition()
     {
         cm=player3.validateAttackBetweenTerritories(territoryList.get(1),territory3);
         assertEquals(Constants.SUCCESS,cm.getMsgText());
