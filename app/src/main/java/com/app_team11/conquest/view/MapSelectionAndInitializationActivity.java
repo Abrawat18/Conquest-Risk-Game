@@ -149,7 +149,7 @@ public class MapSelectionAndInitializationActivity extends Activity {
                                     bundle.putStringArrayList(Constants.KEY_SELECTED_MAP_LIST, mapFilePathList);
                                     intent = new Intent(MapSelectionAndInitializationActivity.this, GamePlayActivity.class);
                                     intent.putExtras(bundle);
-                                    //startActivity(intent);
+                                    startActivity(intent);
                                 } else {
                                     Toast.makeText(MapSelectionAndInitializationActivity.this, "Number of maps should be between 1 to 5", Toast.LENGTH_SHORT).show();
                                 }

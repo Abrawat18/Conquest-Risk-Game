@@ -28,7 +28,7 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
         if (gameMap.getTerrForPlayer(player) != null && gameMap.getTerrForPlayer(player).size() > 0) {
             List<Territory> terrPlayerList = gameMap.getTerrForPlayer(player);
             Collections.shuffle(terrPlayerList);
-            terrPlayerList.get(0).addArmyToTerr(1,false);
+            terrPlayerList.get(0).addArmyToTerr(1, false);
             FileManager.getInstance().writeLog("Random player startup phase ended !! ");
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
         }
@@ -55,6 +55,7 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
 
     @Override
     public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
+        ConfigurableMessage resultCode=null;
         FileManager.getInstance().writeLog("Random player attack phase started !! ");
         int randomAttackTime = 1 + new Random().nextInt(Constants.RANDOM_NUMBER_ATTACK_TIMES);
         List<Territory> terrPlayerList = gameMap.getTerrForPlayer(player);
@@ -66,7 +67,9 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
                 while (randomAttackTime > 0) {
                     int attackerDice = 1;
                     int defenderDice = 1;
-                    if (terrPlayerList.get(0).getArmyCount() <= 3) {
+                    if (terrPlayerList.get(0).getArmyCount() == 2) {
+                        attackerDice = 1;
+                    } else if (terrPlayerList.get(0).getArmyCount() <= 3) {
                         attackerDice = 1 + new Random().nextInt(2);
                     } else {
                         attackerDice = 1 + new Random().nextInt(3);
@@ -77,7 +80,7 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
                         defenderDice = 1 + new Random().nextInt(2);
                     }
 
-                    ConfigurableMessage resultCode = AttackPhaseUtility.getInstance().attackPhase(terrPlayerList.get(0), defenderTerr, attackerDice, defenderDice);
+                    resultCode = AttackPhaseUtility.getInstance().attackPhase(terrPlayerList.get(0), defenderTerr, attackerDice, defenderDice);
                     if (resultCode.getMsgCode() == Constants.MSG_SUCC_CODE) {
                         if (defenderTerr.getArmyCount() == 0) {
                             AttackPhaseUtility.getInstance().captureTerritory(terrPlayerList.get(0), defenderTerr, (attackerDice + new Random().nextInt(terrPlayerList.get(0).getArmyCount() - attackerDice)));
@@ -96,7 +99,7 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
 
         }
         FileManager.getInstance().writeLog("Random player attack phase ended !! ");
-        return null;
+        return resultCode;
     }
 
     @Override

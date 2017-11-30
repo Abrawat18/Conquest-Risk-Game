@@ -53,6 +53,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -219,10 +221,10 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             // Send result to tournament result
             Intent intent = getIntent();
             Bundle bundle = intent.getExtras();
-            if(bundle!=null){
+            if (bundle != null) {
                 bundle.putSerializable(Constants.KEY_TOURNAMENT_RESULT_LIST, (Serializable) tournamentResultList);
             }
-            Intent tournamentIntent = new Intent(this,TournamentResultActivity.class);
+            Intent tournamentIntent = new Intent(this, TournamentResultActivity.class);
             tournamentIntent.putExtras(bundle);
             startActivity(tournamentIntent);
             return;
@@ -295,18 +297,32 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * Changing game phase
      */
     public void changeGamePhase() {
-        if (getMap() != null) {
-            ConfigurableMessage configurableMessage = getMap().playerWonTheGame(getPlayerTurn());
-            if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
-                toastMessageFromBackground(configurableMessage.getMsgText());
-                endGame(getPlayerTurn());
-                //code to end game
+        showMap();
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (getMap() != null) {
+                            ConfigurableMessage configurableMessage = getMap().playerWonTheGame(getPlayerTurn());
+                            if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
+                                toastMessageFromBackground(configurableMessage.getMsgText());
+                                endGame(getPlayerTurn());
+                                //code to end game
+                            } else {
+                                getMap().getGamePhaseManager().changePhase();
+                                loadGamePhase();
+                            }
+                        }
+                    }
+                });
+
             }
-            else {
-                getMap().getGamePhaseManager().changePhase();
-                loadGamePhase();
-            }
-        }
+        }, 500);
+
+
     }
 
     /**
@@ -323,7 +339,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 StartUpPhaseController.getInstance().setContext(this).startStartUpPhase();
                 break;
             case GamePhaseManager.PHASE_REINFORCEMENT:
-                showMap();
                 btnStopAttack.setVisibility(View.GONE);
                 btnNewAttack.setVisibility(View.GONE);
                 btnStopFortification.setVisibility(View.GONE);
@@ -382,12 +397,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             textViewPlayerDominationList.get(player.getPlayerId() - 1).setBackgroundColor(playerColor[playerColor.length - player.getPlayerId()]);
         }
         FileManager.getInstance().writeLog("Updated world domination view!!");
-        ConfigurableMessage configurableMessage = getMap().playerWonTheGame(getPlayerTurn());
-        if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
-            toastMessageFromBackground(configurableMessage.getMsgText());
-            endGame(getPlayerTurn());
-            //code to end game
-        }
     }
 
     /**
@@ -395,36 +404,50 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      *
      * @param playerWon
      */
-    public void endGame(Player playerWon) {
+    public void endGame(final Player playerWon) {
         showMap();
-        if (fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
-            TournamentResultModel tournamentResultModel = new TournamentResultModel();
-            tournamentResultModel.setGameNumber(gamePlayed);
-            tournamentResultModel.setPlayerWon(playerWon);
-            tournamentResultModel.setPlayMap(selectedMapListForTournamentMode.get(mapPlayed));
-            tournamentResultList.add(tournamentResultModel);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!TextUtils.isEmpty(fromGameMode) && fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
+                            if (mapPlayed < selectedMapListForTournamentMode.size()) {
+                                TournamentResultModel tournamentResultModel = new TournamentResultModel();
+                                tournamentResultModel.setGameNumber(gamePlayed);
+                                tournamentResultModel.setPlayerWon(playerWon);
+                                tournamentResultModel.setPlayMap(selectedMapListForTournamentMode.get(mapPlayed));
+                                tournamentResultList.add(tournamentResultModel);
+                            }
+                            gamePlayed++;
+                            if (gamePlayed >= totalGamesForTournamentMode) {
+                                gamePlayed = 0;
+                                mapPlayed++;
+                            }
 
-            gamePlayed++;
-            if (gamePlayed >= totalGamesForTournamentMode) {
-                gamePlayed = 0;
-                mapPlayed++;
-            }
-
-            initializeTournamentMode();
-            return;
-        }else {
-            SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
-            sweetAlertDialog.setCancelable(false);
-            sweetAlertDialog.setTitleText("Game Ends! Player" + playerWon.getPlayerId() + " Won the game!!")
-                    .setConfirmText("Ok")
-                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                            finish();
+                            initializeTournamentMode();
+                            return;
+                        } else {
+                            SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(GamePlayActivity.this, SweetAlertDialog.NORMAL_TYPE);
+                            sweetAlertDialog.setCancelable(false);
+                            sweetAlertDialog.setTitleText("Game Ends! Player" + playerWon.getPlayerId() + " Won the game!!")
+                                    .setConfirmText("Ok")
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                            sweetAlertDialog.dismiss();
+                                        }
+                                    })
+                                    .show();
                         }
-                    })
-                    .show();
-        }
+                    }
+                });
+
+            }
+        }, 500);
+
     }
 
     /**
@@ -563,24 +586,27 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             paintNoOfArmies.setColor(Color.BLACK);
             paintNoOfArmies.setTextSize(35f);
             paintText.setTypeface(Typeface.create("Arial", Typeface.BOLD));
-
-            canvas = surface.getHolder().lockCanvas();
-            if (canvas != null) {
-                for (Territory territory : map.getTerritoryList()) {
-                    Paint paint = new Paint();
-                    paint.setColor(territory.getContinent().getContColor());
-                    canvas.drawCircle(territory.getCenterPoint().x, territory.getCenterPoint().y, Constants.TERRITORY_RADIUS, paint);
-                    for (Territory territoryNeighbour : territory.getNeighbourList()) {
-                        canvas.drawLine(territory.getCenterPoint().x, territory.getCenterPoint().y, territoryNeighbour.getCenterPoint().x, territoryNeighbour.getCenterPoint().y, linePaint);
+            try {
+                canvas = surface.getHolder().lockCanvas();
+                if (canvas != null) {
+                    for (Territory territory : map.getTerritoryList()) {
+                        Paint paint = new Paint();
+                        paint.setColor(territory.getContinent().getContColor());
+                        canvas.drawCircle(territory.getCenterPoint().x, territory.getCenterPoint().y, Constants.TERRITORY_RADIUS, paint);
+                        for (Territory territoryNeighbour : territory.getNeighbourList()) {
+                            canvas.drawLine(territory.getCenterPoint().x, territory.getCenterPoint().y, territoryNeighbour.getCenterPoint().x, territoryNeighbour.getCenterPoint().y, linePaint);
+                        }
                     }
+                    for (Territory territory : map.getTerritoryList()) {
+                        String playerID = Integer.toString(territory.getTerritoryOwner().getPlayerId());
+                        String noOfArmies = Integer.toString(territory.getArmyCount());
+                        canvas.drawText(("P" + playerID), (territory.getCenterPoint().x) - 30, (territory.getCenterPoint().y) - 20, paintText);
+                        canvas.drawText(noOfArmies, territory.getCenterPoint().x + 10, territory.getCenterPoint().y + 10, paintNoOfArmies);
+                    }
+                    surface.getHolder().unlockCanvasAndPost(canvas);
                 }
-                for (Territory territory : map.getTerritoryList()) {
-                    String playerID = Integer.toString(territory.getTerritoryOwner().getPlayerId());
-                    String noOfArmies = Integer.toString(territory.getArmyCount());
-                    canvas.drawText(("P" + playerID), (territory.getCenterPoint().x) - 30, (territory.getCenterPoint().y) - 20, paintText);
-                    canvas.drawText(noOfArmies, territory.getCenterPoint().x + 10, territory.getCenterPoint().y + 10, paintNoOfArmies);
-                }
-                surface.getHolder().unlockCanvasAndPost(canvas);
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
 
         }

@@ -1,10 +1,12 @@
-package com.app_team11.conquest.model;
+package com.app_team11.conquest.utility;
 
 import com.app_team11.conquest.global.Constants;
-import com.app_team11.conquest.interfaces.PlayerStrategyListener;
-import com.app_team11.conquest.utility.ConfigurableMessage;
-
-import junit.framework.Assert;
+import com.app_team11.conquest.model.AggressivePlayerStrategy;
+import com.app_team11.conquest.model.Cards;
+import com.app_team11.conquest.model.Continent;
+import com.app_team11.conquest.model.GameMap;
+import com.app_team11.conquest.model.Player;
+import com.app_team11.conquest.model.Territory;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,12 +17,11 @@ import java.util.List;
 import static junit.framework.Assert.assertEquals;
 
 /**
- * Created by Nigel on 27-Nov-17.
- * Test for aggressive player attack method
+ * Created by Nigel on 30-Nov-17.
+ * Test to check Save Game Functionality
  */
 
-public class AggressivePlayerStrategyTest
-{
+public class SaveGameFunctionalityTest {
     List<Territory> territoryList;
     Player attacker,defender;
     Territory attackerTerritory,defenderTerritory;
@@ -30,6 +31,7 @@ public class AggressivePlayerStrategyTest
     Cards infantry,cavalry;
     ConfigurableMessage configurableMessage;
     GameMap map;
+    FileManager fileManager;
 
     @Before
     public void setUp()
@@ -40,7 +42,7 @@ public class AggressivePlayerStrategyTest
         cardList=new ArrayList<Cards>();
         attacker=new Player();
         defender=new Player();
-        infantry=new Cards(attackerTerritory,Constants.ARMY_INFANTRY);
+        infantry=new Cards(attackerTerritory, Constants.ARMY_INFANTRY);
         cavalry=new Cards(defenderTerritory,Constants.ARMY_CAVALRY);
         cardList.add(infantry);
         cardList.add(cavalry);
@@ -57,7 +59,7 @@ public class AggressivePlayerStrategyTest
         territoryList=new ArrayList<Territory>();
         attackerTerritory=new Territory("Territory1");
         attackerTerritory.setTerritoryOwner(attacker);
-        attackerTerritory.setArmyCount(2);
+        attackerTerritory.setArmyCount(5);
         attackerTerritory.setContinent(continent1);
 
 
@@ -91,7 +93,7 @@ public class AggressivePlayerStrategyTest
         map.setPlayerList(playerList);
         map.setTerritoryList(territoryList);
         map.setCardList(cardList);
-
+        fileManager=FileManager.getInstance();
     }
 
     @Test
@@ -105,19 +107,12 @@ public class AggressivePlayerStrategyTest
         //Attack Phase
         configurableMessage = attacker.attackPhase(map);
         assertEquals(Constants.ATTACK_SUCCESS_STRATEGY, configurableMessage.getMsgText());
+        System.out.println("Attacker Armies: "+attackerTerritory.getArmyCount());
     }
     @Test
-    public void aggressiveReinforcementPhase() {
-        //Reinforcement phase
-        configurableMessage = attacker.reInforcementPhase(map);
-        assertEquals(Constants.REINFORCEMENT_SUCCESS_STRATEGY, configurableMessage.getMsgText());
-    }
-    @Test
-    public void aggressiveFortificationPhase()
+    public void saveMapTest()
     {
-        //Fortification Phase
-        configurableMessage=attacker.fortificationPhase(map);
-        assertEquals(Constants.FORTIFICATION_SUCCESS,configurableMessage.getMsgText());
 
     }
+
 }
