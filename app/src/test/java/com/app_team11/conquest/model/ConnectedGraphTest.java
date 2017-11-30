@@ -16,7 +16,7 @@ import static junit.framework.Assert.assertTrue;
  * Check for connected graph after adding continent
  */
 
-public class GameMapTest11 {
+public class ConnectedGraphTest {
 
     private String filePath;
     private GameMap map;
@@ -32,6 +32,11 @@ public class GameMapTest11 {
         continent.setScore(5);
         TerrConnect=new Territory();
     }
+
+    /**
+     * test for connected territories
+     * @throws Exception
+     */
     @Test
     public void addUnconnectedContinentTest() throws Exception
     {

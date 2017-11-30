@@ -18,7 +18,7 @@ import static junit.framework.Assert.assertEquals;
  *
  */
 
-public class PlayerTest4 {
+public class InvalidAttackPhaseTest {
 
     List<Territory> territoryList;
     Player player1,player2;
@@ -49,6 +49,9 @@ public class PlayerTest4 {
 
     }
 
+    /**
+     * test for invalid attack scenario
+     */
     @Test
     public void invalidAttack()
     {

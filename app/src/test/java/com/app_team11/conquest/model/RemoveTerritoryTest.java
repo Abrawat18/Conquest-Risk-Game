@@ -15,7 +15,7 @@ import static junit.framework.Assert.assertEquals;
  * Remove territory test
  */
 
-public class GameMapTest7 {
+public class RemoveTerritoryTest {
     private List<Continent> continentList;
     private List<Territory> territoryList;
     private GameMap gameMap;
@@ -53,6 +53,9 @@ public class GameMapTest7 {
     }
 
 
+    /**
+     * test to check whether territory is removed successfully
+     */
     @Test
     public void invalidTerritoryCondition()
     {

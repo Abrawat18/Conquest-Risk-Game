@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
  * Checks whether the graph formed is connected
  */
 
-public class GameMapTest9 {
+public class UnconnectedGraphTest {
 
     private String filePath;
     private boolean failed;

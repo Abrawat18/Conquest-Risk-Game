@@ -16,7 +16,7 @@ import static junit.framework.Assert.assertEquals;
  * Checks for valid attack phase
  */
 
-public class PlayerTest6 {
+public class AttackPhaseTest {
     List<Territory> territoryList;
     Player attacker,defender;
     Territory attackerTerritory,defenderTerritory;
@@ -52,6 +52,9 @@ public class PlayerTest6 {
 
     }
 
+    /**
+     * test for attack phase
+     */
     @Test
     public void attackPhase()
     {

@@ -13,23 +13,28 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by Nigel on 07-Nov-17.
- * Validate capture territory method
+ * Checks for scenario when player not eliminated
  */
 
-public class PlayerTest8 {
+
+public class PlayerNotEliminatedTest {
+
+
     List<Territory> territoryList;
     Player player1,player2,player3;
     Territory attackerTerritory,defenderTerritory;
-    ConfigurableMessage configurableMessage;
+    ConfigurableMessage cm;
+    GameMap map;
 
     @Before
     public void setUp()
     {
+        map=new GameMap();
+        player3=new Player();
+        territoryList=new ArrayList<Territory>();
         player1=new Player();
         player1.setAvailableArmyCount(10);
         player1.setPlayerId(0);
-        player3=new Player();
-        territoryList=new ArrayList<Territory>();
 
         for(int i=0;i<2;i++)
         {
@@ -49,28 +54,32 @@ public class PlayerTest8 {
 
         List<Territory> testList=new ArrayList<Territory>();
         testList.add(defenderTerritory);
-        territoryList.get(1).addRemoveNeighbourToTerr(defenderTerritory,'A');
-
+        attackerTerritory.addRemoveNeighbourToTerr(defenderTerritory,'A');
+        territoryList.add(2,defenderTerritory);
+        map.setTerritoryList(territoryList);
     }
 
+    /**
+     * test scenario to check when player is not eliminated
+     */
     @Test
-    public void attackPhase()
+    public void invalidEliminatedPlayer()
     {
-        configurableMessage=player3.validateAttackBetweenTerritories(attackerTerritory,defenderTerritory);
-        assertEquals(Constants.SUCCESS,configurableMessage.getMsgText());
+        cm=player3.validateAttackBetweenTerritories(attackerTerritory,defenderTerritory);
+        assertEquals(Constants.SUCCESS,cm.getMsgText());
 
-        configurableMessage=player3.attackPhase(attackerTerritory,defenderTerritory,3,2);
-        System.out.println(configurableMessage.getMsgText());
+        cm=player3.attackPhase(attackerTerritory,defenderTerritory,3,2);
+        System.out.println(cm.getMsgText());
 
-        if(configurableMessage.getMsgCode()==1)
+        if(cm.getMsgCode()==1)
         {
-            configurableMessage=player3.captureTerritory(attackerTerritory,defenderTerritory,6);
-            assertEquals(Constants.LEAVE_ONE_ARMY,configurableMessage.getMsgText());
-
-            configurableMessage=player3.captureTerritory(attackerTerritory,defenderTerritory,5);
-            assertEquals(Constants.SUCCESS,configurableMessage.getMsgText());
-
+            defenderTerritory.setTerritoryOwner(attackerTerritory.getTerritoryOwner());
+            cm=map.eliminatedPlayer(attackerTerritory,defenderTerritory);
+            //Player has not been eliminated yet
+            assertEquals(Constants.MSG_FAIL_CODE,cm.getMsgCode());
         }
 
     }
 }
+
+

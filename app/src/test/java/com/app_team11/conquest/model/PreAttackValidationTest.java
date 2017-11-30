@@ -16,7 +16,7 @@ import static junit.framework.Assert.assertEquals;
  * Created by Nigel on 06-Nov-17.
  */
 
-public class PlayerTest1 {
+public class PreAttackValidationTest {
 
     List<Territory> territoryList;
     List<Player> playerList;
@@ -51,8 +51,11 @@ public class PlayerTest1 {
 
     }
 
+    /**
+     * test for pre-validation attack
+     */
     @Test
-    public void validateForAttack()
+    public void preValidationForAttack()
     {
         cm=new Player().isAdjacentTerritory(territoryList.get(0),territoryList.get(1));
         assertEquals(Constants.MSG_FAIL_CODE,cm.getMsgCode());

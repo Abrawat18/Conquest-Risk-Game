@@ -13,10 +13,10 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by Nigel on 07-Nov-17.
- * Checks for valid eliminated player condition
+ * Checks for player won the game condition which is invalid
  */
 
-public class GameMapTest2 {
+public class WinConditionTest {
     List<Territory> territoryList;
     Player player1,player2,player3;
     Territory territory,territory3;
@@ -27,11 +27,11 @@ public class GameMapTest2 {
     public void setUp()
     {
         map=new GameMap();
+        player3=new Player();
+        territoryList=new ArrayList<Territory>();
         player1=new Player();
         player1.setAvailableArmyCount(10);
         player1.setPlayerId(0);
-        player3=new Player();
-        territoryList=new ArrayList<Territory>();
 
         for(int i=0;i<2;i++)
         {
@@ -57,7 +57,7 @@ public class GameMapTest2 {
     }
 
     @Test
-    public void validEliminatedPlayer()
+    public void invalidPlayerWonCondition()
     {
         cm=player3.validateAttackBetweenTerritories(territoryList.get(1),territory3);
         assertEquals(Constants.SUCCESS,cm.getMsgText());
@@ -67,10 +67,10 @@ public class GameMapTest2 {
 
         if(cm.getMsgCode()==1)
         {
-            territory3.setTerritoryOwner(territoryList.get(1).getTerritoryOwner());
-            cm=map.eliminatedPlayer(territoryList.get(1),territory3);
+            cm=map.playerWonTheGame(territoryList.get(1).getTerritoryOwner());
             assertEquals(Constants.MSG_FAIL_CODE,cm.getMsgCode());
         }
 
     }
 }
+

@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  * Check for file read
  */
 
-public class GameMapTest1 {
+public class ReadFileTest {
     private String filePath;
     private boolean failed;
     private File f;
@@ -31,8 +31,11 @@ public class GameMapTest1 {
         currentSize=0;
     }
 
+    /**
+     * test for read functionality test
+     */
     @Test
-    public void gameMapFunctionalityTest() {
+    public void readFunctionalityTest() {
         ReadMapUtility readTest = new ReadMapUtility();
         GameMap gameMap = readTest.readFile(System.getProperty("user.dir") + File.separator + filePath);
         //System.out.println("map is" + gameMap);

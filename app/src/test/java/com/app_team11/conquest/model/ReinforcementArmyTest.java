@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
  * Created by Nigel on 10/19/2017.
  * Check for calculation of reinforcement armies.
  */
-public class PlayerTest {
+public class ReinforcementArmyTest {
     private List<Territory> territoryList;
     private List<Player> playerList;
     private List<Cards> cardListOwned;
@@ -79,6 +79,11 @@ public class PlayerTest {
         map.setPlayerList(playerList);
 
    }
+
+    /**
+     * test to check correct calculation of reinforcement armies
+     * @throws Exception
+     */
     @Test
     public void calcReinforcementArmy() throws Exception
     {

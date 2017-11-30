@@ -16,7 +16,7 @@ import static junit.framework.Assert.assertTrue;
  * Created by Nigel on 25-Nov-17.
  */
 
-public class GameMapTest10 {
+public class UnconnectedContinentTest {
 
     private String filePath;
     private boolean failed;

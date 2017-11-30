@@ -94,24 +94,39 @@ public class AggressivePlayerStrategyTest
 
     }
 
+    /**
+     * test for aggressive player startup phase
+     */
     @Test
     public void aggressiveStartupPhase() {
         //Startup Phase
         configurableMessage = attacker.startupPhase(map);
         assertEquals(Constants.SUCCESS, configurableMessage.getMsgText());
     }
+
+    /**
+     * test for aggressive player attack phase
+     */
     @Test
     public void aggressiveAttackPhase() {
         //Attack Phase
         configurableMessage = attacker.attackPhase(map);
         assertEquals(Constants.ATTACK_SUCCESS_STRATEGY, configurableMessage.getMsgText());
     }
+
+    /**
+     * test for aggressive player reinforcement phase
+     */
     @Test
     public void aggressiveReinforcementPhase() {
         //Reinforcement phase
         configurableMessage = attacker.reInforcementPhase(map);
         assertEquals(Constants.REINFORCEMENT_SUCCESS_STRATEGY, configurableMessage.getMsgText());
     }
+
+    /**
+     * test for aggressive player fortification phase
+     */
     @Test
     public void aggressiveFortificationPhase()
     {

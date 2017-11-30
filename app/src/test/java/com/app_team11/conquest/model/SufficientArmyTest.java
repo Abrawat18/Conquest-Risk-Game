@@ -14,7 +14,7 @@ import static junit.framework.Assert.assertEquals;
  * Validation conditions to check for sufficient armies
  */
 
-public class PlayerTest2 {
+public class SufficientArmyTest {
     Territory attackerTerritory;
     ConfigurableMessage cm;
 
@@ -24,6 +24,10 @@ public class PlayerTest2 {
         attackerTerritory=new Territory();
         attackerTerritory.setArmyCount(3);
     }
+
+    /**
+     * test to check for sufficient armies before attack
+     */
     @Test
     public void validateNumberOfArmies()
     {

@@ -15,7 +15,7 @@ import static junit.framework.Assert.assertTrue;
  * Check for invalid map file
  */
 
-public class GameMapTest12
+public class InvalidMapTest
 {
     private String filePath;
     private GameMap map;
@@ -31,6 +31,11 @@ public class GameMapTest12
         continent.setContName("Test Continent");
         continent.setScore(5);
     }
+
+    /**
+     * test for unconnected continent test
+     * @throws Exception
+     */
     @Test
     public void addUnconnectedContinentTest() throws Exception
     {

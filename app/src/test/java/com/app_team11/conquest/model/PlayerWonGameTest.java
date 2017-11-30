@@ -13,14 +13,12 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by Nigel on 07-Nov-17.
- * Checks for scenario when player not eliminated
+ * Checks for valid playerWonTheGame condition
  */
 
-
-public class GameMapTest3 {
-
-
+public class PlayerWonGameTest {
     List<Territory> territoryList;
+    //3 players in the game
     Player player1,player2,player3;
     Territory attackerTerritory,defenderTerritory;
     ConfigurableMessage cm;
@@ -54,29 +52,31 @@ public class GameMapTest3 {
 
         List<Territory> testList=new ArrayList<Territory>();
         testList.add(defenderTerritory);
-        attackerTerritory.addRemoveNeighbourToTerr(defenderTerritory,'A');
+        territoryList.get(1).addRemoveNeighbourToTerr(defenderTerritory,'A');
         territoryList.add(2,defenderTerritory);
         map.setTerritoryList(territoryList);
     }
 
+    /**
+     * test to check whether player won
+     */
     @Test
-    public void invalidEliminatedPlayer()
+    public void validPlayerWon()
     {
         cm=player3.validateAttackBetweenTerritories(attackerTerritory,defenderTerritory);
+        //attack should be valid
         assertEquals(Constants.SUCCESS,cm.getMsgText());
 
-        cm=player3.attackPhase(attackerTerritory,defenderTerritory,3,2);
+        cm=player3.attackPhase(territoryList.get(1),defenderTerritory,3,2);
         System.out.println(cm.getMsgText());
 
         if(cm.getMsgCode()==1)
         {
-            defenderTerritory.setTerritoryOwner(attackerTerritory.getTerritoryOwner());
-            cm=map.eliminatedPlayer(attackerTerritory,defenderTerritory);
-            //Player has not been eliminated yet
-            assertEquals(Constants.MSG_FAIL_CODE,cm.getMsgCode());
+            defenderTerritory.setTerritoryOwner(territoryList.get(1).getTerritoryOwner());
+            cm=map.playerWonTheGame(territoryList.get(1).getTerritoryOwner());
+            System.out.println("=="+cm.getMsgText());
+            assertEquals(Constants.MSG_SUCC_CODE,cm.getMsgCode());
         }
 
     }
 }
-
-

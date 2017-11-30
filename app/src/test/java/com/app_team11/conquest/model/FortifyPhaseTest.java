@@ -22,7 +22,7 @@ import static junit.framework.Assert.assertEquals;
  * invalid Fortify Phase Test
  */
 
-public class TerritoryTest1 {
+public class FortifyPhaseTest {
     private List<Territory> territoryList;
     private List<Player> playerList;
     private List<Continent> continentList;
@@ -60,6 +60,9 @@ public class TerritoryTest1 {
         territoryList.get(1).setTerritoryOwner(playerList.get(0));
     }
 
+    /**
+     * test for invalid fortification phase scenario
+     */
     @Test
     public void invalidFortifyPhase()
     {

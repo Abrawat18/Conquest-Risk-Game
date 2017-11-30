@@ -13,7 +13,7 @@ import static junit.framework.Assert.assertEquals;
  * Checks whether defender territory can be captured
  */
 
-public class PlayerTest3 {
+public class TerritoryCaptureTest {
     Territory defenderTerritory;
     ConfigurableMessage cm;
     @Before

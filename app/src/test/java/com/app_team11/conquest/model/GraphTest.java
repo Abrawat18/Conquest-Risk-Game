@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
  * Check for connected graph
  */
 
-public class GameMapTest8 {
+public class GraphTest {
     private String filePath;
     private boolean failed;
     GameMap gameMap;
@@ -29,8 +29,12 @@ public class GameMapTest8 {
         failed=false;
         gameMap=new GameMap();
     }
+
+    /**
+     * test for connected graph test
+     */
     @Test
-    public void validMapTest()
+    public void connectedGraphTest()
     {
         ReadMapUtility readTest=new ReadMapUtility();
 

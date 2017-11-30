@@ -15,7 +15,7 @@ import static junit.framework.Assert.assertEquals;
  * Checks for invalid territory condition
  */
 
-public class GameMapTest6
+public class AddTerritoryTest
 {
     private List<Continent> continentList;
     private List<Territory> territoryList;
@@ -54,7 +54,7 @@ public class GameMapTest6
     }
 
     /**
-     * Checks whether one more neighbouring territory can be added to
+     * Checks whether one more neighbouring territory can be added to territory
      */
     @Test
     public void invalidTerritoryCondition()
