@@ -44,13 +44,15 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
     private List<Territory> needToPlaceTerrArmyList;
     private CardListAdapter cardListAdapter;
 
+    /**
+     * Default Constructor for Reinforcement phase
+     */
     private ReinforcementPhaseController() {
 
     }
 
     /**
      * singleton implementation for Reinforcement controller
-     *
      * @return returns the class object
      */
     public static ReinforcementPhaseController getInstance() {
@@ -63,8 +65,8 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
     /**
      * setting the context variable for reinforcement phase
      *
-     * @param context
-     * @return
+     * @param context : parameter for referencing reinforcement phase
+     * @return : returns the instance based on the touch listner
      */
     public ReinforcementPhaseController setContext(Context context) {
         this.context = context;
@@ -102,8 +104,8 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
     /**
      * {@inheritDoc}
      *
-     * @param v
-     * @param event
+     * @param v Initialize the view based on the layout defined in XML
+     * @param event Defines the event for the on touch
      */
     @Override
     public void onTouch(View v, MotionEvent event) {
@@ -202,8 +204,7 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Returns GamePlayActivity
-     *
-     * @return GamePlayActivity
+     * @return GamePlayActivity : This getter returns the GamePlayActivity
      */
     public GamePlayActivity getActivity() {
         return (GamePlayActivity) context;

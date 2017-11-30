@@ -45,7 +45,7 @@ public class GameLogController {
 
     /**
      * Getting the instance of GameLogController
-     * @return gameLogController
+     * @return gameLogController : Returns the log for game
      */
     public static GameLogController getInstance() {
         if (gameLogController == null) {
@@ -56,7 +56,7 @@ public class GameLogController {
 
     /**
      * Context Initialization
-     * @param context
+     * @param context : sets the reference for initialization
      */
     public void initialization(Context context) {
 
@@ -68,7 +68,7 @@ public class GameLogController {
 
     /**
      * Creation of context for the GamePlayActivity
-     * @return GamePlayActivity
+     * @return GamePlayActivity : Game Play activity is returned
      */
     public GameLogActivity getActivity() {
         return (GameLogActivity) context;

@@ -46,7 +46,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 /**
  * For editing and making new maps this controller class is called
  * Created by Abhishek on 31-Oct-17.
- *
  * @version 1.0.0
  */
 
@@ -80,14 +79,16 @@ public class MapEditorController {
     private EditText editContinentScore;
     private LinearLayout myLayout;
 
+    /**
+     * Default Constructor
+     */
     private MapEditorController() {
 
     }
 
     /**
      * Getting the instance of MapEditorController
-     *
-     * @return MapEditorController
+     * @return MapEditorController : default constructor is resturned
      */
     public static MapEditorController getInstance() {
         if (mapEditorController == null) {
@@ -106,8 +107,7 @@ public class MapEditorController {
 
     /**
      * decides whether the map is loaded from the file or a new map is to be created
-     *
-     * @throws JSONException
+     * @throws JSONException : Throws exception for JSON
      */
     public void initialization(Context context) throws JSONException {
         this.context = context;
@@ -138,8 +138,7 @@ public class MapEditorController {
 
     /**
      * Setting continent for the map
-     *
-     * @param position
+     * @param position : The parameter is position of the view
      */
     public void onClickContinent(int position) {
         selectedContinent = map.getContinentList().get(position);
@@ -150,8 +149,7 @@ public class MapEditorController {
 
     /**
      * Placing territory in continent
-     *
-     * @param position
+     * @param position : parameter which defines the position for the territory
      */
     public void onLongClickTerritory(final int position) {
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
@@ -171,8 +169,7 @@ public class MapEditorController {
 
     /**
      * Confirmation of placement of territory
-     *
-     * @param position
+     * @param position : Parameter for the territory position
      */
     public void onClickSuggestTerritory(final int position) {
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
@@ -192,8 +189,7 @@ public class MapEditorController {
 
     /**
      * Confirmation to remove the continent
-     *
-     * @param position
+     * @param position : defines the position for the on click continent
      */
     public void onLongClickContinent(final int position) {
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
@@ -213,8 +209,7 @@ public class MapEditorController {
 
     /**
      * Confirmation to add continent
-     *
-     * @param position
+     * @param position : Parameter for the suggested continent position
      */
     public void onClickSuggestContinent(final int position) {
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
@@ -238,7 +233,7 @@ public class MapEditorController {
     /**
      * method to fetch the list of territories from json file
      *
-     * @throws JSONException
+     * @throws JSONException : Exception handling for JSON
      */
     private void getSuggestedTerritoryList() throws JSONException {
         territorySuggestList = MapManager.getInstance().getTerritoryListFromFile(getActivity());
@@ -252,8 +247,7 @@ public class MapEditorController {
 
     /**
      * adapter for territory
-     *
-     * @param territoryList
+     * @param territoryList : parameter for the list of territories
      */
     private void setAdapterForTerritory(List<Territory> territoryList) {
         territoryAdapter.setTerritoryList(territoryList);
@@ -263,7 +257,7 @@ public class MapEditorController {
     /**
      * method to fetch the list of continents from json file
      *
-     * @throws JSONException
+     * @throws JSONException : Exception handling for JSON
      */
     private void getSuggestedContinentList() throws JSONException {
         continentSuggestList = MapManager.getInstance().getContinentListFromFile(getActivity());
@@ -284,6 +278,10 @@ public class MapEditorController {
             showMap();
         }
 
+        /**
+         *
+         * @param holder : Holder parameter for the surface
+         */
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {
 
@@ -292,10 +290,10 @@ public class MapEditorController {
 
         /**
          * Changes the surface dimensions
-         * @param holder
-         * @param format
-         * @param width
-         * @param height
+         * @param holder : defines the surface holder
+         * @param format : defines the format of the surface
+         * @param width : defines the width of the surface
+         * @param height : defines the height of the surface
          */
         @Override
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
@@ -304,8 +302,7 @@ public class MapEditorController {
 
     /**
      * Showing the message
-     *
-     * @param msg
+     * @param msg : Parameter for displaying the message
      */
     private void showToast(String msg) {
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
@@ -335,9 +332,7 @@ public class MapEditorController {
 
     /**
      * Set the map on the screen
-     *
-     *
-     * @param map
+     * @param map : Parameter for setting Game map
      */
     private void setMap(GameMap map) {
         this.map = map;
@@ -485,9 +480,9 @@ public class MapEditorController {
     /**
      * Motion event capture
      *
-     * @param v
-     * @param event
-     * @return
+     * @param v : Defines the view when touch is called on the screen
+     * @param event : Defines the event when the touch is called on the screen
+     * @return boolean : true or false value is returned
      */
     public boolean onTouch(View v, MotionEvent event) {
 
@@ -538,8 +533,7 @@ public class MapEditorController {
 
     /**
      * Returns the MapEditorActivity
-     *
-     * @return MapEditorActivity
+     * @return MapEditorActivity : Map Editor activity is returned when this getter is called.
      */
     public MapEditorActivity getActivity() {
         return (MapEditorActivity) context;

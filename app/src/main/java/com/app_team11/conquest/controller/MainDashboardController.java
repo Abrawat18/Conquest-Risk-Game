@@ -25,7 +25,7 @@ import com.app_team11.conquest.view.MapSelectionAndInitializationActivity;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
- *Launches the main dashboard activity
+ * Launches the main dashboard activity
  * Created by Abhishek on 31-Oct-17.
  * @version 1.0.0
  */
@@ -51,7 +51,7 @@ public class MainDashboardController {
 
     /**
      * Context Initialization
-     * @param context
+     * @param context Reference
      */
     public void initialization(Context context) {
 

@@ -39,7 +39,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
     private boolean phaseWonFlag;
 
     /**
-     * Default Constructor
+     * Default Constructor for attack phase
      */
     private AttackPhaseController() {
 
@@ -47,7 +47,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Flag set for won phase
-     * @param phaseWonFlag
+     * @param phaseWonFlag : flag is set when the player wins the phase
      */
     public void setPhaseWonFlag(boolean phaseWonFlag) {
         this.phaseWonFlag = phaseWonFlag;
@@ -55,7 +55,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Flag checking for won phase
-     * @return phaseWonFlag
+     * @return phaseWonFlag : flag is set when the player wins the phase
      */
     public boolean isPhaseWonFlag() {
         return phaseWonFlag;
@@ -63,7 +63,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Getting the instance of AtackPhaseController
-     * @return mainDashboardController
+     * @return mainDashboardController : returns to the main dashboard controller
      */
     public static AttackPhaseController getInstance() {
         if (instance == null) {
@@ -90,6 +90,13 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
      */
     public void startAttackPhase() {
 
+        if (!isAttackPossible()) {
+            FileManager.getInstance().writeLog("Attack not possible for player:"+getActivity().getPlayerTurn().getPlayerId()+" - "+getActivity().getPlayerTurn().getPlayerStrategyType());
+            getActivity().toastMessageFromBackground("Attack not Possible. Changing to Fortification Phase.");
+            getActivity().onAttackPhaseStopped();
+            return;
+        }
+
         // If not human player automatically select random tradIn cards from own card list
         if (!(getActivity().getPlayerTurn().getPlayerStrategyType()).equals(Constants.HUMAN_PLAYER_STRATEGY)) {
             getActivity().getPlayerTurn().attackPhase(getActivity().getMap());
@@ -98,11 +105,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
         }
 
         phaseWonFlag = false;
-        if (!isAttackPossible()) {
-            getActivity().toastMessageFromBackground("Attack not Possible. Changing to Fortification Phase.");
-            getActivity().onAttackPhaseStopped();
-            return;
-        }
+
         PhaseViewModel.getInstance().clearString();
         PhaseViewModel.getInstance().addPhaseViewContent("Attack Phase Player :"+getActivity().getPlayerTurn().getPlayerId());
         initializationAttackPhase();
@@ -143,8 +146,8 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
     /**
      * Getting the X and Y coordinate for the touch
      * {@inheritDoc}
-     * @param v
-     * @param event
+     * @param v The view on which the click is done, that object of the view is called.
+     * @param event This parameter sets the motion event
      */
     @Override
     public void onTouch(View v, MotionEvent event) {
@@ -265,8 +268,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
                                     ConfigurableMessage configurableMessage1 = getActivity().getMap().playerWonTheGame(getActivity().getPlayerTurn());
                                     if (configurableMessage1.getMsgCode() == Constants.MSG_SUCC_CODE) {
                                         getActivity().toastMessageFromBackground(configurableMessage1.getMsgText());
-                                        endGame(getActivity().getPlayerTurn());
-                                        //code to end game
+                                        getActivity().endGame(getActivity().getPlayerTurn());
                                     }
                                     sweetAlertDialog.dismiss();
                                 } else {
@@ -283,29 +285,12 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Creation of context for the GamePlayActivity
-     *
-     * @return GamePlayActivity
+     * @return GamePlayActivity : returns to the game play activity
      */
     public GamePlayActivity getActivity() {
         return (GamePlayActivity) context;
     }
 
-    /**
-     * Method for ending the game when the player wins
-     * @param playerWon
-     */
-    public void endGame(Player playerWon) {
 
-        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE);
-        sweetAlertDialog.setCancelable(false);
-        sweetAlertDialog.setTitleText("Game Ends! Player" + playerWon.getPlayerId() + " Won the game!!")
-                .setConfirmText("Ok")
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        getActivity().finish();
-                    }
-                })
-                .show();
-    }
 }
+s
