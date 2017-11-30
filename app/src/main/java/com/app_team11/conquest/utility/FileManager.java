@@ -169,7 +169,12 @@ public class FileManager {
             output.newLine();
         } catch (IOException e) {
             //e.printStackTrace();
-        } finally {
+        }
+        catch(Exception e)
+        {
+
+        }
+        finally {
             if (output != null) {
                 try {
                     output.close();
