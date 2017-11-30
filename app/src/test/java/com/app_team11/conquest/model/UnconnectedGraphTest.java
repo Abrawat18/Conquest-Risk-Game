@@ -29,8 +29,13 @@ public class UnconnectedGraphTest {
         failed=false;
         map=new GameMap();
     }
+
+    /**
+     * Test to check for unconnected territory
+     * @throws Exception in case of file input/output error
+     */
     @Test
-    public void invalidMapTest() throws Exception
+    public void unconnectedGraphTest() throws Exception
     {
         ReadMapUtility readTest=new ReadMapUtility();
         map=readTest.readFile(System.getProperty("user.dir") + File.separator + filePath);

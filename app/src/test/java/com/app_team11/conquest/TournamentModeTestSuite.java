@@ -27,9 +27,9 @@ import org.junit.runners.Suite;
     @RunWith(Suite.class)
 
     @Suite.SuiteClasses({
-            AggressivePlayerStrategyTest.class, //test for aggressive player strategy methods
-            BenevolentPlayerStrategyTest.class, //test for benevolent player strategy methods
-            RandomPlayerStrategyTest.class,     //test for random player strategy methods
+            AggressivePlayerStrategyTest.class,  //test for aggressive player strategy methods
+            BenevolentPlayerStrategyTest.class,  //test for benevolent player strategy methods
+            RandomPlayerStrategyTest.class,      //test for random player strategy methods
             CheaterPlayerStrategyTest.class,     //test for cheater player strategy methods
             SaveGameFunctionalityTest.class      //test for save game functionality
     })

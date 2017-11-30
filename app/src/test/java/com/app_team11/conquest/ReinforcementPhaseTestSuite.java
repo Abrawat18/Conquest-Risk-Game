@@ -13,10 +13,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-        ReinforcementArmyTest.class //reinforcement phase
-
-
-
+        ReinforcementArmyTest.class //test for reinforcement phase
 })
 public class ReinforcementPhaseTestSuite {
 }

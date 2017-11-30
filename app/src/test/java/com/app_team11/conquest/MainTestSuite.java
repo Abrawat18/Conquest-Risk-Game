@@ -12,11 +12,11 @@ package com.app_team11.conquest;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-        StartupPhaseTestSuite.class, //tests for startup phase
+        StartupPhaseTestSuite.class,       //tests for startup phase
         ReinforcementPhaseTestSuite.class, //tests for reinforcement phase
-        AttackPhaseTestSuite.class, //tests for attack phase
+        AttackPhaseTestSuite.class,        //tests for attack phase
         FortificationPhaseTestSuite.class, //tests for fortification phase
-        TournamentModeTestSuite.class //tests for tournament mode
+        TournamentModeTestSuite.class      //tests for tournament mode
 })
 /**
  * Test suite which contains all test classes
