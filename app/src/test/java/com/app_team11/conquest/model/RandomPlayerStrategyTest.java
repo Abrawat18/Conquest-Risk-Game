@@ -13,6 +13,7 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by Nigel on 30-Nov-17.
+ * Test for Random strategy class
  */
 
 public class RandomPlayerStrategyTest {
