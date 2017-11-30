@@ -227,6 +227,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             Intent tournamentIntent = new Intent(this, TournamentResultActivity.class);
             tournamentIntent.putExtras(bundle);
             startActivity(tournamentIntent);
+            finish();
             return;
         }
 
@@ -297,32 +298,18 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * Changing game phase
      */
     public void changeGamePhase() {
-        showMap();
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (getMap() != null) {
-                            ConfigurableMessage configurableMessage = getMap().playerWonTheGame(getPlayerTurn());
-                            if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
-                                toastMessageFromBackground(configurableMessage.getMsgText());
-                                endGame(getPlayerTurn());
-                                //code to end game
-                            } else {
-                                getMap().getGamePhaseManager().changePhase();
-                                loadGamePhase();
-                            }
-                        }
-                    }
-                });
-
+//        showMap();
+        if (getMap() != null) {
+            ConfigurableMessage configurableMessage = getMap().playerWonTheGame(getPlayerTurn());
+            if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
+                toastMessageFromBackground(configurableMessage.getMsgText());
+                endGame(getPlayerTurn());
+                //code to end game
+            } else {
+                getMap().getGamePhaseManager().changePhase();
+                loadGamePhase();
             }
-        }, 500);
-
-
+        }
     }
 
     /**
@@ -406,47 +393,35 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     public void endGame(final Player playerWon) {
         showMap();
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!TextUtils.isEmpty(fromGameMode) && fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
-                            if (mapPlayed < selectedMapListForTournamentMode.size()) {
-                                TournamentResultModel tournamentResultModel = new TournamentResultModel();
-                                tournamentResultModel.setGameNumber(gamePlayed);
-                                tournamentResultModel.setPlayerWon(playerWon);
-                                tournamentResultModel.setPlayMap(selectedMapListForTournamentMode.get(mapPlayed));
-                                tournamentResultList.add(tournamentResultModel);
-                            }
-                            gamePlayed++;
-                            if (gamePlayed >= totalGamesForTournamentMode) {
-                                gamePlayed = 0;
-                                mapPlayed++;
-                            }
-
-                            initializeTournamentMode();
-                            return;
-                        } else {
-                            SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(GamePlayActivity.this, SweetAlertDialog.NORMAL_TYPE);
-                            sweetAlertDialog.setCancelable(false);
-                            sweetAlertDialog.setTitleText("Game Ends! Player" + playerWon.getPlayerId() + " Won the game!!")
-                                    .setConfirmText("Ok")
-                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                        @Override
-                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                            sweetAlertDialog.dismiss();
-                                        }
-                                    })
-                                    .show();
-                        }
-                    }
-                });
-
+        if (!TextUtils.isEmpty(fromGameMode) && fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
+            if (mapPlayed < selectedMapListForTournamentMode.size()) {
+                TournamentResultModel tournamentResultModel = new TournamentResultModel();
+                tournamentResultModel.setGameNumber(gamePlayed);
+                tournamentResultModel.setPlayerWon(playerWon);
+                tournamentResultModel.setPlayMap(selectedMapListForTournamentMode.get(mapPlayed));
+                tournamentResultList.add(tournamentResultModel);
             }
-        }, 500);
+            gamePlayed++;
+            if (gamePlayed >= totalGamesForTournamentMode) {
+                gamePlayed = 0;
+                mapPlayed++;
+            }
+
+            initializeTournamentMode();
+            return;
+        } else {
+            SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(GamePlayActivity.this, SweetAlertDialog.NORMAL_TYPE);
+            sweetAlertDialog.setCancelable(false);
+            sweetAlertDialog.setTitleText("Game Ends! Player" + playerWon.getPlayerId() + " Won the game!!")
+                    .setConfirmText("Ok")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            sweetAlertDialog.dismiss();
+                        }
+                    })
+                    .show();
+        }
 
     }
 

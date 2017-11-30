@@ -94,10 +94,11 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
             FileManager.getInstance().writeLog("Assigning initial armies to each territory on start up...");
             getActivity().setPlayerTurn(getActivity().getMap().getPlayerList().get(0));
         }
-        assignInitialArmy();
         worldDominationViewSet();
         getActivity().updateDominationView();
         getActivity().getMap().assignCards();
+        assignInitialArmy();
+
     }
 
     /**

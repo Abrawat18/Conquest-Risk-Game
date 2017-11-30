@@ -22,12 +22,25 @@ import java.util.List;
 
 public class TournamentResultAdapter extends BaseAdapter {
 
+    private final int noOfGames;
+    private final ArrayList<String> distinctMap;
     private List<TournamentResultModel> resultList;
     private LayoutInflater inflater;
+    private int distinctMapCount;
 
     public TournamentResultAdapter(Context context, List<TournamentResultModel> resultList) {
         this.resultList = resultList;
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+
+        distinctMap = new ArrayList<>();
+        for (TournamentResultModel result : resultList) {
+            if (!distinctMap.contains(result.getPlayMap())) {
+                distinctMap.add(result.getPlayMap());
+            }
+        }
+        distinctMapCount = distinctMap.size();
+
+        noOfGames = resultList.size() / distinctMapCount;
     }
 
     /**
@@ -37,14 +50,7 @@ public class TournamentResultAdapter extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        List<String> distinctMap = new ArrayList<>();
-        for (TournamentResultModel result : resultList) {
-            if (!distinctMap.contains(result.getPlayMap())) {
-                distinctMap.add(result.getPlayMap());
-            }
-        }
-        int distinctMapCount = distinctMap.size();
-        return resultList.size()+distinctMapCount;
+        return resultList.size() + distinctMapCount;
     }
 
     /**
@@ -81,27 +87,13 @@ public class TournamentResultAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         }
         viewHolder = (ViewHolder) convertView.getTag();
-        viewHolder.winnerValue.setText(getItem(position).getPlayerWon().getPlayerStrategyType());
 
-        int totalSize = getCount();
-        List<String> distinctMap = new ArrayList<>();
-
-        for(TournamentResultModel result : resultList){
-            if(!distinctMap.contains(result.getPlayMap())){
-                distinctMap.add(result.getPlayMap());
-            }
+        if (position % (noOfGames+1) == 0) {
+            viewHolder.winnerValue.setText(distinctMap.get(position/noOfGames));
+        }else{
+            int newPosition = position - (position/noOfGames);
+            viewHolder.winnerValue.setText(getItem(newPosition ).getPlayerWon().getPlayerStrategyType());
         }
-        int distinctMapCount = distinctMap.size();
-        int noOfGames= resultList.size()/distinctMapCount;
-        int rowCounter=0;
-        if(position==((rowCounter*noOfGames)+1)){
-            viewHolder.winnerValue.setText(getItem(position).getPlayerWon().getPlayerStrategyType());
-        }
-        else{
-            viewHolder.winnerValue.setText(distinctMap.get(rowCounter));
-            rowCounter++;
-        }
-
         return convertView;
     }
 

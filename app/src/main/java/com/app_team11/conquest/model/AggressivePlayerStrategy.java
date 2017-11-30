@@ -23,7 +23,8 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Aggressive player StartupPhase started !!");
         if (gameMap.getTerrForPlayer(player) != null && gameMap.getTerrForPlayer(player).size() > 0) {
-            sortList(gameMap.getTerrForPlayer(player)).get(0).addArmyToTerr(1, false);
+            List<Territory> territoryList = sortList(gameMap.getTerrForPlayer(player));
+            territoryList.get(0).addArmyToTerr(1, false);
             FileManager.getInstance().writeLog("Aggressive player StartupPhase ended !!");
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
         }
@@ -33,15 +34,20 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
     @Override
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Aggressive player Reinforcement Phase started !!");
-        sortList(gameMap.getTerrForPlayer(player)).get(0).setArmyCount(gameMap.getTerrForPlayer(player).get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
-       // FileManager.getInstance().writeLog("Reinforcement phase started for Player :" + gameMap.getPlayerTurn().getPlayerId());
-        if (reinforcementType.getMatchedTerritoryList() != null) {
-            sortList(reinforcementType.getMatchedTerritoryList()).get(0).setArmyCount(reinforcementType.getMatchedTerritoryList().get(0).getArmyCount() + reinforcementType.getMatchedTerrCardReinforcement());
+        List<Territory> playerTerrList = gameMap.getTerrForPlayer(player);
+        if(playerTerrList!=null && playerTerrList.size()>0) {
+            playerTerrList = sortList(playerTerrList);
+            playerTerrList.get(0).setArmyCount(playerTerrList.get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
+            // FileManager.getInstance().writeLog("Reinforcement phase started for Player :" + gameMap.getPlayerTurn().getPlayerId());
+            if (reinforcementType.getMatchedTerritoryList() != null && reinforcementType.getMatchedTerritoryList().size() > 0) {
+                List<Territory> matchedTerrList = sortList(reinforcementType.getMatchedTerritoryList());
+                matchedTerrList.get(0).setArmyCount(matchedTerrList.get(0).getArmyCount() + reinforcementType.getMatchedTerrCardReinforcement());
+            }
+            FileManager.getInstance().writeLog("Aggressive player Reinforcement Phase ended !!");
+            return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.REINFORCEMENT_SUCCESS_STRATEGY);
         }
-        FileManager.getInstance().writeLog("Aggressive player Reinforcement Phase ended !!");
-        return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.REINFORCEMENT_SUCCESS_STRATEGY);
+        return new ConfigurableMessage(Constants.MSG_FAIL_CODE,Constants.REINFORCEMENT_FAILED_STRATEGY);
     }
-
 
     @Override
     public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
