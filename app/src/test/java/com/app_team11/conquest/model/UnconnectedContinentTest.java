@@ -81,7 +81,7 @@ public class UnconnectedContinentTest {
 
         map.getTerritoryList().add(terr);
         map.getContinentList().add(c);
-        //Hence, the map should not be connected i.e. assertion should be false
+        //Hence, the map is not be connected i.e. assertion should be false
         assertFalse(map.isGraphConnected());
 
     }
