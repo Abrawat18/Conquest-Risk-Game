@@ -11,7 +11,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Random;
 
@@ -23,7 +26,7 @@ import java.util.Random;
  * @version 1.0.0
  */
 
-public class Player extends Observable implements Serializable{
+public class Player extends Observable implements Serializable {
 
     private static final String TAG = Player.class.getSimpleName();
     private int playerId;
@@ -34,12 +37,13 @@ public class Player extends Observable implements Serializable{
     private boolean isMyTurn;
     transient private PlayerStrategyListener playerStrategy;
     private String playerStrategyType;
-    private boolean isActive =true;
+    private boolean isActive = true;
 
     /**
      * Check for player's active state
+     *
      * @return true : is player still active in game
-     *         false : if game over for player
+     * false : if game over for player
      */
     public boolean isActive() {
         return isActive;
@@ -47,6 +51,7 @@ public class Player extends Observable implements Serializable{
 
     /**
      * Setting player active state
+     *
      * @param active : will set player active state
      */
     public void setActive(boolean active) {
@@ -370,17 +375,51 @@ public class Player extends Observable implements Serializable{
         }
     }
 
-    public ConfigurableMessage startupPhase(GameMap gameMap){
+    public ConfigurableMessage startupPhase(GameMap gameMap) {
         return getPlayerStrategy().startupPhase(gameMap, this);
 
     }
+
     public ConfigurableMessage reInforcementPhase(GameMap gameMap) {
         if (getPlayerStrategyType() != Constants.HUMAN_PLAYER_STRATEGY) {
             List<Cards> tradInCardList = null;
+            List<Cards> tradInCardUniqueList = new ArrayList<>();
+            List<Cards> tradInCardDistinctList = new ArrayList<>();
+            ;
             if (this.getOwnedCards().size() >= 5) {
-                tradInCardList = new ArrayList<>();
-                Collections.shuffle(this.getOwnedCards());
-                tradInCardList.addAll(this.getOwnedCards().subList(0, 3));
+                List<Cards> ownCardList = getOwnedCards();
+                HashMap<String, List<Cards>> tradInCardMapList = new HashMap<>();
+                for (Cards cards : ownCardList) {
+                    if(tradInCardMapList.containsKey(cards.getArmyType())) {
+                        tradInCardMapList.get(cards.getArmyType()).add(cards);
+                    }else {
+                        List<Cards> armyCardList = new ArrayList<>();
+                        armyCardList.add(cards);
+                        tradInCardMapList.put(cards.getArmyType(),armyCardList);
+                    }
+                }
+
+                Iterator it = tradInCardMapList.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry pair = (Map.Entry)it.next();
+                    List<Cards> cardsList =(List<Cards>)pair.getValue();
+                    if(cardsList.size()>=3){
+                        tradInCardUniqueList.addAll(cardsList);
+                        break;
+                    }
+                    tradInCardDistinctList.add(cardsList.get(0));
+                    if(tradInCardDistinctList.size()>=3){
+                        break;
+                    }
+                    it.remove();
+                }
+
+                if(tradInCardUniqueList.size() ==3){
+                    tradInCardList = tradInCardUniqueList;
+                }else{
+                    tradInCardList = tradInCardDistinctList;
+                }
+
             }
 
             ReinforcementType reinforcementType = calcReinforcementArmy(gameMap, gameMap.getNoOfCardTradedCount(), tradInCardList);
