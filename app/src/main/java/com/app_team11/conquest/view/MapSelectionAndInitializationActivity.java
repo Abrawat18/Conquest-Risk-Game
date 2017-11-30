@@ -71,10 +71,8 @@ public class MapSelectionAndInitializationActivity extends Activity {
                 gameMode = bundle.getString(Constants.KEY_FROM_GAME_MODE);
             }
         }
-        if(fromWhichActivity.equals(Constants.VALUE_FROM_PLAY_GAME)) {
-            if (gameMode.equals(Constants.FROM_SINGLE_MODE_VALUE)) {
+        if((fromWhichActivity.equals(Constants.VALUE_FROM_PLAY_GAME) && gameMode.equals(Constants.FROM_SINGLE_MODE_VALUE)) || fromWhichActivity.equals(Constants.VALUE_FROM_EDIT_MAP)) {
                 btnPlayGame.setVisibility(View.GONE);
-            }
         }
         mapFiles = FileManager.getInstance().getFileFromRootMapDir(Constants.ROOT_MAP_DIR);
         mapSelectionAdapter = new MapSelectionAdapter(mapFiles, this);

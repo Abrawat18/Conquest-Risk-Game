@@ -94,6 +94,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private int mapPlayed = 0;
     private String fromGameMode;
     private List<String> tournamentResultList = new ArrayList<>();
+    private int gameTurnCount = 0;
 
     /**
      * {@inheritDoc}
@@ -218,6 +219,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * Initialize tournament mode for game
      */
     private void initializeTournamentMode() {
+        gameTurnCount = 0;
         if (mapPlayed >= selectedMapListForTournamentMode.size()) {
             // Tournament mode finished ...
             FileManager.getInstance().writeLog("Tournament mode finished!!");
@@ -332,6 +334,10 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 StartUpPhaseController.getInstance().setContext(this).startStartUpPhase();
                 break;
             case GamePhaseManager.PHASE_REINFORCEMENT:
+                FileManager.getInstance().writeLog("Game Turn Count=" + (++gameTurnCount));
+                if (gameTurnCount > maximumRoundsForTournamentMode) {
+                    endGame(null);
+                }
                 btnStopAttack.setVisibility(View.GONE);
                 btnNewAttack.setVisibility(View.GONE);
                 btnStopFortification.setVisibility(View.GONE);
@@ -399,12 +405,14 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      */
     public void endGame(final Player playerWon) {
         showMap();
-        FileManager.getInstance().writeLog("Game Ends! Player" + playerWon.getPlayerId() + " Won the game!!");
+
         if (!TextUtils.isEmpty(fromGameMode) && fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
             if (mapPlayed < selectedMapListForTournamentMode.size()) {
-                if(playerWon!=null) {
+                if (playerWon != null) {
+                    FileManager.getInstance().writeLog("Game Ends! Player" + playerWon.getPlayerId() + " Won the game!!");
                     tournamentResultList.add(playerWon.getPlayerStrategyType());
-                }else{
+                } else {
+                    FileManager.getInstance().writeLog("Game Ends in a draw!!");
                     tournamentResultList.add("Draw");
                 }
             }
@@ -416,6 +424,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             initializeTournamentMode();
             return;
         } else {
+            FileManager.getInstance().writeLog("Game Ends! Player" + playerWon.getPlayerId() + " Won the game!!");
             SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(GamePlayActivity.this, SweetAlertDialog.NORMAL_TYPE);
             sweetAlertDialog.setCancelable(false);
             sweetAlertDialog.setTitleText("Game Ends! Player" + playerWon.getPlayerId() + " Won the game!!")
