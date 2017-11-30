@@ -22,25 +22,12 @@ import java.util.List;
 
 public class TournamentResultAdapter extends BaseAdapter {
 
-    private final int noOfGames;
-    private final ArrayList<String> distinctMap;
     private List<TournamentResultModel> resultList;
     private LayoutInflater inflater;
-    private int distinctMapCount;
 
     public TournamentResultAdapter(Context context, List<TournamentResultModel> resultList) {
         this.resultList = resultList;
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-
-        distinctMap = new ArrayList<>();
-        for (TournamentResultModel result : resultList) {
-            if (!distinctMap.contains(result.getPlayMap())) {
-                distinctMap.add(result.getPlayMap());
-            }
-        }
-        distinctMapCount = distinctMap.size();
-
-        noOfGames = resultList.size() / distinctMapCount;
     }
 
     /**
@@ -50,7 +37,7 @@ public class TournamentResultAdapter extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return resultList.size() + distinctMapCount;
+        return resultList.size();
     }
 
     /**
@@ -87,13 +74,7 @@ public class TournamentResultAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         }
         viewHolder = (ViewHolder) convertView.getTag();
-
-        if (position % (noOfGames+1) == 0) {
-            viewHolder.winnerValue.setText(distinctMap.get(position/noOfGames));
-        }else{
-            int newPosition = position - (position/noOfGames);
-            viewHolder.winnerValue.setText(getItem(newPosition ).getPlayerWon().getPlayerStrategyType());
-        }
+        viewHolder.winnerValue.setText(getItem(position).getPlayerWon().getPlayerStrategyType());
         return convertView;
     }
 
