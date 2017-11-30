@@ -120,5 +120,4 @@ public class AggressivePlayerStrategyTest
         assertEquals(Constants.FORTIFICATION_SUCCESS,configurableMessage.getMsgText());
 
     }
-
 }
