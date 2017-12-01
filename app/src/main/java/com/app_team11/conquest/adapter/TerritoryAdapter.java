@@ -62,7 +62,7 @@ public class TerritoryAdapter extends BaseAdapter {
      * @param position defines view position
      * @param convertView defines view to be converted
      * @param parent defines view group parent
-     * @return converted view
+     * @return convertView returns the converted view
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
