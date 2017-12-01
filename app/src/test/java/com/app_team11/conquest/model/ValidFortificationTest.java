@@ -31,6 +31,9 @@ public class ValidFortificationTest {
     private Player player;
     private int i;
 
+    /**
+     * Initializes variables for the test
+     */
     @Before
     public void setup()
     {

@@ -25,6 +25,9 @@ public class InvalidAttackPhaseTest {
     Territory territory1,territory2;
     ConfigurableMessage cm;
 
+    /**
+     * Initalizes variables for the test
+     */
     @Before
     public void setUp()
     {

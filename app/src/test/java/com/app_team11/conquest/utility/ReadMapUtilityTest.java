@@ -19,6 +19,9 @@ import java.util.ArrayList;
 public class ReadMapUtilityTest {
     private String filePath;
 
+    /**
+     * Initializes variables for the test
+     */
     @Before
     public void setUp() {
         filePath = "app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\Test Read Map File.map";

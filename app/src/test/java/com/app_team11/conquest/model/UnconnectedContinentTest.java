@@ -21,15 +21,23 @@ public class UnconnectedContinentTest {
     private String filePath;
     private boolean failed;
     private GameMap map;
+    Continent c;
+    Territory terr;
+
     //Territories T1 and T4 are in the UnconnectedContinent.map. Test method first asserts
     //connected graph when they're disconnected and after they're connected.
     private Territory T1,T4=null;
 
+    /**
+     * Initializes variables for the test
+     */
     @Before
     public void setUp() {
         filePath="app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\UnconnectedContinent.map";
         failed=false;
         map=new GameMap();
+        c=new Continent();
+        terr=new Territory();
     }
 
     /**
@@ -71,11 +79,11 @@ public class UnconnectedContinentTest {
         assertTrue(map.isGraphConnected());
 
         //added a new continent with one territory on the map without connections to other territories.
-        Continent c=new Continent();
+        c=new Continent();
         c.setContName("TestC");
         c.setScore(50);
 
-        Territory terr=new Territory();
+        terr=new Territory();
         terr.setContinent(c);
         terr.setArmyCount(50);
 

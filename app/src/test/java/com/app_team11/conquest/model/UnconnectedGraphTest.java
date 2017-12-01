@@ -23,6 +23,9 @@ public class UnconnectedGraphTest {
     private boolean failed;
     GameMap map;
 
+    /**
+     * Initializes variables for the test
+     */
     @Before
     public void setUp() {
         filePath="app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\Invalid test file.map";
@@ -43,6 +46,9 @@ public class UnconnectedGraphTest {
 
     }
 
+    /**
+     * teardown of variables
+     */
     @After
     public void testResult()
     {
