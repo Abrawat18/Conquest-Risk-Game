@@ -48,7 +48,6 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Singleton for StartUp Phase
-     *
      * @return startUpPhaseController : This parameter returns the start up phase controller
      */
     public static StartUpPhaseController getInstance() {
@@ -60,7 +59,6 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Context setting for StartUp Phase
-     *
      * @param context : Context reference for the start up phase controller.
      */
     public StartUpPhaseController setContext(Context context) {

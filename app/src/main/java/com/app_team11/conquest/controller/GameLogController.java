@@ -40,6 +40,9 @@ public class GameLogController {
 
     private Context context;
 
+    /**
+     * constructor of GameLogController
+     */
     private GameLogController() {
     }
 

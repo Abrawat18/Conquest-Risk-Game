@@ -64,7 +64,6 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
 
     /**
      * setting the context variable for reinforcement phase
-     *
      * @param context : parameter for referencing reinforcement phase
      * @return : returns the instance based on the touch listner
      */
