@@ -3,6 +3,7 @@ package com.app_team11.conquest.model;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -134,5 +135,20 @@ public class RandomPlayerStrategyTest {
         assertEquals(Constants.FORTIFICATION_SUCCESS,configurableMessage.getMsgText());
 
     }
+
+    /**
+     * Clean up the test data
+     */
+    @After
+    public void cleanup()
+    {
+        territoryList=null;
+        map=null;
+        attacker=null;
+        defender=null;
+        attackerTerritory=null;
+        defenderTerritory=null;
+    }
+
 }
 

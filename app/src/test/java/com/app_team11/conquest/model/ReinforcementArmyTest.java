@@ -3,6 +3,7 @@ package com.app_team11.conquest.model;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.ReadMapUtility;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -91,6 +92,19 @@ public class ReinforcementArmyTest {
         int totalCountReturned = reinforcementArmy.getOtherTotalReinforcement() + reinforcementArmy.getMatchedTerrCardReinforcement();
         System.out.println(reinforcementArmy.getOtherTotalReinforcement()+" "+reinforcementArmy.getMatchedTerrCardReinforcement());
         assertEquals(16,totalCountReturned);
+    }
+    /**
+     * Clean up the test data
+     */
+    @After
+    public void cleanup()
+    {
+        territoryList=null;
+        map=null;
+        cardListOwned=null;
+        cardList=null;
+        card=null;
+        reinforcementArmy=null;
     }
 
 }

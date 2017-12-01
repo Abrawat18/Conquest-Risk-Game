@@ -1,5 +1,6 @@
 package com.app_team11.conquest.utility;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,4 +44,14 @@ public class FileWriterUtilityTest {
 
         }
     }
+    /**
+     * Clean up the test data
+     */
+    @After
+    public void cleanup()
+    {
+        fileManager=null;
+        filePath=null;
+    }
+
 }

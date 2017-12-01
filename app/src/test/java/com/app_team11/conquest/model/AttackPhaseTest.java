@@ -3,6 +3,7 @@ package com.app_team11.conquest.model;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,5 +68,18 @@ public class AttackPhaseTest {
         cm=new Player().attackPhase(attackerTerritory,defenderTerritory,3,2);
         System.out.println(cm.getMsgText());
 
+    }
+
+    /**
+     * Clean up the test data
+     */
+    @After
+    public void cleanup()
+    {
+        territoryList=null;
+        attacker=null;
+        attackerTerritory=null;
+        defender=null;
+        defenderTerritory=null;
     }
 }

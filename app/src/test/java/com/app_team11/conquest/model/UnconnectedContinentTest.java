@@ -93,7 +93,9 @@ public class UnconnectedContinentTest {
         assertFalse(map.isGraphConnected());
 
     }
-
+    /**
+     * Clean up the test data
+     */
     @After
     public void testResult()
     {

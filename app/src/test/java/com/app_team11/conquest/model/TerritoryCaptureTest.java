@@ -3,6 +3,7 @@ package com.app_team11.conquest.model;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ import static junit.framework.Assert.assertEquals;
 
 public class TerritoryCaptureTest {
     Territory defenderTerritory;
-    ConfigurableMessage cm;
+    ConfigurableMessage configurableMessage;
     @Before
     public void setUp()
     {
@@ -29,13 +30,24 @@ public class TerritoryCaptureTest {
     @Test
     public void validateCanBeAttacked()
     {
-        cm=new Player().canContinueAttackOnThisTerritory(defenderTerritory);
-        assertEquals(Constants.MSG_SUCC_CODE,cm.getMsgCode());
+        configurableMessage=new Player().canContinueAttackOnThisTerritory(defenderTerritory);
+        assertEquals(Constants.MSG_SUCC_CODE,configurableMessage.getMsgCode());
 
         defenderTerritory.setArmyCount(defenderTerritory.getArmyCount()-3);
-        cm=new Player().canContinueAttackOnThisTerritory(defenderTerritory);
-        assertEquals(Constants.MSG_FAIL_CODE,cm.getMsgCode());
+        configurableMessage=new Player().canContinueAttackOnThisTerritory(defenderTerritory);
+        assertEquals(Constants.MSG_FAIL_CODE,configurableMessage.getMsgCode());
 
 
     }
+    /**
+     * Clean up the test data
+     */
+    @After
+    public void cleanup()
+    {
+        defenderTerritory=null;
+        configurableMessage=null;
+        defenderTerritory=null;
+    }
+
 }

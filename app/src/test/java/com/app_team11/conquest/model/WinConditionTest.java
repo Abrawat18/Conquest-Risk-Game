@@ -3,6 +3,7 @@ package com.app_team11.conquest.model;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -78,5 +79,18 @@ public class WinConditionTest {
         }
 
     }
+    /**
+     * Clean up the test data
+     */
+    @After
+    public void cleanup()
+    {
+        territoryList=null;
+        territory=null;
+        territory3=null;
+        map=null;
+
+    }
+
 }
 

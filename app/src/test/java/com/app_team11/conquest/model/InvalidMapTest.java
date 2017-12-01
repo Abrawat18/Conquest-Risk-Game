@@ -53,6 +53,9 @@ public class InvalidMapTest
         assertTrue(failed);
     }
 
+    /**
+     * Clean up the test data
+     */
     @After
     public void testResult()
     {

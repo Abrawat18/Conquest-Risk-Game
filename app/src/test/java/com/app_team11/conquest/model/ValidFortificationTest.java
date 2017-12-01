@@ -8,6 +8,7 @@ import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -75,4 +76,18 @@ public class ValidFortificationTest {
 
         assertEquals(0,playerList.get(0).fortifyTerritory(territoryList.get(0), territoryList.get(1), 10).getMsgCode());
     }
+    /**
+     * Clean up the test data
+     */
+    @After
+    public void cleanup()
+    {
+        territoryList=null;
+        territory=null;
+        territory1=null;
+        player=null;
+        playerList=null;
+        continent=null;
+    }
+
 }

@@ -7,6 +7,7 @@ package com.app_team11.conquest.model;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.ReadMapUtility;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +17,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class CardTest {
+public class TradeCardTest {
     private String filePath;
     private boolean failed;
     private List<Cards> cardList;
@@ -56,5 +57,18 @@ public class CardTest {
         }
         gameMap.getPlayerList().get(0).checkCardsForTradeIn();
         assertTrue(gameMap.getPlayerList().get(0).getCardTradeIn());
+    }
+
+    /**
+     * Clean up the test data
+     */
+
+    @After
+    public void cleanup()
+    {
+        filePath=null;
+        card=null;
+        cardList=null;
+
     }
 }

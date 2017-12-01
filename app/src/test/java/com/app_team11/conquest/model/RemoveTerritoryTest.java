@@ -2,6 +2,7 @@ package com.app_team11.conquest.model;
 
 import com.app_team11.conquest.utility.ConfigurableMessage;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -62,5 +63,18 @@ public class RemoveTerritoryTest {
         territory=new Territory("Test territory",0,5,continent);
         cm=gameMap.getTerritoryList().get(0).addRemoveNeighbourToTerr(territory,'R');
         assertEquals(0,cm.getMsgCode());
+    }
+
+    /**
+     * Clean up the test data
+     */
+    @After
+    public void cleanup()
+    {
+        territoryList=null;
+        territory=null;
+        continent=null;
+        continentList=null;
+        player=null;
     }
 }
