@@ -110,11 +110,15 @@ public class SaveGameFunctionalityTest {
     @Test
     public void saveMapTest()
     {
+        //Startup Phase
+        configurableMessage = attacker.startupPhase(map);
+
         //Attack Phase
-        configurableMessage = new Player().attackPhase(attackerTerritory,defenderTerritory,3,1);
+        configurableMessage=attacker.attackPhase(map);
         if(configurableMessage.getMsgCode()==1)
         {
-            assertEquals(Constants.ATTACKER_WON, configurableMessage.getMsgText());
+            assertEquals(Constants.ATTACK_SUCCESS_STRATEGY, configurableMessage.getMsgText());
+            System.out.println("Armies: "+territoryList.get(0).getTerritoryOwner().getPlayerId()+":"+territoryList.get(0).getArmyCount());
             attackerWon=true;
         }
         else
@@ -140,7 +144,7 @@ public class SaveGameFunctionalityTest {
            System.out.println("Armies: "+territory.getArmyCount());
            if (territory.getTerritoryName().equals("Territory1") && attackerWon) {
                //Check whether the changed state of the army was saved correctly
-               assertEquals(5, territory.getArmyCount());
+               assertEquals(3, attacker.getAvailableArmyCount());
            }
        }
     }
