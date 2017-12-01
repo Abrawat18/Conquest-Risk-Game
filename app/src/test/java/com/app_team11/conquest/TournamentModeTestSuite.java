@@ -31,8 +31,7 @@ import org.junit.runners.Suite;
             BenevolentPlayerStrategyTest.class,  //test for benevolent player strategy methods
             RandomPlayerStrategyTest.class,      //test for random player strategy methods
             CheaterPlayerStrategyTest.class,     //test for cheater player strategy methods
-            SaveGameFunctionalityTest.class      //test for save game functionality
-    })
+            })
     public class TournamentModeTestSuite
 {
 
