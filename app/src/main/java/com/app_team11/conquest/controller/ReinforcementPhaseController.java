@@ -158,7 +158,7 @@ public class ReinforcementPhaseController implements SurfaceOnTouchListner {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         sweetAlertDialog.dismiss();
-                        if (!TextUtils.isEmpty(editNoOfArmy.getText().toString())) {
+                        if (!TextUtils.isEmpty(editNoOfArmy.getText().toString()) && selectedTerritory!=null) {
                             int requestedToPlaceArmy = Integer.parseInt(editNoOfArmy.getText().toString());
                             if ((needToPlaceArmy >= requestedToPlaceArmy && !isMatchedCardTerrArmy) || (getActivity().getPlayerTurn().getAvailableCardTerrCount() >= requestedToPlaceArmy && isMatchedCardTerrArmy)) {
                                 ConfigurableMessage configurableMessage = selectedTerritory.addArmyToTerr(requestedToPlaceArmy, isMatchedCardTerrArmy);

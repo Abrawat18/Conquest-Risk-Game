@@ -87,7 +87,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private List<TextView> textViewPlayerDominationList = new ArrayList<>();
     private ListView listPhaseView;
     private Button btnGameSave;
-    private EditText editFileName;
     private ArrayList<String> selectedMapListForTournamentMode;
     private int totalGamesForTournamentMode;
     private int maximumRoundsForTournamentMode;
@@ -245,7 +244,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             }
             tournamentResultList.add(fileName);
         }
-        Log.e(TAG,"Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
+        Log.e(TAG, "Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
         FileManager.getInstance().writeLog("Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
         setMap(new ReadMapUtility(this).readFile(selectedMapListForTournamentMode.get(mapPlayed)));
         getMap().addPlayerToGame(playerList.size(), playerList, this);
@@ -294,8 +293,10 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         FileManager.getInstance().writeLog("Attack phase stopped !!");
         if (AttackPhaseController.getInstance().isPhaseWonFlag()) {
             Cards randomCard = getMap().getRandomCardFromDeck();
-            getMap().getPlayerTurn().getOwnedCards().add(randomCard); //adding the card to the player
-            getMap().removeCardFromDeck(randomCard); //removing from the deck of cards
+            if (randomCard != null) {
+                getMap().getPlayerTurn().getOwnedCards().add(randomCard); //adding the card to the player
+                getMap().removeCardFromDeck(randomCard); //removing from the deck of cards
+            }
         }
         changeGamePhase();
     }
@@ -417,7 +418,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         if (!TextUtils.isEmpty(fromGameMode) && fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
             if (mapPlayed < selectedMapListForTournamentMode.size()) {
                 if (playerWon != null) {
-                    FileManager.getInstance().writeLog("*************** Game Ends! P:" + playerWon.getPlayerId() +" "+ playerWon.getPlayerStrategyType() +" Won the game!! *******************");
+                    FileManager.getInstance().writeLog("*************** Game Ends! P:" + playerWon.getPlayerId() + " " + playerWon.getPlayerStrategyType() + " Won the game!! *******************");
                     tournamentResultList.add(playerWon.getPlayerStrategyType());
                 } else {
                     FileManager.getInstance().writeLog("*************** Game Ends in a draw!! *****************");
@@ -688,7 +689,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * Method which enables the saving of the game using serialization
      */
     public void saveGame() {
-        editFileName = new EditText(this);
+        final EditText editFileName = new EditText(this);
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
         sweetAlertDialog.setTitleText("Please enter game name")
                 .setConfirmText("Ok")
