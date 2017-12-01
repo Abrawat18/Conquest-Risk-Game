@@ -73,14 +73,16 @@ public class Player extends Observable implements Serializable {
     }
 
     /**
-     * @return
+     * Method to get player strategy
+     * @return the player's strategy
      */
     public PlayerStrategyListener getPlayerStrategy() {
         return playerStrategy;
     }
 
     /**
-     * @param playerStrategy
+     * Method to set player strategy
+     * @param playerStrategy player to be set with this strategy
      */
     public void setPlayerStrategy(PlayerStrategyListener playerStrategy) {
         this.playerStrategy = playerStrategy;
@@ -95,6 +97,10 @@ public class Player extends Observable implements Serializable {
         return availableCardTerrCount;
     }
 
+    /**
+     * Method to set available card territory count
+     * @param availableCardTerrCount for the player
+     */
     public void setAvailableCardTerrCount(int availableCardTerrCount) {
         this.availableCardTerrCount = availableCardTerrCount;
     }
@@ -102,7 +108,7 @@ public class Player extends Observable implements Serializable {
     /**
      * Method to check if the player has got his turn
      *
-     * @return
+     * @return whether player's turn(true/false)
      */
     public boolean isMyTurn() {
         return isMyTurn;
@@ -147,7 +153,7 @@ public class Player extends Observable implements Serializable {
     /**
      * Sets the available army count
      *
-     * @param availableArmyCount
+     * @param availableArmyCount army count to set the player with
      */
     public void setAvailableArmyCount(int availableArmyCount) {
         this.availableArmyCount = availableArmyCount;
@@ -165,7 +171,7 @@ public class Player extends Observable implements Serializable {
     /**
      * Sets the owned cards
      *
-     * @param ownedCards
+     * @param ownedCards player's owned cards
      */
     public void setOwnedCards(List<Cards> ownedCards) {
         this.ownedCards = ownedCards;
@@ -174,7 +180,7 @@ public class Player extends Observable implements Serializable {
     /**
      * Add owned cards
      *
-     * @param addCards
+     * @param addCards add cards to player's existing cards
      */
     public void addOwnedCards(List<Cards> addCards) {
         this.getOwnedCards().addAll(addCards);
@@ -192,7 +198,7 @@ public class Player extends Observable implements Serializable {
     /**
      * Sets the trade in cards
      *
-     * @param cardTradeIn
+     * @param cardTradeIn whether cards have to be traded
      */
     public void setCardTradeIn(Boolean cardTradeIn) {
         this.cardTradeIn = cardTradeIn;
@@ -224,9 +230,9 @@ public class Player extends Observable implements Serializable {
     /**
      * This method is used to calculate the total number of reinforcement armies
      *
-     * @param gameMap
-     * @param cardTradeCount
-     * @param tradeInCards
+     * @param gameMap map object
+     * @param cardTradeCount card trade count
+     * @param tradeInCards number of trade in cards
      * @return Reinforcement Army Count
      */
     public ReinforcementType calcReinforcementArmy(GameMap gameMap, int cardTradeCount, List<Cards> tradeInCards) {
@@ -316,8 +322,8 @@ public class Player extends Observable implements Serializable {
     /**
      * Checks whether player is attacking an already owned territory
      *
-     * @param attackerTerritory
-     * @param defenderTerritory
+     * @param attackerTerritory the attacker's territory
+     * @param defenderTerritory the defender's territory
      * @return whether adjacent or not
      */
 
@@ -331,8 +337,8 @@ public class Player extends Observable implements Serializable {
     /**
      * Check for sufficient armies
      *
-     * @param attackerTerritory
-     * @return
+     * @param attackerTerritory the attacker's territory
+     * @return whether the territory has sufficient armies or not
      */
     public ConfigurableMessage hasSufficientArmies(Territory attackerTerritory) {
         if (attackerTerritory.getArmyCount() >= 2)
@@ -343,8 +349,8 @@ public class Player extends Observable implements Serializable {
     /**
      * Checks whether attack can be continued
      *
-     * @param defenderTerritory
-     * @return
+     * @param defenderTerritory the defender territory
+     * @return whether attack can proceed on a territory
      */
     public ConfigurableMessage canContinueAttackOnThisTerritory(Territory defenderTerritory) {
         if (defenderTerritory.getArmyCount() == 0)
@@ -355,8 +361,8 @@ public class Player extends Observable implements Serializable {
     /**
      * Validate the attack
      *
-     * @param attackerTerritory
-     * @param defenderTerritory
+     * @param attackerTerritory the attacker's territory
+     * @param defenderTerritory the defender's territory
      * @return
      */
     public ConfigurableMessage validateAttackBetweenTerritories(Territory attackerTerritory, Territory defenderTerritory) {
@@ -375,11 +381,21 @@ public class Player extends Observable implements Serializable {
         }
     }
 
+    /**
+     * Method to call respective startup phase of a player's strategy
+     * @param gameMap map object
+     * @return the respective strategy's startup phase
+     */
     public ConfigurableMessage startupPhase(GameMap gameMap) {
         return getPlayerStrategy().startupPhase(gameMap, this);
 
     }
 
+    /**
+     * Method for reinforcement phase
+     * @param gameMap map object
+     * @return the reinforcement phase to be used according to strategy
+     */
     public ConfigurableMessage reInforcementPhase(GameMap gameMap) {
         if (getPlayerStrategyType() != Constants.HUMAN_PLAYER_STRATEGY) {
             List<Cards> tradInCardList = null;
@@ -429,11 +445,21 @@ public class Player extends Observable implements Serializable {
     }
 
 
+    /**
+     * Method to carry out strategic attack
+     * @param gameMap map object
+     * @return stategi attack phase
+     */
     public ConfigurableMessage attackPhase(GameMap gameMap) {
         return getPlayerStrategy().attackPhase(gameMap, this);
 
     }
 
+    /**
+     * Method to carry out strategic fortification phase
+     * @param gameMap map object
+     * @return strategic fortification phase to call
+     */
     public ConfigurableMessage fortificationPhase(GameMap gameMap) {
         return getPlayerStrategy().fortificationPhase(gameMap, this);
 
@@ -443,10 +469,10 @@ public class Player extends Observable implements Serializable {
     /**
      * The attack phase method
      *
-     * @param attackerTerritory
-     * @param defenderTerritory
-     * @param attackerDice
-     * @param defenderDice
+     * @param attackerTerritory the attacker's territory
+     * @param defenderTerritory the defender's territory
+     * @param attackerDice number of dice for attacker
+     * @param defenderDice number of dice for defender
      */
     public ConfigurableMessage attackPhase(Territory attackerTerritory, Territory defenderTerritory, int attackerDice, int defenderDice) {
         setNumberOfDiceRolled(attackerDice);
@@ -531,7 +557,7 @@ public class Player extends Observable implements Serializable {
     /**
      * Returns number of dice rolled
      *
-     * @return
+     * @return the number of dice rolled
      */
     public int getNumberOfDiceRolled() {
         return numberOfDiceRolled;
@@ -540,7 +566,7 @@ public class Player extends Observable implements Serializable {
     /**
      * Set the number of dice rolled
      *
-     * @param numberOfDiceRolled
+     * @param numberOfDiceRolled set number of dice to be rolled
      */
     public void setNumberOfDiceRolled(int numberOfDiceRolled) {
         this.numberOfDiceRolled = numberOfDiceRolled;
@@ -549,10 +575,10 @@ public class Player extends Observable implements Serializable {
     /**
      * This method is for conditions related to capturing a territory
      *
-     * @param attackerTerritory
-     * @param defenderTerritory
-     * @param moveArmiesToCapturedTerritory
-     * @return
+     * @param attackerTerritory the attacker's territory
+     * @param defenderTerritory the defender's territory
+     * @param moveArmiesToCapturedTerritory number of armies to move to territory
+     * @return whether operation was successful
      */
     public ConfigurableMessage captureTerritory(Territory attackerTerritory, Territory defenderTerritory, int moveArmiesToCapturedTerritory) {
         if (attackerTerritory.getArmyCount() - moveArmiesToCapturedTerritory == 0) {
@@ -582,7 +608,7 @@ public class Player extends Observable implements Serializable {
     /**
      * This method returns the highest value from a given list.
      *
-     * @param diceArray
+     * @param diceArray the dice values
      * @return Maximum element from the list
      */
     public int getHighestValue(List<Integer> diceArray) {
@@ -593,8 +619,8 @@ public class Player extends Observable implements Serializable {
     /**
      * This method deletes the element from the list.
      *
-     * @param diceArray
-     * @param element
+     * @param diceArray dice values
+     * @param element element to be deleted
      * @return the modified list
      */
     public int[] deleteElement(int diceArray[], int element) {
@@ -613,7 +639,7 @@ public class Player extends Observable implements Serializable {
     /**
      * Generates random dice values depending on number of attacker/defender dice
      *
-     * @param arraySize
+     * @param arraySize size of array
      * @return randomly generated dice array
      */
     public static List<Integer> getRandomDiceValues(int arraySize) {

@@ -60,8 +60,10 @@ public class CheaterPlayerStrategy extends Observable implements PlayerStrategyL
         FileManager.getInstance().writeLog("Cheater player attack phase started !! ");
         for (Territory territory : gameMap.getTerrForPlayer(player)) {
             for (Territory neighbourTerr : territory.getNeighbourList()) {
-                neighbourTerr.setTerritoryOwner(player);
-                FileManager.getInstance().writeLog("Attacker Territory " + territory.getTerritoryName().toString() + " Conquers " + neighbourTerr.getTerritoryName().toString());
+                if(!neighbourTerr.getTerritoryOwner().equals(player)) {
+                    neighbourTerr.setTerritoryOwner(player);
+                    FileManager.getInstance().writeLog("Attacker Territory " + territory.getTerritoryName().toString() + " Conquers " + neighbourTerr.getTerritoryName().toString());
+                }
             }
         }
         FileManager.getInstance().writeLog("Cheater player attack phase ended !! ");
