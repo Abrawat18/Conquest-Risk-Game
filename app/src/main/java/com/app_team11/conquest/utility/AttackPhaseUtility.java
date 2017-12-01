@@ -45,6 +45,7 @@ public class AttackPhaseUtility {
 
 
     /**
+     * method to get the number of dice rolled
      * @return numberOfDiceRolled gives the number of dice which are rolled
      */
     public int getNumberOfDiceRolled() {

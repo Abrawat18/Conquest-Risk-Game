@@ -615,6 +615,7 @@ public class GameMap implements Serializable {
 
     /**
      * Adds a card to the existing list
+     * @param card card object
      */
     public void addCardToList(Cards card) {
         this.cardList.add(card);

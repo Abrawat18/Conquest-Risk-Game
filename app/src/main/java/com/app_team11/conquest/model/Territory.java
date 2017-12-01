@@ -119,6 +119,7 @@ public class Territory extends Observable implements Serializable{
     /**
      * Method to add armies in territory selected and remove the same count from player
      * @param addedArmyCount count of armies to be added
+     * @param isMatchedCardTerrArmy flag to check if the army is for matched territory with card
      * @return custom message : custom message is returned
      */
     public ConfigurableMessage addArmyToTerr(int addedArmyCount, boolean isMatchedCardTerrArmy) {
