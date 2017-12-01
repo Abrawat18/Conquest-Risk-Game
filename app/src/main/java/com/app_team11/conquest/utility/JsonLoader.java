@@ -23,7 +23,7 @@ public class JsonLoader {
 
     /**
      * Singleton creation for JSONLoader
-     * @return jsonLoader
+     * @return jsonLoader json loader is available
      */
     public static JsonLoader getInstance() {
         if (jsonLoader == null) {
@@ -34,10 +34,10 @@ public class JsonLoader {
 
     /**
      * JSONArray for the loading of data from JSON file
-     * @param context
-     * @param fileName
-     * @return
-     * @throws JSONException
+     * @param context current running activity
+     * @param fileName name of the file
+     * @return JSONArray array of JSON file is returned
+     * @throws JSONException exception handling for JSON
      */
     public JSONArray loadJSONFromAsset(Context context, String fileName) throws JSONException {
         String json = null;
