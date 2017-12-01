@@ -96,7 +96,6 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
         }
         if (!isAttackPossible()) {
             FileManager.getInstance().writeLog("Attack not possible for player:"+getActivity().getPlayerTurn().getPlayerId()+" - "+getActivity().getPlayerTurn().getPlayerStrategyType());
-            getActivity().toastMessageFromBackground("Attack not Possible. Changing to Fortification Phase.");
             getActivity().onAttackPhaseStopped();
             return;
         }
