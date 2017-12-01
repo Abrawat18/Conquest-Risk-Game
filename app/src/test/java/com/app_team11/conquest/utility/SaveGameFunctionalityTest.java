@@ -142,6 +142,9 @@ public class SaveGameFunctionalityTest {
        }
     }
 
+    /**
+     * cleans up the test data
+     */
     @After
     public void clean()
     {
