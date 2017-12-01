@@ -65,7 +65,6 @@ public class GamePlayerTypeActivity extends Activity implements View.OnClickList
 
     /**
      * This method is called when click event is passed.
-     *
      * @param v The view on which the click is done, that object of the view is called.
      */
     @Override

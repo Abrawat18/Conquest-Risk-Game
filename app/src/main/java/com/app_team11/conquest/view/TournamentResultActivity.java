@@ -36,7 +36,7 @@ public class TournamentResultActivity extends Activity {
 
     /**
      * {@inheritDoc}
-     *
+     *  This method is called on creation of the activity which allows user to choose the player type
      * @param savedInstanceState saves the view in instance
      */
     @Override

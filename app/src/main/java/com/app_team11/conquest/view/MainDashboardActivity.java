@@ -30,7 +30,7 @@ public class MainDashboardActivity extends Activity implements View.OnClickListe
 
     /**
      * {@inheritDoc}
-     * @param savedInstanceState
+     * @param savedInstanceState saves the current instance
      */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
