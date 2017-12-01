@@ -233,46 +233,57 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * Initialize tournament mode for game
      */
     private void initializeTournamentMode() {
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                gameTurnCount = 0;
-                if (mapPlayed >= selectedMapListForTournamentMode.size()) {
-                    // Tournament mode finished ...
-                    FileManager.getInstance().writeLog("Tournament mode finished!!");
-                    // Send result to tournament result
-                    Intent intent = getIntent();
-                    Bundle bundle = intent.getExtras();
-                    if (bundle != null) {
-                        bundle.putStringArrayList(Constants.KEY_TOURNAMENT_RESULT_LIST, tournamentResultList);
-                    }
-                    Intent tournamentIntent = new Intent(GamePlayActivity.this, TournamentResultActivity.class);
-                    tournamentIntent.putExtras(bundle);
-                    startActivity(tournamentIntent);
-                    finish();
-                    return;
+        if (mapPlayed >= selectedMapListForTournamentMode.size()) {
+            // Tournament mode finished ...
+            FileManager.getInstance().writeLog("Tournament mode finished!!");
+            // Send result to tournament result
+            Intent intent = getIntent();
+            Bundle bundle = intent.getExtras();
+            if (bundle != null) {
+                bundle.putStringArrayList(Constants.KEY_TOURNAMENT_RESULT_LIST, tournamentResultList);
+            }
+            Intent tournamentIntent = new Intent(GamePlayActivity.this, TournamentResultActivity.class);
+            tournamentIntent.putExtras(bundle);
+            startActivity(tournamentIntent);
+            finish();
+            return;
+        } else {
+            gameTurnCount = 0;
+            if (gamePlayed == 0) {
+                String fileName = new File(selectedMapListForTournamentMode.get(mapPlayed)).getName();
+                int pos = fileName.lastIndexOf(".");
+                if (pos > 0) {
+                    fileName = fileName.substring(0, pos);
                 }
-
-                if (gamePlayed == 0) {
-                    String fileName = new File(selectedMapListForTournamentMode.get(mapPlayed)).getName();
-                    int pos = fileName.lastIndexOf(".");
-                    if (pos > 0) {
-                        fileName = fileName.substring(0, pos);
-                    }
+                if (!tournamentResultList.contains(fileName)) {
                     tournamentResultList.add(fileName);
-                }
-                Log.e(TAG, "Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
-                FileManager.getInstance().writeLog("Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
-                setMap(new ReadMapUtility(GamePlayActivity.this).readFile(selectedMapListForTournamentMode.get(mapPlayed)));
-                getMap().addPlayerToGame(playerList.size(), playerList, GamePlayActivity.this);
-                if (getMap() != null) {
-                    initializePlayerAdapter();
-                    loadGamePhase();
+                    Log.e(TAG, "Playing game for map : " + fileName);
                 }
             }
-        }, 100);
+            if (mapPlayed < selectedMapListForTournamentMode.size()) {
+                Log.e(TAG, "Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
+                FileManager.getInstance().writeLog("Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
+            }
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mapPlayed < selectedMapListForTournamentMode.size()) {
+                        setMap(new ReadMapUtility(GamePlayActivity.this).readFile(selectedMapListForTournamentMode.get(mapPlayed)));
+                        if (getMap() != null) {
+                            getMap().addPlayerToGame(playerList.size(), playerList, GamePlayActivity.this);
+                            initializePlayerAdapter();
+                            loadGamePhase();
+                        } else {
+                            endGame(null);
+                        }
+                    } else {
+                        endGame(null);
+                    }
 
+                }
+            }, 100);
+        }
 
     }
 
@@ -351,7 +362,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         if (getMap() != null) {
             ConfigurableMessage configurableMessage = getMap().playerWonTheGame(getPlayerTurn());
             if (configurableMessage.getMsgCode() == Constants.MSG_SUCC_CODE) {
-                toastMessageFromBackground(configurableMessage.getMsgText());
+                toastMessageFromBackground("Player : " + getPlayerTurn().getPlayerStrategyType() + " Won the game");
                 endGame(getPlayerTurn());
                 //code to end game
             } else {
@@ -463,6 +474,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                     tournamentResultList.add("Draw");
                 }
             }
+            Log.e(TAG,"Won:"+tournamentResultList.get(tournamentResultList.size()-1));
             gamePlayed++;
             if (gamePlayed >= totalGamesForTournamentMode) {
                 gamePlayed = 0;

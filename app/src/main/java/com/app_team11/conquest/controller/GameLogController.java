@@ -67,6 +67,13 @@ public class GameLogController {
         List<String> list = FileManager.getInstance().readLog();
         gameLogAdapter = new GameLogAdapter(getActivity(), list);
         getActivity().listGameLog.setAdapter(gameLogAdapter);
+        getActivity().listGameLog.post(new Runnable() {
+            @Override
+            public void run() {
+                // Select the last row so it will scroll into view...
+                getActivity().listGameLog.setSelection(gameLogAdapter.getCount() - 1);
+            }
+        });
     }
 
     /**
