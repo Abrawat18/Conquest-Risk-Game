@@ -6,6 +6,7 @@ import com.app_team11.conquest.utility.ConfigurableMessage;
 
 import junit.framework.Assert;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -137,5 +138,16 @@ public class AggressivePlayerStrategyTest
         configurableMessage=attacker.fortificationPhase(map);
         assertEquals(Constants.FORTIFICATION_SUCCESS,configurableMessage.getMsgText());
 
+    }
+
+
+    @After
+    public void cleanup()
+    {
+        territoryList=null;
+        attacker=null;
+        attackerTerritory=null;
+        defender=null;
+        defenderTerritory=null;
     }
 }

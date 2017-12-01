@@ -2,6 +2,7 @@ package com.app_team11.conquest.model;
 
 import com.app_team11.conquest.utility.ReadMapUtility;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -69,6 +70,16 @@ public class ReadFileTest {
 
 
 
+    }
+
+    @After
+    public void cleanup()
+    {
+       f=null;
+        territory=null;
+        continent=null;
+        filePath=null;
+        currentSize=0;
     }
 
 }

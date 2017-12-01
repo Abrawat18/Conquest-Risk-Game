@@ -3,6 +3,7 @@ package com.app_team11.conquest.model;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -68,6 +69,15 @@ public class PreAttackValidationTest {
         cm=new Player().isAdjacentTerritory(territoryList.get(1),territory2);
         assertEquals(Constants.MSG_SUCC_CODE,cm.getMsgCode());
 
+
+    }
+
+    @After
+    public void cleanup()
+    {
+        territoryList=null;
+        player=null;
+        player1=null;
 
     }
 }

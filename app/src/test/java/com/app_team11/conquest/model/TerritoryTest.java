@@ -3,6 +3,7 @@ package com.app_team11.conquest.model;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -73,5 +74,16 @@ public class TerritoryTest {
         //Exceeded number of armies, Hence should fail
         assertEquals(Constants.MSG_FAIL_CODE,territoryList.get(2).fortifyTerritory(territoryList.get(1), player, 10).getMsgCode());
     }
+
+    @After
+    public void cleanup()
+    {
+        territoryList=null;
+        continent=null;
+        continentList=null;
+        player=null;
+        territory=null;
+    }
+
 
 }

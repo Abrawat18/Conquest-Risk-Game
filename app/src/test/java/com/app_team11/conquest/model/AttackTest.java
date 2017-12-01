@@ -3,6 +3,7 @@ package com.app_team11.conquest.model;
 import com.app_team11.conquest.global.Constants;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +21,7 @@ public class AttackTest {
     List<Territory> territoryList;
     Player player1,player2;
     Territory attackerTerritory,defenderTerritory;
-    ConfigurableMessage cm;
+    ConfigurableMessage configurableMessage;
 
     /**
      * Initalizes variables for the test
@@ -61,8 +62,16 @@ public class AttackTest {
     @Test
     public void validAttack()
     {
-        cm=new Player().validateAttackBetweenTerritories(attackerTerritory,defenderTerritory);
+        configurableMessage=new Player().validateAttackBetweenTerritories(attackerTerritory,defenderTerritory);
         //all pre-attack validations are in order, hence assertion should be true
-        assertEquals(Constants.SUCCESS,cm.getMsgText());
+        assertEquals(Constants.SUCCESS,configurableMessage.getMsgText());
+    }
+
+    @After
+    public void cleanup()
+    {
+        territoryList=null;
+        attackerTerritory=null;
+        defenderTerritory=null;
     }
 }

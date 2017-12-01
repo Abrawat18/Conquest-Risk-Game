@@ -9,6 +9,7 @@ import com.app_team11.conquest.model.ReinforcementType;
 import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -70,5 +71,16 @@ public class FortifyPhaseTest {
     public void invalidFortifyPhase()
     {
        assertEquals(0,playerList.get(0).fortifyTerritory(territoryList.get(0), territoryList.get(1), 10).getMsgCode());
+    }
+
+    @After
+    public void cleanup()
+    {
+        territoryList=null;
+       territory=null;
+        continent=null;
+        continentList=null;
+        player=null;
+        playerList=null;
     }
 }

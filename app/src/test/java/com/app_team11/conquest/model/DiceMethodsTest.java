@@ -1,5 +1,6 @@
 package com.app_team11.conquest.model;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -54,5 +55,12 @@ public class DiceMethodsTest {
             System.out.print(i+" ");
         System.out.println("\nHighest dice value for 3 dice: "+player.getHighestValue(diceList));
 
+    }
+
+    @After
+    public void cleanup()
+    {
+        diceList=null;
+        player=null;
     }
 }

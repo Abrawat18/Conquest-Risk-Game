@@ -2,6 +2,7 @@ package com.app_team11.conquest.model;
 
 import com.app_team11.conquest.utility.ConfigurableMessage;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +21,7 @@ public class AddTerritoryTest
     private List<Continent> continentList;
     private List<Territory> territoryList;
     private GameMap gameMap;
-    private ConfigurableMessage cm;
+    private ConfigurableMessage configurableMessage;
 
     private Continent continent;
     private Territory territory;
@@ -41,8 +42,8 @@ public class AddTerritoryTest
         continent = new Continent("Test Continent 1", 7);
         continentList.add(continent);
 
-         territory = new Territory("Test Territory 1", 0, 1, continent);
-         territoryList.add(territory);
+        territory = new Territory("Test Territory 1", 0, 1, continent);
+        territoryList.add(territory);
 
         for(int i=1;i<12;i++)
         {
@@ -63,8 +64,17 @@ public class AddTerritoryTest
     public void invalidTerritoryCondition()
     {
         territory=new Territory("Test territory",0,5,continent);
-        cm=gameMap.getTerritoryList().get(0).addRemoveNeighbourToTerr(territory,'A');
-        assertEquals(0,cm.getMsgCode());
+        configurableMessage=gameMap.getTerritoryList().get(0).addRemoveNeighbourToTerr(territory,'A');
+        assertEquals(0,configurableMessage.getMsgCode());
+    }
+
+    @After
+    public void cleanup()
+    {
+        territory=null;
+        territoryList=null;
+        card=null;
+        configurableMessage=null;
     }
 
 }

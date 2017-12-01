@@ -2,6 +2,7 @@ package com.app_team11.conquest.model;
 
 import com.app_team11.conquest.utility.ConfigurableMessage;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -61,6 +62,17 @@ public class InvalidAttackPhaseTest {
         cm=new Player().validateAttackBetweenTerritories(territoryList.get(0),territoryList.get(1));
         System.out.print(cm.getMsgCode()+"msg"+cm.getMsgText());
         assertEquals(Constants.NOT_ADJACENT_TERRITORY,cm.getMsgText());
+    }
+
+    @After
+    public void cleanup()
+    {
+        territoryList=null;
+        player1=null;
+        player2=null;
+        cm=null;
+        territory1=null;
+        territory2=null;
     }
 
 }
