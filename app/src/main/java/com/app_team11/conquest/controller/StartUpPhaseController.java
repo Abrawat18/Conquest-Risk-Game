@@ -92,20 +92,14 @@ public class StartUpPhaseController implements SurfaceOnTouchListner {
             FileManager.getInstance().writeLog("Assigning initial armies to each territory on start up...");
             getActivity().setPlayerTurn(getActivity().getMap().getPlayerList().get(0));
         }
-        worldDominationViewSet();
+        getActivity().worldDominationViewSet();
         getActivity().updateDominationView();
         getActivity().getMap().assignCards();
         assignInitialArmy();
 
     }
 
-    /**
-     * World domination view implementation
-     */
-    public void worldDominationViewSet() {
-        int playerCount = getActivity().getMap().getPlayerList().size();
-        getActivity().initializeDominationView(playerCount);
-    }
+
 
     /**
      * method to randomly assign territories to each player

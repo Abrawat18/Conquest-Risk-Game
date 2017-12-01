@@ -191,6 +191,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             if (getMap() != null) {
                 getMap().loadPlayerStrategyToGame(this);
                 initializePlayerAdapter();
+                worldDominationViewSet();
+                updateDominationView();
                 loadGamePhase();
             } else {
                 Toast.makeText(this, "Invalid input please try again later !!", Toast.LENGTH_SHORT).show();
@@ -337,7 +339,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         showMap();
         setNextPlayerTurn();
 
-        if (fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
+        if (fromGameMode!=null && fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -395,7 +397,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 ReinforcementPhaseController.getInstance().setContext(this).startReInforceMentPhase();
                 break;
             case GamePhaseManager.PHASE_ATTACK:
-                if (!fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
+                if (fromGameMode != null && !fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
                     btnStopAttack.setVisibility(View.VISIBLE);
                     btnNewAttack.setVisibility(View.VISIBLE);
                     btnStopFortification.setVisibility(View.GONE);
@@ -407,7 +409,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             case GamePhaseManager.PHASE_FORTIFICATION:
                 btnStopAttack.setVisibility(View.GONE);
                 btnNewAttack.setVisibility(View.GONE);
-                if (!fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
+                if (fromGameMode != null && !fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
                     btnStopFortification.setVisibility(View.VISIBLE);
                     Toast.makeText(this, "Fortification Phase Started !!", Toast.LENGTH_SHORT).show();
                 }
@@ -437,6 +439,14 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     }
 
     /**
+     * World domination view implementation
+     */
+    public void worldDominationViewSet() {
+        int playerCount = getMap().getPlayerList().size();
+        initializeDominationView(playerCount);
+    }
+
+    /**
      * method to update the world domination view
      */
     public void updateDominationView() {
@@ -459,7 +469,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     public void endGame(final Player playerWon) {
         showMap();
 
-        if (!TextUtils.isEmpty(fromGameMode) && fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
+        if (fromGameMode != null && !TextUtils.isEmpty(fromGameMode) && fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
             if (mapPlayed < selectedMapListForTournamentMode.size()) {
                 if (playerWon != null) {
                     FileManager.getInstance().writeLog("*************** Game Ends! P:" + playerWon.getPlayerId() + " " + playerWon.getPlayerStrategyType() + " Won the game!! *******************");
@@ -614,7 +624,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * method to initialise objects and load the map on the screen
      */
     public void showMap() {
-        if (map != null && !fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
+        if ((map != null && fromGameMode==null) || ( map!=null && fromGameMode != null && !fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE))) {
             Paint linePaint = new Paint();
             linePaint.setColor(Color.WHITE);
             linePaint.setStrokeWidth(15);
