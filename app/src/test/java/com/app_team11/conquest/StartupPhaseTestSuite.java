@@ -1,9 +1,5 @@
 package com.app_team11.conquest;
 
-/**
- * Created by Nigel on 20-Oct-17.
- * Tests for map creation & startup phase methods
- */
 import com.app_team11.conquest.model.ReadFileTest;
 import com.app_team11.conquest.model.TerritoryAssignmentTest;
 import com.app_team11.conquest.model.UnconnectedContinentTest;
@@ -19,6 +15,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 
+/**
+ * Created by Nigel on 20-Oct-17.
+ * Tests for map creation & startup phase methods
+ */
     @RunWith(Suite.class)
 
     @Suite.SuiteClasses({
