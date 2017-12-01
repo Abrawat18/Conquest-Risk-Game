@@ -156,7 +156,7 @@ public class FileManager {
     /**
      * Method to write the input text in the log file
      *
-     * @param text
+     * @param text text to be written to the log
      */
     public void writeLog(String text) {
         BufferedWriter output = null;
@@ -228,7 +228,7 @@ public class FileManager {
      * Saves map data into a file
      * @param gamemap map object
      * @param filename name of the file
-     * @return
+     * @return whether operation was successful
      */
     public boolean writeObjectIntoFile(GameMap gamemap, File filename) {
         try {

@@ -53,7 +53,7 @@ public class AttackPhaseUtility {
 
     /**
      * Set the number of dice rolled
-     * @param numberOfDiceRolled
+     * @param numberOfDiceRolled number of dice rolled
      */
     public void setNumberOfDiceRolled(int numberOfDiceRolled) {
         this.numberOfDiceRolled = numberOfDiceRolled;
