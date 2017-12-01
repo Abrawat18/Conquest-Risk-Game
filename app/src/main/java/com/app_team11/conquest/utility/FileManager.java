@@ -41,7 +41,7 @@ public class FileManager {
     /**
      * Method to create BufferWriter object to enable writing
      * @param filePath path of the file
-     * @return writer
+     * @return writer object
      */
     public BufferedWriter createWriter(String filePath) {
         BufferedWriter writer = null;
@@ -97,7 +97,7 @@ public class FileManager {
     /**
      * Gets map file path
      * @param finalName file name
-     * @return file
+     * @return file object
      */
     public File getMapFilePath(String finalName) {
         String root = Environment.getExternalStorageDirectory().toString();
@@ -113,7 +113,7 @@ public class FileManager {
      * Gets the file log path
      *
      * @param finalName file name
-     * @return file
+     * @return file object
      */
     public File getLogPath(String finalName) {
         File file = null;
@@ -244,7 +244,9 @@ public class FileManager {
     }
 
     /**
+     * method to read object from file
      * @param filePath name of file
+     * @return GameMap object
      */
     public GameMap readObjectFromFile(String filePath) {
         GameMap gameMap = null;
