@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -229,39 +230,47 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * Initialize tournament mode for game
      */
     private void initializeTournamentMode() {
-        gameTurnCount = 0;
-        if (mapPlayed >= selectedMapListForTournamentMode.size()) {
-            // Tournament mode finished ...
-            FileManager.getInstance().writeLog("Tournament mode finished!!");
-            // Send result to tournament result
-            Intent intent = getIntent();
-            Bundle bundle = intent.getExtras();
-            if (bundle != null) {
-                bundle.putStringArrayList(Constants.KEY_TOURNAMENT_RESULT_LIST, tournamentResultList);
-            }
-            Intent tournamentIntent = new Intent(this, TournamentResultActivity.class);
-            tournamentIntent.putExtras(bundle);
-            startActivity(tournamentIntent);
-            finish();
-            return;
-        }
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                gameTurnCount = 0;
+                if (mapPlayed >= selectedMapListForTournamentMode.size()) {
+                    // Tournament mode finished ...
+                    FileManager.getInstance().writeLog("Tournament mode finished!!");
+                    // Send result to tournament result
+                    Intent intent = getIntent();
+                    Bundle bundle = intent.getExtras();
+                    if (bundle != null) {
+                        bundle.putStringArrayList(Constants.KEY_TOURNAMENT_RESULT_LIST, tournamentResultList);
+                    }
+                    Intent tournamentIntent = new Intent(GamePlayActivity.this, TournamentResultActivity.class);
+                    tournamentIntent.putExtras(bundle);
+                    startActivity(tournamentIntent);
+                    finish();
+                    return;
+                }
 
-        if (gamePlayed == 0) {
-            String fileName = new File(selectedMapListForTournamentMode.get(mapPlayed)).getName();
-            int pos = fileName.lastIndexOf(".");
-            if (pos > 0) {
-                fileName = fileName.substring(0, pos);
+                if (gamePlayed == 0) {
+                    String fileName = new File(selectedMapListForTournamentMode.get(mapPlayed)).getName();
+                    int pos = fileName.lastIndexOf(".");
+                    if (pos > 0) {
+                        fileName = fileName.substring(0, pos);
+                    }
+                    tournamentResultList.add(fileName);
+                }
+                Log.e(TAG, "Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
+                FileManager.getInstance().writeLog("Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
+                setMap(new ReadMapUtility(GamePlayActivity.this).readFile(selectedMapListForTournamentMode.get(mapPlayed)));
+                getMap().addPlayerToGame(playerList.size(), playerList, GamePlayActivity.this);
+                if (getMap() != null) {
+                    initializePlayerAdapter();
+                    loadGamePhase();
+                }
             }
-            tournamentResultList.add(fileName);
-        }
-        Log.e(TAG, "Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
-        FileManager.getInstance().writeLog("Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
-        setMap(new ReadMapUtility(this).readFile(selectedMapListForTournamentMode.get(mapPlayed)));
-        getMap().addPlayerToGame(playerList.size(), playerList, this);
-        if (getMap() != null) {
-            initializePlayerAdapter();
-            loadGamePhase();
-        }
+        }, 100);
+
+
     }
 
     /**
@@ -318,7 +327,17 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         FileManager.getInstance().writeLog("Fortification Phase Completed");
         showMap();
         setNextPlayerTurn();
-        changeGamePhase();
+        if(fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)){
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    changeGamePhase();
+                }
+            }, 100);
+        }else {
+            changeGamePhase();
+        }
     }
 
     /**
@@ -353,7 +372,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 StartUpPhaseController.getInstance().setContext(this).startStartUpPhase();
                 break;
             case GamePhaseManager.PHASE_REINFORCEMENT:
-                if(fromGameMode!=null && fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
+                if (fromGameMode != null && fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
                     FileManager.getInstance().writeLog("Game Turn Count=" + (++gameTurnCount));
                     if (gameTurnCount > maximumRoundsForTournamentMode) {
                         endGame(null);
@@ -582,7 +601,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
      * method to initialise objects and load the map on the screen
      */
     public void showMap() {
-        if (map != null) {
+        if (map != null && !fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
             Paint linePaint = new Paint();
             linePaint.setColor(Color.WHITE);
             linePaint.setStrokeWidth(15);
