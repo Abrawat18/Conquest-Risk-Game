@@ -61,7 +61,7 @@ import java.util.TimerTask;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
- * This class is responnsible for the game play activity
+ * This class is responnsible for the playing of the game
  * Created by RADHEY on 10/15/2017
  * version 1.0.0
  */
@@ -102,7 +102,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     /**
      * {@inheritDoc}
      * This method is called on creation of the activity which allows user to play the game
-     *
      * @param savedInstanceState When activity is reopened , this parameter is used for resuming to the resumed state
      */
 
@@ -290,8 +289,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * Get player turn from game map
-     *
-     * @return getPlayerTurn : returns the turn of the player
+     * @return getPlayerTurn returns the turn of the player
      */
     public Player getPlayerTurn() {
         return getMap().getPlayerTurn();
@@ -459,8 +457,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * Method for ending the game when the player wins
-     *
-     * @param playerWon
+     * @param playerWon parameter if the player won
      */
     public void endGame(final Player playerWon) {
         showMap();
@@ -524,7 +521,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
     /**
      * Action to be performed when touch on surface
-     *
      * @param surfaceOnTouchListner : this is called when surface is touched
      */
     public void setSurfaceOnTouchListner(SurfaceOnTouchListner surfaceOnTouchListner) {
@@ -827,7 +823,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     }
 
     /**
-     * Show card trade
+     * Method for Showing card trade
      */
     public void showCardTradePopUp() {
         final Dialog dialog = new Dialog(this);
