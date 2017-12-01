@@ -13,7 +13,9 @@ import org.junit.runners.Suite;
  */
 
 @RunWith(Suite.class)
-
+/**
+ * Suite for Fortification phase
+ */
 @Suite.SuiteClasses({
         TerritoryTest.class,           //Fortify phase
         FortifyPhaseTest.class,        //invalid Fortify Phase Test

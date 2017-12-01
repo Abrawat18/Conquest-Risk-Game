@@ -31,6 +31,9 @@ public class ReinforcementArmyTest {
     private Cards card;
     private int i;
 
+    /**
+     * Initialize test data
+     */
     @Before
     public void setUp()
     {

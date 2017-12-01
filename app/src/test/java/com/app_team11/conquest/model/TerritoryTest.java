@@ -25,6 +25,9 @@ public class TerritoryTest {
     private Player player;
     private int i;
 
+    /**
+     * Initalizes variables for the test
+     */
     @Before
     public void setup()
     {

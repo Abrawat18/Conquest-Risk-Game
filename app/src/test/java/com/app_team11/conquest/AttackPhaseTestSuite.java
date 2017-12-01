@@ -24,6 +24,9 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 
+/**
+ * Suite for Attack phase
+ */
 @Suite.SuiteClasses({
         PreAttackValidationTest.class,   //Pre-attack validations to check for adjacent territory
         SufficientArmyTest.class,        //Validation conditions to check for sufficient armies

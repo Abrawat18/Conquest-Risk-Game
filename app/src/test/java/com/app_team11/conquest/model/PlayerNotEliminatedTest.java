@@ -27,6 +27,9 @@ public class PlayerNotEliminatedTest {
     ConfigurableMessage cm;
     GameMap map;
 
+    /**
+     * Initializes test data
+     */
     @Before
     public void setUp()
     {

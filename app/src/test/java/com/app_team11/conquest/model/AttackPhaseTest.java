@@ -14,7 +14,7 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by Nigel on 06-Nov-17.
- * Checks for valid attack phase
+ * Checks for validations for the pre-attack phase
  */
 
 public class AttackPhaseTest {

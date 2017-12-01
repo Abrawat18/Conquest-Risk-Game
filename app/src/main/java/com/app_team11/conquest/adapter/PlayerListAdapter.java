@@ -34,6 +34,7 @@ public class PlayerListAdapter extends BaseAdapter {
     }
 
     /**
+     * Returns the count for the player list
      * @return size of player list
      */
     @Override
@@ -42,6 +43,7 @@ public class PlayerListAdapter extends BaseAdapter {
     }
 
     /**
+     * Returns the position of player
      * @param position parameter for the position of player list
      * @return player list position
      */
@@ -51,6 +53,7 @@ public class PlayerListAdapter extends BaseAdapter {
     }
 
     /**
+     * Returns the position for item id
      * @param position parameter for the position of player list
      * @return position integer value for the player position
      */
@@ -60,6 +63,7 @@ public class PlayerListAdapter extends BaseAdapter {
     }
 
     /**
+     * Returns the current view for the player list adapter
      * @param position view position
      * @param convertView view to be loaded
      * @param parent group parent

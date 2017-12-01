@@ -17,6 +17,11 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+
+/**
+ * Created by Nigel on 19-Oct-17.
+ * checks whether cards can be traded
+ */
 public class TradeCardTest {
     private String filePath;
     private boolean failed;

@@ -33,7 +33,8 @@ public class GameLogAdapter extends BaseAdapter {
     }
 
     /**
-     *return game log list size
+     *returns game log list size
+     * @return GameLogList list of game logs
      */
     @Override
     public int getCount() {
@@ -41,7 +42,7 @@ public class GameLogAdapter extends BaseAdapter {
     }
 
     /**
-     *
+     * Getter for the game log list
      * @param position for the game log list
      * @return item position in game list
      */
@@ -51,6 +52,7 @@ public class GameLogAdapter extends BaseAdapter {
     }
 
     /**
+     * Getter for the position of the item
      * @param position for the game log
      * @return position of the item
      */
@@ -60,6 +62,7 @@ public class GameLogAdapter extends BaseAdapter {
     }
 
     /**
+     * View method for the current state
      * @param position position of the view
      * @param convertView view to be converted to
      * @param parent parent of ViewGroup type
@@ -80,6 +83,7 @@ public class GameLogAdapter extends BaseAdapter {
     }
 
     /**
+     * Setter for the game log list
      * setter method for game list
      * @param gameLogList parameter for the list of game log which is set
      */

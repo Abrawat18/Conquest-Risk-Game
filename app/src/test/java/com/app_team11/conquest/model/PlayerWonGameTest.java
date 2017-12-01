@@ -25,6 +25,9 @@ public class PlayerWonGameTest {
     ConfigurableMessage cm;
     GameMap map;
 
+    /**
+     * Initializes test data
+     */
     @Before
     public void setUp()
     {
