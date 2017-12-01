@@ -115,20 +115,16 @@ public class SaveGameFunctionalityTest {
         if(configurableMessage.getMsgCode()==1)
         {
             assertEquals(Constants.ATTACKER_WON, configurableMessage.getMsgText());
-            System.out.println("Attacker Armies: "+attackerTerritory.getArmyCount());
             attackerWon=true;
         }
         else
             assertEquals(Constants.ATTACKER_LOST,configurableMessage.getMsgText());
-
-
-
         File file=new File(System.getProperty("user.dir") + File.separator + filePath);
         assertTrue(fileManager.writeObjectIntoFile(map,file));
     }
 
     /**
-     * test to read the saved game file and verify that the
+     * test to read the saved game file and verify that the changed state was saved.
      */
     @Test
     public void readFileTest()
@@ -143,6 +139,7 @@ public class SaveGameFunctionalityTest {
            System.out.println("Territory: "+territory.getTerritoryName());
            System.out.println("Armies: "+territory.getArmyCount());
            if (territory.getTerritoryName().equals("Territory1") && attackerWon) {
+               //Check whether the changed state of the army was saved correctly
                assertEquals(5, territory.getArmyCount());
            }
        }
