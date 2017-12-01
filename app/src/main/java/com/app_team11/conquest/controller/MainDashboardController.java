@@ -42,8 +42,8 @@ public class MainDashboardController {
     }
 
     /**
-     * Getting the instance of MainDashboardController
-     * @return mainDashboardController
+     * Getting the current state of MainDashboardController
+     * @return mainDashboardController instance is returned
      */
     public static MainDashboardController getInstance() {
         if (mainDashboardController == null) {
@@ -53,8 +53,8 @@ public class MainDashboardController {
     }
 
     /**
-     * Context Initialization
-     * @param context Reference
+     * Current Context Initialization
+     * @param context initialize activity
      */
     public void initialization(Context context) {
 
@@ -159,7 +159,7 @@ public class MainDashboardController {
 
     /**
      * Creation of context for the MainDashboardActivity
-     * @return MainDashboardActivity
+     * @return current state of the MainDashboardActivity is returned
      */
     public MainDashboardActivity getActivity() {
         return (MainDashboardActivity) context;

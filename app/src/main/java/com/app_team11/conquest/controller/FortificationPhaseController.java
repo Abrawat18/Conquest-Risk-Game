@@ -41,7 +41,7 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
 
     /**
      * method to implement singleton architecture for class
-     * @return FortificationController object
+     * @return FortificationController object is returned
      */
     public static FortificationPhaseController getInstance() {
         if (fortificationPhaseController == null) {
@@ -53,7 +53,7 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
     /**
      * method to set the context to controller
      * @param context the running activity instance
-     * @return FortificationController Object
+     * @return FortificationController Object is returned
      */
     public FortificationPhaseController setContext(Context context) {
         this.context = context;
@@ -166,8 +166,8 @@ public class FortificationPhaseController implements SurfaceOnTouchListner {
     }
 
     /**
-     * GamePlay Activity Method
-     * @return GamePlayActivity
+     * Get current running GamePlay Activity
+     * @return GamePlayActivity instance is returned
      */
     private GamePlayActivity getActivity() {
         return (GamePlayActivity) context;

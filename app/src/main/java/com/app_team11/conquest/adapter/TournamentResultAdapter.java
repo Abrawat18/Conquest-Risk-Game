@@ -37,7 +37,7 @@ public class TournamentResultAdapter extends BaseAdapter {
 
     /**
      * Gives the count of the result list
-     * @return size of result list
+     * @return resultList size of result list
      */
     @Override
     public int getCount() {
@@ -55,7 +55,7 @@ public class TournamentResultAdapter extends BaseAdapter {
 
     /**
      * @param position gives the position of the item
-     * @return position place of item
+     * @return position place of item is returned
      */
     @Override
     public long getItemId(int position) {
@@ -83,7 +83,7 @@ public class TournamentResultAdapter extends BaseAdapter {
     }
 
     /**
-     * This class holds the view
+     * This class holds the view for the winner value
      */
     class ViewHolder {
         private TextView winnerValue;

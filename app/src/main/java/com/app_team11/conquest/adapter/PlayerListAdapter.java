@@ -42,7 +42,7 @@ public class PlayerListAdapter extends BaseAdapter {
     }
 
     /**
-     * @param position
+     * @param position parameter for the position of player list
      * @return player list position
      */
     @Override
@@ -51,8 +51,8 @@ public class PlayerListAdapter extends BaseAdapter {
     }
 
     /**
-     * @param position
-     * @return player position
+     * @param position parameter for the position of player list
+     * @return [position integer value for the player position
      */
     @Override
     public long getItemId(int position) {
@@ -63,7 +63,7 @@ public class PlayerListAdapter extends BaseAdapter {
      * @param position view position
      * @param convertView view to be loaded
      * @param parent group parent
-     * @return converted view
+     * @return convertView returns the converted view
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
