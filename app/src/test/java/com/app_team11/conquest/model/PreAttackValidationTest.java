@@ -26,6 +26,9 @@ public class PreAttackValidationTest {
     Territory territory1,territory2;
     ConfigurableMessage cm;
 
+    /**
+     * Initializes test data
+     */
     @Before
     public void setUp()
     {
