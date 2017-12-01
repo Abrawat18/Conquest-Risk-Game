@@ -188,6 +188,11 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             setMap(FileManager.getInstance().readObjectFromFile(loadSavedMapPath));
             if (getMap() != null) {
                 getMap().loadPlayerStrategyToGame(this);
+                initializePlayerAdapter();
+                loadGamePhase();
+            } else {
+                Toast.makeText(this, "Invalid input please try again later !!", Toast.LENGTH_SHORT).show();
+                finish();
             }
         } else if (fromGameMode.equals(Constants.FROM_SINGLE_MODE_VALUE) && !TextUtils.isEmpty(filePathToLoad) && noOfPlayer > 0) {
             FileManager.getInstance().writeLog("Initializing single game mode");
@@ -343,9 +348,11 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 StartUpPhaseController.getInstance().setContext(this).startStartUpPhase();
                 break;
             case GamePhaseManager.PHASE_REINFORCEMENT:
-                FileManager.getInstance().writeLog("Game Turn Count=" + (++gameTurnCount));
-                if (fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE) && gameTurnCount > maximumRoundsForTournamentMode) {
-                    endGame(null);
+                if(fromGameMode!=null && fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
+                    FileManager.getInstance().writeLog("Game Turn Count=" + (++gameTurnCount));
+                    if (gameTurnCount > maximumRoundsForTournamentMode) {
+                        endGame(null);
+                    }
                 }
                 btnStopAttack.setVisibility(View.GONE);
                 btnNewAttack.setVisibility(View.GONE);
