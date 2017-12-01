@@ -10,11 +10,17 @@ import java.util.List;
 import java.util.Observable;
 
 /**
+ * This class is responsible for the cheater player strategy
  * Created by Jaydeep on 11/26/2017.
  */
 
 public class CheaterPlayerStrategy extends Observable implements PlayerStrategyListener {
-
+    /**
+     * For cheater player strategy the startup phase is defined
+     * @param gameMap map for the game is defined
+     * @param player player is defined using this parameter
+     * @return ConfigurableMessage custom message is returned
+     */
     @Override
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Cheater player startup phase started !! ");
@@ -27,7 +33,12 @@ public class CheaterPlayerStrategy extends Observable implements PlayerStrategyL
         }
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
     }
-
+    /**
+     * For cheater player strategy the reinforcement phase is defined
+     * @param gameMap map for the game is defined
+     * @param player player is defined using this parameter
+     * @return ConfigurableMessage custom message is returned
+     */
     @Override
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Cheater player Reinforcement phase started !! ");
@@ -38,7 +49,12 @@ public class CheaterPlayerStrategy extends Observable implements PlayerStrategyL
         FileManager.getInstance().writeLog("Cheater player Reinforcement phase ended !! ");
         return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
     }
-
+    /**
+     * For cheater player strategy the attack phase is defined
+     * @param gameMap map for the game is defined
+     * @param player player is defined using this parameter
+     * @return ConfigurableMessage custom message is returned
+     */
     @Override
     public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Cheater player attack phase started !! ");
@@ -55,7 +71,12 @@ public class CheaterPlayerStrategy extends Observable implements PlayerStrategyL
         notifyObservers(observerType);
         return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
     }
-
+    /**
+     * For cheater player strategy the fortification phase is defined
+     * @param gameMap map for the game is defined
+     * @param player player is defined using this parameter
+     * @return ConfigurableMessage custom message is returned
+     */
     @Override
     public ConfigurableMessage fortificationPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Cheater player Fortification phase started !! ");

@@ -76,7 +76,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
     /**
      * setting the context variable for reinforcement phase
      * @param context sets the reference
-     * @return getInstance()
+     * @return getInstance current instance
      */
     public AttackPhaseController setContext(Context context) {
         this.context = context;
@@ -120,7 +120,7 @@ public class AttackPhaseController implements SurfaceOnTouchListner {
 
     /**
      * Method to check if attack is possible
-     * @return
+     * @return whether attack is possible(true/false)
      */
     private boolean isAttackPossible() {
         for (Territory territory : getActivity().getMap().getTerrForPlayer(getActivity().getPlayerTurn())) {

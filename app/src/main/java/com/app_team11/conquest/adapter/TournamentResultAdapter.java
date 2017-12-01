@@ -27,8 +27,8 @@ public class TournamentResultAdapter extends BaseAdapter {
 
     /**
      * Constructor for tournament result adapter
-     * @param context
-     * @param resultList as List<String>
+     * @param context the running activity instance
+     * @param resultList list of result
      */
     public TournamentResultAdapter(Context context, List<String> resultList) {
         this.resultList = resultList;
@@ -37,7 +37,6 @@ public class TournamentResultAdapter extends BaseAdapter {
 
     /**
      * Gives the count of the result list
-     *
      * @return size of result list
      */
     @Override

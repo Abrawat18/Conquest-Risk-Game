@@ -8,6 +8,7 @@ import com.app_team11.conquest.model.GameMap;
 import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.Territory;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -100,19 +101,6 @@ public class SaveGameFunctionalityTest {
         filePath="app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\testFile.ser";
     }
 
-    @Test
-    public void aggressiveStartupPhase() {
-        //Startup Phase
-        configurableMessage = attacker.startupPhase(map);
-        assertEquals(Constants.SUCCESS, configurableMessage.getMsgText());
-    }
-    @Test
-    public void aggressiveAttackPhase() {
-        //Attack Phase
-        configurableMessage = attacker.attackPhase(map);
-        assertEquals(Constants.ATTACK_SUCCESS_STRATEGY, configurableMessage.getMsgText());
-        System.out.println("Attacker Armies: "+attackerTerritory.getArmyCount());
-    }
 
     /**
      * test to save the game to a file
@@ -120,6 +108,15 @@ public class SaveGameFunctionalityTest {
     @Test
     public void saveMapTest()
     {
+        //Startup Phase
+        configurableMessage = attacker.startupPhase(map);
+        assertEquals(Constants.SUCCESS, configurableMessage.getMsgText());
+
+        //Attack Phase
+        configurableMessage = attacker.attackPhase(map);
+        assertEquals(Constants.ATTACK_SUCCESS_STRATEGY, configurableMessage.getMsgText());
+        System.out.println("Attacker Armies: "+attackerTerritory.getArmyCount());
+
         File file=new File(System.getProperty("user.dir") + File.separator + filePath);
         assertTrue(fileManager.writeObjectIntoFile(map,file));
     }
@@ -140,9 +137,27 @@ public class SaveGameFunctionalityTest {
            System.out.println("Territory: "+territory.getTerritoryName());
            System.out.println("Armies: "+territory.getArmyCount());
            if (territory.getTerritoryName().equals("Territory1")) {
-               assertEquals(2, territory.getArmyCount());
+               assertEquals(3, territory.getArmyCount());
            }
        }
     }
+
+    /**
+     * cleans up the test data
+     */
+    @After
+    public void clean()
+    {
+        configurableMessage=null;
+        continent1=null;
+        continent2=null;
+        territoryList=null;
+        defenderTerritory=null;
+        attackerTerritory=null;
+        attacker=null;
+        defender=null;
+    }
+
+
 
 }

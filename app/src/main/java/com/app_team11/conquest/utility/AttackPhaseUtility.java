@@ -25,13 +25,15 @@ public class AttackPhaseUtility {
     //TODO : check for capture territory ...
     private int numberOfDiceRolled;
 
+    /**
+     * constructor of AttackPhaseUtility class
+     */
     private AttackPhaseUtility() {
 
     }
 
     /**
      * Getter for the attack phase utility
-     *
      * @return instance  reference for the attack phase utility
      */
     public static AttackPhaseUtility getInstance() {
@@ -43,8 +45,6 @@ public class AttackPhaseUtility {
 
 
     /**
-     * Returns number of dice rolled
-     *
      * @return numberOfDiceRolled gives the number of dice which are rolled
      */
     public int getNumberOfDiceRolled() {
@@ -53,7 +53,6 @@ public class AttackPhaseUtility {
 
     /**
      * Set the number of dice rolled
-     *
      * @param numberOfDiceRolled
      */
     public void setNumberOfDiceRolled(int numberOfDiceRolled) {
@@ -63,7 +62,6 @@ public class AttackPhaseUtility {
 
     /**
      * Checks whether attack can be continued
-     *
      * @param defenderTerritory this is the parameter for defender of the territory
      * @return ConfigurableMessage the message is returned as per the configuration
      */
@@ -75,7 +73,6 @@ public class AttackPhaseUtility {
 
     /**
      * Checks whether player is attacking an already owned territory
-     *
      * @param attackerTerritory territory which attacks
      * @param defenderTerritory territory which defends
      * @return whether adjacent or not
@@ -91,7 +88,6 @@ public class AttackPhaseUtility {
 
     /**
      * Check for sufficient armies
-     *
      * @param attackerTerritory territory which attacks
      * @return ConfigurableMessage message is returned which is configurable
      */
@@ -103,7 +99,6 @@ public class AttackPhaseUtility {
 
     /**
      * Validate the attack
-     *
      * @param attackerTerritory parameter for the attacker territory
      * @param defenderTerritory parameter for the defender territory
      * @return canContinueAttack checks if attack can be continued
@@ -129,7 +124,6 @@ public class AttackPhaseUtility {
 
     /**
      * The attack phase method
-     *
      * @param attackerTerritory parameter for the territory which attacks
      * @param defenderTerritory parameter for the territory which defends
      * @param attackerDice      dice for attacking dice
@@ -216,11 +210,10 @@ public class AttackPhaseUtility {
 
     /**
      * This method is for conditions related to capturing a territory
-     *
-     * @param attackerTerritory
-     * @param defenderTerritory
-     * @param moveArmiesToCapturedTerritory
-     * @return
+     * @param attackerTerritory the attacker territory
+     * @param defenderTerritory the defender territory
+     * @param moveArmiesToCapturedTerritory the number of armies to be moved to captured territory
+     * @return whether the operation is successful
      */
     public ConfigurableMessage captureTerritory(Territory attackerTerritory, Territory defenderTerritory, int moveArmiesToCapturedTerritory) {
         if (attackerTerritory.getArmyCount() - moveArmiesToCapturedTerritory == 0) {
@@ -246,8 +239,7 @@ public class AttackPhaseUtility {
 
     /**
      * Generates random dice values depending on number of attacker/defender dice
-     *
-     * @param arraySize
+     * @param arraySize dice array size
      * @return randomly generated dice array
      */
     public static List<Integer> getRandomDiceValues(int arraySize) {

@@ -27,6 +27,9 @@ public class CheaterPlayerStrategyTest {
     ConfigurableMessage configurableMessage;
     GameMap map;
 
+    /**
+     * Initalizes variables for the test
+     */
     @Before
     public void setUp()
     {

@@ -22,14 +22,18 @@ public class GameLogAdapter extends BaseAdapter {
     private List<String> gameLogList;
     private LayoutInflater inflater;
 
+    /**
+     * Constructor for GameLogAdapter
+     * @param context the running activity instance
+     * @param gameLogList game log string contents
+     */
     public GameLogAdapter(Context context, List<String> gameLogList) {
         this.gameLogList = gameLogList;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     /**
-     * Returns the count for game log lost
-     * @return game log list
+     *return game log list size
      */
     @Override
     public int getCount() {
@@ -37,9 +41,9 @@ public class GameLogAdapter extends BaseAdapter {
     }
 
     /**
-     * returns the item position
+     *
      * @param position
-     * @return item position
+     * @return item position in game list
      */
     @Override
     public String getItem(int position) {
@@ -47,9 +51,8 @@ public class GameLogAdapter extends BaseAdapter {
     }
 
     /**
-     * Returns the item position
      * @param position
-     * @return item position
+     * @return position of the item
      */
     @Override
     public long getItemId(int position) {
@@ -57,11 +60,10 @@ public class GameLogAdapter extends BaseAdapter {
     }
 
     /**
-     * Returns the view
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return view
+     * @param position position of the view
+     * @param convertView view to be converted to
+     * @param parent parent of ViewGroup type
+     * @return converted view
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -79,7 +81,7 @@ public class GameLogAdapter extends BaseAdapter {
 
     /**
      * setter method for game list
-     * @param gameLogList
+     * @param gameLogList which is set
      */
     public void setGameLogList(List<String> gameLogList) {
         this.gameLogList = gameLogList;

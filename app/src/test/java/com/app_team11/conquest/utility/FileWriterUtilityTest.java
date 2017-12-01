@@ -17,6 +17,9 @@ import static junit.framework.Assert.assertNull;
 public class FileWriterUtilityTest {
     FileManager fileManager;
     String filePath;
+    /**
+     * Initializes variables for the test
+     */
     @Before
     public void setup()
     {

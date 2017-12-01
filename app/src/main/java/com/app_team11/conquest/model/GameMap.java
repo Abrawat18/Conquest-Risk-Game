@@ -18,7 +18,6 @@ import java.util.List;
 /**
  * primary class for Game play indicating data variables required to implement the game
  * Created by Vasu on 06-10-2017.
- *
  * @version 1.0.0
  */
 public class GameMap implements Serializable {
@@ -46,13 +45,12 @@ public class GameMap implements Serializable {
     }
 
     /**
-     * Initializa the class members
-     *
-     * @param imageName
-     * @param wrapFlag
-     * @param authorName
-     * @param scrollLine
-     * @param warnFlag
+     * Initialize the class members
+     * @param imageName : name of the image is defined using parameter
+     * @param wrapFlag : this parameter wraps the flag
+     * @param authorName : defines the name of the author of the map
+     * @param scrollLine : scrolling option is available due to this parameter
+     * @param warnFlag : sets the warning for the invalid map
      */
     public GameMap(String imageName, String wrapFlag, String authorName, String scrollLine, String warnFlag) {
         this.imageName = imageName;
@@ -78,7 +76,7 @@ public class GameMap implements Serializable {
 
     /**
      * Getting player turn
-     * @return player
+     * @return player : gives the turn of the player
      */
     public Player getPlayerTurn() {
         return playerTurn;
@@ -86,7 +84,7 @@ public class GameMap implements Serializable {
 
     /**
      * Setting player turn
-     * @param playerTurn
+     * @param playerTurn : sets the player turn
      */
     public void setPlayerTurn(Player playerTurn) {
         this.playerTurn = playerTurn;
@@ -94,7 +92,7 @@ public class GameMap implements Serializable {
 
     /**
      * Getting game phase manager
-     * @return GamePhaseManager
+     * @return GamePhaseManager returns the game phase manager
      */
     public GamePhaseManager getGamePhaseManager() {
         return gamePhaseManager;
@@ -102,7 +100,7 @@ public class GameMap implements Serializable {
 
     /**
      * Setting GamePhaseManager
-     * @param gamePhaseManager
+     * @param gamePhaseManager sets the game phase manager
      */
     public void setGamePhaseManager(GamePhaseManager gamePhaseManager) {
         this.gamePhaseManager = gamePhaseManager;
@@ -163,7 +161,7 @@ public class GameMap implements Serializable {
      *
      * @param contObj       Continent object which needs to be added or removed from map
      * @param addRemoveFlag flag to indicate if the continent is needed to be added - 'A' or removed - 'R'
-     * @return custom message
+     * @return custom message returns the custom message
      */
     public ConfigurableMessage addRemoveContinentFromMap(Continent contObj, char addRemoveFlag) {
         if (addRemoveFlag == 'A') {
@@ -202,7 +200,7 @@ public class GameMap implements Serializable {
      *
      * @param terrObj       Territory object for the territory that is needed to be removed
      * @param addRemoveFlag flag to indicate if the territory needs to be removed - 'R' or added - 'A'
-     * @return custom message
+     * @return ConfigurableMessage returns the custom message
      */
     public ConfigurableMessage addRemoveTerritoryFromMap(Territory terrObj, char addRemoveFlag) {
         if (addRemoveFlag == 'A') {
@@ -240,8 +238,8 @@ public class GameMap implements Serializable {
     /**
      * This method is used to return the territories for the given continent
      *
-     * @param contObj
-     * @return Territory List
+     * @param contObj object for continent is defined
+     * @return terrList list of territory is returned
      */
     public List<Territory> getTerrForCont(Continent contObj) {
         List<Territory> terrList = new ArrayList<Territory>();
@@ -253,6 +251,10 @@ public class GameMap implements Serializable {
         return terrList;
     }
 
+    /**
+     * The method loads the player strategy to the game
+     * @param gamePlayActivity parameter for game play activity is defined
+     */
     public void loadPlayerStrategyToGame(GamePlayActivity gamePlayActivity) {
         for (Player player : getPlayerList()) {
             switch (player.getPlayerStrategyType()) {
@@ -296,8 +298,8 @@ public class GameMap implements Serializable {
      *
      * @param playersCount   number of players to be added for game
      * @param playerListData playerlist to add in gamemap with different strategy ...
-     * @param gamePlayActivity
-     * @return Configurable Message
+     * @param gamePlayActivity game play activity parameter is defined
+     * @return ConfigurableMessage custom message is defined
      */
     public ConfigurableMessage addPlayerToGame(int playersCount, List<String> playerListData, GamePlayActivity gamePlayActivity) {
         if (playerListData != null && playerListData.size() > 0) {
@@ -373,8 +375,8 @@ public class GameMap implements Serializable {
     /**
      * The method is used to return the territory list owned by the given Player
      *
-     * @param playerObj
-     * @return Territory List
+     * @param playerObj player object is defined using this parameter
+     * @return terrList list of territory is defined using this parameter
      */
     public List<Territory> getTerrForPlayer(Player playerObj) {
         List<Territory> terrList = new ArrayList<Territory>();
@@ -388,10 +390,9 @@ public class GameMap implements Serializable {
 
     /**
      * This method checks whether attacker has eliminated the defender and gets assigned with defenders cards
-     *
-     * @param attackerTerritory
-     * @param defenderTerritory
-     * @return
+     * @param attackerTerritory parameter defined for the attacker territory
+     * @param defenderTerritory parameter defined for the attacker territory
+     * @return ConfigurableMessage returns the custom message
      */
     public ConfigurableMessage eliminatedPlayer(Territory attackerTerritory, Territory defenderTerritory) {
         for (Territory territory : this.getTerritoryList()) {
@@ -405,9 +406,8 @@ public class GameMap implements Serializable {
 
     /**
      * This method checks whether player won the game
-     *
-     * @param player
-     * @return
+     * @param player parameter is defined for the player
+     * @return ConfigurableMessage returns the custom message
      */
     public ConfigurableMessage playerWonTheGame(Player player) {
         for (Territory territory : this.getTerritoryList()) {
@@ -439,8 +439,7 @@ public class GameMap implements Serializable {
 
     /**
      * Returns random card from deck
-     *
-     * @return random card list
+     * @return getCardList returns the card list
      */
     public Cards getRandomCardFromDeck() {
         if (null != getCardList()) {
@@ -460,7 +459,7 @@ public class GameMap implements Serializable {
     /**
      * Return the number of traded cards
      *
-     * @return
+     * @return noOfCardTradedCount returns the number of traded card
      */
     public int getNoOfCardTradedCount() {
         return noOfCardTradedCount;
@@ -482,7 +481,7 @@ public class GameMap implements Serializable {
     /**
      * Returns the name of the author
      *
-     * @return AuthorName
+     * @return AuthorName returns the name of the author
      */
     public String getAuthorName() {
         return authorName;
@@ -498,7 +497,7 @@ public class GameMap implements Serializable {
     /**
      * Returns the list of continent
      *
-     * @return ContinentList
+     * @return ContinentList returns the list of continent
      */
     public List<Continent> getContinentList() {
         return continentList;
@@ -507,7 +506,7 @@ public class GameMap implements Serializable {
     /**
      * Sets the list of continent in the Player
      *
-     * @param continentList
+     * @param continentList parameter for the list of continent
      */
     public void setContinentList(List<Continent> continentList) {
         this.continentList = continentList;
@@ -516,7 +515,7 @@ public class GameMap implements Serializable {
     /**
      * Sets the list of territory
      *
-     * @return TerritoryList
+     * @return TerritoryList returns the list of territory
      */
     public List<Territory> getTerritoryList() {
         return territoryList;
@@ -525,7 +524,7 @@ public class GameMap implements Serializable {
     /**
      * Sets the List of Territory
      *
-     * @param territoryList
+     * @param territoryList parameter for the list of territory
      */
     public void setTerritoryList(List<Territory> territoryList) {
         this.territoryList = territoryList;
@@ -534,7 +533,7 @@ public class GameMap implements Serializable {
     /**
      * Sets the player list
      *
-     * @return playerList
+     * @return playerList returns the list of player
      */
     public List<Player> getPlayerList() {
         return playerList;
@@ -542,8 +541,7 @@ public class GameMap implements Serializable {
 
     /**
      * Sets the Player List
-     *
-     * @param playerList
+     * @param playerList parameter for the list of player
      */
     public void setPlayerList(List<Player> playerList) {
         this.playerList = playerList;
@@ -551,8 +549,7 @@ public class GameMap implements Serializable {
 
     /**
      * Returns the name of the Image
-     *
-     * @return ImageName
+     * @return ImageName returns the name of the image
      */
     public String getImageName() {
         return imageName;
@@ -561,7 +558,7 @@ public class GameMap implements Serializable {
     /**
      * Sets the name of the Image
      *
-     * @param imageName
+     * @param imageName sets the name of the image
      */
     public void setImageName(String imageName) {
         this.imageName = imageName;
@@ -569,8 +566,7 @@ public class GameMap implements Serializable {
 
     /**
      * Returns the wrap property
-     *
-     * @return wrapFlag
+     * @return wrapFlag  returns the wrap property of the flag
      */
     public String getWrapFlag() {
         return wrapFlag;
@@ -578,8 +574,7 @@ public class GameMap implements Serializable {
 
     /**
      * Sets the wrap property
-     *
-     * @param wrapFlag
+     * @param wrapFlag sets the parameter for the wrap flag
      */
     public void setWrapFlag(String wrapFlag) {
         this.wrapFlag = wrapFlag;
@@ -588,16 +583,15 @@ public class GameMap implements Serializable {
     /**
      * Sets the scroll Line
      *
-     * @param scrollLine
+     * @param scrollLine parameter which defines the scrolling line
      */
     public void setScrollLine(String scrollLine) {
         this.scrollLine = scrollLine;
     }
 
     /**
-     * Sets the wrap property
-     *
-     * @param warnFlag
+     * Sets the warn flag
+     * @param warnFlag warns the flag
      */
     public void setWarnFlag(String warnFlag) {
         this.warnFlag = warnFlag;
@@ -605,7 +599,6 @@ public class GameMap implements Serializable {
 
     /**
      * Returns the card list
-     *
      * @return list of card
      */
     public List<Cards> getCardList() {
@@ -614,8 +607,7 @@ public class GameMap implements Serializable {
 
     /**
      * sets the card list
-     *
-     * @param cardList
+     * @param cardList parameter for the list of card
      */
     public void setCardList(List<Cards> cardList) {
         this.cardList = cardList;
@@ -630,8 +622,7 @@ public class GameMap implements Serializable {
 
     /**
      * Removed the card from deck
-     *
-     * @param card
+     * @param card parameter for the card from the deck is defined
      */
     public void removeCardFromDeck(Cards card) {
         this.getCardList().remove(card);
@@ -714,7 +705,7 @@ public class GameMap implements Serializable {
      * Depending on the connections, a path can be traced and the
      * territory's isVisited property is set to true.
      *
-     * @param territory
+     * @param territory defines the parameter for the territory
      */
     public void checkForConnectedGraph(Territory territory) {
         List<Territory> neighbours = territory.getNeighbourList();
@@ -731,8 +722,8 @@ public class GameMap implements Serializable {
     /**
      * Check whether territories in a continent are connected
      *
-     * @param continent
-     * @param territory
+     * @param continent defines the parameter for the continent
+     * @param territory defines the parameter for the territory
      */
     public void checkForConnectedContinents(Continent continent, Territory territory) {
         List<Territory> neighbours = territory.getNeighbourList();
@@ -750,8 +741,8 @@ public class GameMap implements Serializable {
     /**
      * This method is for checking whether the graph is connected
      *
-     * @param territoryList
-     * @return
+     * @param territoryList defines the parameter for the list of territory
+     * @return boolean checks if the territory is connected or not and returns either true or false
      */
 
     public Boolean isConnected(List<Territory> territoryList) {
@@ -765,8 +756,7 @@ public class GameMap implements Serializable {
 
     /**
      * Checks whether the territory is visited in the path
-     *
-     * @return
+     * @return TerritoryName returns the name of the territory
      */
     public Boolean getIsVisited(Territory territory) {
         return territory.isVisited;

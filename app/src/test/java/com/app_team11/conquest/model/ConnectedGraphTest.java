@@ -23,6 +23,9 @@ public class ConnectedGraphTest {
     private Territory Terr1c,TerrConnect=null;
     Continent continent;
 
+    /**
+     * Initalizes variables for the test
+     */
     @Before
     public void setUp() {
         filePath="app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\3D.map";

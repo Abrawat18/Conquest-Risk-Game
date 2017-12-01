@@ -23,6 +23,9 @@ public class GraphTest {
     private boolean failed;
     GameMap gameMap;
 
+    /**
+     * Initalizes variables for the test
+     */
     @Before
     public void setUp() {
         filePath="app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\3D.map";

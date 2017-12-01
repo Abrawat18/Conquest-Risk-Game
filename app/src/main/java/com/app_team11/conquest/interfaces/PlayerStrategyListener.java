@@ -6,7 +6,7 @@ import com.app_team11.conquest.model.ReinforcementType;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 
 /**
- * This interface defines the listner for the type of player strategy
+ * This interface defines the listener for the type of player strategy
  * Created by Jaydeep on 11/26/2017.
  */
 

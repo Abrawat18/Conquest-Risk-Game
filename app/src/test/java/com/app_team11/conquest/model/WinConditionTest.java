@@ -23,6 +23,9 @@ public class WinConditionTest {
     ConfigurableMessage cm;
     GameMap map;
 
+    /**
+     * Initializes variables for the test
+     */
     @Before
     public void setUp()
     {

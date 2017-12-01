@@ -36,8 +36,8 @@ public class CardListAdapter extends BaseAdapter{
 
     /**
      * Constructor initialization
-     * @param context parameter for context initialization
-     * @param cardsList parameter for defining list of cards
+     * @param context for context initialization
+     * @param cardsList for defining list of cards
      */
     public CardListAdapter(Context context, List<Cards> cardsList){
         this.cardsList=cardsList;
@@ -65,7 +65,7 @@ public class CardListAdapter extends BaseAdapter{
 
     /**
      * Returns the Id of item
-     * @param position
+     * @param position of the card
      * @return position integer
      */
     @Override
@@ -75,10 +75,10 @@ public class CardListAdapter extends BaseAdapter{
 
     /**
      * Get current view
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return the view
+     * @param position position of view
+     * @param convertView view ot be converted
+     * @param parent ViewGroup parent
+     * @return the converted view
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

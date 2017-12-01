@@ -24,8 +24,8 @@ public class ContinentAdapter extends BaseAdapter {
 
     /**
      * Parameterized constructor which takes the context and continent list as input
-     * @param context
-     * @param continentList
+     * @param context to get running activity instance
+     * @param continentList continent list of the map
      */
     public ContinentAdapter(Context context, List<Continent> continentList) {
         this.continentList = continentList;
@@ -43,7 +43,7 @@ public class ContinentAdapter extends BaseAdapter {
 
     /**
      * Returns the position of continent in continent list
-     * @param position
+     * @param position of the continent
      * @return position of selected continent
      */
     @Override
@@ -53,7 +53,7 @@ public class ContinentAdapter extends BaseAdapter {
 
     /**
      * Returns the position of item
-     * @param position
+     * @param position of the item
      * @return item id
      */
     @Override
@@ -63,10 +63,10 @@ public class ContinentAdapter extends BaseAdapter {
 
     /**
      * Returns the view
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return convertView
+     * @param position of the view
+     * @param convertView the view which has to be converted to
+     * @param parent type ViewGroup parent
+     * @return convertView the converted view
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

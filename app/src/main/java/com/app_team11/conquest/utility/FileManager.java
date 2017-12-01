@@ -21,13 +21,15 @@ public class FileManager {
     private static FileManager fileManager;
     private SharedPreferences mPrefs;
 
+    /**
+     * Constructor of FileManager
+     */
     private FileManager() {
 
     }
 
     /**
      * Method to implement singleton pattern
-     *
      * @return fileManager
      */
     public static FileManager getInstance() {
@@ -39,9 +41,8 @@ public class FileManager {
 
     /**
      * Method to create BufferWriter object to enable writing
-     *
-     * @param filePath
-     * @return
+     * @param filePath path of the file
+     * @return writer
      */
     public BufferedWriter createWriter(String filePath) {
         BufferedWriter writer = null;
@@ -60,8 +61,7 @@ public class FileManager {
 
     /**
      * Method to create BufferWriter object to enable writing
-     *
-     * @param file
+     * @param file file to be written
      * @return writer
      */
     public BufferedWriter createWriter(File file) {
@@ -81,9 +81,8 @@ public class FileManager {
     }
 
     /**
-     * Returns file from room map directory
-     *
-     * @return myDir.listFiles()
+     * Gets files from room map directory
+     * @return directory list files
      */
     public List<MapFile> getFileFromRootMapDir(String filePath) {
         String root = Environment.getExternalStorageDirectory().toString();
@@ -97,9 +96,8 @@ public class FileManager {
     }
 
     /**
-     * Returns map file path
-     *
-     * @param finalName
+     * Gets map file path
+     * @param finalName file name
      * @return file
      */
     public File getMapFilePath(String finalName) {
@@ -113,9 +111,9 @@ public class FileManager {
     }
 
     /**
-     * Returns the file log path
+     * Gets the file log path
      *
-     * @param finalName
+     * @param finalName file name
      * @return file
      */
     public File getLogPath(String finalName) {
@@ -134,9 +132,9 @@ public class FileManager {
     }
 
     /**
-     * Returns map file directory
+     * Gets map file directory
      *
-     * @return myDir
+     * @return myDir directory of the file
      */
     public File getMapFileDirectory() {
         String root = Environment.getExternalStorageDirectory().toString();
@@ -147,8 +145,8 @@ public class FileManager {
     /**
      * Returns all files from directory
      *
-     * @param dir
-     * @return dir.listFiles()
+     * @param dir File directory
+     * @return dir.listFiles() list of files
      */
     public File[] getAllFileFromDir(File dir) {
         return dir.listFiles();
@@ -208,8 +206,7 @@ public class FileManager {
 
     /**
      * Returns the file log path
-     *
-     * @param finalName
+     * @param finalName File name
      * @return file
      */
     public File getSerializableFilePath(String finalName) {
@@ -228,7 +225,10 @@ public class FileManager {
     }
 
     /**
-     * @param gamemap
+     * Saves map data into a file
+     * @param gamemap map object
+     * @param filename name of the file
+     * @return
      */
     public boolean writeObjectIntoFile(GameMap gamemap, File filename) {
         try {
@@ -245,7 +245,7 @@ public class FileManager {
     }
 
     /**
-     * @param filePath
+     * @param filePath name of file
      */
     public GameMap readObjectFromFile(String filePath) {
         GameMap gameMap = null;

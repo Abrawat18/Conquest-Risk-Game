@@ -28,6 +28,9 @@ public class AddTerritoryTest
     private Cards card;
     private int i;
 
+    /**
+     * Initalizes variables for the test
+     */
     @Before
     public void setUp() {
         continentList=new ArrayList<Continent>();
