@@ -80,6 +80,9 @@ public class CaptureTerritoryTest {
         }
 
     }
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

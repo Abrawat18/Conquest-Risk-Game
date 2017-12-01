@@ -57,6 +57,9 @@ public class DiceMethodsTest {
 
     }
 
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

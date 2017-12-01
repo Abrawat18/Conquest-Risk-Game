@@ -59,6 +59,9 @@ public class CardTest {
         assertTrue(gameMap.getPlayerList().get(0).getCardTradeIn());
     }
 
+    /**
+     * Clean up the test data
+     */
 
     @After
     public void cleanup()

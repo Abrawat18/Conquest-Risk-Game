@@ -74,7 +74,9 @@ public class TerritoryTest {
         //Exceeded number of armies, Hence should fail
         assertEquals(Constants.MSG_FAIL_CODE,territoryList.get(2).fortifyTerritory(territoryList.get(1), player, 10).getMsgCode());
     }
-
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

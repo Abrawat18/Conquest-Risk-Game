@@ -40,7 +40,9 @@ public class SufficientArmyTest {
         assertEquals(Constants.MSG_FAIL_CODE,configurableMessage.getMsgCode());
     }
 
-
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

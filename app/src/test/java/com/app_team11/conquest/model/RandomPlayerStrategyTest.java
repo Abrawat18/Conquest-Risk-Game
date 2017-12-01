@@ -136,6 +136,9 @@ public class RandomPlayerStrategyTest {
 
     }
 
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

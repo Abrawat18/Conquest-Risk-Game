@@ -53,7 +53,9 @@ public class ReadMapUtilityTest {
                     "\tTerritory name: " + gameMap.getTerritoryList().get(i).getTerritoryName());
         assertEquals(33, gameMap.getPlayerList().get(0).getAvailableArmyCount());
     }
-
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanUp() {
         filePath = null;

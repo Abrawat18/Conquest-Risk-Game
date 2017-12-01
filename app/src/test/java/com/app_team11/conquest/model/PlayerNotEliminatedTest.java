@@ -82,6 +82,9 @@ public class PlayerNotEliminatedTest {
 
     }
 
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

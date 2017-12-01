@@ -79,7 +79,9 @@ public class WinConditionTest {
         }
 
     }
-
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

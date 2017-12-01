@@ -67,6 +67,9 @@ public class AttackTest {
         assertEquals(Constants.SUCCESS,configurableMessage.getMsgText());
     }
 
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

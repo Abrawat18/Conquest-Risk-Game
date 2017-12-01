@@ -93,7 +93,9 @@ public class ReinforcementArmyTest {
         System.out.println(reinforcementArmy.getOtherTotalReinforcement()+" "+reinforcementArmy.getMatchedTerrCardReinforcement());
         assertEquals(16,totalCountReturned);
     }
-
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

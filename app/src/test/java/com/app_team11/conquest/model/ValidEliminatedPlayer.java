@@ -80,7 +80,9 @@ public class ValidEliminatedPlayer {
         }
 
     }
-
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

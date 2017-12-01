@@ -71,7 +71,9 @@ public class PreAttackValidationTest {
 
 
     }
-
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

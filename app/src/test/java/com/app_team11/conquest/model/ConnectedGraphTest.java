@@ -64,6 +64,9 @@ public class ConnectedGraphTest {
 
     }
 
+    /**
+     * Clean up the test data
+     */
     @After
     public void testResult()
     {

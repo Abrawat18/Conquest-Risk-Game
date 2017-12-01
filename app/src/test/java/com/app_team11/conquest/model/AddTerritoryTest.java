@@ -68,6 +68,9 @@ public class AddTerritoryTest
         assertEquals(0,configurableMessage.getMsgCode());
     }
 
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

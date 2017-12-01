@@ -48,6 +48,9 @@ public class GraphTest {
         assertTrue(gameMap.isGraphConnected());
 
     }
+    /**
+     * Clean up the test data
+     */
     @After
     public void clean()
     {

@@ -140,6 +140,9 @@ public class CheaterPlayerStrategyTest {
 
     }
 
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

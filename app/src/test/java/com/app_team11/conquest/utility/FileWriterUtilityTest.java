@@ -44,7 +44,9 @@ public class FileWriterUtilityTest {
 
         }
     }
-
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

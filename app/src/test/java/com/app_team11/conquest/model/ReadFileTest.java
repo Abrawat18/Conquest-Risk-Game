@@ -71,7 +71,9 @@ public class ReadFileTest {
 
 
     }
-
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

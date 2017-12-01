@@ -65,7 +65,9 @@ public class RemoveTerritoryTest {
         assertEquals(0,cm.getMsgCode());
     }
 
-
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

@@ -76,7 +76,9 @@ public class ValidFortificationTest {
 
         assertEquals(0,playerList.get(0).fortifyTerritory(territoryList.get(0), territoryList.get(1), 10).getMsgCode());
     }
-
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

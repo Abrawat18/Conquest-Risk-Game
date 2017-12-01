@@ -141,6 +141,9 @@ public class AggressivePlayerStrategyTest
     }
 
 
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

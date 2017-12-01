@@ -64,6 +64,9 @@ public class InvalidAttackPhaseTest {
         assertEquals(Constants.NOT_ADJACENT_TERRITORY,cm.getMsgText());
     }
 
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {

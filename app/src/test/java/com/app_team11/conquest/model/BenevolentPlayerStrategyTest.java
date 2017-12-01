@@ -134,6 +134,9 @@ public class BenevolentPlayerStrategyTest {
         assertEquals(Constants.FORTIFICATION_SUCCESS,configurableMessage.getMsgText());
 
     }
+    /**
+     * Clean up the test data
+     */
     @After
     public void cleanup()
     {
