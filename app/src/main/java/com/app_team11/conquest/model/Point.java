@@ -12,7 +12,7 @@ public class Point implements Serializable {
     public int y;
 
     /**
-     *
+     *Method to create a point
      * @param x coordinate x is defined using this parameter
      * @param y coordinate y is defines using this parameter
      */

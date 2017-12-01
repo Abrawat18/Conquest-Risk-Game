@@ -374,9 +374,9 @@ public class ReadMapUtility {
 
     /**
      * This method assigns armies to the territories based on the respective user's choice
-     * @param pList returns the player list
+     * @param playerList the player list
      */
-    public void armyAssignment(List<Player> pList) {
+    public void armyAssignment(List<Player> playerList) {
         Player p = new Player();
         List<Territory> temp = new ArrayList<Territory>();
         Scanner sc = new Scanner(System.in);
@@ -385,12 +385,12 @@ public class ReadMapUtility {
         boolean needToAssignArmy = true;
         while (needToAssignArmy) {
             needToAssignArmy = false;
-            for (int i = 0; i < pList.size(); i++) {
+            for (int i = 0; i < playerList.size(); i++) {
                 System.out.println("==========Player " + (i + 1) + "===============");
-                System.out.println("Available armies: " + pList.get(i).getAvailableArmyCount());
+                System.out.println("Available armies: " + playerList.get(i).getAvailableArmyCount());
                 p.setPlayerId(i + 1);
                 temp = gm.getTerrForPlayer(p);
-                if (pList.get(i).getAvailableArmyCount() == 0) {
+                if (playerList.get(i).getAvailableArmyCount() == 0) {
                     break;
                 }
                 System.out.println("\nTerritories:");
@@ -401,9 +401,9 @@ public class ReadMapUtility {
                 tNumber = sc.nextInt();
                 tNumber = tNumber - 1;
 
-                if (pList.get(i).getAvailableArmyCount() > 0) {
+                if (playerList.get(i).getAvailableArmyCount() > 0) {
                     temp.get(tNumber).addArmyToTerr(1, false);
-                    if(pList.get(i).getAvailableArmyCount() > 0) {
+                    if(playerList.get(i).getAvailableArmyCount() > 0) {
                         needToAssignArmy = true;
                     }
                 }
