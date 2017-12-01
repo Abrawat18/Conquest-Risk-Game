@@ -64,7 +64,7 @@ public class MapSelectionAdapter extends BaseAdapter {
      * @param position position of the view
      * @param convertView View to be loaded
      * @param parent group parent
-     * @return
+     * @return convertView converted view is returned
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -88,7 +88,7 @@ public class MapSelectionAdapter extends BaseAdapter {
     }
 
     /**
-     * View Holder
+     * Holds the view for the MapSelectionAdapter
      */
     class ViewHolder{
         TextView  textMapName;

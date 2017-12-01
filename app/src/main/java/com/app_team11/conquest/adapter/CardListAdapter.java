@@ -46,7 +46,7 @@ public class CardListAdapter extends BaseAdapter{
 
     /**
      * Returns the size of card list
-     * @return card list size
+     * @return cardsList card list size
      */
     @Override
     public int getCount() {
@@ -56,7 +56,7 @@ public class CardListAdapter extends BaseAdapter{
     /**
      * Returns the position of card list
      * @param position defines the position of card
-     * @return card position returns the position of card
+     * @return cardsList card position returns the position of card
      */
     @Override
     public Cards getItem(int position) {
@@ -66,7 +66,7 @@ public class CardListAdapter extends BaseAdapter{
     /**
      * Returns the Id of item
      * @param position of the card
-     * @return position integer
+     * @return position returns the integer
      */
     @Override
     public long getItemId(int position) {
@@ -78,7 +78,7 @@ public class CardListAdapter extends BaseAdapter{
      * @param position position of view
      * @param convertView view ot be converted
      * @param parent ViewGroup parent
-     * @return the converted view
+     * @return convertView the converted view
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
