@@ -22,6 +22,9 @@ public class CaptureTerritoryTest {
     Territory attackerTerritory,defenderTerritory;
     ConfigurableMessage configurableMessage;
 
+    /**
+     * Initalizes variables for the test
+     */
     @Before
     public void setUp()
     {

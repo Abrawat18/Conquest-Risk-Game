@@ -18,6 +18,9 @@ public class DiceMethodsTest {
     List<Integer> diceList;
     Player player;
 
+    /**
+     * Initalizes variables for the test
+     */
     @Before
     public void setUp()
     {
