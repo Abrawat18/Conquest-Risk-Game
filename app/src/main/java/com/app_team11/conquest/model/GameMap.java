@@ -442,7 +442,7 @@ public class GameMap implements Serializable {
      * @return getCardList returns the card list
      */
     public Cards getRandomCardFromDeck() {
-        if (null != getCardList()) {
+        if (null != getCardList() && getCardList().size() > 0) {
             Collections.shuffle(getCardList());
             return getCardList().get(0);
         }

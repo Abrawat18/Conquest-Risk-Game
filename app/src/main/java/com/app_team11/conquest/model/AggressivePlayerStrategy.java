@@ -41,7 +41,7 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Aggressive player Reinforcement Phase started !!");
         List<Territory> playerTerrList = gameMap.getTerrForPlayer(player);
-        if(playerTerrList!=null && playerTerrList.size()>0) {
+        if (playerTerrList != null && playerTerrList.size() > 0) {
             playerTerrList = sortList(playerTerrList);
             playerTerrList.get(0).setArmyCount(playerTerrList.get(0).getArmyCount() + (reinforcementType.getOtherTotalReinforcement()));
             FileManager.getInstance().writeLog("Number of armies reinforced on " + playerTerrList.get(0).getTerritoryName() + " is " + reinforcementType.getOtherTotalReinforcement());
@@ -52,7 +52,7 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
             FileManager.getInstance().writeLog("Aggressive player Reinforcement Phase ended !!");
             return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.REINFORCEMENT_SUCCESS_STRATEGY);
         }
-        return new ConfigurableMessage(Constants.MSG_FAIL_CODE,Constants.REINFORCEMENT_FAILED_STRATEGY);
+        return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.REINFORCEMENT_FAILED_STRATEGY);
     }
     /**
      * For aggresive player strategy the attack phase is defined
@@ -102,9 +102,12 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
                     if (!nextAttackerRequired) {
                         if (isPlayerWon) {
                             Cards randomCard = gameMap.getRandomCardFromDeck();
-                            player.getOwnedCards().add(randomCard); //adding the card to the player
-                            gameMap.removeCardFromDeck(randomCard); //removing from the deck of cards
+                            if (randomCard != null) {
+                                player.getOwnedCards().add(randomCard); //adding the card to the player
+                                gameMap.removeCardFromDeck(randomCard); //removing from the deck of cards
+                            }
                         }
+
                         FileManager.getInstance().writeLog("Aggressive player attack phase ended !! ");
                         return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ATTACK_SUCCESS_STRATEGY);
                     }
