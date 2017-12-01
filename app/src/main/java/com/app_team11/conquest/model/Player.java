@@ -59,6 +59,7 @@ public class Player extends Observable implements Serializable {
     }
 
     /**
+     * method to get the player strategy type string
      * @return player strategy type
      */
     public String getPlayerStrategyType() {
@@ -66,6 +67,7 @@ public class Player extends Observable implements Serializable {
     }
 
     /**
+     * method to set the player strategy type string
      * @param playerStrategyType :  set player strategy type
      */
     public void setPlayerStrategyType(String playerStrategyType) {
@@ -363,7 +365,7 @@ public class Player extends Observable implements Serializable {
      *
      * @param attackerTerritory the attacker's territory
      * @param defenderTerritory the defender's territory
-     * @return
+     * @return ConfigurableMessage message for configurable message
      */
     public ConfigurableMessage validateAttackBetweenTerritories(Territory attackerTerritory, Territory defenderTerritory) {
         ConfigurableMessage isAdjacenTerritories = isAdjacentTerritory(attackerTerritory, defenderTerritory);
@@ -448,7 +450,7 @@ public class Player extends Observable implements Serializable {
     /**
      * Method to carry out strategic attack
      * @param gameMap map object
-     * @return stategi attack phase
+     * @return whether operation was successful
      */
     public ConfigurableMessage attackPhase(GameMap gameMap) {
         return getPlayerStrategy().attackPhase(gameMap, this);
@@ -458,7 +460,7 @@ public class Player extends Observable implements Serializable {
     /**
      * Method to carry out strategic fortification phase
      * @param gameMap map object
-     * @return strategic fortification phase to call
+     * @return whether operation was successful
      */
     public ConfigurableMessage fortificationPhase(GameMap gameMap) {
         return getPlayerStrategy().fortificationPhase(gameMap, this);
@@ -473,6 +475,7 @@ public class Player extends Observable implements Serializable {
      * @param defenderTerritory the defender's territory
      * @param attackerDice number of dice for attacker
      * @param defenderDice number of dice for defender
+     * @return whether operation was successful
      */
     public ConfigurableMessage attackPhase(Territory attackerTerritory, Territory defenderTerritory, int attackerDice, int defenderDice) {
         setNumberOfDiceRolled(attackerDice);

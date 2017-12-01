@@ -49,9 +49,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * @version 1.0.0
  */
 
-//Todo : editor menu : 1. add continent 2. add territory 3. on terrirtory  selection : show continent or select continent , neighbour
-
-
 public class MapEditorController {
 
     private static final String TAG = MapEditorController.class.getSimpleName();
