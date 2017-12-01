@@ -26,7 +26,7 @@ public class MapManager {
 
     /**
      * Singleton creation for MapManager
-     * @return mapManager
+     * @return mapManager current state is available
      */
     public static MapManager getInstance() {
         if (mapManager == null) {
@@ -37,9 +37,9 @@ public class MapManager {
 
     /**
      * List of continent from file
-     * @param context
-     * @return list of continent
-     * @throws JSONException
+     * @param context current activity
+     * @return list of continent is available
+     * @throws JSONException exception handling for JSON
      */
     public List<Continent> getContinentListFromFile(Context context) throws JSONException {
         JSONArray continentJsonList = JsonLoader.getInstance().loadJSONFromAsset(context, Constants.ASSETS_CONTINENT_FILE_NAME);
@@ -52,9 +52,9 @@ public class MapManager {
 
     /**
      * List of territory from file
-     * @param context
-     * @return list of territory
-     * @throws JSONException
+     * @param context current running activity
+     * @return list of territory is available
+     * @throws JSONException exception handling for JSON
      */
     public List<Territory> getTerritoryListFromFile(Context context) throws JSONException {
         JSONArray territoryJsonList = JsonLoader.getInstance().loadJSONFromAsset(context, Constants.ASSETS_TERRITORY_FILE_NAME);
