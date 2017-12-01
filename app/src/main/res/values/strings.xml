@@ -15,5 +15,12 @@
         <item>@string/human_strategy</item>
     </string-array>
 
+    <string-array name="tournament_mode_player_array">
+        <item>@string/random_strategy</item>
+        <item>@string/cheater_strategy</item>
+        <item>@string/benevolent_strategy</item>
+        <item>@string/aggressive_strategy</item>
+    </string-array>
+
 </resources>
 
