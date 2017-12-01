@@ -83,7 +83,7 @@ public class ContinentAdapter extends BaseAdapter {
     }
 
     /**
-     * Continent view holder
+     * Continent view holder for the continent adapter
      */
     class ViewHolder{
         private TextView textContinentName;

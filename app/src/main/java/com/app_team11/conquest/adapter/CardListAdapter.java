@@ -103,7 +103,7 @@ public class CardListAdapter extends BaseAdapter{
     }
 
     /**
-     * Holds the view
+     * Holds the view for Card list adapter
      */
     class ViewHolder{
         private TextView textCardTerritoryName;

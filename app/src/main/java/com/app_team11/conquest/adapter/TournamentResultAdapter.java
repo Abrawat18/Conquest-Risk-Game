@@ -45,6 +45,7 @@ public class TournamentResultAdapter extends BaseAdapter {
     }
 
     /**
+     * Returns the position of result list
      * @param position gives the position of the result list
      * @return returnList gives the position of the return list
      */
@@ -54,6 +55,7 @@ public class TournamentResultAdapter extends BaseAdapter {
     }
 
     /**
+     * Returns the position of item
      * @param position gives the position of the item
      * @return position place of item is returned
      */
@@ -63,6 +65,7 @@ public class TournamentResultAdapter extends BaseAdapter {
     }
 
     /**
+     * THis method is used for the current view update
      * @param position    place of view
      * @param convertView view is displayed as per the null or already existing
      * @param parent      inherits the view from parent

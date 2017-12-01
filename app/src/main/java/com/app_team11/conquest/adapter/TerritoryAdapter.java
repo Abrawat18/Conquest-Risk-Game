@@ -22,7 +22,7 @@ public class TerritoryAdapter extends BaseAdapter {
     private LayoutInflater inflater;
 
     /**
-     * Territory adapter
+     * Method for Territory adapter
      * @param context pass the reference
      * @param territoryList parameter for list of territory
      */
@@ -32,6 +32,7 @@ public class TerritoryAdapter extends BaseAdapter {
     }
 
     /**
+     * Returns the count of territory size list
      * @return size of territory list
      */
     @Override
@@ -40,6 +41,7 @@ public class TerritoryAdapter extends BaseAdapter {
     }
 
     /**
+     * Returns the position of territory
      * @param position
      * @return position territory position
      */
@@ -49,6 +51,7 @@ public class TerritoryAdapter extends BaseAdapter {
     }
 
     /**
+     * Returns the position of item
      * @param position of item
      * @return position of item
      */
@@ -58,7 +61,7 @@ public class TerritoryAdapter extends BaseAdapter {
     }
 
     /**
-     * View for teritory
+     * View for territory
      * @param position defines view position
      * @param convertView defines view to be converted
      * @param parent defines view group parent

@@ -52,7 +52,7 @@ public class PlayerListAdapter extends BaseAdapter {
 
     /**
      * @param position parameter for the position of player list
-     * @return [position integer value for the player position
+     * @return position integer value for the player position
      */
     @Override
     public long getItemId(int position) {

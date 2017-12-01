@@ -42,7 +42,7 @@ public class GameLogAdapter extends BaseAdapter {
 
     /**
      *
-     * @param position
+     * @param position for the game log list
      * @return item position in game list
      */
     @Override
@@ -51,7 +51,7 @@ public class GameLogAdapter extends BaseAdapter {
     }
 
     /**
-     * @param position
+     * @param position for the game log
      * @return position of the item
      */
     @Override
@@ -88,7 +88,7 @@ public class GameLogAdapter extends BaseAdapter {
     }
 
     /**
-     * View Holder
+     * View Holder for game log adapter
      */
     class ViewHolder {
         private TextView textGameLog;

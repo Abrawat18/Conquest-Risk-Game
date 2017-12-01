@@ -15,7 +15,7 @@ public class Cards implements Serializable{
 
     /**
      * If the card is selected or not
-     * @return is selected or not
+     * @return Checks if the card is selected or not
      */
     public boolean isSelected() {
         return isSelected;
