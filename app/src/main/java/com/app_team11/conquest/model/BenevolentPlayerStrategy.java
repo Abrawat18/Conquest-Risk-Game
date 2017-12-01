@@ -16,6 +16,12 @@ import java.util.List;
  */
 
 public class BenevolentPlayerStrategy implements PlayerStrategyListener {
+    /**
+     * Method for benevolent player's startup phase
+     * @param gameMap map object
+     * @param player a player
+     * @return whether startup phase was successful
+     */
     @Override
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Benevolent player startup phase started !! ");
