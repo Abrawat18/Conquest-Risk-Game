@@ -56,8 +56,8 @@ public class ReadMapUtility {
 
     /**
      * This method takes a file path as input and generates a GameMap object for Map creation
-     * @param filePath
-     * @return
+     * @param filePath file path
+     * @return map object
      */
     public GameMap readFile(String filePath)
     {
@@ -350,23 +350,23 @@ public class ReadMapUtility {
      * @return
      */
      public List<Player> randomlyAssignCountries(List<Player> Players, List<Territory> Territories) {
-        int Tcount = 0,Pcount=0;
+        int territoryCount = 0,playerCount=0;
         Collections.shuffle(Territories);
-        while (Territories.size() > 0 && Tcount<Territories.size())
+        while (Territories.size() > 0 && territoryCount<Territories.size())
         {
             while (Players.size()> 0)
             {
-                Territories.get(Tcount).setTerritoryOwner(Players.get(Pcount));
-                Territories.get(Tcount).addArmyToTerr(1,false);
-                if (Pcount == Players.size()-1)
+                Territories.get(territoryCount).setTerritoryOwner(Players.get(playerCount));
+                Territories.get(territoryCount).addArmyToTerr(1,false);
+                if (playerCount == Players.size()-1)
                 {
-                    Pcount = -1;
+                    playerCount = -1;
                 }
 
                 break;
             }
-            Tcount++;
-            Pcount++;
+            territoryCount++;
+            playerCount++;
 
         }
         return Players;
