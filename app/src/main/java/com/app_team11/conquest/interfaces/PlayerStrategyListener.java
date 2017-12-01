@@ -11,11 +11,35 @@ import com.app_team11.conquest.utility.ConfigurableMessage;
  */
 
 public interface PlayerStrategyListener{
+    /**
+     * Interface for the startupphase
+     * @param gameMap parameter for the game map
+     * @param player parameter for the plater
+     * @return ConfigurableMessage custom message
+     */
     ConfigurableMessage startupPhase(GameMap gameMap, Player player);
 
+    /**
+     * Interface for the reinforcement phase
+     * @param gameMap parameter for the game map
+     * @param player parameter for the plater
+     * @return ConfigurableMessage custom message
+     */
     ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player);
 
+    /**
+     * Interface for the attack phase
+     * @param gameMap parameter for the game map
+     * @param player parameter for the plater
+     * @return ConfigurableMessage custom message
+     */
     ConfigurableMessage attackPhase(GameMap gameMap, Player player);
 
+    /**
+     * Interface for the fortification phase
+     * @param gameMap parameter for the game map
+     * @param player parameter for the plater
+     * @return ConfigurableMessage custom message
+     */
     ConfigurableMessage fortificationPhase(GameMap gameMap, Player player);
 }
