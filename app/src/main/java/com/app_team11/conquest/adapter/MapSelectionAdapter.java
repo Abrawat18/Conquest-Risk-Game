@@ -26,6 +26,11 @@ public class MapSelectionAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
 
+    /**
+     * Constructor for MapSelectionAdapter
+     * @param mapFileList contains the list of map files
+     * @param context the running activity instance
+     */
     public MapSelectionAdapter(List<MapFile> mapFileList, Context context) {
         this.mapFileList = mapFileList;
         this.context = context;
@@ -33,7 +38,6 @@ public class MapSelectionAdapter extends BaseAdapter {
     }
 
     /**
-     * Returns count for the map file list
      * @return map file list length
      */
     @Override
@@ -41,7 +45,6 @@ public class MapSelectionAdapter extends BaseAdapter {
         return mapFileList.size();
     }
     /**
-     * Returns count for the map file position
      * @return map file list position
      */
     @Override
@@ -49,16 +52,19 @@ public class MapSelectionAdapter extends BaseAdapter {
         return mapFileList.get(position);
     }
     /**
-     * Returns count for the map file item
      * @return map file list item
      */
     @Override
     public long getItemId(int position) {
         return position;
     }
+
     /**
-     * Returns view for the map file
-     * @return view for map file
+     * Method gets the view
+     * @param position position of the view
+     * @param convertView View to be loaded
+     * @param parent group parent
+     * @return
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

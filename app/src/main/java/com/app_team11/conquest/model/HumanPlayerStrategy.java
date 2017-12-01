@@ -17,10 +17,17 @@ import java.util.Observable;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
+ * This class is responsible for the implementation of the HumanPlayerStrategy
  * Created by Jaydeep on 11/27/2017.
  */
 
 public class HumanPlayerStrategy extends Observable implements PlayerStrategyListener {
+    /**
+     * Human Player Strategy defined for the startup phase
+     * @param gameMap : parameter which defines the game map
+     * @param player : parameter which defines the player
+     * @return ConfigurableMessage : returns the configurable message
+     */
     @Override
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
         int territoryIndex = 0;
@@ -36,7 +43,12 @@ public class HumanPlayerStrategy extends Observable implements PlayerStrategyLis
         }
         return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.SUCCESS);
     }
-
+    /**
+     * Human Player Strategy defined for the reinforcement phase
+     * @param gameMap : parameter which defines the game map
+     * @param player : parameter which defines the player
+     * @return ConfigurableMessage : returns the configurable message
+     */
     @Override
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
         if (gameMap.getPlayerTurn().getOwnedCards().size() < 5 || (player.getOwnedCards() != null && player.getOwnedCards().size() == 3)) {
@@ -55,7 +67,12 @@ public class HumanPlayerStrategy extends Observable implements PlayerStrategyLis
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.REINFORCEMENT_FAILED_STRATEGY);
     }
 
-
+    /**
+     * Human Player Strategy defined for the attack phase
+     * @param gameMap : parameter which defines the game map
+     * @param player : parameter which defines the player
+     * @return ConfigurableMessage : returns the configurable message
+     */
     @Override
     public ConfigurableMessage attackPhase(final GameMap gameMap, Player player) {
         Context contextAttack=null;
@@ -114,7 +131,12 @@ public class HumanPlayerStrategy extends Observable implements PlayerStrategyLis
                 .show();
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ATTACK_SUCCESS_STRATEGY);
     }
-
+    /**
+     * Human Player Strategy defined for the fortification phase
+     * @param gameMap : parameter which defines the game map
+     * @param player : parameter which defines the player
+     * @return ConfigurableMessage : returns the configurable message
+     */
     @Override
     public ConfigurableMessage fortificationPhase(GameMap gameMap, Player player) {
         boolean waitForSelectTerritory=true;

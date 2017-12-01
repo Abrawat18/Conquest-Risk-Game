@@ -32,7 +32,6 @@ public class TerritoryAdapter extends BaseAdapter {
     }
 
     /**
-     * Returns the count for territory list size
      * @return size of territory list
      */
     @Override
@@ -41,9 +40,8 @@ public class TerritoryAdapter extends BaseAdapter {
     }
 
     /**
-     * Returns the territory position
      * @param position
-     * @return position of territory
+     * @return position territory position
      */
     @Override
     public Territory getItem(int position) {
@@ -51,8 +49,7 @@ public class TerritoryAdapter extends BaseAdapter {
     }
 
     /**
-     * Returns the item id for the territory
-     * @param position
+     * @param position of item
      * @return position of item
      */
     @Override
@@ -62,10 +59,10 @@ public class TerritoryAdapter extends BaseAdapter {
 
     /**
      * View for teritory
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return view
+     * @param position defines view position
+     * @param convertView defines view to be converted
+     * @param parent defines view group parent
+     * @return converted view
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -83,7 +80,7 @@ public class TerritoryAdapter extends BaseAdapter {
 
     /**
      * Sets the territory list adapter
-     * @param territoryList
+     * @param territoryList  territory list of the map
      */
     public void setTerritoryList(List<Territory> territoryList) {
         this.territoryList = territoryList;
