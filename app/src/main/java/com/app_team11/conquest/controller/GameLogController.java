@@ -58,7 +58,7 @@ public class GameLogController {
     }
 
     /**
-     * Context Initialization
+     * Context Initialization for Game Log Controller
      * @param context : sets the reference for initialization
      */
     public void initialization(Context context) {
