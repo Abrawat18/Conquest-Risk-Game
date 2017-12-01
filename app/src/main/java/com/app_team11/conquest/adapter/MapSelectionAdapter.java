@@ -38,6 +38,7 @@ public class MapSelectionAdapter extends BaseAdapter {
     }
 
     /**
+     * returns the size of the mapfilelist
      * @return map file list length
      */
     @Override
@@ -45,6 +46,7 @@ public class MapSelectionAdapter extends BaseAdapter {
         return mapFileList.size();
     }
     /**
+     * returns the item in the list for the given position
      * @return map file list position
      */
     @Override
@@ -52,6 +54,7 @@ public class MapSelectionAdapter extends BaseAdapter {
         return mapFileList.get(position);
     }
     /**
+     * returns the position number
      * @return map file list item
      */
     @Override
