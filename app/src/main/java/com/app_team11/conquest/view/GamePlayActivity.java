@@ -249,8 +249,9 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             return;
         } else {
             gameTurnCount = 0;
+            String fileName = null;
             if (gamePlayed == 0) {
-                String fileName = new File(selectedMapListForTournamentMode.get(mapPlayed)).getName();
+                fileName = new File(selectedMapListForTournamentMode.get(mapPlayed)).getName();
                 int pos = fileName.lastIndexOf(".");
                 if (pos > 0) {
                     fileName = fileName.substring(0, pos);
@@ -262,7 +263,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             }
             if (mapPlayed < selectedMapListForTournamentMode.size()) {
                 Log.e(TAG, "Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
-                FileManager.getInstance().writeLog("Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
+                FileManager.getInstance().writeLog("Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + fileName);
             }
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
