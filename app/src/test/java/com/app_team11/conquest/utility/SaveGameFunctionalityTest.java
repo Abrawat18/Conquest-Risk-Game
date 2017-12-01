@@ -38,6 +38,9 @@ public class SaveGameFunctionalityTest {
     String filePath;
     Boolean attackerWon;
 
+    /**
+     * Initializes test data
+     */
     @Before
     public void setUp()
     {
