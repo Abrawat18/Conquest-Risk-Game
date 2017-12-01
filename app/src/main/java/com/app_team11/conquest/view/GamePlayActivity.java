@@ -392,6 +392,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                     FileManager.getInstance().writeLog("Game Turn Count=" + (++gameTurnCount));
                     if (gameTurnCount > maximumRoundsForTournamentMode) {
                         endGame(null);
+                        break;
                     }
                 }
                 btnStopAttack.setVisibility(View.GONE);
