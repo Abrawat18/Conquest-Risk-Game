@@ -279,7 +279,7 @@ public class MapEditorController {
         }
 
         /**
-         *
+         * Method for the surface holder for map editor
          * @param holder : Holder parameter for the surface
          */
         @Override

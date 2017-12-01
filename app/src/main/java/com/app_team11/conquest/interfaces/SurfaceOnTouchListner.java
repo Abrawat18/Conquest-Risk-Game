@@ -9,5 +9,10 @@ import android.view.View;
  */
 
 public interface SurfaceOnTouchListner {
+    /**
+     * This is the method for on touch
+     * @param v defines the view for the current state
+     * @param event defines the event
+     */
     public void onTouch(View v, MotionEvent event);
 }
