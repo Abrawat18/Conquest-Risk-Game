@@ -164,7 +164,4 @@ public class SaveGameFunctionalityTest {
         attacker=null;
         defender=null;
     }
-
-
-
 }
