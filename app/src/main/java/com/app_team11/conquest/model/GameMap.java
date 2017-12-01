@@ -672,8 +672,6 @@ public class GameMap implements Serializable {
                     if(continentTerritories.size()==1)
                     {
                         continentTerritories.get(0).isVisited=true;
-                        //connectedContinentTerritories=true;
-
                     }
                     else {
                         for (int i = 0; i < continentTerritories.size(); i++) {
