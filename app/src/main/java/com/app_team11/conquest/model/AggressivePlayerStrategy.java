@@ -20,6 +20,12 @@ import java.util.Random;
  */
 
 public class AggressivePlayerStrategy extends Observable implements PlayerStrategyListener {
+    /**
+     * Method for aggressive player's startup phase
+     * @param gameMap map object
+     * @param player a player
+     * @return whether startup phase was successful
+     */
     @Override
     public ConfigurableMessage startupPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Aggressive player StartupPhase started !!");
