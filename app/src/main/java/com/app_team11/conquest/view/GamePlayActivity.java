@@ -276,15 +276,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             } else {
                 endGame(null);
             }
-
-            /*final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-
-                }
-            }, 100);*/
         }
 
     }
