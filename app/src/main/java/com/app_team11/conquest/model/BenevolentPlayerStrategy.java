@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
+ * This class is responsible for the benevolent player strategy
  * Created by Jaydeep on 11/27/2017.
  */
 
@@ -27,6 +28,12 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
     }
 
+    /**
+     * For benevolent player strategy the reinforcement phase is defined
+     * @param gameMap map for the game is defined
+     * @param player player is defined using this parameter
+     * @return ConfigurableMessage custom message is returned
+     */
     @Override
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Benevolent player Reinforcement phase started !! ");
@@ -44,12 +51,22 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
         } else
             return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.REINFORCEMENT_FAILED_STRATEGY);
     }
-
+    /**
+     * For benevolent player strategy the attack phase is defined
+     * @param gameMap map for the game is defined
+     * @param player player is defined using this parameter
+     * @return ConfigurableMessage custom message is returned
+     */
     @Override
     public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
         return new ConfigurableMessage(Constants.MSG_SUCC_CODE, Constants.ATTACK_SUCCESS_STRATEGY);
     }
-
+    /**
+     * For benevolent player strategy the fortification phase is defined
+     * @param gameMap map for the game is defined
+     * @param player player is defined using this parameter
+     * @return ConfigurableMessage custom message is returned
+     */
     @Override
     public ConfigurableMessage fortificationPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Benevolent player Fortification phase started !! ");
@@ -78,7 +95,11 @@ public class BenevolentPlayerStrategy implements PlayerStrategyListener {
         }
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE_STRATEGY);
     }
-
+    /**
+     * Sorts the territory list
+     * @param terrList parameterized list of territory
+     * @return terrList list of territory is returned
+     */
     public List<Territory> sortList(List<Territory> terrList, final boolean isWeakestSorted) {
 
         Collections.sort(terrList, new Comparator<Territory>() {

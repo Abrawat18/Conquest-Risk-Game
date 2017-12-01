@@ -13,7 +13,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Continent Model class with variables Continent Name,Score & Continent Owner
  * Created by Vasu on 06-10-2017.
- *
  * @version 1.0.0
  */
 public class Continent implements Serializable{
@@ -25,13 +24,16 @@ public class Continent implements Serializable{
     private static final AtomicInteger count = new AtomicInteger(0);
     private int continentID;
 
+    /**
+     * Default Constructor
+     */
     public Continent() {
 
     }
 
     /**
-     * Returns the name od continent
-     * @return continent name
+     * Returns the name of continent
+     * @return contName name of the continent is returned
      */
     public String getContName() {
         return contName;
@@ -39,7 +41,7 @@ public class Continent implements Serializable{
 
     /**
      * Sets the name of the continent
-     * @param contName
+     * @param contName sets the name of the continent
      */
     public void setContName(String contName) {
         this.contName = contName;
@@ -47,7 +49,7 @@ public class Continent implements Serializable{
 
     /**
      * Returns the score
-     * @return score
+     * @return score returns the score
      */
     public int getScore() {
         return score;
@@ -55,7 +57,7 @@ public class Continent implements Serializable{
 
     /**
      * Sets the score
-     * @param score
+     * @param score sets the score
      */
     public void setScore(int score) {
         this.score = score;
@@ -63,7 +65,7 @@ public class Continent implements Serializable{
 
     /**
      * Returns the Owner of Continent
-     * @return continent owner
+     * @return contOwner returns the continent owner
      */
     public Player getContOwner() {
         return contOwner;
@@ -71,7 +73,7 @@ public class Continent implements Serializable{
 
     /**
      * Sets the Owner of the Continent
-     * @param contOwner
+     * @param contOwner parameter is defined for the owner of the continent
      */
     public void setContOwner(Player contOwner) {
         this.contOwner = contOwner;
@@ -79,8 +81,8 @@ public class Continent implements Serializable{
 
     /**
      * Initialize class members
-     * @param contName
-     * @param score
+     * @param contName name of the continent is defined using this parameter
+     * @param score score is defined using this parameter
      */
     public Continent(String contName, int score, Context context) {
         this.contName = contName;
@@ -91,7 +93,7 @@ public class Continent implements Serializable{
 
     /**
      * Initialize class members
-     * @param ContName
+     * @param ContName name of the continent is defined
      */
     public Continent(String ContName, Context context) {
         this.contName = getContName();
@@ -100,8 +102,8 @@ public class Continent implements Serializable{
 
     /**
      * Initialize class members
-     * @param ContName
-     * @param score
+     * @param ContName name of the continent is defined
+     * @param score score score is defined using this parameter
      */
     public Continent(String ContName, int score) {
         this.contName = getContName();
@@ -110,7 +112,7 @@ public class Continent implements Serializable{
 
     /**
      * method to prevent conflict between the json continent object and map continent object
-     * @return copied continent object
+     * @return continent here continent is copied continent object
      */
     public Continent copyContinent() {
         Continent continent = new Continent();
@@ -123,7 +125,7 @@ public class Continent implements Serializable{
 
     /**
      * Sets the random color to continent
-     * @param context
+     * @param context running activity instance
      */
     public void setRandomColorToContinent(Context context) {
         continentID = count.incrementAndGet();
@@ -133,7 +135,7 @@ public class Continent implements Serializable{
 
     /**
      * Returns color of the continent
-     * @return continent color
+     * @return contColor returns the continent color
      */
     public int getContColor() {
         return contColor;
@@ -141,7 +143,7 @@ public class Continent implements Serializable{
 
     /**
      * Sets the color of the continent
-     * @param contColor
+     * @param contColor parameter for the continent color
      */
     public void setContColor(int contColor) {
         this.contColor = contColor;

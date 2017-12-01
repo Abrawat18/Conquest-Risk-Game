@@ -15,6 +15,7 @@ import java.util.Observer;
 import java.util.Random;
 
 /**
+ * This class is reponsible for the strategy for Aggresive player
  * Created by Jaydeep on 11/27/2017.
  */
 
@@ -30,7 +31,12 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
         }
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FAILURE);
     }
-
+    /**
+     * For aggresive player strategy the reinforcement phase is defined
+     * @param gameMap map for the game is defined
+     * @param player player is defined using this parameter
+     * @return ConfigurableMessage custom message is returned
+     */
     @Override
     public ConfigurableMessage reInforcementPhase(ReinforcementType reinforcementType, GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Aggressive player Reinforcement Phase started !!");
@@ -48,7 +54,12 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
         }
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE,Constants.REINFORCEMENT_FAILED_STRATEGY);
     }
-
+    /**
+     * For aggresive player strategy the attack phase is defined
+     * @param gameMap map for the game is defined
+     * @param player player is defined using this parameter
+     * @return ConfigurableMessage custom message is returned
+     */
     @Override
     public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Aggressive player attack phase started !! ");
@@ -102,7 +113,12 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
         }
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.ATTACK_FAIL_STRATEGY);
     }
-
+    /**
+     * For aggresive player strategy the fortification phase is defined
+     * @param gameMap map for the game is defined
+     * @param player player is defined using this parameter
+     * @return ConfigurableMessage custom message is returned
+     */
     @Override
     public ConfigurableMessage fortificationPhase(GameMap gameMap, Player player) {
         FileManager.getInstance().writeLog("Aggressive player fortification phase started !! ");
@@ -131,6 +147,11 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
         return new ConfigurableMessage(Constants.MSG_FAIL_CODE, Constants.FORTIFICATION_FAILURE_STRATEGY);
     }
 
+    /**
+     * Sorts the territory list
+     * @param terrList parameterized list of territory
+     * @return terrList list of territory is returned
+     */
     public List<Territory> sortList(List<Territory> terrList) {
 
         Collections.sort(terrList, new Comparator<Territory>() {
