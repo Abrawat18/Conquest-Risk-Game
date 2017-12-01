@@ -47,8 +47,8 @@ public class ReadMapUtility {
     public ReadMapUtility() {   }
 
     /**
-     * List territory
-     * @return list of territory
+     * Current List of territory is displayed
+     * @return territoryList list of territory
      */
     public List<Territory> currentTerritories() {
         return territoryList;
@@ -143,8 +143,8 @@ public class ReadMapUtility {
 
     /**
      * Sets the name of the continent
-     * @param continentName
-     * @return continent
+     * @param continentName name of the continent is defined
+     * @return continent returns the name of the current continent
      */
     public Continent setContinent(String continentName) {
 
@@ -160,8 +160,8 @@ public class ReadMapUtility {
 
     /**
      * Checks if the territory exists
-     * @param tName
-     * @return true
+     * @param tName name of the territory is checked
+     * @return true returns boolean on checking
      */
     public boolean territoryExists(String tName) {
         for (int i = 0; i < territoryList.size(); i++) {
@@ -218,8 +218,8 @@ public class ReadMapUtility {
 
     /**
      * Checks if the territory exists or not
-     * @param territoryName
-     * @return true
+     * @param territoryName parameter for the name of the territory
+     * @return true boolean is returned if territory exist
      */
     public boolean ifTerritoryExists(String territoryName) {
         for (int i = 0; i < territoryList.size(); i++) {
@@ -231,8 +231,8 @@ public class ReadMapUtility {
 
     /**
      * This method searches for a territory from the territoryList
-     * @param territoryName
-     * @return
+     * @param territoryName name of the territory
+     * @return territoryList list of territory is returned
      */
     public Territory searchTerritory(String territoryName) {
         for (int i = 0; i < territoryList.size(); i++)
@@ -245,8 +245,8 @@ public class ReadMapUtility {
 
     /**
      * This method searches for a continent in the continentList
-     * @param continentName
-     * @return
+     * @param continentName parameter for name of the continent
+     * @return continentList list of continent is returned
      */
     public Continent searchContinent(String continentName) {
         for (int i = 0; i < continentList.size(); i++)
@@ -258,10 +258,10 @@ public class ReadMapUtility {
 
     /**
      * This method creates a new territory
-     * @param tName
-     * @param X
-     * @param Y
-     * @param cont
+     * @param tName name of the territory
+     * @param X coordinate X for the point selected
+     * @param Y coordinate Y for the point selected
+     * @param cont returns the continent
      */
     public void createTerritory(String tName, int X, int Y, Continent cont) {
         t = new Territory(tName.trim(), X, Y, cont);
@@ -270,11 +270,11 @@ public class ReadMapUtility {
 
     /**
      * This method updates an existing territory
-     * @param tName
-     * @param X
-     * @param Y
-     * @param continent
-     * @param connectedT
+     * @param tName name of the territory
+     * @param X coordinate X for the point selected
+     * @param Y coordinate Y for the point selected
+     * @param continent defines name of the continent
+     * @param connectedT parameter for the connected territory
      */
     public void updateTerritory(String tName, String X, String Y, String continent, List<Territory> connectedT) {
         Territory tUpdate = searchTerritory(tName);
@@ -289,11 +289,11 @@ public class ReadMapUtility {
 
     /**
      * This method creates territories
-     * @param tName
-     * @param X
-     * @param Y
-     * @param continent
-     * @param connectedT
+     * @param tName name of the territory
+     * @param X coordinate X for the point selected
+     * @param Y coordinate Y for the point selected
+     * @param continent defines name of the continent
+     * @param connectedT parameter for the connected territory
      */
     public void createTerritory(String tName, String X, String Y, String continent, List<Territory> connectedT) {
         Continent cont1 = searchContinent(continent);
@@ -306,8 +306,8 @@ public class ReadMapUtility {
 
     /**
      * This method takes an input for number of players and assigns armies accordingly.
-     * @param noOfPlayers
-     * @return
+     * @param noOfPlayers parameter for the number of players
+     * @return details of player are returned
      */
     public List<Player> assignArmies(int noOfPlayers) {
 
@@ -335,8 +335,8 @@ public class ReadMapUtility {
 
     /**
      * Returns the first player
-     * @param Players
-     * @return Players
+     * @param Players parameter for the players
+     * @return Players returns the players
      */
     public static Player getFirstPlayer(List<Player> Players) {
         int rnd = new Random().nextInt(Players.size());
@@ -345,9 +345,9 @@ public class ReadMapUtility {
 
     /**
      * This method randomly assigns countries to players
-     * @param Players
-     * @param Territories
-     * @return
+     * @param Players parameter for the players
+     * @param Territories parameter or the territories are defines
+     * @return returns the current player
      */
      public List<Player> randomlyAssignCountries(List<Player> Players, List<Territory> Territories) {
         int territoryCount = 0,playerCount=0;
@@ -374,7 +374,7 @@ public class ReadMapUtility {
 
     /**
      * This method assigns armies to the territories based on the respective user's choice
-     * @param pList
+     * @param pList returns the player list
      */
     public void armyAssignment(List<Player> pList) {
         Player p = new Player();
