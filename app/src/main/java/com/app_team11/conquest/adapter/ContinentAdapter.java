@@ -34,7 +34,7 @@ public class ContinentAdapter extends BaseAdapter {
 
     /**
      * Returns the count of continent size
-     * @return size of continent list
+     * @return continentList size of continent list
      */
     @Override
     public int getCount() {
@@ -44,7 +44,7 @@ public class ContinentAdapter extends BaseAdapter {
     /**
      * Returns the position of continent in continent list
      * @param position of the continent
-     * @return position of selected continent
+     * @return position integer value for selected continent
      */
     @Override
     public Continent getItem(int position) {
@@ -54,7 +54,7 @@ public class ContinentAdapter extends BaseAdapter {
     /**
      * Returns the position of item
      * @param position of the item
-     * @return item id
+     * @return position returns the item id
      */
     @Override
     public long getItemId(int position) {

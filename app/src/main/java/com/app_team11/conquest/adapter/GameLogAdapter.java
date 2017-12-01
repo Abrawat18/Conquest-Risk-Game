@@ -63,7 +63,7 @@ public class GameLogAdapter extends BaseAdapter {
      * @param position position of the view
      * @param convertView view to be converted to
      * @param parent parent of ViewGroup type
-     * @return converted view
+     * @return convertView returns the converted view
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -81,7 +81,7 @@ public class GameLogAdapter extends BaseAdapter {
 
     /**
      * setter method for game list
-     * @param gameLogList which is set
+     * @param gameLogList parameter for the list of game log which is set
      */
     public void setGameLogList(List<String> gameLogList) {
         this.gameLogList = gameLogList;

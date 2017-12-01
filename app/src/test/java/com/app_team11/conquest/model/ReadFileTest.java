@@ -67,9 +67,6 @@ public class ReadFileTest {
         gameMap.getTerritoryList().get(0).addRemoveNeighbourToTerr(territory, 'A');
         System.out.println("Territory 1 neighbours list size after adding territory: " + gameMap.getTerritoryList().get(0).getNeighbourList().size());
         assertEquals(currentSize + 1, gameMap.getTerritoryList().get(0).getNeighbourList().size());
-
-
-
     }
     /**
      * Clean up the test data

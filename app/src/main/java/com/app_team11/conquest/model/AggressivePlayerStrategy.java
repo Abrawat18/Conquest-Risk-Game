@@ -78,7 +78,13 @@ public class AggressivePlayerStrategy extends Observable implements PlayerStrate
                                     if (attackerTerr.getArmyCount() <= 3) {
                                         attackerDice = attackerTerr.getArmyCount() - 1;
                                     }
-                                    int defenderDice = 1 + (new Random().nextInt(2));
+                                    int defenderDice = 1;
+                                    if (defenderTerr.getArmyCount() <= 1) {
+                                        defenderDice = 1;
+                                    } else {
+                                        defenderDice = 1 + new Random().nextInt(2);
+                                    }
+
                                     ConfigurableMessage resultCode = AttackPhaseUtility.getInstance().attackPhase(attackerTerr, defenderTerr, attackerDice, defenderDice);
                                     if (resultCode.getMsgCode() == Constants.MSG_SUCC_CODE) {
                                         isPlayerWon = true;
