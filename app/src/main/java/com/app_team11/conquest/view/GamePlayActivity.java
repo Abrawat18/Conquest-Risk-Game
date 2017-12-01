@@ -42,7 +42,6 @@ import com.app_team11.conquest.model.ObserverType;
 import com.app_team11.conquest.model.PhaseViewModel;
 import com.app_team11.conquest.model.Player;
 import com.app_team11.conquest.model.Territory;
-import com.app_team11.conquest.model.TournamentResultModel;
 import com.app_team11.conquest.utility.ConfigurableMessage;
 import com.app_team11.conquest.utility.FileManager;
 import com.app_team11.conquest.utility.GamePhaseManager;
@@ -50,13 +49,10 @@ import com.app_team11.conquest.utility.MathUtility;
 import com.app_team11.conquest.utility.ReadMapUtility;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -98,6 +94,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private ArrayList<String> tournamentResultList = new ArrayList<>();
     private int gameTurnCount = 0;
     private Button btnShowLog;
+    private boolean isHumanInGame;
 
     /**
      * {@inheritDoc}
@@ -204,6 +201,14 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             FileManager.getInstance().writeLog("Initializing map for game play...");
             setMap(new ReadMapUtility(this).readFile(filePathToLoad));
             getMap().addPlayerToGame(noOfPlayer, playerList, this);
+
+            isHumanInGame = false;
+            for(Player player : getMap().getPlayerList()){
+                if(player.getPlayerStrategyType().equals(Constants.HUMAN_PLAYER_STRATEGY)){
+                    isHumanInGame = true;
+                }
+            }
+
             if (getMap() != null) {
                 initializePlayerAdapter();
                 loadGamePhase();
@@ -341,7 +346,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         showMap();
         setNextPlayerTurn();
 
-        if (fromGameMode != null && fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
+        if (!isHumanInGame || (fromGameMode != null && fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE))) {
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
