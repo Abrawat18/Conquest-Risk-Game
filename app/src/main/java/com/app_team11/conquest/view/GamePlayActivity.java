@@ -266,7 +266,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
 
             if (mapPlayed < selectedMapListForTournamentMode.size()) {
                 setMap(new ReadMapUtility(GamePlayActivity.this).readFile(selectedMapListForTournamentMode.get(mapPlayed)));
-                if (getMap() != null) {
+                if (getMap() != null && getMap().isGraphConnected()) {
                     getMap().addPlayerToGame(playerList.size(), playerList, GamePlayActivity.this);
                     initializePlayerAdapter();
                     loadGamePhase();
