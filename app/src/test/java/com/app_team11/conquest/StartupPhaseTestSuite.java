@@ -5,6 +5,7 @@ package com.app_team11.conquest;
  * Tests for map creation & startup phase methods
  */
 import com.app_team11.conquest.model.ReadFileTest;
+import com.app_team11.conquest.model.TerritoryAssignmentTest;
 import com.app_team11.conquest.model.UnconnectedContinentTest;
 import com.app_team11.conquest.model.ConnectedGraphTest;
 import com.app_team11.conquest.model.InvalidMapTest;
@@ -29,7 +30,8 @@ import org.junit.runners.Suite;
             UnconnectedGraphTest.class,   //Checks whether the graph formed is connected
             UnconnectedContinentTest.class,//Check for connected graph after adding continent
             ConnectedGraphTest.class,     //Check for connected territories and continents
-            InvalidMapTest.class          //Check for invalid map file
+            InvalidMapTest.class,         //Check for invalid map file
+            TerritoryAssignmentTest.class //Test for random assignment of territories to players
     })
 
     public class StartupPhaseTestSuite {
