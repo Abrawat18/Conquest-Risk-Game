@@ -36,6 +36,7 @@ public class SaveGameFunctionalityTest {
     GameMap map;
     FileManager fileManager;
     String filePath;
+    Boolean attackerWon;
 
     @Before
     public void setUp()
@@ -99,6 +100,7 @@ public class SaveGameFunctionalityTest {
         map.setCardList(cardList);
         fileManager=FileManager.getInstance();
         filePath="app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\testFile.ser";
+        attackerWon=false;
     }
 
 
@@ -108,21 +110,25 @@ public class SaveGameFunctionalityTest {
     @Test
     public void saveMapTest()
     {
-        //Startup Phase
-        configurableMessage = attacker.startupPhase(map);
-        assertEquals(Constants.SUCCESS, configurableMessage.getMsgText());
-
         //Attack Phase
-        configurableMessage = attacker.attackPhase(map);
-        assertEquals(Constants.ATTACK_SUCCESS_STRATEGY, configurableMessage.getMsgText());
-        System.out.println("Attacker Armies: "+attackerTerritory.getArmyCount());
+        configurableMessage = new Player().attackPhase(attackerTerritory,defenderTerritory,3,1);
+        if(configurableMessage.getMsgCode()==1)
+        {
+            assertEquals(Constants.ATTACKER_WON, configurableMessage.getMsgText());
+            System.out.println("Attacker Armies: "+attackerTerritory.getArmyCount());
+            attackerWon=true;
+        }
+        else
+            assertEquals(Constants.ATTACKER_LOST,configurableMessage.getMsgText());
+
+
 
         File file=new File(System.getProperty("user.dir") + File.separator + filePath);
         assertTrue(fileManager.writeObjectIntoFile(map,file));
     }
 
     /**
-     * test to read the saved game file
+     * test to read the saved game file and verify that the
      */
     @Test
     public void readFileTest()
@@ -136,8 +142,8 @@ public class SaveGameFunctionalityTest {
            System.out.println("\n======\nPlayer: "+territory.getTerritoryOwner().getPlayerId());
            System.out.println("Territory: "+territory.getTerritoryName());
            System.out.println("Armies: "+territory.getArmyCount());
-           if (territory.getTerritoryName().equals("Territory1")) {
-               assertEquals(3, territory.getArmyCount());
+           if (territory.getTerritoryName().equals("Territory1") && attackerWon) {
+               assertEquals(5, territory.getArmyCount());
            }
        }
     }
