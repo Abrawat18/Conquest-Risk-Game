@@ -271,7 +271,10 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                     initializePlayerAdapter();
                     loadGamePhase();
                 } else {
-                    endGame(null);
+                    gamePlayed = 0;
+                    mapPlayed++;
+                    tournamentResultList.remove(tournamentResultList.get(tournamentResultList.size()-1));
+                    initializeTournamentMode();
                 }
             } else {
                 endGame(null);
