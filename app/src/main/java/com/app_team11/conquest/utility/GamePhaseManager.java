@@ -39,7 +39,7 @@ public class GamePhaseManager implements Serializable {
 
     /**
      * Sets the current phase
-     * @param currentPhase
+     * @param currentPhase the current phase
      */
     public void setCurrentPhase(int currentPhase) {
         currentPhase = currentPhase;

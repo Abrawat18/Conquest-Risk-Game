@@ -145,7 +145,7 @@ public class FileManager {
     /**
      * Returns all files from directory
      *
-     * @param dir File directory
+     * @param dir File directory from which files have to be obtained
      * @return dir.listFiles() list of files
      */
     public File[] getAllFileFromDir(File dir) {
@@ -206,7 +206,7 @@ public class FileManager {
 
     /**
      * Returns the file log path
-     * @param finalName File name
+     * @param finalName File name to be fetched
      * @return file
      */
     public File getSerializableFilePath(String finalName) {
