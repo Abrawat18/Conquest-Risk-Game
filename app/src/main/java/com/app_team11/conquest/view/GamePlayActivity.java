@@ -97,6 +97,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
     private String fromGameMode;
     private ArrayList<String> tournamentResultList = new ArrayList<>();
     private int gameTurnCount = 0;
+    private Button btnShowLog;
 
     /**
      * {@inheritDoc}
@@ -128,12 +129,13 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         btnStopFortification = (Button) findViewById(R.id.btn_stop_fortification);
         btnNewAttack = (Button) findViewById(R.id.btn_new_attack);
         btnTradeInCards = (Button) findViewById(R.id.btn_tradeIn_cards);
-        findViewById(R.id.btn_show_log).setOnClickListener(this);
+        btnShowLog = (Button) findViewById(R.id.btn_show_log);
         linearWorldDominationView = (LinearLayout) findViewById(R.id.linear_world_domination_view);
         surface = (SurfaceView) findViewById(R.id.surface);
         surface.setOnTouchListener(this);
         surface.getHolder().addCallback(surfaceCallback);
         btnStopAttack.setOnClickListener(this);
+        btnShowLog.setOnClickListener(this);
         btnStopFortification.setOnClickListener(this);
         btnNewAttack.setOnClickListener(this);
         btnGameSave.setOnClickListener(this);
@@ -213,6 +215,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             btnStopAttack.setVisibility(View.GONE);
             btnStopFortification.setVisibility(View.GONE);
             btnTradeInCards.setVisibility(View.GONE);
+            btnShowLog.setVisibility(View.GONE);
             FileManager.getInstance().writeLog("Initializing tournament mode");
             tournamentResultList.add("");
             for (int gamePlayCount = 1; gamePlayCount <= totalGamesForTournamentMode; gamePlayCount++) {
@@ -327,7 +330,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         FileManager.getInstance().writeLog("Fortification Phase Completed");
         showMap();
         setNextPlayerTurn();
-        if(fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)){
+        if (fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -335,7 +338,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                     changeGamePhase();
                 }
             }, 100);
-        }else {
+        } else {
             changeGamePhase();
         }
     }
@@ -385,18 +388,22 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 ReinforcementPhaseController.getInstance().setContext(this).startReInforceMentPhase();
                 break;
             case GamePhaseManager.PHASE_ATTACK:
-                btnStopAttack.setVisibility(View.VISIBLE);
-                btnNewAttack.setVisibility(View.VISIBLE);
-                btnStopFortification.setVisibility(View.GONE);
-                Toast.makeText(this, "Attack Phase Started !!", Toast.LENGTH_SHORT).show();
+                if (!fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
+                    btnStopAttack.setVisibility(View.VISIBLE);
+                    btnNewAttack.setVisibility(View.VISIBLE);
+                    btnStopFortification.setVisibility(View.GONE);
+                    Toast.makeText(this, "Attack Phase Started !!", Toast.LENGTH_SHORT).show();
+                }
                 FileManager.getInstance().writeLog("Attack phase starting...");
                 AttackPhaseController.getInstance().setContext(this).startAttackPhase();
                 break;
             case GamePhaseManager.PHASE_FORTIFICATION:
                 btnStopAttack.setVisibility(View.GONE);
                 btnNewAttack.setVisibility(View.GONE);
-                btnStopFortification.setVisibility(View.VISIBLE);
-                Toast.makeText(this, "Fortification Phase Started !!", Toast.LENGTH_SHORT).show();
+                if (!fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
+                    btnStopFortification.setVisibility(View.VISIBLE);
+                    Toast.makeText(this, "Fortification Phase Started !!", Toast.LENGTH_SHORT).show();
+                }
                 FileManager.getInstance().writeLog("Fortification Phase starting...");
                 FortificationPhaseController.getInstance().setContext(this).startFortificationPhase();
                 break;
