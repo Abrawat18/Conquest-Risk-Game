@@ -478,8 +478,7 @@ public class MapEditorController {
     }
 
     /**
-     * Motion event capture
-     *
+     * Motion event capture method
      * @param v : Defines the view when touch is called on the screen
      * @param event : Defines the event when the touch is called on the screen
      * @return boolean : true or false value is returned

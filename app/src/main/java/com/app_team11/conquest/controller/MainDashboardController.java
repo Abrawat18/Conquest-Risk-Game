@@ -35,6 +35,9 @@ public class MainDashboardController {
     private static MainDashboardController mainDashboardController;
     private Context context;
 
+    /**
+     * constructor MainDashboardController
+     */
     private MainDashboardController() {
     }
 
