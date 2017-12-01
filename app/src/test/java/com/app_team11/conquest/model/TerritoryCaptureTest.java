@@ -17,6 +17,10 @@ import static junit.framework.Assert.assertEquals;
 public class TerritoryCaptureTest {
     Territory defenderTerritory;
     ConfigurableMessage configurableMessage;
+
+    /**
+     * Initialize test data
+     */
     @Before
     public void setUp()
     {

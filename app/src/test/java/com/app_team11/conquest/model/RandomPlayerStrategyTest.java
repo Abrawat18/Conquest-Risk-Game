@@ -28,6 +28,9 @@ public class RandomPlayerStrategyTest {
     ConfigurableMessage configurableMessage;
     GameMap map;
 
+    /**
+     * Initializes test data
+     */
     @Before
     public void setUp()
     {

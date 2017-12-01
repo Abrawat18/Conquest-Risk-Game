@@ -22,6 +22,9 @@ public class InvalidMapTest
     Boolean failed=false;
     Continent continent;
 
+    /**
+     * Initialize test data
+     */
     @Before
     public void setUp() {
         filePath="app\\src\\test\\java\\com\\app_team11\\conquest\\resources\\InvalidMapFile.map";
