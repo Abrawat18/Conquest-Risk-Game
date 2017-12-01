@@ -26,6 +26,9 @@ import org.junit.runners.Suite;
 
     @RunWith(Suite.class)
 
+    /**
+     * Suite for Tournament mode tests
+     */
     @Suite.SuiteClasses({
             AggressivePlayerStrategyTest.class,  //test for aggressive player strategy methods
             BenevolentPlayerStrategyTest.class,  //test for benevolent player strategy methods

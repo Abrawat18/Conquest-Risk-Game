@@ -11,6 +11,9 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 
+/**
+ * Suite for Save/Load game
+ */
 @Suite.SuiteClasses({
         SaveGameFunctionalityTest.class //Test for save and then load game functionality
 })

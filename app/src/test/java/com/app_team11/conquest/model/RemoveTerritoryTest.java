@@ -28,6 +28,9 @@ public class RemoveTerritoryTest {
     private Cards card;
     private int i;
 
+    /**
+     * Initialize test data
+     */
     @Before
     public void setUp() {
         continentList=new ArrayList<Continent>();

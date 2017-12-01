@@ -19,6 +19,9 @@ public class SufficientArmyTest {
     Territory attackerTerritory;
     ConfigurableMessage configurableMessage;
 
+    /**
+     * Initialize test data
+     */
     @Before
     public void setUp()
     {

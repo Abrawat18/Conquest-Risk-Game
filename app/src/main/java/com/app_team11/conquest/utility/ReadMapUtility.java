@@ -1,9 +1,6 @@
 package com.app_team11.conquest.utility;
 
-/**
- * Reads the map from the text file
- * Created by Nigel on 13-Oct-17.
- */
+
 
 import android.content.Context;
 
@@ -20,6 +17,10 @@ import com.app_team11.conquest.model.Territory;
 import com.app_team11.conquest.model.Continent;
 import com.app_team11.conquest.model.Player;
 
+/**
+ * Reads the map from the text file
+ * Created by Nigel on 13-Oct-17.
+ */
 public class ReadMapUtility {
     int noOfArmies;
     String line = null;

@@ -28,6 +28,9 @@ public class TerritoryAssignmentTest {
     private Territory territory;
     private int attackerTerritories,defenderTerritories;
 
+    /**
+     * Initialize test data
+     */
     @Before
     public void setUp()
     {
