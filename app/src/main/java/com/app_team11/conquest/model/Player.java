@@ -81,7 +81,8 @@ public class Player extends Observable implements Serializable {
     }
 
     /**
-     * @param playerStrategy
+     * Method to set player strategy
+     * @param playerStrategy player to be set with this strategy
      */
     public void setPlayerStrategy(PlayerStrategyListener playerStrategy) {
         this.playerStrategy = playerStrategy;
@@ -152,7 +153,7 @@ public class Player extends Observable implements Serializable {
     /**
      * Sets the available army count
      *
-     * @param availableArmyCount
+     * @param availableArmyCount army count to set the player with
      */
     public void setAvailableArmyCount(int availableArmyCount) {
         this.availableArmyCount = availableArmyCount;
@@ -197,7 +198,7 @@ public class Player extends Observable implements Serializable {
     /**
      * Sets the trade in cards
      *
-     * @param cardTradeIn
+     * @param cardTradeIn whether cards have to be traded
      */
     public void setCardTradeIn(Boolean cardTradeIn) {
         this.cardTradeIn = cardTradeIn;
@@ -229,9 +230,9 @@ public class Player extends Observable implements Serializable {
     /**
      * This method is used to calculate the total number of reinforcement armies
      *
-     * @param gameMap
-     * @param cardTradeCount
-     * @param tradeInCards
+     * @param gameMap map object
+     * @param cardTradeCount card trade count
+     * @param tradeInCards number of trade in cards
      * @return Reinforcement Army Count
      */
     public ReinforcementType calcReinforcementArmy(GameMap gameMap, int cardTradeCount, List<Cards> tradeInCards) {

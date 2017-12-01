@@ -28,6 +28,10 @@ public class LoadGameActivity extends Activity {
     private ListView listSavedGames;
     private Intent intent = null;
 
+    /**
+     * initialize the view on creation
+     * @param savedInstanceState the saved instance state
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,9 @@ public class LoadGameActivity extends Activity {
         FileManager.getInstance().writeLog("Map selected.");
     }
 
+    /**
+     * method for initialization
+     */
     private void initialization() {
 
         savedGames = FileManager.getInstance().getFileFromRootMapDir(Constants.ROOT_GAME_DIR);
@@ -46,6 +53,9 @@ public class LoadGameActivity extends Activity {
 
     }
 
+    /**
+     * Method to initialize the view
+     */
     private void initializeView() {
         listSavedGames = (ListView) findViewById(R.id.list_saved_games);
         listSavedGames.setOnItemClickListener(new AdapterView.OnItemClickListener() {

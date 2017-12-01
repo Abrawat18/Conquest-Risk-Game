@@ -13,7 +13,7 @@ public class MathUtility {
 
     /**
      * Singleton creation for MathUtility
-     * @return mathUtility
+     * @return mathUtility current instance is available
      */
     public static MathUtility getInstance(){
         if(mathUtility == null){
@@ -24,11 +24,11 @@ public class MathUtility {
 
     /**
      * Returns the distance between two points on surface
-     * @param x1
-     * @param y1
-     * @param x2
-     * @param y2
-     * @return distance
+     * @param x1 coordinate x1 is defined
+     * @param y1 coordinate y1 is defined
+     * @param x2 coordinate x2 is defined
+     * @param y2 coordinate y2 is defined
+     * @return distance between two coordinate is available
      */
     public double getDistance(double x1,double y1,double x2,double y2){
            return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
