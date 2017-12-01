@@ -30,9 +30,9 @@ public class GamePlayerTypeActivity extends Activity implements View.OnClickList
 
     /**
      * {@inheritDoc}
-     *  This method is called on creation of the activity which allows user to choose the player type
-     * @param savedInstanceState When activity is reopened , this parameter is used for resuming to the resumed state
+     * This method is called on creation of the activity which allows user to choose the player type
      *
+     * @param savedInstanceState When activity is reopened , this parameter is used for resuming to the resumed state
      */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,10 +44,17 @@ public class GamePlayerTypeActivity extends Activity implements View.OnClickList
         findViewById(R.id.btn_next_mapselection).setOnClickListener(this);
         lv = (ListView) findViewById(R.id.list_playertype);
         Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.planets_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter;
+        if (bundle.getString(Constants.KEY_FROM_GAME_MODE).equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
+            adapter = ArrayAdapter.createFromResource(this,
+                    R.array.tournament_mode_player_array, android.R.layout.simple_spinner_item);
+        } else {
+            adapter = ArrayAdapter.createFromResource(this,
+                    R.array.planets_array, android.R.layout.simple_spinner_item);
+        }
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
         arrayAdapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
@@ -57,7 +64,8 @@ public class GamePlayerTypeActivity extends Activity implements View.OnClickList
     }
 
     /**
-     *  This method is called when click event is passed.
+     * This method is called when click event is passed.
+     *
      * @param v The view on which the click is done, that object of the view is called.
      */
     @Override

@@ -207,6 +207,11 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 finish();
             }
         } else if (fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE) && selectedMapListForTournamentMode != null && selectedMapListForTournamentMode.size() > 0 && totalGamesForTournamentMode > 0 && maximumRoundsForTournamentMode > 0) {
+            btnGameSave.setVisibility(View.GONE);
+            btnNewAttack.setVisibility(View.GONE);
+            btnStopAttack.setVisibility(View.GONE);
+            btnStopFortification.setVisibility(View.GONE);
+            btnTradeInCards.setVisibility(View.GONE);
             FileManager.getInstance().writeLog("Initializing tournament mode");
             tournamentResultList.add("");
             for (int gamePlayCount = 1; gamePlayCount <= totalGamesForTournamentMode; gamePlayCount++) {

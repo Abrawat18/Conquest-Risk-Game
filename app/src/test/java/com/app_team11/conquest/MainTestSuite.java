@@ -16,7 +16,8 @@ package com.app_team11.conquest;
         ReinforcementPhaseTestSuite.class, //tests for reinforcement phase
         AttackPhaseTestSuite.class,        //tests for attack phase
         FortificationPhaseTestSuite.class, //tests for fortification phase
-        TournamentModeTestSuite.class      //tests for tournament mode
+        TournamentModeTestSuite.class,      //tests for tournament mode
+        SaveGameTestSuite.class             //tests for save/load map
 })
 /**
  * Test suite which contains all test classes

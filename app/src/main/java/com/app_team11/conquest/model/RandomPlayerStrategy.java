@@ -20,8 +20,9 @@ import java.util.Random;
 public class RandomPlayerStrategy extends Observable implements PlayerStrategyListener {
     /**
      * Random player strategy for the startup phase
+     *
      * @param gameMap : parameter which defines the game map
-     * @param player : parameter which defines the player
+     * @param player  : parameter which defines the player
      * @return ConfigurableMessage : returns the configurable message
      */
     @Override
@@ -39,9 +40,10 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
 
     /**
      * Class for the implementation of reinforcement phase in the random player strategy
+     *
      * @param reinforcementType : defines the type of reinforcement
-     * @param gameMap : defines teh game map
-     * @param player : defines the player
+     * @param gameMap           : defines teh game map
+     * @param player            : defines the player
      * @return ConfigurableMessage  : returns the configurable message
      */
     @Override
@@ -63,13 +65,14 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
 
     /**
      * Class for the implementation of attack phase in the random player strategy
+     *
      * @param gameMap : defines the game map
-     * @param player : defines the player
+     * @param player  : defines the player
      * @return ConfigurableMessage : returns the configurable message
      */
     @Override
     public ConfigurableMessage attackPhase(GameMap gameMap, Player player) {
-        ConfigurableMessage resultCode=null;
+        ConfigurableMessage resultCode = null;
         FileManager.getInstance().writeLog("Random player attack phase started !! ");
         int randomAttackTime = 1 + new Random().nextInt(Constants.RANDOM_NUMBER_ATTACK_TIMES);
         List<Territory> terrPlayerList = gameMap.getTerrForPlayer(player);
@@ -107,10 +110,10 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
                     }
                     randomAttackTime--;
                 }
-                break;
+                if (randomAttackTime == 0) {
+                    break;
+                }
             }
-
-
         }
         FileManager.getInstance().writeLog("Random player attack phase ended !! ");
         return resultCode;
@@ -118,8 +121,9 @@ public class RandomPlayerStrategy extends Observable implements PlayerStrategyLi
 
     /**
      * Class defined the configurable message for fortification phase
+     *
      * @param gameMap : defines the game map
-     * @param player : defines the player
+     * @param player  : defines the player
      * @return ConfigurableMessage : returns the configurable message
      */
     @Override
