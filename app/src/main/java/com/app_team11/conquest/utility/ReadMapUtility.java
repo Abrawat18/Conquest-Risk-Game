@@ -37,6 +37,10 @@ public class ReadMapUtility {
 
     Context context;
 
+    /**
+     * This utility is responsible for reading the map
+     * @param context the current running instance
+     */
     public ReadMapUtility(Context context) {
         this.context = context;
     }

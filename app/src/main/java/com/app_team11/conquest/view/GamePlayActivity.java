@@ -248,9 +248,8 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             return;
         } else {
             gameTurnCount = 0;
-            String fileName = null;
             if (gamePlayed == 0) {
-                fileName = new File(selectedMapListForTournamentMode.get(mapPlayed)).getName();
+                String fileName = new File(selectedMapListForTournamentMode.get(mapPlayed)).getName();
                 int pos = fileName.lastIndexOf(".");
                 if (pos > 0) {
                     fileName = fileName.substring(0, pos);
@@ -262,27 +261,30 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             }
             if (mapPlayed < selectedMapListForTournamentMode.size()) {
                 Log.e(TAG, "Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
-                FileManager.getInstance().writeLog("Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + fileName);
+                FileManager.getInstance().writeLog("Initializing tournament mode for game :" + (gamePlayed + 1) + " and map:" + selectedMapListForTournamentMode.get(mapPlayed));
             }
-            final Handler handler = new Handler();
+
+            if (mapPlayed < selectedMapListForTournamentMode.size()) {
+                setMap(new ReadMapUtility(GamePlayActivity.this).readFile(selectedMapListForTournamentMode.get(mapPlayed)));
+                if (getMap() != null) {
+                    getMap().addPlayerToGame(playerList.size(), playerList, GamePlayActivity.this);
+                    initializePlayerAdapter();
+                    loadGamePhase();
+                } else {
+                    endGame(null);
+                }
+            } else {
+                endGame(null);
+            }
+
+            /*final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (mapPlayed < selectedMapListForTournamentMode.size()) {
-                        setMap(new ReadMapUtility(GamePlayActivity.this).readFile(selectedMapListForTournamentMode.get(mapPlayed)));
-                        if (getMap() != null) {
-                            getMap().addPlayerToGame(playerList.size(), playerList, GamePlayActivity.this);
-                            initializePlayerAdapter();
-                            loadGamePhase();
-                        } else {
-                            endGame(null);
-                        }
-                    } else {
-                        endGame(null);
-                    }
+
 
                 }
-            }, 100);
+            }, 100);*/
         }
 
     }
@@ -340,6 +342,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         FileManager.getInstance().writeLog("Fortification Phase Completed");
         showMap();
         setNextPlayerTurn();
+
         if (fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
