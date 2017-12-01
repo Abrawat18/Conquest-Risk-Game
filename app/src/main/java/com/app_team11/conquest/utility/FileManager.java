@@ -25,7 +25,6 @@ public class FileManager {
      * Constructor of FileManager
      */
     private FileManager() {
-
     }
 
     /**

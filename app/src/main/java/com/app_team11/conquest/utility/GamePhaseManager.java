@@ -31,7 +31,7 @@ public class GamePhaseManager implements Serializable {
 
     /**
      * Returns the current phase
-     * @return currentPhase
+     * @return currentPhase the current phase
      */
     public int getCurrentPhase() {
         return currentPhase;
