@@ -225,7 +225,10 @@ public class FileManager {
     }
 
     /**
-     * @param gamemap
+     * Saves map data into a file
+     * @param gamemap map object
+     * @param filename name of the file
+     * @return
      */
     public boolean writeObjectIntoFile(GameMap gamemap, File filename) {
         try {
@@ -242,7 +245,7 @@ public class FileManager {
     }
 
     /**
-     * @param filePath
+     * @param filePath name of file
      */
     public GameMap readObjectFromFile(String filePath) {
         GameMap gameMap = null;
