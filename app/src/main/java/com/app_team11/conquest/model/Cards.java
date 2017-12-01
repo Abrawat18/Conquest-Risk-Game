@@ -23,16 +23,16 @@ public class Cards implements Serializable{
 
     /**
      * Sets the selected card
-     * @param selected
+     * @param selected checks if the card is selected or not
      */
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
 
     /**
-     * Card paramters declaration
-     * @param cardTerritory
-     * @param armyType
+     * Card parameters declaration
+     * @param cardTerritory territory for a card
+     * @param armyType type of army
      */
     public Cards(Territory cardTerritory, String armyType) {
         this.cardTerritory=cardTerritory;
@@ -41,7 +41,7 @@ public class Cards implements Serializable{
 
     /**
      * Returns the territory in card
-     * @return cardTerritory
+     * @return cardTerritory card associated with territory
      */
     public Territory getCardTerritory() {
         return cardTerritory;
@@ -49,7 +49,7 @@ public class Cards implements Serializable{
 
     /**
      * Sets the territory in the card
-     * @param cardTerritory
+     * @param cardTerritory card associated with the territory
      */
     public void setCardTerritory(Territory cardTerritory) {
         this.cardTerritory = cardTerritory;
@@ -57,7 +57,7 @@ public class Cards implements Serializable{
 
     /**
      * Returns the type of army
-     * @return armyType
+     * @return armyType type of army
      */
     public String getArmyType() {
         return armyType;
@@ -65,7 +65,7 @@ public class Cards implements Serializable{
 
     /**
      *Sets the type of army
-     * @param armyType
+     * @param armyType type of army
      */
     public void setArmyType(String armyType) {
         this.armyType = armyType;
