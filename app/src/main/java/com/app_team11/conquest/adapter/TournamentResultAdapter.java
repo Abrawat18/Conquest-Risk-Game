@@ -69,7 +69,7 @@ public class TournamentResultAdapter extends BaseAdapter {
      * @param position    place of view
      * @param convertView view is displayed as per the null or already existing
      * @param parent      inherits the view from parent
-     * @return convertView dispays the view on that position
+     * @return dispays the view on that position
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

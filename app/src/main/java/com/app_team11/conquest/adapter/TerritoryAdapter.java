@@ -52,7 +52,7 @@ public class TerritoryAdapter extends BaseAdapter {
 
     /**
      * Returns the position of item
-     * @param position of item
+     * @param position position of item
      * @return position of item
      */
     @Override
