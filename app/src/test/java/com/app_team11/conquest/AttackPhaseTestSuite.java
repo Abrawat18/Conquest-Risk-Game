@@ -1,6 +1,6 @@
 package com.app_team11.conquest;
 
-import com.app_team11.conquest.model.CardTest;
+import com.app_team11.conquest.model.TradeCardTest;
 import com.app_team11.conquest.model.ValidEliminatedPlayer;
 import com.app_team11.conquest.model.PlayerNotEliminatedTest;
 import com.app_team11.conquest.model.PlayerWonGameTest;
@@ -33,7 +33,7 @@ import org.junit.runners.Suite;
         AttackPhaseTest.class,           //Checks for pre-attack validations
         DiceMethodsTest.class,           //check for dice methods
         CaptureTerritoryTest.class,      //validate captured territory
-        CardTest.class,                  //Checks whether cards can be traded
+        TradeCardTest.class,                  //Checks whether cards can be traded
         ValidEliminatedPlayer.class,     //check for eliminated Player
         PlayerWonGameTest.class,         //Checks for player won the game conditions
         PlayerNotEliminatedTest.class,   //Checks for scenario when player not eliminated
