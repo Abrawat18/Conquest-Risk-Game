@@ -195,6 +195,13 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
             FileManager.getInstance().writeLog("Initializing map for game play...");
             setMap(new ReadMapUtility(this).readFile(filePathToLoad));
             getMap().addPlayerToGame(noOfPlayer, playerList, this);
+            if (getMap() != null) {
+                initializePlayerAdapter();
+                loadGamePhase();
+            } else {
+                Toast.makeText(this, "Invalid input please try again later !!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
         } else if (fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE) && selectedMapListForTournamentMode != null && selectedMapListForTournamentMode.size() > 0 && totalGamesForTournamentMode > 0 && maximumRoundsForTournamentMode > 0) {
             FileManager.getInstance().writeLog("Initializing tournament mode");
             tournamentResultList.add("");
@@ -202,14 +209,6 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
                 tournamentResultList.add("Game" + gamePlayCount);
             }
             initializeTournamentMode();
-        } else {
-            Toast.makeText(this, "Invalid input please try again later !!", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-
-        if (getMap() != null) {
-            initializePlayerAdapter();
-            loadGamePhase();
         } else {
             Toast.makeText(this, "Invalid input please try again later !!", Toast.LENGTH_SHORT).show();
             finish();
@@ -418,10 +417,10 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         if (!TextUtils.isEmpty(fromGameMode) && fromGameMode.equals(Constants.FROM_TOURNAMENT_MODE_VALUE)) {
             if (mapPlayed < selectedMapListForTournamentMode.size()) {
                 if (playerWon != null) {
-                    FileManager.getInstance().writeLog("Game Ends! Player" + playerWon.getPlayerId() + " Won the game!!");
+                    FileManager.getInstance().writeLog("*************** Game Ends! P:" + playerWon.getPlayerId() +" "+ playerWon.getPlayerStrategyType() +" Won the game!! *******************");
                     tournamentResultList.add(playerWon.getPlayerStrategyType());
                 } else {
-                    FileManager.getInstance().writeLog("Game Ends in a draw!!");
+                    FileManager.getInstance().writeLog("*************** Game Ends in a draw!! *****************");
                     tournamentResultList.add("Draw");
                 }
             }
@@ -528,12 +527,7 @@ public class GamePlayActivity extends Activity implements View.OnTouchListener, 
         getMap().setPlayerTurn(player);
         getMap().changeCurrentPlayerTurn(player);
         FileManager.getInstance().writeLog("Player turn ->" + getMap().getPlayerTurn().getPlayerId());
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                playerListAdapter.notifyDataSetChanged();
-            }
-        });
+        playerListAdapter.notifyDataSetChanged();
     }
 
     /**
